@@ -1,6 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
+<<<<<<< HEAD
 import Slider from "../components/slider/Slider"
+=======
+import HeaderSearch from "../components/HeaderSearch";
+
+>>>>>>> c9a4f60dc8ccd9152d47b004c863d3e1002a71df
 export default function Home() {
   return (
     <div>
@@ -10,19 +15,31 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-      <div className="bg-bellefuBackground max-w-[1760px] mx-auto">
-        {/* second nav bar */}
-        <div> header 2</div>
-        {/* main body */}
-        <div className="flex">
-          {/* cstegory side bar */}
-          <div className="w-72 min-h-screen bg-bellefuWhite">
-            category nav bar
+      <div className="bg-bellefuBackground">
+        <div className="max-w-6xl mx-auto">
+          {/* second nav bar */}
+          <div>
+            {" "}
+            <HeaderSearch />
           </div>
+<<<<<<< HEAD
           {/* list of products & slider */}
           <div className="flex-1">
             <div><Slider/></div>
             <div>The products here</div>
+=======
+          {/* main body */}
+          <div className="flex">
+            {/* cstegory side bar */}
+            <div className="w-72 min-h-screen bg-bellefuWhite">
+              category nav bar
+            </div>
+            {/* list of products & slider */}
+            <div className="flex-1">
+              <div>the slider here</div>
+              <div>The products here</div>
+            </div>
+>>>>>>> c9a4f60dc8ccd9152d47b004c863d3e1002a71df
           </div>
         </div>
       </div>
