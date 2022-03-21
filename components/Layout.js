@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
     <div>
       <NavBar />
       <div className="flex">
-        <main className="w-full">{children}</main>
+        <main className="w-full bg-bellefuBackground">{children}</main>
       </div>
     </div>
   );

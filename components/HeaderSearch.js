@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const HeaderSearch = () => {
-    return (
-        <div>HeaderSearch</div>
-    )
-}
+  return <div>HeaderSearch</div>;
+};
 
-export default HeaderSearch
+export default HeaderSearch;
