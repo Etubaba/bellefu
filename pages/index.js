@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-
+import Slider from "../components/slider/Slider"
 export default function Home() {
   return (
     <div>
@@ -21,7 +21,7 @@ export default function Home() {
           </div>
           {/* list of products & slider */}
           <div className="flex-1">
-            <div>the slider here</div>
+            <div><Slider/></div>
             <div>The products here</div>
           </div>
         </div>
