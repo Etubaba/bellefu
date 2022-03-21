@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-      <div className="bg-bellefuBackground max-w-[1760px] mx-auto">
+      <div className="bg-bellefuBackground max-w-6xl mx-auto">
         {/* second nav bar */}
         <div> <HeaderSearch /></div>
         {/* main body */}
