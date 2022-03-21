@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import HeaderSearch from '../components/HeaderSearch'
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
       {/* Overall container */}
       <div className="bg-bellefuBackground max-w-[1760px] mx-auto">
         {/* second nav bar */}
-        <div> header 2</div>
+        <div> <HeaderSearch /></div>
         {/* main body */}
         <div className="flex">
           {/* cstegory side bar */}
