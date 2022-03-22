@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Slider from "../components/slider/Slider"
 import HeaderSearch from "../components/HeaderSearch";
+import Product from "../components/products/Product"
 
 export default function Home() {
   return (
@@ -22,13 +23,13 @@ export default function Home() {
           {/* main body */}
           <div className="flex">
             {/* cstegory side bar */}
-            <div className="w-72 mr-5 min-h-screen bg-bellefuWhite">
+            <div className="w-72 mr-5 min-h-screen bg-bellefuWhite shadow-lg rounded-md">
               category nav bar
             </div>
             {/* list of products & slider */}
             <div className="flex-1">
               <div><Slider/></div>
-              <div>The products here</div>
+              <div className="w-500 rounded-md shadow-lg mt-4 bg-bellefuWhite"><Product/></div>
             </div>
           </div>
         </div>
