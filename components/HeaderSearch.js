@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Flags from 'country-flag-icons/react/3x2'
-import { InputLabel, MenuItem, Select, FormControl } from "@mui/material";
+// import Flags from 'country-flag-icons/react/3x2'
+// import { InputLabel, MenuItem, Select, FormControl } from "@mui/material";
 import { FiSearch } from 'react-icons/fi'
 import { ImLocation2 } from 'react-icons/im'
 const swag = {
