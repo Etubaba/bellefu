@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import CategorySideBar from "../components/CategorySideBar";
-import Dropdown from "../components/Dropdown";
+import Slider from "../components/slider/Slider";
 import HeaderSearch from "../components/HeaderSearch";
 
 export default function Home() {
@@ -17,21 +16,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           {/* second nav bar */}
           <div>
-            {" "}
             <HeaderSearch />
           </div>
+
           {/* main body */}
           <div className="flex">
             {/* cstegory side bar */}
-            <div className="w-80 min-h-screen bg-bellefuWhite rounded-md mr-3 pb-32">
-              <h4 className="tracking-wider text-bellefuTitleBlack font-semibold mb-5 sticky top-0 bg-bellefuWhite px-5 pt-5">
-                Top Category
-              </h4>
-              <CategorySideBar />
+            <div className="w-72 mr-5 min-h-screen bg-bellefuWhite">
+              category nav bar
             </div>
             {/* list of products & slider */}
             <div className="flex-1">
-              <div>the slider here</div>
+              <div>
+                <Slider />
+              </div>
               <div>The products here</div>
             </div>
           </div>
