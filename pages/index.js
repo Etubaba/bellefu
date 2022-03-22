@@ -18,7 +18,7 @@ export default function Home() {
       <main className="bg-bellefuBackground h-screen overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {/* second nav bar */}
-          <div>
+          <div className="">
             <HeaderSearch />
           </div>
 
@@ -32,7 +32,7 @@ export default function Home() {
               <CategorySideBar />
             </div>
             {/* list of products & slider */}
-            <div className="min-h-screen">
+            <div className="flex-1 min-h-screen">
               <Body />
             </div>
           </div>

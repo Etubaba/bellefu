@@ -5,7 +5,7 @@ import Slider from "./slider/Slider";
 
 const Body = () => {
   return (
-    <div className=" overflow-y-scroll">
+    <div className=" overflow-y-scroll h-screen">
       <div className="mb-2">
         <Slider />
       </div>
