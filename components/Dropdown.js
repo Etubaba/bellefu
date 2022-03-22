@@ -11,9 +11,11 @@ const Dropdown = ({ category }) => {
           key={category.id}
           className="flex items-center mb-7 hover:bg-bellefuBackground p-3 rounded-md"
         >
-          <div className="flex items-center flex-1 space-x-3 cursor-pointer">
+          <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
             <img src={category.Icon} alt="icons" className="w-6 h-6" />
-            <h5 className="text-bellefuBlack1 font-medium">{category.title}</h5>
+            <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
+              {category.title}
+            </h5>
           </div>
           <div onClick={() => setOpen(!open)}>
             <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
