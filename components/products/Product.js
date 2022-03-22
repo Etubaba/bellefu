@@ -5,22 +5,27 @@ import { IoGrid } from "react-icons/io";
 
 function Product() {
   return (
-    <div>
+    <div className="bg-bellefuWhite rounded-t-md">
       <div className="flex justify-between p-4 ">
         <h3 className="font-bold text-[1.2rem]">Vegetables ads</h3>
         <div className="flex justify-between">
           <div className="border-2 rounded-md p-[7px] w-[17vw] flex mr-3">
-           <div className="mt-[8px] flex">
-           <BiSortAlt2 className="text-bellefuOrange mr-2 text-[1.2rem]" />
-            <p className="relative bottom-[7px]">sort:</p>
-           </div>
+            <div className="mt-[8px] flex">
+              <BiSortAlt2 className="text-bellefuOrange mr-2 text-[1.2rem]" />
+              <p className="relative bottom-[7px]">sort:</p>
+            </div>
             <div class="col-span-6 sm:col-span-3">
-                <select id="country" name="country" autocomplete="country-name" class=" block w-full py-1 px-3 border-0  bg-white rounded-md shadow-sm focus:outline-none focus:ring-bellefuGreen focus:border-bellefuGreen sm:text-sm">
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
-              </div>
+              <select
+                id="country"
+                name="country"
+                autocomplete="country-name"
+                class=" block w-full py-1 px-3 border-0  bg-white rounded-md shadow-sm focus:outline-none focus:ring-bellefuGreen focus:border-bellefuGreen sm:text-sm"
+              >
+                <option>United States</option>
+                <option>Canada</option>
+                <option>Mexico</option>
+              </select>
+            </div>
           </div>
           <div className="border-2 rounded-md  w-[4vw] flex justify-around">
             <div>
@@ -33,12 +38,6 @@ function Product() {
           </div>
         </div>
       </div>
-
-
-
-
-
-      
     </div>
   );
 }

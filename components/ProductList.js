@@ -6,7 +6,7 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 
 const ProductList = ({ product }) => {
   return (
-    <div className="bg-bellefuBackground p-3 rounded-lg">
+    <div className="bg-bellefuWhite p-3 rounded-b-md">
       <Image
         src={product.Icon}
         width="200"
