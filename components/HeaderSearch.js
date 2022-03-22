@@ -60,7 +60,7 @@ const HeaderSearch = () => {
                     open && (
 
 
-                        <div class=" absolute top-32 right-52 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                        <div class="z-10 absolute top-40 right-52 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
                             <div class="py-1" >
 
                                 <a href="#" class="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">Account settings</a>
