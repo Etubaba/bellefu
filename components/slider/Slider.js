@@ -28,10 +28,10 @@ export default function Slider() {
 
   return (
     <div>
-      <Carousel showArrows={true} showThumbs={false} autoPlay={true} >
+      <Carousel showArrows={true} showThumbs={false} autoPlay={true} infiniteLoop={true} >
             {slides?.map((slideimage,index)=>(
                 <img
-                    className="h-[550px] rounded-xl"
+                    className="h-[450px] rounded-xl  "
                     key={index}
                     src={slideimage.image}
                     alt={slideimage.alternate}

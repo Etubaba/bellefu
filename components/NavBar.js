@@ -3,7 +3,7 @@ import BellefuLogo from "../public/bellefulogo.png";
 import { IoMdNotifications, IoMdAddCircleOutline } from "react-icons/io";
 const NavBar = () => {
   return (
-    <nav className="flex px-12 py-2 bg-bellefuGreen items-center justify-between">
+    <nav className="flex px-12 py-6 bg-bellefuGreen items-center justify-between">
       {/* left side */}
       <div className="bg-white p-3 rounded-md w-28 h-8 flex items-center justify-center">
         {" "}
