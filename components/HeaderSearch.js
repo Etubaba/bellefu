@@ -16,7 +16,7 @@ const HeaderSearch = () => {
 
 
     return (
-        <div className={'w- h-20 mt-5 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
+        <div className={'w-full h-20 mt-5 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
             <div className='flex'>
                 <div >
                     <select className=" h-full py-4 pl-2 pr-3 border-transparent bg-transparent  sm:text-sm rounded-md">
