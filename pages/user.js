@@ -5,7 +5,6 @@ import { BiLogOut } from "react-icons/bi";
 import { ImKey, ImPushpin, ImClock } from "react-icons/im";
 import { HiUser } from "react-icons/hi";
 import { FaWallet, FaHeart } from "react-icons/fa";
-import { FcExpired } from "react-icons/fc";
 import { RiMessage2Fill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
 
