@@ -18,7 +18,7 @@ const UserSideBar = () => {
           <span className="pt-1 px-3">
             <MdAccountBox />
           </span>
-          <Link href='users'>Account overview</Link>
+          <Link href='/users'>Account overview</Link>
         </h3>
         <hr />
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
