@@ -17,7 +17,7 @@ const User = () => {
 
   return (
     <div className='flex'>
-      <div className='side-bar h-screen mr-4 overflow-auto'>
+      <div className='side-bar bg-white h-screen ml-12 mr-8 overflow-auto rounded-lg'>
         <h3 className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
           <span className='pt-1 px-3'><MdAccountBox /></span>
           <span>Account overview</span>
@@ -75,26 +75,29 @@ const User = () => {
           <span>Logout</span>
         </p>
       </div>
-      <div className='content'>
+      <div className='content my-4'>
         <div className='flex flex-col'>
-          <div className='my-2'>
+          <div className='bg-white rounded-lg my-4'>
+            <div className='flex justify-between px-8 py-5'>
             <h3>My Profile Details</h3>
+              <button>View Ads</button>
+            </div>
             <hr />
-            <div className='flex'>
-              <div id='avatar' className='pt-20 '>
+            <div className='flex px-8 py-5 my-3'>
+              <div id='avatar' className='pt-10 '>
               <Image
                   className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
                   src={image}
                   alt="avatar"
-                  width={50}
-                  height={50}
+                  width={150}
+                  height={150}
                 />
               </div>
               <div id='details' className='m-4'>
                 <div className='my-5 flex'>
                   <p className='flex flex-col'>
                     <label id='first-name' className='mb-2 font-semibold'>First Name</label>
-                    <input type='text' value={firstName} htmlFor='first-name' className='mr-3 p-3 rounded-md w-96' />
+                    <input type='text' value={firstName} htmlFor='first-name' className='mr-3 p-3 rounded-md w-96 border-solid border-1 border-black' />
                   </p>
                   <p className='flex flex-col'>
                     <label id='last-name' className='mb-2 font-semibold'>Last Name</label>
@@ -114,7 +117,7 @@ const User = () => {
               </div>
             </div>
           </div>
-          <div className='bg-white rounded-lg'>
+          <div className='bg-white rounded-lg mb-4'>
             <div className='flex justify-between px-8 py-5'>
               <h3>Ads Details</h3>
               <button>View Ads</button>
