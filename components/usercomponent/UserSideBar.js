@@ -12,34 +12,35 @@ import Link from "next/link";
 
 const UserSideBar = () => {
   return (
-    <div>
+    <div className="bg-bellefuWhite rounded-lg">
       <div className="side-bar h-screen mr-4 overflow-auto">
         <h3 className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-3">
             <MdAccountBox />
           </span>
-          <Link href='/users'>Account overview</Link>
+          <Link href='users'>Account overview</Link>
         </h3>
         <hr />
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-5">
             <HiUser />
           </span>
-          <Link href='/users/profile'>
+          <span className="" onClick={() => router.push("users/profile")}>
             My Profile
-          </Link>
+          </span>
         </p>
+        {/* <Link href='/users/notification'></Link> */}
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-5">
             <MdNotifications />
           </span>
-          <Link href='/users/notification' className="">Notifications</Link>
+          <span className="">Notifications</span>
         </p>
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-5">
             <RiMessage2Fill />
           </span>
-          <Link href='/users/messages' className="">Messages</Link>
+          <span className="">Messages</span>
         </p>
         <hr />
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
