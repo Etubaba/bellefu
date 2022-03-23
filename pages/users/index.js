@@ -7,10 +7,10 @@ import { HiUser } from "react-icons/hi";
 import { FaWallet, FaHeart } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
-import UserSideBar from "../components/usercomponent/UserSideBar";
-import Layout from "../components/Layout";
+import UserSideBar from "../../components/usercomponent/UserSideBar";
+import Layout from "../../components/Layout";
 
-const User = () => {
+const Index = () => {
   const [firstName, setFirstName] = useState("fffffffff"),
     [lastName, setLastName] = useState("ttttttttt"),
     [email, setEmail] = useState("ghff"),
@@ -216,5 +216,5 @@ const User = () => {
   );
 };
 
-User.Layout = Layout;
-export default User;
+Index.Layout = Layout;
+export default Index;

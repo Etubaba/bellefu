@@ -18,14 +18,14 @@ const UserSideBar = () => {
           <span className="pt-1 px-3">
             <MdAccountBox />
           </span>
-          <span>Account overview</span>
+          <span onClick={() => router.push("/users")}>Account overview</span>
         </h3>
         <hr />
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-5">
             <HiUser />
           </span>
-          <span className="" onClick={() => router.push("/messages/messages")}>
+          <span className="" onClick={() => router.push("users/profile")}>
             My Profile
           </span>
         </p>
