@@ -6,11 +6,11 @@ import { HiUser } from "react-icons/hi";
 import { FaWallet, FaHeart } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
+import Link from "next/link";
 
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
 
 const UserSideBar = () => {
-  const router = useRouter();
   return (
     <div>
       <div className="side-bar h-screen mr-4 overflow-auto">
@@ -18,28 +18,28 @@ const UserSideBar = () => {
           <span className="pt-1 px-3">
             <MdAccountBox />
           </span>
-          <span onClick={() => router.push("/users")}>Account overview</span>
+          <Link href='users'>Account overview</Link>
         </h3>
         <hr />
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-5">
             <HiUser />
           </span>
-          <span className="" onClick={() => router.push("users/profile")}>
+          <Link href='/users/profile'>
             My Profile
-          </span>
+          </Link>
         </p>
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-5">
             <MdNotifications />
           </span>
-          <span className="">Notifications</span>
+          <Link href='/users/notification' className="">Notifications</Link>
         </p>
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-5">
             <RiMessage2Fill />
           </span>
-          <span className="">Messages</span>
+          <Link href='/users/messages' className="">Messages</Link>
         </p>
         <hr />
         <p className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
