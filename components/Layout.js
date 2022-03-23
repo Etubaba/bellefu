@@ -1,12 +1,10 @@
-import NavBar from "./NavBar";
+import UserSideBar from "./usercomponent/UserSideBar";
 
 const Layout = ({ children }) => {
   return (
-    <div>
-      <NavBar />
-      <div className="flex">
-        <main className="w-full bg-bellefuBackground">{children}</main>
-      </div>
+    <div className="flex">
+      <UserSideBar />
+      <main>{children}</main>
     </div>
   );
 };
