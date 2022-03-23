@@ -81,20 +81,6 @@ const HeaderSearch = () => {
 
 
 
-            {/* <FormControl>
-
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    className='border-transparent 
-                >
-                    <MenuItem value={<Flags.US style={swag} />}> <Flags.US style={swag} /></MenuItem>
-                    <MenuItem value={20}> <Flags.US style={swag} /> Twenty</MenuItem>
-                    <MenuItem value={30}><Flags.US style={swag} /> Thirty</MenuItem>
-                </Select>
-            </FormControl>
- */}
-
 
 
         </div>
