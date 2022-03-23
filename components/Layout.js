@@ -2,10 +2,10 @@ import UserSideBar from "./usercomponent/UserSideBar";
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex bg-bellefuBackground">
+    <div className="bg-bellefuBackground">
       <div className="flex max-w-7xl mx-auto">
         <UserSideBar />
-        <main>{children}</main>
+        <main className="flex-grow">{children}</main>
       </div>
     </div>
   );
