@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../../components/Layout";
 
 const notification = () => {
-  return <div>notification</div>;
+  return <div>jfdjjn vjnv</div>;
 };
 
 notification.Layout = Layout;
