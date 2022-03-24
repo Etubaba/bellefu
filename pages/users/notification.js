@@ -167,16 +167,7 @@ const notification = () => {
         </div>
       )}
     </div>
-<<<<<<< HEAD
-
-
-
-
-
-  )
-=======
   );
->>>>>>> d4e3ed2ee88ec6cd2312a6e872431b4cf32e7384
 };
 
 notification.Layout = Layout;
