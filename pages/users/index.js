@@ -20,68 +20,10 @@ const Index = () => {
     );
 
   return (
-    <div className="flex">
-      {/* <div className='side-bar h-screen mr-4 overflow-auto'>
-        <h3 className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-3'><MdAccountBox /></span>
-          <span>Account overview</span>
-        </h3>
-        <hr />
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><HiUser /></span>
-          <span className=''>My Profile</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><MdNotifications /></span>
-          <span className=''>Notifications</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><RiMessage2Fill /></span>
-          <span className=''>Messages</span>
-        </p>
-        <hr />
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><ImPushpin /></span>
-          <span className=''>My Ads</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><FaHeart /></span>
-          <span className=''>My Favourite Items</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><MdPending /></span>
-          <span className=''>Pending Ads</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><ImClock /></span>
-          <span className=''>Expired Ads</span>
-        </p>
-        <hr />
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><FaWallet /></span>
-          <span className=''>My Wallet</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><GiWallet /></span>
-          <span className=''>Add Money</span>
-        </p>
-        <hr />
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><HiUser /></span>
-          <span className=''>Account Verification</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><ImKey /></span>
-          <span className=''>Reset Password</span>
-        </p>
-        <p className='flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5'>
-          <span className='pt-1 px-5'><BiLogOut /></span>
-          <span>Logout</span>
-        </p>
-      </div> */}
-      <div className="content">
+    <div className="ml-72 p-4 w-auto" id="profile-overview">
+      <div className="">
         <div className="flex flex-col">
-          <div className="my-2">
+          <div className="bg-bellefuWhite px-8 py-5 my-3 ">
             <h3>My Profile Details</h3>
             <hr />
             <div className="flex">
@@ -146,7 +88,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-lg">
+          <div className="bg-white rounded-lg mb-3">
             <div className="flex justify-between px-8 py-5">
               <h3>Ads Details</h3>
               <button>View Ads</button>
@@ -203,7 +145,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-lg">
+          <div className="bg-white rounded-lg mb-3">
             <div className="flex justify-between px-8 py-6">
               <h3>Wallet</h3>
               <p>View Wallet</p>

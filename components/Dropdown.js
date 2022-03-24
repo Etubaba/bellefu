@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { AiOutlineCaretRight } from "react-icons/ai";
+import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import DropdownItems from "./DropdownItems";
+import { useRouter } from "next/router";
 
 const Dropdown = ({ category }) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   if (category.children) {
     return (
@@ -13,13 +15,22 @@ const Dropdown = ({ category }) => {
         >
           <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
             <img src={category.Icon} alt="icons" className="w-6 h-6" />
-            <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
+            <h5
+              className="text-bellefuBlack1 font-medium whitespace-nowrap"
+              onClick={() => router.push("/products/id")}
+            >
               {category.title}
             </h5>
           </div>
-          <div onClick={() => setOpen(!open)}>
-            <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
-          </div>
+          {open === false ? (
+            <div onClick={() => setOpen(!open)}>
+              <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
+            </div>
+          ) : (
+            <div onClick={() => setOpen(!open)}>
+              <AiOutlineCaretDown className="text-gray-300 cursor-pointer" />
+            </div>
+          )}
         </div>
         <div
           className={
@@ -44,7 +55,12 @@ const Dropdown = ({ category }) => {
         >
           <div className="flex items-center flex-1 space-x-3 cursor-pointer">
             <img src={category.Icon} alt="icons" className="w-6 h-6" />
-            <h5 className="text-bellefuBlack1 font-medium">{category.title}</h5>
+            <h5
+              className="text-bellefuBlack1 font-medium"
+              onClick={() => router.push("/products/id")}
+            >
+              {category.title}
+            </h5>
           </div>
         </div>
       </div>

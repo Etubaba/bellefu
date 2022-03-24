@@ -1,10 +1,9 @@
 import React from "react";
-import Image from "next/image";
 import { MdLocationOn } from "react-icons/md";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 
-const ProductList = ({ product }) => {
+const CategoryProductList = ({ product }) => {
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img src={product.Icon} className="rounded-md w-full h-44 object-cover" />
@@ -38,4 +37,4 @@ const ProductList = ({ product }) => {
   );
 };
 
-export default ProductList;
+export default CategoryProductList;

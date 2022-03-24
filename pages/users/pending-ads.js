@@ -1,7 +1,7 @@
 import React from "react";
 
 const pendingads = () => {
-  return <div>pendingads</div>;
+  return <div className="ml-72 p-4 w-auto">pendingads</div>;
 };
 
 pendingads.Layout = Layout;
