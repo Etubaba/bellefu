@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { MdAccountBox, MdPending, MdNotifications } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { ImKey, ImPushpin, ImClock } from "react-icons/im";
@@ -12,15 +12,19 @@ import NavLink from "./NavLink";
 const UserSideBar = () => {
   const iconValues = [
     { icon: MdAccountBox, text: "Account overview", to: "/users" },
+    { icon: false, divider: <hr />},
     { icon: HiUser, text: "My Profile", to: "/users/profile" },
     { icon: MdNotifications, text: "Notifications", to: "/users/notification" },
     { icon: RiMessage2Fill, text: "Messages", to: "/users/messages" },
+    { icon: false, divider: <hr />},
     { icon: ImPushpin, text: "My Ads", to: "/users/myads" },
     { icon: FaHeart, text: "My Favourite Items", to: "/users/myfavourites" },
     { icon: MdPending, text: "Pending Ads", to: "/users/pending-ads" },
     { icon: ImClock, text: "Expired Ads", to: "/users/expired-ads" },
+    { icon: false, divider: <hr />},
     { icon: FaWallet, text: "My Wallet", to: "/users/my-wallet" },
     { icon: GiWallet, text: "Add Money", to: "/users/add-money" },
+    { icon: false, divider: <hr />},
     { icon: HiUser, text: "Account Verification", to: "/users/verify-account" },
     { icon: ImKey, text: "Reset Password", to: "/users/reset-password" },
     { icon: BiLogOut, text: "Logout", to: "/users/logout" }
@@ -35,7 +39,12 @@ const UserSideBar = () => {
             return <NavLink to={iconValue.to} className="flex m-4 mb-24 cursor-pointer hover:bg-red-50 rounded-lg py-1.5" icon={iconValue} key={index} />
           }
 
-          return <NavLink to={iconValue.to} className="flex m-4 cursor-pointer hover:bg-red-50 rounded-lg py-1.5" icon={iconValue} key={index} />
+
+          if (iconValue.icon) {
+            return <NavLink to={iconValue.to} className="flex m-4 cursor-pointer hover:bg-red-50 rounded-lg py-1.5" icon={iconValue} key={index} />
+          } else {
+            return iconValue.divider
+          }
         })}
       </div>
     </div>
