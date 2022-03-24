@@ -8,20 +8,6 @@ import { FaEyeSlash } from 'react-icons/fa'
 
 
 const notification = () => {
-<<<<<<< HEAD
-  const [add, setAdd] = useState(1);
-
-  const handleAdd = () => {
-    setAdd(add + 1);
-  };
-  return (
-    <div>
-      <h2>Hello bro</h2>
-      <button onClick={handleAdd}>+</button>
-      <h2>{add}</h2>
-    </div>
-  );
-=======
   const [open, setOpen] = useState(false)
   const [read, setRead] = useState(true)
   return (
@@ -140,7 +126,6 @@ const notification = () => {
 
 
   )
->>>>>>> 41728ee59f211d75107df98872c2412543657904
 };
 
 notification.Layout = Layout;
