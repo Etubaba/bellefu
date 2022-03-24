@@ -7,7 +7,7 @@ import { FaEyeSlash } from "react-icons/fa";
 
 const notification = () => {
   const [open, setOpen] = useState(false);
-  const [read, setRead] = useState(true);
+  const [read, setRead] = useState(false);
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2 ">
       <div className="flex items-center justify-between space-x-96 text-center p-2">
