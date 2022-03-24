@@ -12,7 +12,7 @@ const notification = () => {
   const [read, setRead] = useState(true)
   return (
 
-    <div className='ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2 '>
+    <div className='ml-72 p-4 w-auto rounded-lg mt-5 bg-bellefuWhite h-auto pb-2 '>
       <div className='flex items-center justify-between space-x-96 text-center p-2'>
         <div className='text-xl '>
           Notifications
