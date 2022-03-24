@@ -1,7 +1,36 @@
 import React from "react";
+import { useRouter } from "next/router";
+import { GiWallet } from "react-icons/gi";
+import Layout from "../../components/Layout";
 
-const creditwallet = () => {
-  return <div className="ml-72 p-4 w-auto">creditwallet</div>;
+const Creditwallet = () => {
+  const router = useRouter();
+  const addMoney = () => {
+    router.push('/users/add-money');
+  };
+
+  return (
+    <div className="bg-bellefuWhite rounded-md mt-5 ">
+      <h1 className="px-8 py-4 font-semibold">My Wallet</h1>
+      <hr />
+      <div className="w-auto py-20">
+        <div className="flex justify-center mb-8">
+          <div className="bg-[#F8FDF2] mr-12 p-16 rounded-lg">
+            <p className="text-center">Available Balance:</p>
+            <p className="text-center font-bold"><span>N</span><span>34500.00</span></p>
+          </div>
+          <div className="bg-[#FCFAF2] p-16 rounded-lg">
+            <p className="text-center">Spent Ads:</p>
+            <p className="text-center font-bold"><span>N</span><span>1200.00</span></p>
+          </div>
+        </div>
+        <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}} onClick={addMoney}>
+          <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Add Money</p></div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default creditwallet;
+Creditwallet.Layout = Layout;
+export default Creditwallet;
