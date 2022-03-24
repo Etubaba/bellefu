@@ -11,7 +11,6 @@ const notification = () => {
   const [open, setOpen] = useState(false)
   const [read, setRead] = useState(true)
   return (
-
     <div className='ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2 '>
       <div className='flex items-center justify-between space-x-96 text-center p-2'>
         <div className='text-xl '>
@@ -54,7 +53,7 @@ const notification = () => {
                 </div>
               </div>
               <span className='flex justify-end'>
-                {read === false ? <button onClick={() => setRead(false)} className='flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1'><FaEye className='mr-2 text-xl' /> Open</button> :
+                {read === false ? <button onClick={() => setRead(true)} className='flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1'><FaEye className='mr-2 text-xl' /> Open</button> :
                   <button onClick={() => setRead(false)} className='flex bg-bellefuBackground border border-bellefuOrange rounded-md hover:bg-slate-200 px-3 mr-4 p-1'><FaEyeSlash className='mr-2 text-bellefuOrange text-xl' /> Close</button>}
                 <button className='flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1'> <MdDeleteForever className='mr-2 text-xl' />Delete</button>
               </span>
@@ -68,16 +67,6 @@ const notification = () => {
                 sociosqu ad litora torquent per  conubia nostra, per inceptos himenaeos. </p>
             </div>)}
           </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
