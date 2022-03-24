@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout";
 
 const notification = () => {
-  return <div>jfdjjn vjnv</div>;
+  const [add, setAdd] = useState(1);
+
+  const handleAdd = () => {
+    setAdd(add + 1);
+  };
+  return (
+    <div>
+      <h2>Hello bro</h2>
+      <button onClick={handleAdd}>+</button>
+      <h2>{add}</h2>
+    </div>
+  );
 };
 
 notification.Layout = Layout;
