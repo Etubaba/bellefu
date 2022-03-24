@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-bellefuBackground;
+    @apply bg-bellefuBackground font-poppins;
   }
 }
 
