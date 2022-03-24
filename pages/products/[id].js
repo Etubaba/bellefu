@@ -23,7 +23,7 @@ const Product = () => {
             <p className="text-bellefuBlack1 font-semibold ">
               Select Category:
             </p>
-            <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4">
+            <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
               <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
                 <img
                   src="/bellefulogo.png"
