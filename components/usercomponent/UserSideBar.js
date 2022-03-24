@@ -28,8 +28,8 @@ const UserSideBar = () => {
   lastElem = iconValues.length - 1;
 
   return (
-    <div className="bg-bellefuWhite h-screen ml-12 mr-8 mb-8 overflow-auto rounded-lg">
-      <div className="side-bar h-screen mr-4 overflow-auto">
+    <div className="fixed top-16 bg-bellefuWhite h-screen ml-12 mr-8 rounded-lg pt-4">
+      <div className="h-screen overflow-auto" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return <NavLink to={iconValue.to} className="flex m-4 mb-24 cursor-pointer hover:bg-red-50 rounded-lg py-1.5" icon={iconValue} key={index} />
