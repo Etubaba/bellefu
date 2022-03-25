@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import { MdPending } from "react-icons/md"
-import UserPageProducts from "../../components/product/UserPageProducts";
+import MyAds from "../../components/layoutComponents/adsComponents/MyAds";;
 
 
 
@@ -30,7 +30,7 @@ const pendingads = () => {
       </div> : (
         <div className='bg-bellefuWhite mt-5 rounded-b-md overflow-y-scroll h-screen'>
 
-          <UserPageProducts />
+          <MyAds />
 
 
         </div>
