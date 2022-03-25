@@ -3,6 +3,7 @@ import {BiCaretRight, BiCaretDown} from "react-icons/bi";
 import {BsFillCreditCard2BackFill,  BsBank2} from "react-icons/Bs";
 import {RiBankFill} from "react-icons/ri";
 import {Menu, MenuItem, Fade} from "@mui/material";
+import { GiWallet } from "react-icons/gi";
 //import { MenuItem } from "@mui/material";
 import Layout from "../../components/Layout";
 
@@ -11,25 +12,51 @@ const AddMoney = () => {
   const [rotateSecondCaret, setRotateSecondCaret] = useState(false);
   const [anchorElMenu1, setAnchorElMenu1] = useState(null);
   const [showCard, setShowCard] = useState(false);
+  const [cardNo, setCardNo] = useState(null);
+  const [accountNo, setAccountNo] = useState(null);
+  const [accountName, setAccountName] = useState(null);
+  const [cvc, setCvc] = useState(null);
   //const [anchorElMenu2, setAnchorElOpenMenu2] = useState(null);
   const openMenu1 = Boolean(anchorElMenu1);
   //const openMenu2 = Boolean(anchorElMenu2);
   const firstCaret = useRef();
-  //const secondCaret = useRef();
-  const rotateCaret1 = () => {
-    setRotateFirstCaret(prevState => !prevState);
+  const secondCaret = useRef();
+  const containerRef = useRef();
+  const rotateCaret1 = (evt) => {
+    if (!showCard) {
+      setRotateFirstCaret(prevState => !prevState);
 
-    if (!anchorElMenu1) setAnchorElMenu1(firstCaret.current);
-    else setAnchorElMenu1(null)
+      if (!anchorElMenu1) {setAnchorElMenu1(evt.currentTarget);console.log("!!")}
+      else {setAnchorElMenu1(null); console.log('!!!')}
+    } else  {
+      setRotateFirstCaret(prevState => !prevState);
+      setShowCard(false);
+    }
+    
   };
   const rotateCaret2 = () => {
     setRotateSecondCaret(prevState => !prevState);
     setAnchorElMenu1(null);
   };
-  const addCard = () => {
+  const addCard = (evt) => {
     setAnchorElMenu1(null);
     setShowCard(true);
-  }
+
+    evt.stopPropagation();
+  };
+  const handleCardNo = (evt) => {
+    setCardNo(evt.target.value);
+    evt.stopPropagation();
+  };
+  const handleAccountNo = (evt) => {
+    setAccountNo(evt.target.value);
+  };
+  const handleAccountName = (evt) => {
+    setAccountName(evt.target.value);
+  };
+  const handleCvc = (evt) => {
+    setCvc(evt.target.value);
+  };
   const styleCaret1 = {
     paddingTop: '5px',
     transform: rotateFirstCaret ? 'rotate(90deg)': 'rotate(0)',
@@ -50,12 +77,12 @@ const AddMoney = () => {
       <div className="w-auto py-8 px-20">
           <h2 className="font-semibold mb-5">Select Methods</h2>
           <div className="flex flex-col flex-auto mb-8">
-            <div className="hover:bg-[#F8FDF2] hover:cursor-pointer mb-2 mr-12 py-8 rounded-lg border-2" onClick={rotateCaret1}>
+            <div className="hover:bg-[#F8FDF2] mb-2 mr-12 py-8 rounded-lg border-2">
               <div className="w-full">
-                <div className="flex px-8">
+                <div className={!showCard?"flex px-8":"flex px-8 pb-6"}>
                   <p className="mr-5 pt-1"><BsFillCreditCard2BackFill /></p>
                   <p className="mr-auto">Card Method</p>
-                  <p style={styleCaret1} ref={firstCaret}><BiCaretRight /></p>
+                  <p style={styleCaret1} ref={firstCaret} onClick={rotateCaret1} className="hover:cursor-pointer"><BiCaretRight /></p>
                   <Menu 
                     anchorEl={anchorElMenu1}
                     open={openMenu1}
@@ -68,7 +95,33 @@ const AddMoney = () => {
                 </div>
                 { showCard && <hr />}
                 {/* <div className="pt-1"><p style={styleCaret1}><BiCaretRight /></p></div> */}
-                { showCard && <div></div>}
+                { showCard && <div className="px-8 pt-6">
+                    <h3 className="font font-medium mb-2">Card Details</h3>
+                    <div className="flex justify-center">
+                      <div className="flex flex-col p-4">
+                        <p className="mb-2"><label id="card-no">Card Number</label></p>
+                        <p className=""><input type="text" value={cardNo} htmlFor="card-no" onChange={handleCardNo} className="py-2 px-2 border-2" /></p>
+                      </div>
+                      <div className="flex flex-col p-4">
+                        <p className="mb-2"><label id="account-no">Account Number</label></p>
+                        <p className=""><input type="text" value={accountNo} htmlFor="account-no" onChange={handleAccountNo} className="py-2 px-2 border-2" /></p>
+                      </div>
+                    </div>
+                    <div className="flex justify-center">
+                      <div className="flex flex-col p-4">
+                        <p className="mb-2"><label id="account-name">Card Holder&apos;s Name</label></p>
+                        <p><input type="text" value={accountName} htmlFor="account-name" onChange={handleAccountName} className="py-2 px-2 border-2"  /></p>
+                      </div>
+                      <div className="flex flex-col p-4">
+                        <p className="mb-2"><label id="cvc">CVC</label></p>
+                        <p><input type="text" value={cvc} htmlFor="cvc" onChange={handleCvc} className="py-2 px-2 border-2"  /></p>
+                      </div>
+                    </div>
+                    <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}}>
+                      <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Continue</p></div>
+                    </div>
+                  </div>
+                }
               </div>
             </div>
             <div className="hover:bg-[#F8FDF2] hover:cursor-pointer mr-12 p-8 rounded-lg border-2" onClick={rotateCaret2}>
@@ -79,7 +132,7 @@ const AddMoney = () => {
               </div>
             </div>
           </div>
-          {/* <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}} onClick={addMoney}>
+          {/* <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}}>
             <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Add Money</p></div>
           </div> */}
       </div>
