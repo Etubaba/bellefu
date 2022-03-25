@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
         <Smallhead  />
       <div className="flex  mx-auto">
         <PostAdSidebar />
-        <main className="flex-grow bg-bellefuWhite">{children}</main>
+        <main className="flex-grow mt-5 rounded-md">{children}</main>
       </div>
     </div>
   );
