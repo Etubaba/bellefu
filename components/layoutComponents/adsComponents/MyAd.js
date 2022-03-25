@@ -5,7 +5,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const UserPageProducts = ({ product }) => {
+const MyAd = ({ product }) => {
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -70,4 +70,4 @@ const UserPageProducts = ({ product }) => {
   );
 };
 
-export default UserPageProducts;
+export default MyAd;

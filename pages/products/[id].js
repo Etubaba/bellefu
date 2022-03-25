@@ -11,7 +11,7 @@ const Product = () => {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-[90%] mx-auto">
       <HeaderSearch />
 
       <div className="flex">

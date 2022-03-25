@@ -1,18 +1,18 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import UserPageProducts from "../../components/product/UserPageProducts";
-import UserProductHeader from "../../components/product/UserProductHeader";
+import MyAds from "../../components/layoutComponents/adsComponents/MyAds";
+import MyAdsHeader from "../../components/layoutComponents/adsComponents/MyAdsHeader";
 
-const MyAds = () => {
+const Ads = () => {
   return (
     <div className="mt-5">
-      <UserProductHeader />
+      <MyAdsHeader />
       <div className="bg-bellefuWhite rounded-b-md overflow-y-scroll h-screen">
-        <UserPageProducts />
+        <MyAds />
       </div>
     </div>
   );
 };
 
-MyAds.Layout = Layout;
-export default MyAds;
+Ads.Layout = Layout;
+export default Ads;

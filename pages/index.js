@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import Slider from "../components/slider/Slider";
+
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
 
