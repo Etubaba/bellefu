@@ -3,7 +3,7 @@ import { BiSortAlt2, BiGridSmall } from "react-icons/bi";
 import { FaThList } from "react-icons/fa";
 import { IoGrid } from "react-icons/io";
 
-function Product() {
+function MainProductHeader() {
   return (
     <div className="bg-bellefuWhite rounded-t-md">
       <div className="flex justify-between p-4 ">
@@ -42,4 +42,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default MainProductHeader;

@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import {isDisabled ,selectDisable} from "../../features/bellefuSlice"
+import { useSelector,useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { FaCamera } from "react-icons/fa";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
@@ -11,17 +13,29 @@ import UnstyledSelectSimple5 from "../../components/form-fields/Lga";
 // import CustomizedDividers from "../../components/form-fields/TextFormate";
 
 const profile = () => {
-  const [open, setOpen] = useState(false);
+  // const [disable, setDisable] = useState(true);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
+
+  const disable =useSelector(selectDisable);
+
+  console.log(disable);
+  const dispatch = useDispatch();
+
+
+  const handleDisable=()=>{
+    dispatch(isDisabled(false))
+  }
+
 
   return (
     <div className=" shadow bg-bellefuWhite rounded-md mt-5 p-5">
       <div className="flex justify-between mt-2  border-b pb-4">
         <h3 className="font-bold text-[1.2rem]">Profile Details</h3>
         <button
+          onClick={handleDisable}
           type="button"
           class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bellefuOrange sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
         >
@@ -61,6 +75,7 @@ const profile = () => {
                       type="text"
                       name="first-name"
                       id="first-name"
+                      disabled={disable}
                       autocomplete="given-name"
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
@@ -76,6 +91,7 @@ const profile = () => {
                     <input
                       type="text"
                       name="last-name"
+                      disabled={disable}
                       id="last-name"
                       autocomplete="family-name"
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -92,6 +108,7 @@ const profile = () => {
                       type="email"
                       name="email"
                       id="email"
+                      disabled={disable}
                       autocomplete="email-address"
                       className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
@@ -108,6 +125,7 @@ const profile = () => {
                       type="password"
                       name="password"
                       id="password"
+                      disabled={disable}
                       autocomplete="your password"
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
@@ -131,7 +149,8 @@ const profile = () => {
                   <div className="col-span-6 sm:col-span-3">
                     <div className=" relative rounded-md">
                       <div className="absolute inset-y-0 left-0 top-[1.23rem] flex items-center">
-                        <UnstyledSelectSimple sx={{ width: 40 }} />
+                        <UnstyledSelectSimple    disable={disable}
+ />
                       </div>
                       <label
                         htmlFor="price"
@@ -143,6 +162,7 @@ const profile = () => {
                         type="tele"
                         name="phone-number"
                         id="phone-number"
+                        disabled={disable}
                         className="bg-[white] p-[8px] mt-[2px] focus:ring-bellefuGreen focus:outline-0 block w-[70%] relative left-[7vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         placeholder="Your number"
                       />
@@ -156,7 +176,7 @@ const profile = () => {
                     >
                       Country
                     </label>
-                    <UnstyledSelectSimple2 sx={{ width: 40 }} />
+                    <UnstyledSelectSimple2 disable={disable} />
                   </div>
                   {/* second field */}
                   <div className="col-span-6 sm:col-span-3">
@@ -166,7 +186,7 @@ const profile = () => {
                     >
                       States/Province
                     </label>
-                    <UnstyledSelectSimple3 />
+                    <UnstyledSelectSimple3 disable={disable}/>
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
@@ -176,7 +196,7 @@ const profile = () => {
                     >
                       City
                     </label>
-                    <UnstyledSelectSimple4 />
+                    <UnstyledSelectSimple4 disable={disable}/>
                   </div>
                   <div className="col-span-6 sm:col-span-3">
                     <label
@@ -185,7 +205,7 @@ const profile = () => {
                     >
                       LGA
                     </label>
-                    <UnstyledSelectSimple5 />
+                    <UnstyledSelectSimple5 disable={disable} />
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
@@ -197,6 +217,7 @@ const profile = () => {
                     </label>
                     <input
                       type="text"
+                      disabled={disable}
                       name="address"
                       id="address"
                       autocomplete="your address"
@@ -218,6 +239,7 @@ const profile = () => {
                   id="about"
                   name="about"
                   rows={4}
+                  disabled={disable}
                   className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
                   placeholder="you@example.com"
                   defaultValue={""}
@@ -227,7 +249,7 @@ const profile = () => {
             <div className="p-5">
               <button
                 type="submit"
-                disabled
+                disabled={disable}
                 class="flex justify-center items-center w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
               >
                 Save

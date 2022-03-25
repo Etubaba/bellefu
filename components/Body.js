@@ -1,9 +1,7 @@
 import React from "react";
-import ProductList from "./ProductList";
-import { productData } from "../productData";
-import Slider from "./slider/Slider";
-import Product from "./products/Product";
-import ProductComponent from "./ProductComponent";
+import Slider from "./mainPageComponents/slider/Slider";
+import ProductComponent from "./mainPageComponents/ProductComponent";
+
 const Body = () => {
   return (
     <div className=" overflow-y-scroll h-screen">
