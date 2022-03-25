@@ -8,7 +8,7 @@ import UnstyledSelectSimple2 from "../../components/form-fields/CountrySelect";
 import UnstyledSelectSimple3 from "../../components/form-fields/StateProvince";
 import UnstyledSelectSimple4 from "../../components/form-fields/City";
 import UnstyledSelectSimple5 from "../../components/form-fields/Lga";
-import CustomizedDividers from "../../components/form-fields/TextFormate";
+// import CustomizedDividers from "../../components/form-fields/TextFormate";
 
 const profile = () => {
   const [open, setOpen] = useState(false);
