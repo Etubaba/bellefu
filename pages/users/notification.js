@@ -7,7 +7,7 @@ import { FaEyeSlash } from "react-icons/fa";
 
 const notification = () => {
   const [open, setOpen] = useState(false);
-  const [read, setRead] = useState(true);
+  const [read, setRead] = useState(false);
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2 ">
       <div className="flex items-center justify-between space-x-96 text-center p-2">
@@ -102,7 +102,7 @@ const notification = () => {
               </div>
             )}
           </div>
-
+          {/* 
           <div className="w-[93%] p-5 m-10 border hover:bg-[#F9FDF5]  rounded-lg  h-40">
             <div className="flex">
               <img
@@ -121,7 +121,7 @@ const notification = () => {
                 <p className="text-[#9799AB] text-sm">2 days ago</p>
               </div>
             </div>
-            <span className="flex justify-end">
+            <span className="flex mb-5 justify-end">
               <button className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1">
                 <FaEye className="mr-2 text-xl" /> Open
               </button>
@@ -131,7 +131,7 @@ const notification = () => {
                 Delete
               </button>
             </span>
-          </div>
+          </div> */}
 
           <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="flex">
