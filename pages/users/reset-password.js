@@ -10,19 +10,6 @@ function resetpassword() {
     const [view1, setView1] = useState(false)
     const [view2, setView2] = useState(false)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <div className='ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2'>
             <div className='text-xl ml-4 self p-2'>Reset Password</div>
