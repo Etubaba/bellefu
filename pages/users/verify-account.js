@@ -21,7 +21,6 @@ function verifyaccount() {
                             You have not verified your account<br />
                             Kindly click on the botton below for Phone verification
                         </p>
-
                         <button onClick={() => setVerify(true)} className='flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange'><MdVerified className='text-xl' /> <span>Request Phone Verification</span></button>
 
                     </div>
