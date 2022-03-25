@@ -2,7 +2,7 @@ import * as React from 'react';
 import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled';
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
-import {isDisabled ,selectDisable} from "../../features/bellefuSlice"
+import {isDisabled ,selectDisable} from "../../../features/bellefuSlice"
 import { useSelector,useDispatch } from "react-redux";
 import { styled } from '@mui/system';
 
