@@ -18,7 +18,7 @@ const UserSideBar = () => {
     { icon: RiMessage2Fill, text: "Messages", to: "/users/messages" },
     { icon: false, divider: <hr />},
     { icon: ImPushpin, text: "My Ads", to: "/users/myads" },
-    { icon: FaHeart, text: "My Favourite Items", to: "/users/myfavourites" },
+    { icon: FaHeart, text: "My Favourite Items", to: "/users/favourite-items" },
     { icon: MdPending, text: "Pending Ads", to: "/users/pending-ads" },
     { icon: ImClock, text: "Expired Ads", to: "/users/expired-ads" },
     { icon: false, divider: <hr />},
