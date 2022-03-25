@@ -1,9 +1,9 @@
 import React from "react";
 import { MdLocationOn } from "react-icons/md";
-import { BsHeart } from "react-icons/bs";
+import { GiHearts } from "react-icons/gi";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 
-const CategoryProductList = ({ product }) => {
+const FavouriteProduct = ({ product }) => {
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img src={product.Icon} className="rounded-md w-full h-44 object-cover" />
@@ -23,11 +23,11 @@ const CategoryProductList = ({ product }) => {
         <p className="text-bellefuGreen font-poppins font-semibold">
           ₦ {product.price}
         </p>
-        <BsHeart className="w-5 h-5 text-bellefuOrange" />
+        <GiHearts className="w-5 h-5 text-bellefuOrange" />
       </div>
       <div className="flex items-center space-x-3 mt-2">
         <button className="bg-bellefuOrange px-12 py-4 rounded-md">
-          <MdOutlineMessage className="!text-white" />
+          <MdOutlineMessage className="text-white" />
         </button>
         <button className="bg-bellefuGreen px-12 py-4 rounded-md">
           <MdCall className="text-white" />
@@ -37,4 +37,4 @@ const CategoryProductList = ({ product }) => {
   );
 };
 
-export default CategoryProductList;
+export default FavouriteProduct;

@@ -10,19 +10,6 @@ function resetpassword() {
     const [view1, setView1] = useState(false)
     const [view2, setView2] = useState(false)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <div className='ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2'>
             <div className='text-xl ml-4 self p-2'>Reset Password</div>
@@ -46,7 +33,7 @@ function resetpassword() {
                                     className="block text-sm font-medium text-gray-700"
                                 >
                                     Password
-                                </label><FaEye onClick={() => setView1(true)} className='absolute  mt-4  right-80' />
+                                </label><FaEye onClick={() => setView1(true)} className='absolute  mt-4  right-[26%]' />
                                 <input
                                     type={view1 ? 'text' : 'password'}
                                     name="first-name"
@@ -62,7 +49,7 @@ function resetpassword() {
                                     className="block text-sm font-medium text-gray-700"
                                 >
                                     New Password
-                                </label><FaEye onClick={() => setView(true)} className='absolute  mt-4  right-80' />
+                                </label><FaEye onClick={() => setView(true)} className='absolute  mt-4  right-[26%]' />
                                 <input
                                     type={view ? 'text' : 'password'}
                                     name="first-name"
@@ -77,7 +64,7 @@ function resetpassword() {
                                     className="block text-sm font-medium text-gray-700 focus:outline-none"
                                 >
                                     Confirm Password
-                                </label><FaEye onClick={() => setView2(true)} className='absolute  mt-4  right-80' />
+                                </label><FaEye onClick={() => setView2(true)} className='absolute  mt-4 right-[26%]' />
                                 <input
                                     type={view2 ? 'text' : 'password'}
                                     name="first-name"

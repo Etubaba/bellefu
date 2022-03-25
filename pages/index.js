@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import Slider from "../components/slider/Slider";
+
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
 
@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       {/* Overall container */}
       <main className="bg-bellefuBackground h-screen overflow-hidden">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[90%] mx-auto">
           {/* second nav bar */}
           <div className="">
             <HeaderSearch />
