@@ -1,6 +1,6 @@
 import React from "react";
-import FavouriteProduct from "../product/FavouriteProduct";
-import { productData } from "../../productData";
+import FavouriteProduct from "./FavouriteProduct";
+import { productData } from "../../../productData";
 
 const FavouriteProducts = () => {
   return (
