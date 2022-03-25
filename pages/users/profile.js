@@ -5,11 +5,11 @@ import { useSelector,useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { FaCamera } from "react-icons/fa";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
-import UnstyledSelectSimple from "../../components/form-fields/CustomSelect";
-import UnstyledSelectSimple2 from "../../components/form-fields/CountrySelect";
-import UnstyledSelectSimple3 from "../../components/form-fields/StateProvince";
-import UnstyledSelectSimple4 from "../../components/form-fields/City";
-import UnstyledSelectSimple5 from "../../components/form-fields/Lga";
+import UnstyledSelectSimple from "../../components/layoutComponents/form-fields/CustomSelect";
+import UnstyledSelectSimple2 from "../../components/layoutComponents/form-fields/CountrySelect";
+import UnstyledSelectSimple3 from "../../components/layoutComponents/form-fields/StateProvince";
+import UnstyledSelectSimple4 from "../../components/layoutComponents/form-fields/City";
+import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields/Lga";
 // import CustomizedDividers from "../../components/form-fields/TextFormate";
 
 const profile = () => {

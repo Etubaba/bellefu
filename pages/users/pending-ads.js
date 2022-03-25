@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import { MdPending } from "react-icons/md"
-import UserPageProducts from "../../components/product/UserPageProducts";
+import MyAds from "../../components/layoutComponents/adsComponents/MyAds";;
 
 
 
@@ -18,23 +18,24 @@ const pendingads = () => {
       </div>
       <hr />
 
-      {!pend ? <div className="h-full ">
-        <div className="border mx-auto my-10  rounded-xl    w-7/12 h-11/12 ">
-          <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-            <MdPending className="text-4xl mb-5 text-gray-600" />
-            <p className="text-lg text-gray-600">
-              You do not have any pending products
-            </p>
+      {!pend ?
+        <div className="h-full ">
+          <div className="border mx-auto my-10  rounded-xl    w-7/12 h-11/12 ">
+            <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+              <MdPending className="text-4xl mb-5 text-gray-600" />
+              <p className="text-lg text-gray-600">
+                You do not have any pending products
+              </p>
+            </div>
           </div>
-        </div>
-      </div> : (
-        <div className='bg-bellefuWhite mt-5 rounded-b-md overflow-y-scroll h-screen'>
+        </div> : (
+          <div className='bg-bellefuWhite mt-5 rounded-b-md overflow-y-scroll h-screen'>
 
-          <UserPageProducts />
+            <MyAds />
 
 
-        </div>
-      )}
+          </div>
+        )}
 
 
     </div>
