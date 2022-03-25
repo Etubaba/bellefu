@@ -32,8 +32,8 @@ const MyAd = ({ product }) => {
           </p>
         </div>
         <div className="flex items-center justify-between mt-2">
-          <p className="text-[#767873] capitalize italic text-xs">
-            Pending ads
+          <p className="text-[#767873] capitalize italic text-xs font-medium">
+            {product.status}
           </p>
           <div
             onClick={() => setOpen(!open)}
