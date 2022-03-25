@@ -1,97 +1,73 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import { MdAccountBox, MdPending, MdNotifications } from "react-icons/md";
-import { BiLogOut } from "react-icons/bi";
-import { ImKey, ImPushpin, ImClock } from "react-icons/im";
-import { HiUser } from "react-icons/hi";
-import { FaWallet, FaHeart } from "react-icons/fa";
-import { RiMessage2Fill } from "react-icons/ri";
-import { GiWallet } from "react-icons/gi";
-import UserSideBar from "../../components/usercomponent/UserSideBar";
+import { MdPending } from "react-icons/md";
+import { ImPushpin, ImClock } from "react-icons/im";
+import { FaWallet } from "react-icons/fa";
 import Layout from "../../components/Layout";
 
 const Index = () => {
-  const [firstName, setFirstName] = useState("fffffffff"),
-    [lastName, setLastName] = useState("ttttttttt"),
-    [email, setEmail] = useState("ghff"),
-    [password, setPassword] = useState("gffss"),
+  const [firstName, setFirstName] = useState("fffffffffhghghghh"),
+    [lastName, setLastName] = useState("ttttttttttrttrttrtrtrt"),
+    [email, setEmail] = useState("ghfftrtrtrttrttrtgrg"),
     [image, setImage] = useState(
       "https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"
     );
 
   return (
-    <div className="ml-72 p-4 w-auto" id="profile-overview">
+    <div className="w-auto mt-2" id="profile-overview">
       <div className="">
         <div className="flex flex-col">
-          <div className="bg-bellefuWhite px-8 py-5 my-3 ">
-            <h3>My Profile Details</h3>
+          <div className="bg-bellefuWhite rounded-[20px] my-4 ">
+            <div className="flex justify-between px-8 py-6">
+              <h1 className="font-semibold">My Profile Details</h1>
+              <button className="text-bellefuOrange"><Link href="/users/profile">View Profile</Link></button>
+            </div>
             <hr />
-            <div className="flex">
-              <div id="avatar" className="pt-20 ">
+            <div className="flex justify-between">
+              <div id="avatar" className="py-6 pl-20">
                 <Image
-                  className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+                  className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                   src={image}
                   alt="avatar"
-                  width={50}
-                  height={50}
+                  width="150"
+                  height="150"
                 />
               </div>
-              <div id="details" className="m-4">
-                <div className="my-5 flex">
-                  <p className="flex flex-col">
-                    <label id="first-name" className="mb-2 font-semibold">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      value={firstName}
-                      htmlFor="first-name"
-                      className="mr-3 p-3 rounded-md w-96"
-                    />
-                  </p>
-                  <p className="flex flex-col">
-                    <label id="last-name" className="mb-2 font-semibold">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      value={lastName}
-                      htmlFor="last-name"
-                      className="p-3 rounded-md w-96"
-                    />
-                  </p>
-                </div>
-                <div className="flex">
-                  <p className="flex flex-col">
-                    <label id="email" className="mb-2 font-semibold">
-                      Email
-                    </label>
-                    <input
-                      type="text"
-                      value={email}
-                      htmlFor="email"
-                      className="mr-3 p-3 rounded-md w-96"
-                    />
-                  </p>
-                  <p className="flex flex-col">
-                    <label id="password" className="mb-2 font-semibold">
-                      Password
-                    </label>
-                    <input
-                      type="text"
-                      value={password}
-                      htmlFor="password"
-                      className="p-3 rounded-md w-96"
-                    />
-                  </p>
-                </div>
+              <div id="details" className="m-4 ml-24 py-6 flex-auto">
+                <table className="w-4/5">
+                  <thead>
+                    <tr>
+                      <th className="text-left pr-10">First Name</th>
+                      <th className="text-left">Last Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="text-left">{firstName}</td>
+                      <td className="text-left">{lastName}</td>
+                    </tr>
+                  </tbody>
+                  <thead>
+                    <tr>
+                      <th className="text-left">Email</th>
+                      <th className="text-left">Password</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="text-left">{email}</td>
+                      <td className="text-left">********</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-lg mb-3">
-            <div className="flex justify-between px-8 py-5">
-              <h3>Ads Details</h3>
-              <button>View Ads</button>
+          <div className="bg-bellefuWhite rounded-[20px] mb-4">
+            <div className="flex justify-between px-8 py-6">
+              <h3 className="font-semibold">Ads Details</h3>
+              <button className="text-bellefuOrange"><Link href='/users/myads'>View Ads</Link></button>
             </div>
             <hr />
             <div
@@ -145,12 +121,21 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-lg mb-3">
+          <div className="bg-bellefuWhite rounded-[20px] mb-5">
             <div className="flex justify-between px-8 py-6">
-              <h3>Wallet</h3>
-              <p>View Wallet</p>
+              <h1 className="font-semibold">Wallet</h1>
+              <button className="text-bellefuOrange"><Link href="/users/my-wallet">View Wallet</Link></button>
             </div>
             <hr />
+            <div className="w-9/12 mx-auto my-7 bg-[#F9FDF5] rounded-[10px]">
+              <p className="flex justify-center py-7">
+                <span className="pt-1 pr-2"><FaWallet /></span> 
+                <span>No Record Found</span>
+              </p>
+              <p className="text-center pb-8">
+                <button className="bg-bellefuOrange text-bellefuWhite py-2 px-4 rounded-md"><Link href="/users/add-money">Add Money</Link></button>
+              </p>
+            </div>
           </div>
         </div>
       </div>
