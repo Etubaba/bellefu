@@ -34,7 +34,7 @@ const StyledButton = styled('button')(
   box-sizing: border-box;
   min-height: calc(1.5em + 17px);
   min-width: 100%;
-  background: ${theme.palette.mode === 'dark' ? grey[900] : grey[800]};
+  background: ${theme.palette.mode === 'dark' ? grey[900] : "#ffffff"};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
   margin-top: 0.29em;
@@ -72,7 +72,7 @@ const StyledListbox = styled('ul')(
   box-sizing: border-box;
   padding: 4px;
   margin: 10px 0;
-  min-width: 450px;
+  min-width: 517px;
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
