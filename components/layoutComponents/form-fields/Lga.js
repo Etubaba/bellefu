@@ -72,8 +72,8 @@ const StyledListbox = styled('ul')(
   box-sizing: border-box;
   padding: 4px;
   margin: 10px 0;
-  min-width: 450px;
-  background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+  min-width: 517px;
+  background: ${theme.palette.mode === 'dark' ? grey[900] : '#ffffff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
