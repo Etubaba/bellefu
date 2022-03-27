@@ -1,42 +1,61 @@
 import {useState, useRef} from "react";
-import {BiCaretRight, BiCaretDown} from "react-icons/bi";
-import {BsFillCreditCard2BackFill,  BsBank2} from "react-icons/Bs";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import {BiCaretRight} from "react-icons/bi";
+import {BsFillCreditCard2BackFill} from "react-icons/Bs";
 import {RiBankFill} from "react-icons/ri";
-import {Menu, MenuItem, Fade} from "@mui/material";
+import {Menu, Fade} from "@mui/material";
 import { GiWallet } from "react-icons/gi";
 //import { MenuItem } from "@mui/material";
 import Layout from "../../components/Layout";
+import masterCard from "../../public/bellefu-images/mastercard.svg"
 
 const AddMoney = () => {
   const [rotateFirstCaret, setRotateFirstCaret] = useState(false);
   const [rotateSecondCaret, setRotateSecondCaret] = useState(false);
   const [anchorElMenu1, setAnchorElMenu1] = useState(null);
   const [showCard, setShowCard] = useState(false);
-  const [cardNo, setCardNo] = useState(null);
-  const [accountNo, setAccountNo] = useState(null);
-  const [accountName, setAccountName] = useState(null);
-  const [cvc, setCvc] = useState(null);
-  //const [anchorElMenu2, setAnchorElOpenMenu2] = useState(null);
+  const [showBank, setShowBank] = useState(false);
+  const [cardNo, setCardNo] = useState("");
+  const [accountNo, setAccountNo] = useState("");
+  const [accountName, setAccountName] = useState("");
+  const [cvc, setCvc] = useState("");
+  const [proceed, setProceed] = useState(false);
+  const [transactionSuccess, setTransactionSuccess] = useState(false);
   const openMenu1 = Boolean(anchorElMenu1);
-  //const openMenu2 = Boolean(anchorElMenu2);
   const firstCaret = useRef();
-  const secondCaret = useRef();
-  const containerRef = useRef();
-  const rotateCaret1 = (evt) => {
-    if (!showCard) {
-      setRotateFirstCaret(prevState => !prevState);
-
-      if (!anchorElMenu1) {setAnchorElMenu1(evt.currentTarget);console.log("!!")}
-      else {setAnchorElMenu1(null); console.log('!!!')}
-    } else  {
-      setRotateFirstCaret(prevState => !prevState);
-      setShowCard(false);
+  const router = useRouter();
+  const rotateCaret1 = () => {
+    console.log("!")
+    if (showBank) {
+      setRotateSecondCaret(false); //rotate caret back when the first is opened
+      setShowBank(false);  //close bank information when the first caret is opened
     }
-    
+    setRotateFirstCaret(prevState => !prevState);
+    setProceed(false);
+    setTransactionSuccess(false);
+
+    if (!anchorElMenu1 && !showCard) {setAnchorElMenu1(firstCaret.current);}
+    else {
+      setAnchorElMenu1(null); 
+      setShowCard(false); 
+    }
   };
   const rotateCaret2 = () => {
     setRotateSecondCaret(prevState => !prevState);
+
+    if (showBank) setShowBank(false);
+    else setShowBank(true);
+
     setAnchorElMenu1(null);
+    
+    if (rotateFirstCaret && showCard) {
+      setRotateFirstCaret(false);  //rotate first caret back when the second is opened
+    }
+
+    setShowCard(false); //close card form when the second caret is opened
+    setProceed(false);
+    setTransactionSuccess(false)
   };
   const addCard = (evt) => {
     setAnchorElMenu1(null);
@@ -44,9 +63,12 @@ const AddMoney = () => {
 
     evt.stopPropagation();
   };
+  const handleCardClick = (evt) => {
+    //setEventOnCard(true);
+    evt.stopPropagation()
+  };
   const handleCardNo = (evt) => {
     setCardNo(evt.target.value);
-    evt.stopPropagation();
   };
   const handleAccountNo = (evt) => {
     setAccountNo(evt.target.value);
@@ -56,6 +78,16 @@ const AddMoney = () => {
   };
   const handleCvc = (evt) => {
     setCvc(evt.target.value);
+  };
+  const handleContinue = () => {
+    setProceed(true);
+    //setTransactionSuccess(true);
+  };
+  const fundWallet = () => {
+    setTransactionSuccess(true);
+  };
+  const showWallet = () => {
+    router.push("/users/my-wallet");
   };
   const styleCaret1 = {
     paddingTop: '5px',
@@ -69,6 +101,12 @@ const AddMoney = () => {
     transition: 'transform 150ms ease',
     color: rotateSecondCaret ? "#FFA500" : "",
   };
+  const cardMethodStyle = {
+    class: !showCard?"hover:bg-[#F8FDF2] hover:cursor-pointer mb-2 mr-12 py-8 rounded-lg border-2":"hover:cursor-pointer mb-2 mr-12 rounded-lg border-2"
+  };
+  const bankMethodStyle = {
+    class: !showBank?"hover:bg-[#F8FDF2] hover:cursor-pointer mb-2 mr-12 py-8 rounded-lg border-2":"hover:cursor-pointer mb-2 mr-12 rounded-lg border-2"
+  }
 
   return (
     <div className="bg-bellefuWhite rounded-md mt-5 ">
@@ -77,12 +115,15 @@ const AddMoney = () => {
       <div className="w-auto py-8 px-20">
           <h2 className="font-semibold mb-5">Select Methods</h2>
           <div className="flex flex-col flex-auto mb-8">
-            <div className="hover:bg-[#F8FDF2] mb-2 mr-12 py-8 rounded-lg border-2">
+            <div className={cardMethodStyle.class} onClick={rotateCaret1}>
               <div className="w-full">
+                <div className={showCard?"bg-[#F8FDF2] pt-8":""}>
                 <div className={!showCard?"flex px-8":"flex px-8 pb-6"}>
-                  <p className="mr-5 pt-1"><BsFillCreditCard2BackFill /></p>
-                  <p className="mr-auto">Card Method</p>
-                  <p style={styleCaret1} ref={firstCaret} onClick={rotateCaret1} className="hover:cursor-pointer"><BiCaretRight /></p>
+                  <p className="mr-5 pt-2">
+                    {!proceed ? <BsFillCreditCard2BackFill />: <Image src={masterCard} alt="card" width="40px" height="30px" />}
+                  </p>
+                  <p className={!proceed?"mr-auto pt-1":"mr-auto pt-2.5"}>{!proceed ? "Card Method": "Master 9876 9..."}</p>
+                  <p style={styleCaret1} className="" ref={firstCaret}><BiCaretRight /></p>
                   <Menu 
                     anchorEl={anchorElMenu1}
                     open={openMenu1}
@@ -93,48 +134,82 @@ const AddMoney = () => {
                     <div className="flex mt-1 px-4 py-1 hover:bg-bellefuOrange hover:text-bellefuWhite hover:cursor-pointer hover:rounded-md" onClick={addCard}><p className="pt-1 pr-3"><BsFillCreditCard2BackFill /></p> <p>Add Card</p></div>
                   </Menu>
                 </div>
-                { showCard && <hr />}
-                {/* <div className="pt-1"><p style={styleCaret1}><BiCaretRight /></p></div> */}
-                { showCard && <div className="px-8 pt-6">
-                    <h3 className="font font-medium mb-2">Card Details</h3>
+                </div>
+                { showCard && <hr /> }
+                <div 
+                  className={showCard ? "bg-white px-8 pt-6 pb-8 hover:cursor-default":""} 
+                  onClick={handleCardClick}
+                >
+                  { showCard && !proceed ?<h3 className="font font-medium mb-2">Card Details</h3>:proceed && !transactionSuccess?<h3 className="font font-medium mb-2">Add Money</h3>:<></>
+                  }
+                  { showCard && !proceed ? <>
                     <div className="flex justify-center">
-                      <div className="flex flex-col p-4">
-                        <p className="mb-2"><label id="card-no">Card Number</label></p>
-                        <p className=""><input type="text" value={cardNo} htmlFor="card-no" onChange={handleCardNo} className="py-2 px-2 border-2" /></p>
-                      </div>
-                      <div className="flex flex-col p-4">
-                        <p className="mb-2"><label id="account-no">Account Number</label></p>
-                        <p className=""><input type="text" value={accountNo} htmlFor="account-no" onChange={handleAccountNo} className="py-2 px-2 border-2" /></p>
-                      </div>
+                    <div className="flex flex-col p-4">
+                      <p className="mb-2"><label id="card-no">Card Number</label></p>
+                      <p className=""><input type="text" value={cardNo} htmlFor="card-no" onChange={handleCardNo} className="py-2 px-2 border-2" /></p>
                     </div>
-                    <div className="flex justify-center">
-                      <div className="flex flex-col p-4">
-                        <p className="mb-2"><label id="account-name">Card Holder&apos;s Name</label></p>
-                        <p><input type="text" value={accountName} htmlFor="account-name" onChange={handleAccountName} className="py-2 px-2 border-2"  /></p>
-                      </div>
-                      <div className="flex flex-col p-4">
-                        <p className="mb-2"><label id="cvc">CVC</label></p>
-                        <p><input type="text" value={cvc} htmlFor="cvc" onChange={handleCvc} className="py-2 px-2 border-2"  /></p>
-                      </div>
-                    </div>
-                    <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}}>
-                      <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Continue</p></div>
+                    <div className="flex flex-col p-4">
+                      <p className="mb-2"><label id="account-no">Account Number</label></p>
+                      <p className=""><input type="text" value={accountNo} htmlFor="account-no" onChange={handleAccountNo} className="py-2 px-2 border-2" /></p>
                     </div>
                   </div>
+                  <div className="flex justify-center">
+                    <div className="flex flex-col p-4">
+                      <p className="mb-2"><label id="account-name">Card Holder&apos;s Name</label></p>
+                      <p><input type="text" value={accountName} htmlFor="account-name" onChange={handleAccountName} className="py-2 px-2 border-2"  /></p>
+                    </div>
+                    <div className="flex flex-col p-4">
+                      <p className="mb-2"><label id="cvc">CVC</label></p>
+                      <p><input type="text" value={cvc} htmlFor="cvc" onChange={handleCvc} className="py-2 px-2 border-2"  /></p>
+                    </div>
+                  </div></> : proceed && !transactionSuccess ? <>
+                  <p className="text-center my-2"><label id="amount">Add Amount</label></p>
+                  <p className="text-center mb-4"><input type="text" htmlFor="amount" className="border-2 py-2 px-3 rounded-md" /></p>
+                  </>: transactionSuccess ? <>
+                  <p className="text-center font-semibold pt-9 text-bellefuGreen">successful!</p>
+                  <p className="text-center mb-20">Your wallet has been successfully funded</p>
+                  </>:<></>}
+                  { showCard && !proceed ? <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}} onClick={handleContinue}>
+                    <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Continue</p></div>
+                  </div>: proceed && !transactionSuccess? <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "45%"}} onClick={fundWallet}>
+                    <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Fund Wallet</p></div>
+                  </div>: transactionSuccess ? <>
+                  <div className="flex justify-center px-16"><p className="text-center rounded-lg py-3 mr-20 hover:cursor-pointer bg-bellefuOrange flex-auto text-white" onClick={showWallet}>View Wallet</p> <p className="text-center rounded-lg py-3 hover:cursor-pointer flex-auto border-2">Close</p></div>
+                  </>:<></>
+                  }
+                </div>
+              </div>
+            </div>
+            <div className={bankMethodStyle.class} onClick={rotateCaret2}>
+            <div className="w-full">
+                <div className={showBank ? "bg-[#F8FDF2] pt-8":""}>
+                <div className={!showBank?"flex px-8":"flex px-8 pb-6"}>
+                  <p className="mr-5 pt-1"><RiBankFill /></p>
+                  <p className="mr-auto">Bank Transfer</p>
+                  <p style={styleCaret2}><BiCaretRight /></p>
+                </div>
+                </div>
+                { showBank && <>
+                  <hr />
+                  <div className="bg-white pt-4 pb-4 hover:cursor-default" onClick={handleCardClick}>
+                    <div className="pb-4 px-8">
+                      <h3 className="font font-medium mb-2">Transfer Money To The Below Bank</h3>
+                      <p>Account Number: 122200909</p>
+                      <p>Account Name: Bellefu Limited</p>
+                      <p>Bank NAme: GT Bank</p>
+                    </div>
+                    <hr />
+                    <div className="py-4 px-8">
+                      <h3 className="font font-medium mb-2">Information</h3>
+                      <p>After a successful transfer, kindly send us the transfer slipfor verification</p>
+                      <p>Your account will be credited within 30minutes to 1hr</p>
+                    </div>
+                  </div>
+                  </>
                 }
               </div>
             </div>
-            <div className="hover:bg-[#F8FDF2] hover:cursor-pointer mr-12 p-8 rounded-lg border-2" onClick={rotateCaret2}>
-              <div className="flex">
-                <p className="mr-5 pt-1"><RiBankFill /></p>
-                <p className="mr-auto">Bank Transfer</p>
-                <div><p style={styleCaret2}><BiCaretRight /></p></div>
-              </div>
-            </div>
           </div>
-          {/* <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}}>
-            <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Add Money</p></div>
-          </div> */}
       </div>
     </div>
   )
