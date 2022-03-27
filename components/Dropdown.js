@@ -12,10 +12,10 @@ const Dropdown = ({ category }) => {
       <div className="">
         <div
           key={category.id}
-          className="flex items-center mb-7 hover:bg-bellefuBackground p-3 rounded-md"
+          className="flex items-center mb-7 hover:bg-bellefuBackground p-1  rounded-md"
         >
-          <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
-            <img src={category.Icon} alt="icons" className="w-6 h-6" />
+          <div className="flex items-center flex-1 space-x-2 cursor-pointer select-none">
+            <img src={category.Icon} alt="icons" className="w-4 h-4" />
             <h5
               className="text-bellefuBlack1 font-medium whitespace-nowrap"
               onClick={() => router.push("/category/id")}
@@ -52,10 +52,10 @@ const Dropdown = ({ category }) => {
       <div className="">
         <div
           key={category.id}
-          className="flex items-center mb-7 hover:bg-bellefuBackground p-3 rounded-md"
+          className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
         >
-          <div className="flex items-center flex-1 space-x-3 cursor-pointer">
-            <img src={category.Icon} alt="icons" className="w-6 h-6" />
+          <div className="flex items-center flex-1 space-x-2 cursor-pointer">
+            <img src={category.Icon} alt="icons" className="w-4 h-4" />
             <h5
               className="text-bellefuBlack1 font-medium"
               onClick={() => router.push("/products/id")}
