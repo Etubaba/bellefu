@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import {isDisabled ,selectDisable} from "../../features/bellefuSlice"
-import { useSelector,useDispatch } from "react-redux";
+import { isDisabled, selectDisable } from "../../features/bellefuSlice"
+import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { FaCamera } from "react-icons/fa";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
@@ -19,13 +19,13 @@ const profile = () => {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
 
-  const disable =useSelector(selectDisable);
+  const disable = useSelector(selectDisable);
 
   console.log(disable);
   const dispatch = useDispatch();
 
 
-  const handleDisable=()=>{
+  const handleDisable = () => {
     dispatch(isDisabled(false))
   }
 
@@ -149,8 +149,8 @@ const profile = () => {
                   <div className="col-span-6 sm:col-span-3">
                     <div className=" relative rounded-md">
                       <div className="absolute inset-y-0 left-0 top-[1.23rem] flex items-center">
-                        <UnstyledSelectSimple    disable={disable}
- />
+                        <UnstyledSelectSimple disable={disable}
+                        />
                       </div>
                       <label
                         htmlFor="price"
@@ -186,7 +186,7 @@ const profile = () => {
                     >
                       States/Province
                     </label>
-                    <UnstyledSelectSimple3 disable={disable}/>
+                    <UnstyledSelectSimple3 disable={disable} />
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
@@ -196,7 +196,7 @@ const profile = () => {
                     >
                       City
                     </label>
-                    <UnstyledSelectSimple4 disable={disable}/>
+                    <UnstyledSelectSimple4 disable={disable} />
                   </div>
                   <div className="col-span-6 sm:col-span-3">
                     <label
