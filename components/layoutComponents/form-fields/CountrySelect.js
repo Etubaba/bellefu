@@ -33,7 +33,7 @@ const StyledButton = styled('button')(
   font-size: 0.875rem;
   box-sizing: border-box;
   min-height: calc(1.5em + 17px);
-  min-width: 15vw;
+  min-width: 100%;
   background: ${theme.palette.mode === 'dark' ? grey[900] : "#ffffff"};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
