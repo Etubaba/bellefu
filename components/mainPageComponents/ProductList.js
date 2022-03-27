@@ -27,10 +27,10 @@ const ProductList = ({ product }) => {
         <BsHeart className="w-4 h-4 text-bellefuOrange" />
       </div>
       <div className="flex items-center justify-between mt-2">
-        <button className="bg-bellefuOrange px-6 py-2 rounded-md">
+        <button className="bg-bellefuOrange px-12 py-4 rounded-md">
           <MdOutlineMessage className="!text-white" />
         </button>
-        <button className="bg-bellefuGreen px-6 py-2 rounded-md">
+        <button className="bg-bellefuGreen px-12 py-4 rounded-md">
           <MdCall className="text-white" />
         </button>
       </div>
