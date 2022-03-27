@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 const Dropdown = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+
   if (category.children) {
     return (
       <div className="">
@@ -17,7 +18,7 @@ const Dropdown = ({ category }) => {
             <img src={category.Icon} alt="icons" className="w-6 h-6" />
             <h5
               className="text-bellefuBlack1 font-medium whitespace-nowrap"
-              onClick={() => router.push("/products/id")}
+              onClick={() => router.push("/category/id")}
             >
               {category.title}
             </h5>

@@ -43,8 +43,8 @@ const UserSideBar = () => {
     lastElem = iconValues.length - 1;
 
   return (
-    <div className="mt-5 bg-bellefuWhite h-screen mr-3 rounded-lg pt-4">
-      <div className="h-screen w-80 overflow-auto" id="side-bar">
+    <div className="mt-5 bg-bellefuWhite w-[24vw] h-screen mr-3 rounded-lg pt-4">
+      <div className="h-screen w-[23vw] overflow-auto" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
