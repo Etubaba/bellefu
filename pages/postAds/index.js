@@ -1,6 +1,11 @@
 import React from "react";
 import Head from "next/head";
 import Layout from "../../components/postAdsComponent/Layout";
+import UnstyledSelectSimple1 from "../../components/postAdsComponent/CatInput";
+import UnstyledSelectSimple2 from "../../components/postAdsComponent/SubCatInput";
+import UnstyledSelectSimple3 from "../../components/postAdsComponent/CountrySelect";
+import UnstyledSelectSimple4 from "../../components/postAdsComponent/State";
+import UnstyledSelectSimple5 from "../../components/postAdsComponent/City";
 
 function Index() {
   return (
@@ -23,15 +28,9 @@ function Index() {
                         for="first-name"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        First name
+                        Category
                       </label>
-                      <input
-                        type="text"
-                        name="first-name"
-                        id="first-name"
-                        autocomplete="given-name"
-                        className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                      />
+                      <UnstyledSelectSimple1/>
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -39,56 +38,70 @@ function Index() {
                         for="last-name"
                         className="block  text-sm font-medium text-gray-700"
                       >
-                        Last name
+                        Sub-Category
                       </label>
-                      <input
-                        type="text"
-                        name="last-name"
-                        id="last-name"
-                        autocomplete="family-name"
-                        className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                      />
+                      <UnstyledSelectSimple2/>
+
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         for="email"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Email
+                        Country
+                      </label>
+                      <UnstyledSelectSimple3/>
+
+                    </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        for="email"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        State
+                      </label>
+                      <UnstyledSelectSimple4/>
+
+                    </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        for="email"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        City
+                      </label>
+                      <UnstyledSelectSimple5/>
+
+                    </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        for="email"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Location
                       </label>
                       <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        autocomplete="email-address"
-                        className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                      />
+                      type="text"
+                      name="location"
+                      id="location"
+                      autocomplete="given-name"
+                      className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                    />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="p-5">
-                <label
-                  htmlFor="about"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  About Me
-                </label>
-                <div className="mt-1">
-                  <textarea
-                    id="about"
-                    name="about"
-                    rows={4}
-                    className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
-                    placeholder="you@example.com"
-                    defaultValue={""}
-                  />
-                </div>
-              </div>
-              <div className="p-5">
+              
+              <div className="p-5 flex justify-between">
                 <button
                   type="submit"
-                  class="flex justify-center items-center w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                 >
                   Save
                 </button>

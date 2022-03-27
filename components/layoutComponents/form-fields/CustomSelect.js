@@ -3,8 +3,8 @@ import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled'
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
-import {isDisabled ,selectDisable} from "../../../features/bellefuSlice"
-import { useSelector,useDispatch } from "react-redux";
+import { isDisabled, selectDisable } from "../../../features/bellefuSlice"
+import { useSelector, useDispatch } from "react-redux";
 
 const blue = {
   100: '#DAECFF',
@@ -33,8 +33,8 @@ const StyledButton = styled('button')(
   font-size: 0.875rem;
   box-sizing: border-box;
   min-height: calc(1.5em + 17px);
-  min-width: 100px;
-  background: ${theme.palette.mode === 'dark' ? grey[900] : grey[800]};
+  min-width: 20vw;
+  background: ${theme.palette.mode === 'dark' ? grey[900] : "#ffffff"};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
   margin-top:  0.29em;
@@ -72,8 +72,8 @@ const StyledListbox = styled('ul')(
   box-sizing: border-box;
   padding: 4px;
   margin: 10px 0;
-  min-width: 100px;
-  background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+  min-width: 20vw;
+  background: ${theme.palette.mode === 'dark' ? grey[900] : '#ffffff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
@@ -135,7 +135,7 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 });
 
 export default function UnstyledSelectSimple() {
-  const disable=useSelector(selectDisable);
+  const disable = useSelector(selectDisable);
 
   return (
     <CustomSelect disabled={disable} defaultValue={"+1"}>
