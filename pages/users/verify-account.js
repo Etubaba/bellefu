@@ -6,6 +6,11 @@ import { BsCloudUpload } from 'react-icons/bs'
 import { VscAdd } from 'react-icons/vsc'
 import { useDropzone } from 'react-dropzone'
 import Dropzone from 'react-dropzone';
+import UnstyledSelectSimple from "../../components/layoutComponents/form-fields/CustomSelect";
+import UnstyledSelectSimple2 from "../../components/layoutComponents/form-fields/CountrySelect";
+import UnstyledSelectSimple3 from "../../components/layoutComponents/form-fields/StateProvince";
+import UnstyledSelectSimple4 from "../../components/layoutComponents/form-fields/City";
+import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields/Lga";
 
 
 function verifyaccount() {
@@ -468,7 +473,106 @@ function verifyaccount() {
                                     />
                                 </div>
 
+                                <hr className='mb-10' />
 
+
+
+                                <form action="#" method="POST">
+                                    <div className=" overflow-hidden sm:rounded-md">
+                                        <div className="px-4 py-5 sm:p-6">
+                                            <div className="grid grid-cols-6 gap-6">
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <div className=" relative rounded-md">
+                                                        <div className="absolute inset-y-0 left-0 top-[1.23rem] flex items-center">
+                                                            <UnstyledSelectSimple
+                                                            />
+                                                        </div>
+                                                        <label
+                                                            htmlFor="price"
+                                                            className="block text-sm font-medium text-gray-700"
+                                                        >
+                                                            Phone Number
+                                                        </label>
+                                                        <input
+                                                            type="tele"
+                                                            name="phone-number"
+                                                            id="phone-number"
+
+                                                            className="bg-[white] p-[8px] mt-[2px] focus:ring-bellefuGreen focus:outline-0 block w-[70%] relative left-[7vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                                                            placeholder="Your number"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                {/* first field */}
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        htmlFor="price"
+                                                        className="block text-sm font-medium text-gray-700"
+                                                    >
+                                                        Country
+                                                    </label>
+                                                    <UnstyledSelectSimple2 />
+                                                </div>
+                                                {/* second field */}
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        for="state"
+                                                        className="block  text-sm font-medium text-gray-700"
+                                                    >
+                                                        States/Province
+                                                    </label>
+                                                    <UnstyledSelectSimple3 />
+                                                </div>
+
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        for="last-name"
+                                                        className="block  text-sm font-medium text-gray-700"
+                                                    >
+                                                        City
+                                                    </label>
+                                                    <UnstyledSelectSimple4 />
+                                                </div>
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        for="email"
+                                                        className="block text-sm font-medium text-gray-700"
+                                                    >
+                                                        LGA
+                                                    </label>
+                                                    <UnstyledSelectSimple5 />
+                                                </div>
+
+                                                <div className="col-span-6 sm:col-span-3">
+                                                    <label
+                                                        for="last-name"
+                                                        className="block  text-sm font-medium text-gray-700"
+                                                    >
+                                                        Address
+                                                    </label>
+                                                    <input
+                                                        type="text"
+
+                                                        name="address"
+                                                        id="address"
+                                                        autocomplete="your address"
+                                                        className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-5">
+                                        <button
+                                            type="submit"
+
+                                            class="flex justify-center items-center w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
+                                </form>
 
 
 
