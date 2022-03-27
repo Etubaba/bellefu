@@ -58,7 +58,7 @@ const Dropdown = ({ category }) => {
             <img src={category.Icon} alt="icons" className="w-4 h-4" />
             <h5
               className="text-bellefuBlack1 font-medium"
-              onClick={() => router.push("/products/id")}
+              onClick={() => router.push("/category/id")}
             >
               {category.title}
             </h5>
