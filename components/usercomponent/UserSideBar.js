@@ -50,7 +50,7 @@ const UserSideBar = () => {
             return (
               <NavLink
                 to={iconValue.to}
-                className="flex m-4 mb-24 cursor-pointer hover:bg-red-50 rounded-lg py-1.5"
+                className="flex m-4 mb-24 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
                 icon={iconValue}
                 key={index}
               />
@@ -61,7 +61,7 @@ const UserSideBar = () => {
             return (
               <NavLink
                 to={iconValue.to}
-                className="flex m-4 cursor-pointer hover:bg-red-50 rounded-lg py-1.5"
+                className="flex m-4 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
                 icon={iconValue}
                 key={index}
               />

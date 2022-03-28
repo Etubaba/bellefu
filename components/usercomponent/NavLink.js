@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 
 const NavLink = ({ to, icon, children, ...props }) => {
     const { pathname } = useRouter();
-    console.log(pathname);
-    console.log(to)
     const isActive = pathname === to ? true : false;
 
     if (isActive) {
