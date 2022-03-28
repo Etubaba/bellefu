@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 
 const NavLink = ({ to, icon, children, ...props }) => {
     const { pathname } = useRouter();
+    console.log(pathname);
+    console.log(to)
     const isActive = pathname === to ? true : false;
 
     if (isActive) {
@@ -20,16 +22,16 @@ const NavLink = ({ to, icon, children, ...props }) => {
     return (
         <Link href={to} passHref={true}>
             <p {...props} style={activeStyle}>
-                { !children && 
+                { !children ?
                     <Fragment>
                         <span className="pt-1 px-3">
                         <icon.icon />
                         </span>
                         <span>{icon.text}</span>
-                    </Fragment> 
+                    </Fragment>  : children
                 }
                 
-                { children && children}
+                {/* { children && children} */}
             </p>
         </Link>
     );
