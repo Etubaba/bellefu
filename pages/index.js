@@ -25,8 +25,8 @@ export default function Home() {
           {/* main body */}
           <div className="flex">
             {/* cstegory side bar */}
-            <div className="w-80 min-h-screen bg-bellefuWhite rounded-md mr-3 pb-32">
-              <h4 className="tracking-wider text-bellefuTitleBlack font-semibold mb-5 sticky top-0 bg-bellefuWhite px-5 pt-5">
+            <div className="w-[20%] min-h-screen rounded-md mr-3 pb-32 bg-bellefuWhite">
+              <h4 className="tracking-wider text-sm text-bellefuTitleBlack font-semibold mb-5 sticky top-0 bg-bellefuWhite px-5 pt-5 rounded-md">
                 Top Category
               </h4>
               <CategorySideBar />

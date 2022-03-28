@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from "../../components/Layout";
 import { IoIosCheckmarkCircle } from "react-icons/io"
-import { FaEye } from 'react-icons/fa'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { GiCarKey } from 'react-icons/gi'
 
 function resetpassword() {
@@ -33,7 +33,7 @@ function resetpassword() {
                                     className="block text-sm font-medium text-gray-700"
                                 >
                                     Password
-                                </label><FaEye onClick={() => setView1(true)} className='absolute  mt-4  right-[26%]' />
+                                </label>{view1 ? <FaEyeSlash onClick={() => setView1(false)} className='absolute  mt-4  right-[26%]' /> : <FaEye onClick={() => setView1(true)} className='absolute  mt-4  right-[26%]' />}
                                 <input
                                     type={view1 ? 'text' : 'password'}
                                     name="first-name"
@@ -49,7 +49,7 @@ function resetpassword() {
                                     className="block text-sm font-medium text-gray-700"
                                 >
                                     New Password
-                                </label><FaEye onClick={() => setView(true)} className='absolute  mt-4  right-[26%]' />
+                                </label>{view ? <FaEyeSlash onClick={() => setView(false)} className='absolute  mt-4  right-[26%]' /> : <FaEye onClick={() => setView(true)} className='absolute  mt-4  right-[26%]' />}
                                 <input
                                     type={view ? 'text' : 'password'}
                                     name="first-name"
@@ -64,7 +64,7 @@ function resetpassword() {
                                     className="block text-sm font-medium text-gray-700 focus:outline-none"
                                 >
                                     Confirm Password
-                                </label><FaEye onClick={() => setView2(true)} className='absolute  mt-4 right-[26%]' />
+                                </label>{view2 ? <FaEyeSlash onClick={() => setView2(false)} className='absolute  mt-4  right-[26%]' /> : <FaEye onClick={() => setView2(true)} className='absolute  mt-4  right-[26%]' />}
                                 <input
                                     type={view2 ? 'text' : 'password'}
                                     name="first-name"

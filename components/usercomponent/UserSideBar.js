@@ -11,7 +11,7 @@ import NavLink from "./NavLink";
 const UserSideBar = () => {
   const iconValues = [
     { icon: MdAccountBox, text: "Account overview", to: "/users" },
-    { icon: false, divider: <hr /> },
+    { icon: false },
     { icon: HiUser, text: "My Profile", to: "/users/profile" },
     {
       icon: MdNotifications,
@@ -19,7 +19,7 @@ const UserSideBar = () => {
       to: "/users/notification",
     },
     { icon: RiMessage2Fill, text: "Messages", to: "/users/messages" },
-    { icon: false, divider: <hr /> },
+    { icon: false },
     { icon: ImPushpin, text: "My Ads", to: "/users/myads" },
     {
       icon: FaHeart,
@@ -28,10 +28,10 @@ const UserSideBar = () => {
     },
     { icon: MdPending, text: "Pending Ads", to: "/users/pending-ads" },
     { icon: ImClock, text: "Expired Ads", to: "/users/expired-ads" },
-    { icon: false, divider: <hr /> },
+    { icon: false},
     { icon: FaWallet, text: "My Wallet", to: "/users/my-wallet" },
     { icon: GiWallet, text: "Add Money", to: "/users/add-money" },
-    { icon: false, divider: <hr /> },
+    { icon: false },
     {
       icon: HiUser,
       text: "Account Verification",
@@ -43,8 +43,8 @@ const UserSideBar = () => {
     lastElem = iconValues.length - 1;
 
   return (
-    <div className="mt-5 bg-bellefuWhite h-screen mr-3 rounded-lg pt-4">
-      <div className="h-screen w-80 overflow-auto" id="side-bar">
+    <div className="mt-5 bg-bellefuWhite w-[24vw] h-screen mr-3 rounded-lg pt-4">
+      <div className="h-screen w-[23vw] overflow-auto" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
@@ -67,7 +67,7 @@ const UserSideBar = () => {
               />
             );
           } else {
-            return iconValue.divider;
+            return <hr key={index}/>;
           }
         })}
       </div>

@@ -3,8 +3,8 @@ import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled'
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
-import {isDisabled ,selectDisable} from "../../../features/bellefuSlice"
-import { useSelector,useDispatch } from "react-redux";
+import { isDisabled, selectDisable } from "../../../features/bellefuSlice"
+import { useSelector, useDispatch } from "react-redux";
 
 const blue = {
   100: '#DAECFF',
@@ -136,7 +136,7 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 
 export default function UnstyledSelectSimple3() {
 
-    const disable=useSelector(selectDisable);
+  const disable = useSelector(selectDisable);
 
   return (
     <CustomSelect disabled={disable} defaultValue={"+1"}>
