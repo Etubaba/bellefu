@@ -76,7 +76,7 @@ console.log(inputtxt);
                       tags
                     </label>
                     <label className="block text-sm font-medium text-gray-700">
-                      Maximum: 7/{inputtxtarr.length}
+                    Maximum : {inputtxtarr.length}/7
                     </label>
                   </div>
                   <div className="border-gray-300 border-2 rounded-md">
