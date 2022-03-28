@@ -103,7 +103,7 @@ function Index() {
                   type="submit"
                   class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                 >
-                  Save
+                  Continue
                 </button>
               </div>
             </form>
