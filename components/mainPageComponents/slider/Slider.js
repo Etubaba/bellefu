@@ -27,11 +27,11 @@ export default function Slider() {
   ];
 
   return (
-    <div>
+    <div className="rounded-xl">
       <Carousel showArrows={true} showThumbs={false} autoPlay={true} infiniteLoop={true} >
             {slides?.map((slideimage,index)=>(
                 <img
-                    className="h-[450px] rounded-xl  "
+                    className="h-80 rounded-xl  object-cover"
                     key={index}
                     src={slideimage.image}
                     alt={slideimage.alternate}
