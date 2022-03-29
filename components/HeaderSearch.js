@@ -24,7 +24,7 @@ const HeaderSearch = () => {
     }, [])
 
 
-    console.log(countries);
+
     return (
         <div className={'w-full h-20 mt-3 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
             <div className='flex'>

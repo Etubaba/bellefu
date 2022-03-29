@@ -3,7 +3,8 @@ import { Provider } from "react-redux";
 import { store } from "../features/store";
 import NavBar from "../components/Navbar/NavBar";
 
-import Footer from "../components/Footer";
+import Footer from "../components/footer/Footer";
+import Mobilefooter from "../components/footer/mobilefooter";
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout || EmptyLayout;
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
       <Footer />
+      <Mobilefooter />
     </Provider>
   );
 }
