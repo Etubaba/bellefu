@@ -3,7 +3,7 @@ import Dropdown from "./Dropdown";
 const CategorySideBar = ({ categories }) => {
   return (
     <div className="bg-bellefuWhite rounded-md pb-10">
-      <div>
+      <div className="pt-4">
         <h4 className="hidden lg:inline tracking-wider text-lg text-bellefuTitleBlack font-semibold px-5 rounded-md">
           Top Category
         </h4>

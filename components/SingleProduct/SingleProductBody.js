@@ -4,9 +4,8 @@ import SingleProductDescription from "./SingleProductDescription";
 import SingleProductSlider from "./SingleProductSlider";
 
 const SingleProductBody = ({ products }) => {
-  console.log("Products again =>", products);
   return (
-    <div className="pb-20 rounded-t-md">
+    <div className="rounded-t-md">
       <SingleProductSlider />
       <SingleProductDescription />
       <div className="mt-2">

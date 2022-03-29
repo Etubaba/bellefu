@@ -10,7 +10,7 @@ const SingleProductSidebar = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   return (
-    <div className="bg-bellefuWhite h-[80%] rounded-md flex flex-col pb-10 ">
+    <div className="bg-bellefuWhite rounded-md flex flex-col pb-10 ">
       <div className="flex items-center px-3 py-2 justify-center">
         <p className="text-sm text-bellefuBlack1">Product Price:</p>{" "}
         <p className="font-bold ml-3 text-bellefuTitleBlack text-lg">
