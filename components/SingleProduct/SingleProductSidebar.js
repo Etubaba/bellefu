@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { GoVerified } from "react-icons/go";
 import { BsFillPersonFill } from "react-icons/bs";
-import { RiMessage2Fill } from "react-icons/ri";
+import { RiMessage2Fill, RiCloseFill } from "react-icons/ri";
 import { IoIosCall } from "react-icons/io";
+import { RiMessageFill } from "react-icons/ri";
 
 const SingleProductSidebar = () => {
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
   return (
     <div className="bg-bellefuWhite h-[80%] rounded-md flex flex-col pb-10 ">
       <div className="flex items-center px-3 py-2 justify-center">
@@ -45,10 +48,36 @@ const SingleProductSidebar = () => {
           <p className="text-gray-400 font-medium">View Profile</p>
         </div>
         {/* message */}
-        <div className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center">
+        <div
+          className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
+          onClick={() => setOpen(!open)}
+        >
           <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
           <p className="text-white font-medium text-sm">Messages</p>
         </div>
+        {/* message box */}
+        {open === true && (
+          <div className="border -mt-10 bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
+            <div className="flex items-center py-1">
+              <div className="flex items-center w-full space-x-3 rounded-md justify-end">
+                <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
+                <p className="text-gray-400 font-normal text-sm">Messages</p>
+              </div>
+              <RiCloseFill
+                className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
+                onClick={() => setOpen(false)}
+              />
+            </div>
+
+            <textarea
+              rows="5"
+              className="w-full bg-transparent px-3 outline-none text-xs"
+            ></textarea>
+          </div>
+        )}
+
+        {/* end of message box */}
+        {/* end of message */}
         {/* call */}
         <div className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center">
           <IoIosCall className="w-4 h-4 text-white" />
@@ -74,11 +103,38 @@ const SingleProductSidebar = () => {
           <p className="text-sm text-center text-bellefuBlack1">
             Did you noticed any illegal activities from this seller
           </p>
-          <div className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center">
+          <div
+            className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center"
+            onClick={() => setOpen1(!open1)}
+          >
             {" "}
-            <BsFillPersonFill className="w-5 h-5 text-bellefuOrange" />
-            <p className="text-gray-400 font-normal text-xs">Report Seller</p>
+            <RiMessageFill className="w-5 h-5 text-red-500" />
+            <p className="text-gray-400 font-normal text-xs cursor-pointer">
+              Report Seller
+            </p>
           </div>
+          {/* report box */}
+          {open1 === true && (
+            <div className="border -mt-10 bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
+              <div className="flex items-center py-1">
+                <div className="flex items-center w-full space-x-3 rounded-md justify-end">
+                  <RiMessageFill className="w-4 h-4 text-red-500" />{" "}
+                  <p className="text-gray-400 font-normal text-sm">Report</p>
+                </div>
+                <RiCloseFill
+                  className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
+                  onClick={() => setOpen1(false)}
+                />
+              </div>
+
+              <textarea
+                rows="5"
+                className="w-full bg-transparent px-3 outline-none text-xs"
+              ></textarea>
+            </div>
+          )}
+
+          {/* end of report box */}
         </div>
       </div>
     </div>

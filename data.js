@@ -147,39 +147,4 @@ export const categories = [
     about:
       "Coaching new web developers grasp how web development works and also how to go about their growth in the chosen career path.<br/>",
   },
-  {
-    id: 24,
-    Icon: "/bellefu-images/image12.svg",
-    title: "Coaching & Support",
-    about:
-      "Coaching new web developers grasp how web development works and also how to go about their growth in the chosen career path.<br/>",
-  },
-  {
-    id: 25,
-    Icon: "/bellefu-images/image12.svg",
-    title: "Coaching & Support",
-    about:
-      "Coaching new web developers grasp how web development works and also how to go about their growth in the chosen career path.<br/>",
-  },
-  {
-    id: 26,
-    Icon: "/bellefu-images/image12.svg",
-    title: "Coaching & Support",
-    about:
-      "Coaching new web developers grasp how web development works and also how to go about their growth in the chosen career path.<br/>",
-  },
-  {
-    id: 27,
-    Icon: "/bellefu-images/image12.svg",
-    title: "Coaching & Support",
-    about:
-      "Coaching new web developers grasp how web development works and also how to go about their growth in the chosen career path.<br/>",
-  },
-  {
-    id: 28,
-    Icon: "/bellefu-images/image12.svg",
-    title: "Coaching & Support",
-    about:
-      "Coaching new web developers grasp how web development works and also how to go about their growth in the chosen career path.<br/>",
-  },
 ];

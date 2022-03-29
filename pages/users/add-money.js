@@ -89,6 +89,13 @@ const AddMoney = () => {
   const showWallet = () => {
     router.push("/users/my-wallet");
   };
+  const handleClose = () => {
+    setShowCard(false);
+    setProceed(false);
+    setShowBank(false);
+    setTransactionSuccess(false);
+    setRotateFirstCaret(prevState => !prevState);
+  }
   const styleCaret1 = {
     paddingTop: '5px',
     transform: rotateFirstCaret ? 'rotate(90deg)': 'rotate(0)',
@@ -144,27 +151,27 @@ const AddMoney = () => {
                   }
                   { showCard && !proceed ? <>
                     <div className="flex justify-center">
-                    <div className="flex flex-col p-4">
+                    <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="card-no">Card Number</label></p>
-                      <p className=""><input type="text" value={cardNo} htmlFor="card-no" onChange={handleCardNo} className="py-2 px-2 border-2" /></p>
+                      <p className=""><input type="text" value={cardNo} htmlFor="card-no" onChange={handleCardNo} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg" /></p>
                     </div>
-                    <div className="flex flex-col p-4">
+                    <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="account-no">Account Number</label></p>
-                      <p className=""><input type="text" value={accountNo} htmlFor="account-no" onChange={handleAccountNo} className="py-2 px-2 border-2" /></p>
+                      <p className=""><input type="text" value={accountNo} htmlFor="account-no" onChange={handleAccountNo} className="py-2 px-2 outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg w-full" /></p>
                     </div>
                   </div>
                   <div className="flex justify-center">
-                    <div className="flex flex-col p-4">
+                    <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="account-name">Card Holder&apos;s Name</label></p>
-                      <p><input type="text" value={accountName} htmlFor="account-name" onChange={handleAccountName} className="py-2 px-2 border-2"  /></p>
+                      <p><input type="text" value={accountName} htmlFor="account-name" onChange={handleAccountName} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
                     </div>
-                    <div className="flex flex-col p-4">
+                    <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="cvc">CVC</label></p>
-                      <p><input type="text" value={cvc} htmlFor="cvc" onChange={handleCvc} className="py-2 px-2 border-2"  /></p>
+                      <p><input type="text" value={cvc} htmlFor="cvc" onChange={handleCvc} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
                     </div>
                   </div></> : proceed && !transactionSuccess ? <>
                   <p className="text-center my-2"><label id="amount">Add Amount</label></p>
-                  <p className="text-center mb-4"><input type="text" htmlFor="amount" className="border-2 py-2 px-3 rounded-md" /></p>
+                  <p className="text-center mb-4"><input type="text" htmlFor="amount" className="py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg" /></p>
                   </>: transactionSuccess ? <>
                   <p className="text-center font-semibold pt-9 text-bellefuGreen">successful!</p>
                   <p className="text-center mb-20">Your wallet has been successfully funded</p>
@@ -174,7 +181,7 @@ const AddMoney = () => {
                   </div>: proceed && !transactionSuccess? <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "45%"}} onClick={fundWallet}>
                     <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Fund Wallet</p></div>
                   </div>: transactionSuccess ? <>
-                  <div className="flex justify-center px-16"><p className="text-center rounded-lg py-3 mr-20 hover:cursor-pointer bg-bellefuOrange flex-auto text-white" onClick={showWallet}>View Wallet</p> <p className="text-center rounded-lg py-3 hover:cursor-pointer flex-auto border-2">Close</p></div>
+                  <div className="flex justify-center px-16"><p className="text-center rounded-lg py-3 mr-20 hover:cursor-pointer bg-bellefuOrange flex-auto text-white" onClick={showWallet}>View Wallet</p> <p className="text-center rounded-lg py-3 hover:cursor-pointer flex-auto border-2" onClick={handleClose}>Close</p></div>
                   </>:<></>
                   }
                 </div>

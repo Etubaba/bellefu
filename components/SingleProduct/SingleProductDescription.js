@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsHeart } from "react-icons/bs";
 import { AiFillEye } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
@@ -9,8 +9,12 @@ import { BsFillCheckSquareFill } from "react-icons/bs";
 import { BsFacebook, BsTwitter, BsFillFlagFill } from "react-icons/bs";
 
 const SingleProductDescription = () => {
+  const [open, setOpen] = useState(true);
+  const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  // const [active, setActive] = useState(false);
   return (
-    <div>
+    <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
       <div className="flex items-center justify-between px-7">
         <p className="text-3xl text-bellefuTitleBlack font-semibold">
@@ -81,17 +85,29 @@ const SingleProductDescription = () => {
             </div>
           </div>
         </div>
-
         {/* safety tips, share product, report product */}
         <div className="px-7 mt-6">
           <div className="flex items-center justify-between">
-            <button className="text-lg font-medium capitalize text-bellefuTitleBlack cursor-pointer">
+            <button
+              className="text-lg font-medium capitalize text-gray-400 active:text-bellefuTitleBlack cursor-pointer"
+              onClick={() => (setOpen(!open), setOpen1(false), setOpen2(false))}
+            >
               Safety tips
             </button>
-            <button className="text-lg font-medium text-gray-400 capitalize focus:text-bellefuTitleBlack cursor-pointer">
+            <button
+              className="text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
+              onClick={() => (
+                setOpen1(!open1), setOpen(false), setOpen2(false)
+              )}
+            >
               Share Product
             </button>
-            <button className="text-lg font-medium text-gray-400 capitalize focus:text-bellefuTitleBlack cursor-pointer">
+            <button
+              className="text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
+              onClick={() => (
+                setOpen2(!open2), setOpen(false), setOpen1(false)
+              )}
+            >
               Report Product
             </button>
           </div>
@@ -99,49 +115,55 @@ const SingleProductDescription = () => {
         {/* divider */}
         <div className="border-b mt-6" />
         {/* safety tips => details */}
-        {/* <div className="px-7 mt-4">
-          <div className="flex items-center space-x-4">
-            <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-            <p>Ensure quality/quantity of Products/Services.</p>
+        {open === true && (
+          <div className="px-7 mt-4 pb-4">
+            <div className="flex items-center space-x-4">
+              <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
+              <p>Ensure quality/quantity of Products/Services.</p>
+            </div>
+            <div className="flex items-center space-x-4">
+              <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
+              <p>Ensure meeting in a secured place if the need arise.</p>
+            </div>
+            <div className="flex items-center space-x-4">
+              <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
+              <p>
+                Contact support@bellefu.com if you require verification of buyer
+                or seller (Terms & Conditions apply)
+              </p>
+            </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-            <p>Ensure meeting in a secured place if the need arise.</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-            <p>
-              Contact support@bellefu.com if you require verification of buyer
-              or seller (Terms & Conditions apply)
-            </p>
-          </div>
-        </div> */}
+        )}
 
         {/* share product => details */}
-        {/* <div className="px-7">
-          <div className="flex items-center py-4 space-x-16">
-            <p className="text-lg font-medium text-bellefuBlack1">
-              Share this product on social media :
-            </p>
-            <div className="flex items-center border px-24 py-6 rounded-md space-x-7 bg-bellefuBackground ">
-              <BsFacebook className="w-7 h-7 text-[#4267B2]" />
-              <BsTwitter className="w-7 h-7 text-[#1DA1F2]" />
+        {open1 === true && (
+          <div className="px-7 pb-4">
+            <div className="flex items-center py-4 space-x-16">
+              <p className="text-lg font-medium text-bellefuBlack1">
+                Share this product on social media :
+              </p>
+              <div className="flex items-center border px-24 py-6 rounded-md space-x-7 bg-bellefuBackground ">
+                <BsFacebook className="w-7 h-7 text-[#4267B2]" />
+                <BsTwitter className="w-7 h-7 text-[#1DA1F2]" />
+              </div>
             </div>
           </div>
-        </div> */}
+        )}
 
         {/* report product => details */}
-        <div className="px-7 mt-5">
-          <div className="flex items-center py-4 space-x-16">
-            <p className="text-lg font-medium text-bellefuBlack1">
-              Did you think this product is not original/scam? :
-            </p>
-            <div className="flex items-center border px-14 border-bellefuOrange py-3 rounded-md space-x-3 bg-bellefuBackground ">
-              <BsFillFlagFill className="w-7 h-7 text-orange-600" />
-              <p>Flag this product</p>
+        {open2 === true && (
+          <div className="px-7 mt-5 pb-4">
+            <div className="flex items-center py-4 space-x-16">
+              <p className="text-lg font-medium text-bellefuBlack1">
+                Did you think this product is not original/scam? :
+              </p>
+              <div className="flex items-center border px-14 border-bellefuOrange py-3 rounded-md space-x-3 bg-bellefuBackground ">
+                <BsFillFlagFill className="w-7 h-7 text-orange-600" />
+                <p>Flag this product</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

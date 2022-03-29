@@ -23,7 +23,7 @@ const Product = () => {
 
         {/* body section */}
         {/* w-[calc(100%_-_10rem)] */}
-        <div className="bg-bellefuWhite flex-1 rounded-md h-[90vh] overflow-y-scroll overscroll-contain">
+        <div className="flex-1 h-screen ">
           <SingleProductBody products={newProducts} />
         </div>
       </div>

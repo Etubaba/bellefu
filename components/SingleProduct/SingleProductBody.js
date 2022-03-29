@@ -1,14 +1,16 @@
 import React from "react";
 import SimilarProducts from "./SimilarProducts";
 import SingleProductDescription from "./SingleProductDescription";
+import SingleProductSlider from "./SingleProductSlider";
 
 const SingleProductBody = ({ products }) => {
   console.log("Products again =>", products);
   return (
-    <div className="bg-bellefuWhite rounded-md pb-20">
+    <div className="pb-20 rounded-t-md">
+      <SingleProductSlider />
       <SingleProductDescription />
-      <div>
-        <div className="flex items-center px-7 justify-between pt-2">
+      <div className="mt-2">
+        <div className="bg-bellefuWhite flex items-center px-7 justify-between pt-2 rounded-t-md">
           <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
             Similar Products
           </p>
