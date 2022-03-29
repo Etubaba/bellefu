@@ -9,7 +9,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 function Footer() {
     return (
-        <div className="bg-[#3F3F3F] px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
+        <div className="bg-[#3F3F3F] hidden lg:inline-block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
             <div className="flex justify-evenly space-x-10 mb-12">
                 <div className="flex flex-col space-y-3 w-80">
                     <img
@@ -17,7 +17,7 @@ function Footer() {
                         alt="About US"
                         src="https://www.linkpicture.com/q/bellefulogo_1_-removebg-preview.png"
                     />
-                    <p className="text-[#D4D7D1] font-light text-sm">
+                    <p className="text-[#D4D7D1] text-justify font-light text-sm">
                         Bellefu.com is a dynamic online marketplace dedicated to
                         agriculture-related activities ensuring farmers, buyers, and sellers
                         of agricultural products have direct contact with other agro-allied
