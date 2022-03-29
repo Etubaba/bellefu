@@ -3,12 +3,15 @@ import Image from "next/image";
 
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
-import axios from 'axios'
+import axios from "axios";
 import { apiData } from "../constant";
 
 import Body from "../components/Body";
+import MobileCategoryBar from "../components/MobileCategoryBar/MobileCategoryBar";
+import { categories } from "../data";
+import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
-export default function Home() {
+export default function Home({ list }) {
   return (
     <div>
       <Head>
@@ -17,24 +20,30 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-      <main className="bg-bellefuBackground h-screen overflow-hidden">
+      <main className="bg-bellefuBackground ">
         <div className="max-w-[90%] mx-auto">
           {/* second nav bar */}
-          <div className="">
-            <HeaderSearch />
+          <div className="hidden lg:inline">
+            <HeaderSearch list={list} />
+          </div>
+
+          {/* mobile header search */}
+          <div className="lg:hidden">
+            <MobileHeaderSearch />
           </div>
 
           {/* main body */}
           <div className="flex">
-            {/* cstegory side bar */}
-            <div className="w-[20%] min-h-screen rounded-md mr-3 pb-32 bg-bellefuWhite">
-              <h4 className="tracking-wider text-sm text-bellefuTitleBlack font-semibold mb-5 sticky top-0 bg-bellefuWhite px-5 pt-5 rounded-md">
-                Top Category
-              </h4>
-              <CategorySideBar />
+            {/* category side bar */}
+            <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
+              <CategorySideBar categories={categories} />
+            </div>
+
+            <div className=" h-auto lg:hidden my-4 rounded-sm">
+              <MobileCategoryBar categories={categories} />
             </div>
             {/* list of products & slider */}
-            <div className="flex-1 min-h-screen">
+            <div className="flex-1">
               <Body />
             </div>
           </div>
@@ -44,14 +53,14 @@ export default function Home() {
   );
 }
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
 
-  const res = fetch(`${apiData}get/countries`)
-  const list = await res.json()
-  return {
+//   const res = axios.get(`${apiData}get/countries`)
+//   const list = await res.json()
+//   return {
 
-    props: {
-      list,
-    }
-  }
-}
+//     props: {
+//       list,
+//     }
+//   }
+// }

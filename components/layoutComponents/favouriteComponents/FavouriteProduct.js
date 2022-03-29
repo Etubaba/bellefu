@@ -26,10 +26,10 @@ const FavouriteProduct = ({ product }) => {
         <GiHearts className="w-5 h-5 text-bellefuOrange" />
       </div>
       <div className="flex items-center space-x-3 mt-2">
-        <button className="bg-bellefuOrange px-12 py-4 rounded-md">
+        <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
           <MdOutlineMessage className="text-white" />
         </button>
-        <button className="bg-bellefuGreen px-12 py-4 rounded-md">
+        <button className="bg-bellefuGreen w-full flex items-center justify-center py-4 rounded-md">
           <MdCall className="text-white" />
         </button>
       </div>

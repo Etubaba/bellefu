@@ -431,3 +431,23 @@ export const expiredProductData = [
     status: "expired",
   },
 ];
+
+// images data
+export const images = [
+  {
+    id: 1,
+    img: "/bellefu/bellefu1.jpg",
+  },
+  {
+    id: 2,
+    img: "/bellefu/bellefu2.jpg",
+  },
+  {
+    id: 3,
+    img: "/bellefu/bellefu3.jpg",
+  },
+  {
+    id: 4,
+    img: "/bellefu/bellefu4.jpg",
+  },
+];

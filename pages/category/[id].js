@@ -81,7 +81,7 @@ const Product = () => {
           {/* select sub category */}
           <div>
             <p className="text-bellefuBlack1 font-semibold ">Sub Category:</p>
-            <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relativ">
+            <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
               <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
                 <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
                   Vegetables
@@ -333,7 +333,7 @@ const Product = () => {
         </div>
 
         {/* product session */}
-        <div className="flex-1 overflow-y-scroll h-screen">
+        <div className="flex-1">
           <CategoryProducts />
         </div>
       </div>

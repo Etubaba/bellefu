@@ -6,9 +6,12 @@ import { IoGrid } from "react-icons/io";
 function Product() {
   return (
     <div className="bg-bellefuWhite rounded-t-md">
-      <div className="flex justify-between p-4 ">
-        <h3 className="font-bold text-[1.2rem]">Vegetables ads</h3>
-        <div className="flex justify-between">
+      <div className="p-4 ">
+        <div>
+          <h3 className="font-bold text-[1.2rem]">Vegetables ads</h3>
+        </div>
+        <div>hello</div>
+        {/* <div className="flex justify-between">
           <div className="border-2 rounded-md p-[7px] w-[17vw] flex mr-3">
             <div className="mt-[8px] flex">
               <BiSortAlt2 className="text-bellefuOrange mr-2 text-[1.2rem]" />
@@ -35,7 +38,7 @@ function Product() {
               <BiGridSmall className="text-bellefuOrange text-[2rem]" />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

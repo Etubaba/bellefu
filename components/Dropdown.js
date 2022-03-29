@@ -12,31 +12,33 @@ const Dropdown = ({ category }) => {
       <div className="">
         <div
           key={category.id}
-          className="flex items-center mb-7 hover:bg-bellefuBackground p-1  rounded-md"
+          className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
         >
           <div className="flex items-center flex-1 space-x-2 cursor-pointer select-none">
             <img src={category.Icon} alt="icons" className="w-4 h-4" />
             <h5
-              className="text-bellefuBlack1 font-medium whitespace-nowrap"
+              className="text-bellefuBlack1 font-medium text-normal whitespace-nowrap"
               onClick={() => router.push("/category/id")}
             >
               {category.title}
             </h5>
           </div>
-          {open === false ? (
-            <div onClick={() => setOpen(!open)}>
-              <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
-            </div>
-          ) : (
-            <div onClick={() => setOpen(!open)}>
-              <AiOutlineCaretDown className="text-gray-300 cursor-pointer" />
-            </div>
-          )}
+          <div className="">
+            {open === false ? (
+              <div onClick={() => setOpen(!open)}>
+                <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
+              </div>
+            ) : (
+              <div onClick={() => setOpen(!open)}>
+                <AiOutlineCaretDown className="text-gray-300 cursor-pointer" />
+              </div>
+            )}
+          </div>
         </div>
         <div
           className={
             open
-              ? "inline-block w-full -mt-6 space-y-3 text-sm text-bellefuBlack1 select-none "
+              ? "inline-block w-full -mt-6 space-y-3 text-sm text-bellefuBlack1 select-none bg-bellefuBackground"
               : "hidden"
           }
         >
@@ -54,10 +56,10 @@ const Dropdown = ({ category }) => {
           key={category.id}
           className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
         >
-          <div className="flex items-center flex-1 space-x-2 cursor-pointer">
+          <div className="flex  items-center flex-1 space-x-2 cursor-pointer">
             <img src={category.Icon} alt="icons" className="w-4 h-4" />
             <h5
-              className="text-bellefuBlack1 font-medium"
+              className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
               onClick={() => router.push("/category/id")}
             >
               {category.title}
