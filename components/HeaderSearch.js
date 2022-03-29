@@ -98,7 +98,7 @@ const HeaderSearch = ({ list }) => {
                 }
 
 
-                <button className='w-4/12 h-8 hover:bg-orange-300 m-2 rounded-sm text-center bg-bellefuOrange text-white'>Search</button>
+                <button className=' w-4/12 h-8  m-2 rounded-sm text-center bg-bellefuOrange text-white'>Search</button>
 
             </div>
 

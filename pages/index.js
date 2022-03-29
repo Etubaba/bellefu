@@ -44,14 +44,14 @@ export default function Home() {
   );
 }
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
 
-  const res = fetch(`${apiData}get/countries`)
-  const list = await res.json()
-  return {
+//   const res = fetch(`${apiData}get/countries`)
+//   const list = await res.json()
+//   return {
 
-    props: {
-      list,
-    }
-  }
-}
+//     props: {
+//       list,
+//     }
+//   }
+// }
