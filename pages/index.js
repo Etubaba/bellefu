@@ -3,15 +3,17 @@ import Image from "next/image";
 
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
-import axios from "axios";
-import { apiData } from "../constant";
+// import axios from "axios";
+// import { apiData } from "../constant";
 
 import Body from "../components/Body";
 import MobileCategoryBar from "../components/MobileCategoryBar/MobileCategoryBar";
 import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
-export default function Home({ list }) {
+export default function Home({ data }) {
+
+
   return (
     <div>
       <Head>
@@ -24,27 +26,27 @@ export default function Home({ list }) {
         <div className="max-w-[90%] mx-auto">
           {/* second nav bar */}
           <div className="hidden lg:inline">
-            <HeaderSearch list={list} />
+            <HeaderSearch dialet={data.defaultlanguage} state={data.countryStates} languages={data.languages} countries={data.countries} location={data.defaultCountry} />
           </div>
 
           {/* mobile header search */}
           <div className="lg:hidden">
-            <MobileHeaderSearch />
+            <MobileHeaderSearch state={data.countryStates} />
           </div>
 
           {/* main body */}
           <div className="flex flex-col lg:flex-row">
             {/* category side bar */}
             <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
-              <CategorySideBar categories={categories} />
+              <CategorySideBar category={data.categories} categories={categories} />
             </div>
 
             <div className=" h-auto lg:hidden my-4 rounded-sm">
-              <MobileCategoryBar categories={categories} />
+              <MobileCategoryBar category={data.categories} categories={categories} />
             </div>
             {/* list of products & slider */}
             <div className="flex-1">
-              <Body />
+              <Body products={data.products} slider={data.slider} />
             </div>
           </div>
         </div>
@@ -53,14 +55,14 @@ export default function Home({ list }) {
   );
 }
 
-// export async function getStaticProps() {
+export async function getServerSideProps() {
 
-//   const res = axios.get(`${apiData}get/countries`)
-//   const list = await res.json()
-//   return {
+  const res = await fetch(`https://bellefu.inmotionhub.xyz/api/web30/get/web/index`)
+  const data = await res.json()
+  return {
 
-//     props: {
-//       list,
-//     }
-//   }
-// }
+    props: {
+      data,
+    }
+  }
+}
