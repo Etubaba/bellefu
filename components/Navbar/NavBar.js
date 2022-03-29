@@ -2,10 +2,12 @@ import Image from "next/image";
 import { useState } from "react";
 import BellefuLogo from "../../public/bellefulogo.png";
 import { IoMdNotifications, IoMdAddCircleOutline } from "react-icons/io";
+import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 
 import MobileNavbar from "./MobileNavbar";
 const NavBar = () => {
+  const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [mobileNavbar, setMobileNavbar] = useState(false);
   return (
@@ -40,6 +42,31 @@ const NavBar = () => {
           </div>
 
           <div className="px-3 text-white text-2xl -mt-2">|</div>
+          {/* the user profile */}
+          <div className="flex items-center space-x-2">
+            <Image
+              src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
+              width={50}
+              height={50}
+              className="rounded-full object-cover"
+            />
+            <p className="text-white font-semibold">
+              Hi <span>Mavin</span>
+            </p>
+            <div className="">
+              {open === false ? (
+                <div onClick={() => setOpen(!open)}>
+                  <AiOutlineCaretRight className="text-white cursor-pointer" />
+                </div>
+              ) : (
+                <div onClick={() => setOpen(!open)}>
+                  <AiOutlineCaretDown className="text-white cursor-pointer" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* login register place */}
           <div className="text-white space-x-5 capitalize text-md font-semibold">
             <a href="">Register</a>
             <a href="">Login</a>
