@@ -2,11 +2,13 @@ import Dropdown from "./Dropdown";
 
 const CategorySideBar = ({ categories }) => {
   return (
-    <div>
-      <h4 className="hidden lg:inline tracking-wider text-sm text-bellefuTitleBlack font-semibold mb-5 bg-bellefuWhite px-5 pt-5 rounded-md">
-        Top Category
-      </h4>
-      <div className="px-3 pt-5 overflow-y-scroll h-screen pb-40">
+    <div className="bg-bellefuWhite rounded-md pb-10">
+      <div>
+        <h4 className="hidden lg:inline tracking-wider text-lg text-bellefuTitleBlack font-semibold px-5 rounded-md">
+          Top Category
+        </h4>
+      </div>
+      <div className="px-3 pt-5">
         {categories?.map((category) => (
           <Dropdown key={category.id} category={category} />
         ))}

@@ -43,19 +43,21 @@ const profile = () => {
         </button>
       </div>
       <div className="border  p-5 mt-7 ">
-        <div className="ml-[35%]">
+        <div className="justify-center item-center flex  relative">
+          <div>
           <img
             className=" h-15 w-15 object-cover  rounded-full ring-2 ring-white"
             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             alt="profile"
           />
-          <div className=" relative bottom-[7vh] left-[9vw] rounded-[50%] cursor-pointer p-[8px]  bg-gray-300 w-[3vw] h-[6vh] ">
+          <div className=" border border-bellefuGreen  absolute bottom-[7%] left-[56%] rounded-[50%] cursor-pointer p-[10px]  bg-gray-300 hover:bg-gray-100 w-[50px] h-[50px]">
             <label>
-              <div className="mt-[4px] ml-[8px]">
-                <FaCamera />
+              <div className=" mt-[2px] relative">
+                <FaCamera  />
               </div>
               <input type="file" className="opacity-0" />
             </label>
+          </div>
           </div>
         </div>
 
@@ -163,7 +165,7 @@ const profile = () => {
                         name="phone-number"
                         id="phone-number"
                         disabled={disable}
-                        className="bg-[white] p-[8px] mt-[2px] focus:ring-bellefuGreen focus:outline-0 block w-[70%] relative left-[7vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        className="bg-[white] p-[8px] mt-[2px] focus:ring-bellefuGreen focus:outline-0 block w-[85%] relative left-[5vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         placeholder="Your number"
                       />
                     </div>
