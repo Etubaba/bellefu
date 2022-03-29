@@ -5,6 +5,9 @@ import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
 
 import Body from "../components/Body";
+import MobileCategoryBar from "../components/MobileCategoryBar/MobileCategoryBar";
+import { categories } from "../data";
+import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
 export default function Home() {
   return (
@@ -15,24 +18,30 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-      <main className="bg-bellefuBackground h-screen overflow-hidden">
+      <main className="bg-bellefuBackground h-screen ">
         <div className="max-w-[90%] mx-auto">
           {/* second nav bar */}
-          <div className="">
+          <div className="hidden lg:inline">
             <HeaderSearch />
           </div>
 
+          {/* mobile header search */}
+          <div className="lg:hidden">
+            <MobileHeaderSearch />
+          </div>
+
           {/* main body */}
-          <div className="flex">
-            {/* cstegory side bar */}
-            <div className="w-[20%] min-h-screen rounded-md mr-3 pb-32 bg-bellefuWhite">
-              <h4 className="tracking-wider text-sm text-bellefuTitleBlack font-semibold mb-5 sticky top-0 bg-bellefuWhite px-5 pt-5 rounded-md">
-                Top Category
-              </h4>
-              <CategorySideBar />
+          <div className="flex flex-col lg:flex-row">
+            {/* category side bar */}
+            <div className=" hidden lg:inline w-[20%] min-h-screen rounded-md mr-3 pb-32 bg-bellefuWhite">
+              <CategorySideBar categories={categories} />
+            </div>
+
+            <div className=" h-auto lg:hidden my-4 rounded-sm">
+              <MobileCategoryBar categories={categories} />
             </div>
             {/* list of products & slider */}
-            <div className="flex-1 min-h-screen">
+            <div className="flex-1 h-screen">
               <Body />
             </div>
           </div>

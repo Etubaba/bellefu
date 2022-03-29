@@ -26,12 +26,12 @@ const ProductList = ({ product }) => {
         </p>
         <BsHeart className="w-4 h-4 text-bellefuOrange" />
       </div>
-      <div className="flex items-center justify-between mt-2">
-        <button className="bg-bellefuOrange px-12 py-4 rounded-md">
+      <div className="flex items-center mt-2 space-x-3">
+        <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
           <MdOutlineMessage className="!text-white" />
         </button>
-        <button className="bg-bellefuGreen px-12 py-4 rounded-md">
-          <MdCall className="text-white" />
+        <button className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
+          <MdCall className="text-white " />
         </button>
       </div>
     </div>

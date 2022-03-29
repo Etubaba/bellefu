@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { Provider } from "react-redux";
 import { store } from "../features/store";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar/NavBar";
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout || EmptyLayout;
