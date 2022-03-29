@@ -44,7 +44,11 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
                 {selectCountry && (
                     <div className="z-50 absolute top-32 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
                         {countries?.map(list => (
-                            <div onClick={() => setFlag(list.iso2)} class="py-1 flex space-x-3 hover:bg-bellefuBackground" >
+                            <div onClick={() => {
+                                setFlag(list.iso2)
+                                setSelectCountry(false)
+                            }}
+                                class="py-1 flex space-x-3 hover:bg-bellefuBackground" >
 
                                 <p key={list.id} className="text-gray-700 space-x-3 px-4 flex py-2 text-sm">
                                     <div>
@@ -66,7 +70,12 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
                 {selectlang && (
                     <div className="z-50 absolute top-32 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
                         {languages.map(lang => (
-                            <div onClick={() => setNative(lang.code)} key={lang.id} className="py-1 hover:bg-bellefuBackground" >
+                            <div onClick={() => {
+                                setNative(lang.code)
+                                setSelectlang(false)
+                            }}
+                                key={lang.id}
+                                className="py-1 hover:bg-bellefuBackground" >
 
                                 <span className="text-gray-700 block px-4  py-2 text-sm">{lang.name}</span>
 
@@ -109,14 +118,14 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
 
                 {
                     open && (
-                        <div className="z-10 absolute top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                        <div className="z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                            {state.map(state => (
+                                <div key={state.id} className="py-1  hover:bg-bellefuBackground " >
 
-                            <div className="py-1  hover:bg-bellefuBackground " >
-
-                                <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">Account settings</span>
+                                    <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">{state.name}</span>
 
 
-                            </div>
+                                </div>))}
                         </div>
 
                     )
