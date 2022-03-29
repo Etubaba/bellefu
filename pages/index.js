@@ -33,7 +33,7 @@ export default function Home({ list }) {
           </div>
 
           {/* main body */}
-          <div className="flex">
+          <div className="flex flex-col lg:flex-row">
             {/* category side bar */}
             <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
               <CategorySideBar categories={categories} />
