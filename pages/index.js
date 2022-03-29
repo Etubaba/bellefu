@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
-import axios from 'axios'
+import axios from "axios";
 import { apiData } from "../constant";
 
 import Body from "../components/Body";
@@ -53,14 +53,14 @@ export default function Home() {
   );
 }
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
 
-  const res = fetch(`${apiData}get/countries`)
-  const list = await res.json()
-  return {
+//   const res = fetch(`${apiData}get/countries`)
+//   const list = await res.json()
+//   return {
 
-    props: {
-      list,
-    }
-  }
-}
+//     props: {
+//       list,
+//     }
+//   }
+// }
