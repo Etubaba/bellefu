@@ -20,7 +20,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-      <main className="bg-bellefuBackground h-screen ">
+      <main className="bg-bellefuBackground ">
         <div className="max-w-[90%] mx-auto">
           {/* second nav bar */}
           <div className="hidden lg:inline">
@@ -33,9 +33,9 @@ export default function Home() {
           </div>
 
           {/* main body */}
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex">
             {/* category side bar */}
-            <div className=" hidden lg:inline w-[20%] min-h-screen rounded-md mr-3 pb-32 bg-bellefuWhite">
+            <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
               <CategorySideBar categories={categories} />
             </div>
 
@@ -43,7 +43,7 @@ export default function Home() {
               <MobileCategoryBar categories={categories} />
             </div>
             {/* list of products & slider */}
-            <div className="flex-1 h-screen">
+            <div className="flex-1">
               <Body />
             </div>
           </div>
