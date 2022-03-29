@@ -60,7 +60,7 @@ const Register = () => {
               <p><input type={showPassword?"text":"password"} htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={onChange("password")} /></p>
             </div>
           </div>
-          <p className="bg-[#FFA500] text-white w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer">Register</p>
+          <p className="bg-[#FFA500] hover:bg-[#fabe50] text-white w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer">Register</p>
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>

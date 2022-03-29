@@ -1,0 +1,1 @@
+export const apiData = 'https://bellefu.inmotionhub.xyz/api/mobile/'

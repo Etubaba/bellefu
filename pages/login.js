@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useRouter} from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import {BsEye, BsEyeSlash} from "react-icons/bs";
@@ -11,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const onPasswordChange = (evt) => {
     setPassword(evt.target.value);
     if (evt.target.value) setShowIcon(true);
@@ -51,8 +53,8 @@ const Login = () => {
               <p className=""><input type={showPassword?"text":"password"} htmlFor="first-name" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={password} onChange={onPasswordChange} /></p>
             </div>
           </div>
-          <p className="w-[50%] mx-auto"><button className="bg-[#FFA500] w-full text-white py-2 text-center rounded-md mb-4" type="button">Login</button></p>
-          <p className="w-[50%] mx-auto text-center"><button>Forget Password</button></p>
+          <p className="w-[50%] mx-auto"><button className="bg-[#FFA500] hover:bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" type="button">Login</button></p>
+          <p className="w-[50%] mx-auto text-center"><button type="button" onClick={() => router.push("/forget-password")}>Forget Password</button></p>
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>

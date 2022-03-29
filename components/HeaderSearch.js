@@ -1,38 +1,61 @@
 import React, { useState } from "react";
-// import Flags from 'country-flag-icons/react/3x2'
-// import { InputLabel, MenuItem, Select, FormControl } from "@mui/material";
 import { FiSearch } from 'react-icons/fi'
 import { ImLocation2 } from 'react-icons/im'
-const swag = {
-    width: "5vw",
-    height: "4vh",
-    position: "relative",
-    top: "1vh",
-    marginRight: "2.4vw",
-};
+import { AiFillCaretDown } from 'react-icons/ai'
 
-const HeaderSearch = () => {
+
+const HeaderSearch = ({ list }) => {
     const [open, setOpen] = useState(false)
+    const [selectCountry, setSelectCountry] = useState(false)
+    const [selectlang, setSelectlang] = useState(false)
 
-
+    console.log(list);
     return (
-        <div className={'w-full h-20 mt-5 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
+        <div className={'w-full h-20 mt-3 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
             <div className='flex'>
-                <div >
-                    <select className=" h-full py-4 pl-2 pr-3 border-transparent bg-transparent  sm:text-sm rounded-md">
-                        <option value=''></option>
-                        <option >United</option>
-                        <option>Spain</option>
-                        <option>France</option>
-                    </select>
+                <div className='flex space-x-4 items-center justify-center ml-8' >
+
+                    <div>
+                        <img
+                            alt='error'
+                            src='https://flagcdn.com/32x24/ng.png' />
+                    </div>
+
+                    <AiFillCaretDown onClick={() => setSelectCountry(!selectCountry)} className={selectCountry ? 'text-bellefuOrange' : 'text-gray-600'} />
                 </div>
-                <div >
-                    <select className=" h-full py-4 pl-2 pr-3 border-transparent bg-transparent  sm:text-sm rounded-md">
-                        <option value=''></option>
-                        <option >EN</option>
-                        <option>SP</option>
-                        <option>FR</option>
-                    </select>
+
+                {selectCountry && (
+                    <div class="z-50 absolute top-40 right-[67rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                        <div class="py-1" >
+
+                            <a href="#" className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">Account settings</a>
+
+                        </div>
+                    </div>
+                )}
+                {selectlang && (
+                    <div class="z-50 absolute top-40 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                        <div class="py-1" >
+
+                            <a href="#" class="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">Account settings</a>
+                            <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm" >Support</a>
+                            <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm" >License</a>
+                            <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm">License</a>
+
+                        </div>
+                    </div>
+                )}
+
+
+
+
+                <div onClick={() => setSelectlang(!selectlang)} className=' bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex'>
+
+
+                    <p className='text-white'>EN </p>
+
+                    <AiFillCaretDown className='text-white' />
+
                 </div>
 
 
@@ -75,7 +98,7 @@ const HeaderSearch = () => {
                 }
 
 
-                <button className='w-4/12 h-8 hover:bg-orange-300 m-2 rounded-sm text-center bg-bellefuOrange text-white'>Search</button>
+                <button className=' w-4/12 h-8  m-2 rounded-sm text-center bg-bellefuOrange text-white'>Search</button>
 
             </div>
 
