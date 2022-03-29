@@ -43,7 +43,7 @@ const MobileHeaderSearch = () => {
         </div>
       </div>
       {open && (
-        <div class="z-20 absolute top-48 left-0 right-0 w-80 mx-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
+        <div class="z-20 absolute top-48 left-0 right-0 w-64 sm:w-80 mx-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
           <div class="py-1">
             <a
               href="#"

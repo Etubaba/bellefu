@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiSearch } from 'react-icons/fi'
 import { ImLocation2 } from 'react-icons/im'
 import { AiFillCaretDown } from 'react-icons/ai'
+import axios from 'axios'
+import { apiData } from '../constant'
 
 
-const HeaderSearch = ({ list }) => {
+const HeaderSearch = () => {
     const [open, setOpen] = useState(false)
     const [selectCountry, setSelectCountry] = useState(false)
     const [selectlang, setSelectlang] = useState(false)
+    const [countries, setCountries] = useState([])
 
-    console.log(list);
+
+    useEffect(() => {
+        const fetchcountry = async () => {
+            await axios.get(`${apiData}get/countries`)
+                .then(res => setCountries(res.data.data))
+                .catch(err => console.log(err))
+        }
+
+        fetchcountry()
+    }, [])
+
+
+    console.log(countries);
     return (
         <div className={'w-full h-20 mt-3 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
             <div className='flex'>
@@ -25,12 +40,24 @@ const HeaderSearch = ({ list }) => {
                 </div>
 
                 {selectCountry && (
-                    <div class="z-50 absolute top-40 right-[67rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
-                        <div class="py-1" >
+                    <div class="z-50 absolute top-40 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                        {countries?.map(list => (<div class="py-1 flex space-x-3" >
 
-                            <a href="#" className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">Account settings</a>
+                            <p key={list.id} className="text-gray-700 space-x-3 px-4 flex hover:bg-bellefuBackground py-2 text-sm">
+                                <div>
+                                    <img
+                                        alt='error'
+                                        src={`https://flagcdn.com/20x15/${list.iso2.toLowerCase()}.png`} /></div>
 
-                        </div>
+                                <span>{list.name}</span>
+
+
+                            </p>
+
+
+
+
+                        </div>))}
                     </div>
                 )}
                 {selectlang && (

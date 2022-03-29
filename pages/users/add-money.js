@@ -16,17 +16,22 @@ const AddMoney = () => {
   const [anchorElMenu1, setAnchorElMenu1] = useState(null);
   const [showCard, setShowCard] = useState(false);
   const [showBank, setShowBank] = useState(false);
-  const [cardNo, setCardNo] = useState("");
-  const [accountNo, setAccountNo] = useState("");
-  const [accountName, setAccountName] = useState("");
-  const [cvc, setCvc] = useState("");
+  const [formFields, setFormFields] = useState({
+    cardNo: "",
+    accountNo: "",
+    accountName: "",
+    cvc: "",
+  })
+  // const [cardNo, setCardNo] = useState("");
+  // const [accountNo, setAccountNo] = useState("");
+  // const [accountName, setAccountName] = useState("");
+  // const [cvc, setCvc] = useState("");
   const [proceed, setProceed] = useState(false);
   const [transactionSuccess, setTransactionSuccess] = useState(false);
   const openMenu1 = Boolean(anchorElMenu1);
   const firstCaret = useRef();
   const router = useRouter();
   const rotateCaret1 = () => {
-    console.log("!")
     if (showBank) {
       setRotateSecondCaret(false); //rotate caret back when the first is opened
       setShowBank(false);  //close bank information when the first caret is opened
@@ -67,18 +72,23 @@ const AddMoney = () => {
     //setEventOnCard(true);
     evt.stopPropagation()
   };
-  const handleCardNo = (evt) => {
-    setCardNo(evt.target.value);
-  };
-  const handleAccountNo = (evt) => {
-    setAccountNo(evt.target.value);
-  };
-  const handleAccountName = (evt) => {
-    setAccountName(evt.target.value);
-  };
-  const handleCvc = (evt) => {
-    setCvc(evt.target.value);
-  };
+  const handleChange = (input) => (evt) => {
+    if (input !== "accountName" && isNaN(evt.target.value)) return;
+
+    setFormFields({...formFields, [input]: evt.target.value})
+  }
+  // const handleCardNo = (evt) => {
+  //   setCardNo(evt.target.value);
+  // };
+  // const handleAccountNo = (evt) => {
+  //   setAccountNo(evt.target.value);
+  // };
+  // const handleAccountName = (evt) => {
+  //   setAccountName(evt.target.value);
+  // };
+  // const handleCvc = (evt) => {
+  //   setCvc(evt.target.value);
+  // };
   const handleContinue = () => {
     setProceed(true);
     //setTransactionSuccess(true);
@@ -150,24 +160,24 @@ const AddMoney = () => {
                   { showCard && !proceed ?<h3 className="font font-medium mb-2">Card Details</h3>:proceed && !transactionSuccess?<h3 className="font font-medium mb-2">Add Money</h3>:<></>
                   }
                   { showCard && !proceed ? <>
-                    <div className="flex justify-center">
+                  <div className="flex flex-col md:flex-row md:justify-center">
                     <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="card-no">Card Number</label></p>
-                      <p className=""><input type="text" value={cardNo} htmlFor="card-no" onChange={handleCardNo} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg" /></p>
+                      <p className=""><input type="text" value={formFields.cardNo} htmlFor="card-no" onChange={handleChange("cardNo")} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg" /></p>
                     </div>
                     <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="account-no">Account Number</label></p>
-                      <p className=""><input type="text" value={accountNo} htmlFor="account-no" onChange={handleAccountNo} className="py-2 px-2 outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg w-full" /></p>
+                      <p className=""><input type="text" value={formFields.accountNo} htmlFor="account-no" onChange={handleChange("accountNo")} className="py-2 px-2 outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg w-full" /></p>
                     </div>
                   </div>
-                  <div className="flex justify-center">
-                    <div className="flex flex-col flex-auto p-4">
+                  <div className="flex flex-col md:flex-row md:justify-center">
+                    <div className="flex flex-col  flex-auto p-4">
                       <p className="mb-2"><label id="account-name">Card Holder&apos;s Name</label></p>
-                      <p><input type="text" value={accountName} htmlFor="account-name" onChange={handleAccountName} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
+                      <p><input type="text" value={formFields.accountName} htmlFor="account-name" onChange={handleChange("accountName")} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
                     </div>
                     <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="cvc">CVC</label></p>
-                      <p><input type="text" value={cvc} htmlFor="cvc" onChange={handleCvc} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
+                      <p><input type="text" value={formFields.cvc} htmlFor="cvc" onChange={handleChange("cvc")} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
                     </div>
                   </div></> : proceed && !transactionSuccess ? <>
                   <p className="text-center my-2"><label id="amount">Add Amount</label></p>
@@ -176,19 +186,20 @@ const AddMoney = () => {
                   <p className="text-center font-semibold pt-9 text-bellefuGreen">successful!</p>
                   <p className="text-center mb-20">Your wallet has been successfully funded</p>
                   </>:<></>}
-                  { showCard && !proceed ? <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}} onClick={handleContinue}>
+                  { showCard && !proceed ? <div className="mx-auto mt-3 bg-bellefuOrange hover:bg-[#fabe50] text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}} onClick={handleContinue}>
                     <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Continue</p></div>
-                  </div>: proceed && !transactionSuccess? <div className="mx-auto bg-bellefuOrange text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "45%"}} onClick={fundWallet}>
+                  </div>: proceed && !transactionSuccess? <div className="mx-auto bg-bellefuOrange hover:bg-[#fabe50] text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2 w-[100%] md:w-[45%]" onClick={fundWallet}>
                     <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Fund Wallet</p></div>
                   </div>: transactionSuccess ? <>
-                  <div className="flex justify-center px-16"><p className="text-center rounded-lg py-3 mr-20 hover:cursor-pointer bg-bellefuOrange flex-auto text-white" onClick={showWallet}>View Wallet</p> <p className="text-center rounded-lg py-3 hover:cursor-pointer flex-auto border-2" onClick={handleClose}>Close</p></div>
+                  <div className="flex flex-col md:flex-row md:justify-center md:px-16"><p className="text-center rounded-lg py-3 mb-2 md:mb-0 md:mr-20 hover:cursor-pointer bg-bellefuOrange hover:bg-[#fabe50] flex-auto text-white" onClick={showWallet}>View Wallet</p> <p className="text-center rounded-lg py-3 hover:cursor-pointer hover:bg-bellefuBackground flex-auto border-2" onClick={handleClose}>Close</p></div>
                   </>:<></>
                   }
                 </div>
               </div>
             </div>
+            { !proceed && 
             <div className={bankMethodStyle.class} onClick={rotateCaret2}>
-            <div className="w-full">
+              <div className="w-full">
                 <div className={showBank ? "bg-[#F8FDF2] pt-8":""}>
                 <div className={!showBank?"flex px-8":"flex px-8 pb-6"}>
                   <p className="mr-5 pt-1"><RiBankFill /></p>
@@ -208,7 +219,7 @@ const AddMoney = () => {
                     <hr />
                     <div className="py-4 px-8">
                       <h3 className="font font-medium mb-2">Information</h3>
-                      <p>After a successful transfer, kindly send us the transfer slipfor verification</p>
+                      <p>After a successful transfer, kindly send us the transfer slip for verification</p>
                       <p>Your account will be credited within 30minutes to 1hr</p>
                     </div>
                   </div>
@@ -216,6 +227,7 @@ const AddMoney = () => {
                 }
               </div>
             </div>
+            }
           </div>
       </div>
     </div>
