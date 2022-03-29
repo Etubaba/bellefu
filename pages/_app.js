@@ -2,6 +2,8 @@ import "../styles/globals.css";
 import { Provider } from "react-redux";
 import { store } from "../features/store";
 import NavBar from "../components/Navbar/NavBar";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout || EmptyLayout;
@@ -12,6 +14,7 @@ function MyApp({ Component, pageProps }) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <Footer />
     </Provider>
   );
 }

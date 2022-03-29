@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
+import {useRouter} from "next/router";
 import { MdAccountBox, MdPending, MdNotifications } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { ImKey, ImPushpin, ImClock } from "react-icons/im";
@@ -9,7 +10,8 @@ import { GiWallet } from "react-icons/gi";
 import NavLink from "./NavLink";
 
 const UserSideBar = () => {
-  const iconValues = [
+  const router = useRouter(),
+  iconValues = [
     { icon: MdAccountBox, text: "Account overview", to: "/users" },
     { icon: false },
     { icon: HiUser, text: "My Profile", to: "/users/profile" },
@@ -40,7 +42,10 @@ const UserSideBar = () => {
     { icon: ImKey, text: "Reset Password", to: "/users/reset-password" },
     { icon: BiLogOut, text: "Logout", to: "/users/logout" },
   ],
-    lastElem = iconValues.length - 1;
+    lastElem = iconValues.length - 1,
+    handleLogout = () => {
+      router.push("/login");
+    };
 
   return (
     <div className="mt-5 bg-bellefuWhite w-[24vw] h-screen mr-3 rounded-lg pt-4">
@@ -48,12 +53,14 @@ const UserSideBar = () => {
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
-              <NavLink
-                to={iconValue.to}
-                className="flex m-4 mb-24 cursor-pointer hover:bg-red-50 rounded-lg py-1.5"
-                icon={iconValue}
+              <p
+                className="flex m-4 mb-24 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
+                onClick={handleLogout}
                 key={index}
-              />
+              >
+                <span className="pt-1 px-3"><iconValue.icon /></span>
+                <span>{iconValue.text}</span>
+              </p>
             );
           }
 
@@ -61,7 +68,7 @@ const UserSideBar = () => {
             return (
               <NavLink
                 to={iconValue.to}
-                className="flex m-4 cursor-pointer hover:bg-red-50 rounded-lg py-1.5"
+                className="flex m-4 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
                 icon={iconValue}
                 key={index}
               />

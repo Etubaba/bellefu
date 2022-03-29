@@ -3,6 +3,8 @@ import Image from "next/image";
 
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
+import axios from 'axios'
+import { apiData } from "../constant";
 
 import Body from "../components/Body";
 import MobileCategoryBar from "../components/MobileCategoryBar/MobileCategoryBar";
@@ -49,4 +51,16 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+export async function getStaticProps() {
+
+  const res = fetch(`${apiData}get/countries`)
+  const list = await res.json()
+  return {
+
+    props: {
+      list,
+    }
+  }
 }
