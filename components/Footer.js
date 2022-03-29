@@ -8,7 +8,7 @@ import { FaLinkedin } from 'react-icons/fa'
 
 function Footer() {
     return (
-        <div className='bg-[#3F3F3F] pt-12 pb-6 px-12 w-full h-auto relative mt-12 bottom-0 z-50 '>
+        <div className='bg-[#3F3F3F] p-6 px-12 w-full h-auto relative mt-12 bottom-0 z-50 '>
 
             <div className='flex justify-evenly space-x-10 mb-12'>
                 <div className='flex flex-col space-y-3 w-80'>
@@ -92,7 +92,7 @@ function Footer() {
             <div className=' flex flex-col space-y-2 items-center justify-center'>
                 <p className='text-[#D4D7D1] text-xs'>Subscribe to our newsletter to get updates and amazing tips</p>
                 <div className='flex'>
-                    <input className='w-96 rounded-sm p-4 outline-none ' type='email' placeholder="Enter email here" />
+                    <input className='w-96 rounded-sm p-4 focus:bellefuOrange' type='email' placeholder="Enter email here" />
                     <button className='bg-bellefuOrange rounded-sm py-4  px-8 text-white'>Send</button>
                 </div>
 

@@ -11,7 +11,7 @@ import MobileCategoryBar from "../components/MobileCategoryBar/MobileCategoryBar
 import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
-export default function Home() {
+export default function Home({ list }) {
   return (
     <div>
       <Head>
@@ -20,11 +20,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-      <main className="bg-bellefuBackground h-screen ">
+      <main className="bg-bellefuBackground h-auto ">
         <div className="max-w-[90%] mx-auto">
           {/* second nav bar */}
           <div className="hidden lg:inline">
-            <HeaderSearch />
+            <HeaderSearch list={list} />
           </div>
 
           {/* mobile header search */}
@@ -55,7 +55,7 @@ export default function Home() {
 
 // export async function getStaticProps() {
 
-//   const res = fetch(`${apiData}get/countries`)
+//   const res = axios.get(`${apiData}get/countries`)
 //   const list = await res.json()
 //   return {
 
