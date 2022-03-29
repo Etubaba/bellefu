@@ -46,8 +46,8 @@ const NavBar = () => {
           <div className="flex items-center space-x-2">
             <Image
               src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
-              width={50}
-              height={50}
+              width={30}
+              height={30}
               className="rounded-full object-cover"
             />
             <p className="text-white font-semibold">
