@@ -165,7 +165,7 @@ const profile = () => {
                         name="phone-number"
                         id="phone-number"
                         disabled={disable}
-                        className="bg-[white] p-[8px] mt-[2px] focus:ring-bellefuGreen focus:outline-0 block w-[85%] relative left-[5vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        className="bg-[white] p-[8px] mt-[2px] focus:ring-bellefuGreen focus:outline-0 block w-[82%] relative left-[5vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         placeholder="Your number"
                       />
                     </div>
