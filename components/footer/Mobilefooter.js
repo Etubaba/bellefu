@@ -10,7 +10,7 @@ import {
 function Mobilefooter() {
     return (
         <div className='bg-[#3F3F3F] lg:hidden mt-7 md:px-7  px-4 w-full h-auto relative bottom-0 pb-3 pt-6'>
-            <div className='flex space-x-2 md:justify-between'>
+            <div className='flex space-x-2 justify-between md:justify-between'>
                 <div className='ml-2'>
                     <img
                         alt='logo'
@@ -38,7 +38,7 @@ function Mobilefooter() {
             </div>
 
 
-            <div className='flex space-x-3 mt-6 ml-3'>
+            <div className='flex space-x-5 md:space-x-3 mt-6 ml-3'>
 
 
 
