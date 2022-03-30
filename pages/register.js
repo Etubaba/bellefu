@@ -37,36 +37,36 @@ const Register = () => {
       <div className="w-[55%] mx-auto mb-20 rounded-lg border-2">
         <h1 className="text-center font-bold py-4">Create Your Account With Bellefu!</h1>
         <hr />
-        <div className="py-8 px-12">
-          <div className="flex my-9">
-            <div className="flex flex-col flex-auto mr-6">
+        <div className="py-4 md:py-8 px-12">
+          <div className="flex flex-col md:flex-row my-3 md:my-9">
+            <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="first-name">First Name</label></p>
               <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.firstName} onChange={onChange("firstName")} /></p>
             </div>
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="first-name">Last Name</label></p>
               <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lastName} onChange={onChange("lastName")} /></p>
             </div>
           </div>
-          <div className="flex mb-9">
-            <div className="flex flex-col flex-auto mr-6">
+          <div className="flex flex-col md:flex-row my-3 md:mb-9">
+            <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="first-name">Phone Number</label></p>
               <p><input type="text" htmlFor="first-name" value={formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} /></p>
             </div>
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="first-name">Password</label></p>
               { showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9  right-[28%] hover:cursor-pointer':"hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9  right-[28%] hover:cursor-pointer':"hidden"} />
               }
               <p><input type={showPassword?"text":"password"} htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={onChange("password")} /></p>
             </div>
           </div>
-          <p className="bg-[#FFA500] hover:bg-[#fabe50] text-white w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer">Register</p>
+          <p className="hover:bg-[#FFA500] bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer">Register</p>
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
-        <div className="flex justify-center mb-12">
-          <p className="mr-9"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-14"><Image src={google} alt="google" width="14px" height="14px" /><span className="pl-4">Register with Google</span></button></p>
-          <p className="text-white"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-14 bg-[#3B5998]"><span className="rounded-full bg-white"><Image src={facebook} alt="google" width="14px" height="14px" /></span><span className="pl-4">Register with Facebook</span></button></p>
+        <div className="flex flex-col md:flex-row items-center md:justify-center mb-12">
+          <p className="mb-3 md:mb-0 md:mr-9"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-14 hover:bg-bellefuWhite"><Image src={google} alt="google" width="14px" height="14px" /><span className="pl-4">Register with Google</span></button></p>
+          <p className="text-white"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-[#3B5998] hover:bg-[#4276e6]"><span className="rounded-full bg-white"><Image src={facebook} alt="google" width="14px" height="14px" /></span><span className="pl-4">Register with Facebook</span></button></p>
         </div>
       </div>
     </>

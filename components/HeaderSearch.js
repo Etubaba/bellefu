@@ -6,25 +6,27 @@ import axios from 'axios'
 import { apiData } from '../constant'
 
 
-const HeaderSearch = () => {
+const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
     const [open, setOpen] = useState(false)
     const [selectCountry, setSelectCountry] = useState(false)
     const [selectlang, setSelectlang] = useState(false)
-    const [countries, setCountries] = useState([])
+    const [flag, setFlag] = useState(null)
+    const [native, setNative] = useState(null)
 
 
-    useEffect(() => {
-        const fetchcountry = async () => {
-            await axios.get(`${apiData}get/countries`)
-                .then(res => setCountries(res.data.data))
-                .catch(err => console.log(err))
-        }
 
-        fetchcountry()
-    }, [])
+    // useEffect(() => {
+    //     const fetchcountry = async () => {
+    //         await axios.get(`${apiData}get/countries`)
+    //             .then(res => setCountries(res.data.data))
+    //             .catch(err => console.log(err))
+    //     }
 
+    //     fetchcountry()
+    // }, [])
 
-    console.log(countries);
+    console.log(location)
+
     return (
         <div className={'w-full h-20 mt-3 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
             <div className='flex'>
@@ -33,43 +35,51 @@ const HeaderSearch = () => {
                     <div>
                         <img
                             alt='error'
-                            src='https://flagcdn.com/32x24/ng.png' />
+                            src={flag === null ? `https://flagcdn.com/32x24/${location?.toLowerCase()}.png` : `https://flagcdn.com/32x24/${flag?.toLowerCase()}.png`} />
                     </div>
 
                     <AiFillCaretDown onClick={() => setSelectCountry(!selectCountry)} className={selectCountry ? 'text-bellefuOrange' : 'text-gray-600'} />
                 </div>
 
                 {selectCountry && (
-                    <div class="z-50 absolute top-40 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
-                        {countries?.map(list => (<div class="py-1 flex space-x-3" >
+                    <div className="z-50 absolute top-32 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                        {countries?.map(list => (
+                            <div onClick={() => {
+                                setFlag(list.iso2)
+                                setSelectCountry(false)
+                            }}
+                                class="py-1 flex space-x-3 hover:bg-bellefuBackground" >
 
-                            <p key={list.id} className="text-gray-700 space-x-3 px-4 flex hover:bg-bellefuBackground py-2 text-sm">
-                                <div>
-                                    <img
-                                        alt='error'
-                                        src={`https://flagcdn.com/20x15/${list.iso2.toLowerCase()}.png`} /></div>
+                                <p key={list.id} className="text-gray-700 space-x-3 px-4 flex py-2 text-sm">
+                                    <div>
+                                        <img
+                                            alt='error'
+                                            src={`https://flagcdn.com/20x15/${list.iso2.toLowerCase()}.png`} /></div>
 
-                                <span>{list.name}</span>
-
-
-                            </p>
+                                    <span>{list.name}</span>
 
 
+                                </p>
 
 
-                        </div>))}
+
+
+                            </div>))}
                     </div>
                 )}
                 {selectlang && (
-                    <div class="z-50 absolute top-40 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
-                        <div class="py-1" >
+                    <div className="z-50 absolute top-32 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                        {languages.map(lang => (
+                            <div onClick={() => {
+                                setNative(lang.code)
+                                setSelectlang(false)
+                            }}
+                                key={lang.id}
+                                className="py-1 hover:bg-bellefuBackground" >
 
-                            <a href="#" class="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">Account settings</a>
-                            <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm" >Support</a>
-                            <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm" >License</a>
-                            <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm">License</a>
+                                <span className="text-gray-700 block px-4  py-2 text-sm">{lang.name}</span>
 
-                        </div>
+                            </div>))}
                     </div>
                 )}
 
@@ -79,7 +89,7 @@ const HeaderSearch = () => {
                 <div onClick={() => setSelectlang(!selectlang)} className=' bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex'>
 
 
-                    <p className='text-white'>EN </p>
+                    <p className='text-white'>{native === null ? dialet?.toUpperCase() : native?.toUpperCase()} </p>
 
                     <AiFillCaretDown className='text-white' />
 
@@ -108,17 +118,14 @@ const HeaderSearch = () => {
 
                 {
                     open && (
+                        <div className="z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
+                            {state.map(state => (
+                                <div key={state.id} className="py-1  hover:bg-bellefuBackground " >
+
+                                    <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">{state.name}</span>
 
 
-                        <div class="z-10 absolute top-40 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
-                            <div class="py-1" >
-
-                                <a href="#" class="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">Account settings</a>
-                                <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm" >Support</a>
-                                <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm" >License</a>
-                                <a href="#" class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm">License</a>
-
-                            </div>
+                                </div>))}
                         </div>
 
                     )
