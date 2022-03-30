@@ -23,12 +23,12 @@ export default function Home({ list }) {
       <main className="bg-bellefuBackground ">
         <div className="max-w-[90%] mx-auto">
           {/* second nav bar */}
-          <div className="hidden lg:inline">
+          <div className="hidden md:inline">
             <HeaderSearch list={list} />
           </div>
 
           {/* mobile header search */}
-          <div className="lg:hidden">
+          <div className="md:hidden">
             <MobileHeaderSearch />
           </div>
 

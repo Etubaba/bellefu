@@ -51,7 +51,7 @@ const MobileCategory = ({ category }) => {
         <div
           className={
             open
-              ? "inline-block w-60 -mt-6 space-y-3 text-sm text-white select-none bg-[#333333] absolute top-28 left-0 z-50 rounded-br-md rounded-tr-md "
+              ? "inline-block w-72 h-72 -mt-6 space-y-3 text-sm text-white select-none bg-[#333333] absolute top-52 left-0 z-50 rounded-br-md rounded-tr-md animate-slide-in "
               : "hidden"
           }
         >

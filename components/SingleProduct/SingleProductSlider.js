@@ -20,7 +20,7 @@ const SingleProductSlider = () => {
             loading="lazy"
             src={image.img}
             key={image.id}
-            className="rounded-md h-96 w-full object-fill"
+            className="rounded-md h-48 md:60 lg:h-80 w-full object-cover lg:object-fill"
           />
         ))}
       </Carousel>

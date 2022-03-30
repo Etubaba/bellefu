@@ -36,7 +36,7 @@ export default function Slider() {
       >
         {slides?.map((slideimage, index) => (
           <img
-            className="h-40 lg:h-80 w-full rounded-xl  "
+            className="h-52 md:h-64 lg:h-80 w-full rounded-xl  "
             key={index}
             src={slideimage.image}
             alt={slideimage.alternate}

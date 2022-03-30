@@ -5,7 +5,7 @@ import SingleProductSlider from "./SingleProductSlider";
 
 const SingleProductBody = ({ products }) => {
   return (
-    <div className="rounded-t-md">
+    <div className="rounded-t-md -mt-5 lg:mt-0">
       <SingleProductSlider />
       <SingleProductDescription />
       <div className="mt-2">
