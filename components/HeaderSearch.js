@@ -4,35 +4,35 @@ import { ImLocation2 } from "react-icons/im";
 import { AiFillCaretDown } from "react-icons/ai";
 import axios from "axios";
 import { apiData } from "../constant";
+import { useDispatch } from "react-redux";
+import { chooseCountry } from "../features/bellefuSlice";
 
-const HeaderSearch = () => {
+const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
   const [open, setOpen] = useState(false);
   const [selectCountry, setSelectCountry] = useState(false);
   const [selectlang, setSelectlang] = useState(false);
-  const [countries, setCountries] = useState([]);
+  const [flag, setFlag] = useState(null);
+  const [native, setNative] = useState(null);
 
-  useEffect(() => {
-    const fetchcountry = async () => {
-      await axios
-        .get(`${apiData}get/countries`)
-        .then((res) => setCountries(res.data.data))
-        .catch((err) => console.log(err));
-    };
+  const dispatch = useDispatch();
 
-    fetchcountry();
-  }, []);
-
-  console.log(countries);
   return (
     <div
       className={
-        "w-full p-3 mt-3 flex justify-between bg-bellefuWhite mb-3 rounded-md items-center"
+        "w-full h-20 mt-3 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center "
       }
     >
-      <div className="flex px-2">
-        <div className="flex space-x-4 items-center justify-center">
+      <div className="flex">
+        <div className="flex space-x-4 items-center justify-center ml-8">
           <div>
-            <img alt="error" src="https://flagcdn.com/32x24/ng.png" />
+            <img
+              alt="error"
+              src={
+                flag === null
+                  ? `https://flagcdn.com/32x24/${location?.toLowerCase()}.png`
+                  : `https://flagcdn.com/32x24/${flag?.toLowerCase()}.png`
+              }
+            />
           </div>
 
           <AiFillCaretDown
@@ -40,14 +40,20 @@ const HeaderSearch = () => {
             className={selectCountry ? "text-bellefuOrange" : "text-gray-600"}
           />
         </div>
-
         {selectCountry && (
-          <div class="z-50 absolute top-40 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="z-50 absolute top-32 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
             {countries?.map((list) => (
-              <div class="py-1 flex space-x-3">
+              <div
+                onClick={() => {
+                  setFlag(list.iso2);
+                  setSelectCountry(false);
+                  dispatch(chooseCountry(list.iso2));
+                }}
+                class="py-1 flex space-x-3 hover:bg-bellefuBackground"
+              >
                 <p
                   key={list.id}
-                  className="text-gray-700 space-x-3 px-4 flex hover:bg-bellefuBackground py-2 text-sm"
+                  className="text-gray-700 space-x-3 px-4 flex py-2 text-sm"
                 >
                   <div>
                     <img
@@ -63,33 +69,21 @@ const HeaderSearch = () => {
           </div>
         )}
         {selectlang && (
-          <div class="z-50 absolute top-40 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div class="py-1">
-              <a
-                href="#"
-                class="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm"
+          <div className="z-50 absolute top-32 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            {languages.map((lang) => (
+              <div
+                onClick={() => {
+                  setNative(lang.code);
+                  setSelectlang(false);
+                }}
+                key={lang.id}
+                className="py-1 hover:bg-bellefuBackground"
               >
-                Account settings
-              </a>
-              <a
-                href="#"
-                class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-              >
-                Support
-              </a>
-              <a
-                href="#"
-                class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-              >
-                License
-              </a>
-              <a
-                href="#"
-                class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-              >
-                License
-              </a>
-            </div>
+                <span className="text-gray-700 block px-4  py-2 text-sm">
+                  {lang.name}
+                </span>
+              </div>
+            ))}
           </div>
         )}
 
@@ -97,23 +91,25 @@ const HeaderSearch = () => {
           onClick={() => setSelectlang(!selectlang)}
           className=" bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex"
         >
-          <p className="text-white">EN </p>
+          <p className="text-white">
+            {native === null ? dialet?.toUpperCase() : native?.toUpperCase()}{" "}
+          </p>
 
           <AiFillCaretDown className="text-white" />
         </div>
       </div>
 
-      <div className="flex p-3 justify-between items-center bg-bellefuBackground rounded-md md:w-3/4 lg:w-2/4">
-        <div className="mr-2">
+      <div className="flex pl-2 justify-center items-center bg-bellefuBackground w-6/12 h-11">
+        <div className="mr-5">
           {" "}
-          <FiSearch className="text-bellefuOrange w-5 h-5" />
+          <FiSearch className="text-bellefuOrange" />
         </div>
 
         <input
           type="text"
           list="brow"
           placeholder="What are you looking for?"
-          className="bg-bellefuBackground focus:outline-none w-full"
+          className="bg-bellefuBackground focus:outline-none w-9/12"
         />
         <datalist id="brow">
           <option value="Agro Produce" />
@@ -127,44 +123,25 @@ const HeaderSearch = () => {
         <span
           onClick={() => setOpen(!open)}
           list="brow"
-          className="relative w-full flex cursor-pointer text-gray-500 space-x-2 items-center"
+          className="relative w-9/12 flex cursor-pointer text-gray-500"
         >
-          <ImLocation2 className="text-bellefuOrange" />{" "}
+          <ImLocation2 className="text-bellefuOrange mt-1 mr-1" />{" "}
           <span>Where? Nigeria</span>{" "}
         </span>
 
         {open && (
-          <div class="z-10 absolute top-40 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div class="py-1">
-              <a
-                href="#"
-                class="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm"
-              >
-                Account settings
-              </a>
-              <a
-                href="#"
-                class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-              >
-                Support
-              </a>
-              <a
-                href="#"
-                class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-              >
-                License
-              </a>
-              <a
-                href="#"
-                class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-              >
-                License
-              </a>
-            </div>
+          <div className="z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            {state.map((state) => (
+              <div key={state.id} className="py-1  hover:bg-bellefuBackground ">
+                <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">
+                  {state.name}
+                </span>
+              </div>
+            ))}
           </div>
         )}
 
-        <button className="rounded-sm text-center bg-bellefuOrange text-white px-4 py-1">
+        <button className=" w-4/12 h-8  m-2 rounded-sm text-center bg-bellefuOrange text-white">
           Search
         </button>
       </div>

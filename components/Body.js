@@ -2,14 +2,14 @@ import React from "react";
 import Slider from "./mainPageComponents/slider/Slider";
 import ProductComponent from "./mainPageComponents/ProductComponent";
 
-const Body = () => {
+const Body = ({ products, slider, currency }) => {
   return (
     <div className="">
       <div className="mb-2">
-        <Slider />
+        <Slider slider={slider} />
       </div>
       {/* product component session */}
-      <ProductComponent />
+      <ProductComponent currency={currency} products={products} />
     </div>
   );
 };

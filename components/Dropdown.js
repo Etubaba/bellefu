@@ -7,7 +7,7 @@ const Dropdown = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  if (category.children) {
+  if (category.sub_category) {
     return (
       <div className="">
         <div
@@ -15,12 +15,12 @@ const Dropdown = ({ category }) => {
           className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
         >
           <div className="flex items-center flex-1 space-x-2 cursor-pointer select-none">
-            <img src={category.Icon} alt="icons" className="w-4 h-4" />
+            <img src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`} alt="icons" className="w-4 h-4" />
             <h5
               className="text-bellefuBlack1 font-medium text-normal whitespace-nowrap"
               onClick={() => router.push("/category/id")}
             >
-              {category.title}
+              {category.name}
             </h5>
           </div>
           <div className="">
@@ -43,8 +43,8 @@ const Dropdown = ({ category }) => {
           }
         >
           <div className="border-t-2" />
-          {category.children.map((child) => (
-            <DropdownItems key={child.id} child={child} />
+          {category.sub_category.map((child) => (
+            <DropdownItems key={child.subCatId} child={child} />
           ))}
         </div>
       </div>
@@ -57,12 +57,15 @@ const Dropdown = ({ category }) => {
           className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
         >
           <div className="flex  items-center flex-1 space-x-2 cursor-pointer">
-            <img src={category.Icon} alt="icons" className="w-4 h-4" />
+            <img
+              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
+              alt="icons"
+              className="w-4 h-4" />
             <h5
               className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
               onClick={() => router.push("/category/id")}
             >
-              {category.title}
+              {category.name}
             </h5>
           </div>
         </div>
