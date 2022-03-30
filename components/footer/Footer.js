@@ -94,7 +94,7 @@ function Footer() {
                 </p>
                 <div className="flex">
                     <input
-                        className="w-96 rounded-sm p-4 outline-none "
+                        className="w-96 rounded-sm bg-[#2C2C2C] mr-2 p-4 outline-none "
                         type="email"
                         placeholder="Enter email here"
                     />
