@@ -9,7 +9,7 @@ const MobileCategory = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  if (category.children) {
+  if (category.sub_category) {
     return (
       <div className="">
         <div
@@ -18,7 +18,7 @@ const MobileCategory = ({ category }) => {
         >
           <div className="flex flex-col items-center flex-1 space-x-2 cursor-pointer select-none">
             <img
-              src={category.Icon}
+              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
             />
@@ -26,7 +26,7 @@ const MobileCategory = ({ category }) => {
               className="text-bellefuBlack1 font-medium text-xs text-center"
               onClick={() => router.push("/category/id")}
             >
-              {category.title}
+              {category.name}
             </h5>
           </div>
           <div className="mr-2">
@@ -63,8 +63,8 @@ const MobileCategory = ({ category }) => {
           </div>
 
           <div className="" />
-          {category.children.map((child) => (
-            <MobileCategoryItem key={child.id} child={child} />
+          {category.sub_category.map((child) => (
+            <MobileCategoryItem key={child.sub_category} child={child} />
           ))}
         </div>
       </div>
@@ -78,7 +78,7 @@ const MobileCategory = ({ category }) => {
         >
           <div className="flex flex-col items-center flex-1 space-x-2 cursor-pointer">
             <img
-              src={category.Icon}
+              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
             />
@@ -86,7 +86,7 @@ const MobileCategory = ({ category }) => {
               className="text-bellefuBlack1 text-xs text-center font-medium"
               onClick={() => router.push("/category/id")}
             >
-              {category.title}
+              {category.name}
             </h5>
           </div>
         </div>

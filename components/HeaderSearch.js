@@ -4,6 +4,8 @@ import { ImLocation2 } from 'react-icons/im'
 import { AiFillCaretDown } from 'react-icons/ai'
 import axios from 'axios'
 import { apiData } from '../constant'
+import { useDispatch } from "react-redux";
+import { chooseCountry } from "../features/bellefuSlice";
 
 
 const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
@@ -14,18 +16,8 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
     const [native, setNative] = useState(null)
 
 
+    const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     const fetchcountry = async () => {
-    //         await axios.get(`${apiData}get/countries`)
-    //             .then(res => setCountries(res.data.data))
-    //             .catch(err => console.log(err))
-    //     }
-
-    //     fetchcountry()
-    // }, [])
-
-    console.log(location)
 
     return (
         <div className={'w-full h-20 mt-3 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center '}>
@@ -40,13 +32,13 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
 
                     <AiFillCaretDown onClick={() => setSelectCountry(!selectCountry)} className={selectCountry ? 'text-bellefuOrange' : 'text-gray-600'} />
                 </div>
-
                 {selectCountry && (
                     <div className="z-50 absolute top-32 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" >
                         {countries?.map(list => (
                             <div onClick={() => {
                                 setFlag(list.iso2)
                                 setSelectCountry(false)
+                                dispatch(chooseCountry(list.iso2))
                             }}
                                 class="py-1 flex space-x-3 hover:bg-bellefuBackground" >
 

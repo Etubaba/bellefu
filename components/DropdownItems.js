@@ -4,7 +4,7 @@ import { AiOutlineCaretRight } from "react-icons/ai";
 const DropdownItems = ({ child }) => {
   return (
     <div className="hover:bg-bellefuBackground p-2">
-      <p>{child.title}</p>
+      <p>{child.subCatName}</p>
     </div>
   );
 };
