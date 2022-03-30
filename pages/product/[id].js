@@ -26,7 +26,7 @@ const Product = () => {
       {/* container for the sidebar and body */}
       <div className="flex mt-10">
         {/* sidebar */}
-        <div className=" mr-2 w-[20%] rounded-md hidden">
+        <div className=" mr-2 w-[20%] rounded-md hidden lg:inline">
           <SingleProductSidebar />
         </div>
 

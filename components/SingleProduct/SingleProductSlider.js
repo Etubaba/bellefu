@@ -6,7 +6,7 @@ import { images } from "../../productData";
 
 const SingleProductSlider = () => {
   return (
-    <div className="p-7 bg-bellefuWhite rounded-t-md relative">
+    <div className="p-2 lg:p-5 bg-bellefuWhite rounded-t-md relative">
       <Carousel
         showArrows={true}
         showThumbs={false}
@@ -20,12 +20,12 @@ const SingleProductSlider = () => {
             loading="lazy"
             src={image.img}
             key={image.id}
-            className="rounded-md h-48 md:60 lg:h-80 w-full object-cover lg:object-fill"
+            className="rounded-md h-48 md:60 lg:h-80 w-full object-cover sm:object-fill "
           />
         ))}
       </Carousel>
 
-      <p className="absolute top-7 uppercase text-xs bg-bellefuGreen px-3 py-1 rounded-tl-md rounded-br-md text-bellefuWhite font-medium">
+      <p className="absolute top-2 lg:top-5 uppercase text-xs bg-bellefuGreen px-3 py-1 rounded-tl-md rounded-br-md text-bellefuWhite font-medium">
         promoted
       </p>
     </div>
