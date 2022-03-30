@@ -10,9 +10,12 @@ const Register = () => {
   const [formFields, setFormFields] = useState({
     firstName: "",
     lastName: "",
+    email: "",
+    country: "",
     phone: "",
     password: ""
   });
+  const [countries, setCountries] = useState([{name: "Nigeria", code: "NG"}, {name: "Ghana", code: "GH"}]);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const onChange = (input) => (evt) => {
@@ -34,7 +37,7 @@ const Register = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader />
-      <div className="w-[55%] mx-auto mb-20 rounded-lg border-2">
+      <div className="w-[80%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
         <h1 className="text-center font-bold py-4">Create Your Account With Bellefu!</h1>
         <hr />
         <div className="py-4 md:py-8 px-12">
@@ -46,6 +49,23 @@ const Register = () => {
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="first-name">Last Name</label></p>
               <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lastName} onChange={onChange("lastName")} /></p>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row my-3 md:my-9">
+            <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
+              <p><label id="email">Email</label></p>
+              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
+            </div>
+            <div className="flex flex-col flex-auto mb-4 md:mb-0">
+              <p><label id="country">Country</label></p>
+              <p >
+                <select htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.country} onChange={onChange("country")} >
+                  <option className="w-full"></option>
+                  { 
+                    countries.map(country => <option key={country.code} value={country.code} className="w-full">{country.name}</option>)
+                  }
+                </select>
+              </p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:mb-9">

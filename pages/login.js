@@ -37,7 +37,7 @@ const Login = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader />
-      <div className="w-[55%] mx-auto mb-20 rounded-lg border-2">
+      <div className="w-[80%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
         <h1 className="text-center font-bold py-4">Welcome Back! Login To Your Account</h1>
         <hr />
         <div className="py-8 px-12">
@@ -58,7 +58,7 @@ const Login = () => {
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
-        <div className="flex flex-col md:flex-row items-center md:justify-center mb-12">
+        <div className="flex flex-col md:flex-row items-center md:justify-center mb-12 p-4">
           <p className="mb-3 md:mb-0 md:mr-9"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-14"><Image src={google} alt="google" width="14px" height="14px" /><span className="pl-4">Login with Google</span></button></p>
           <p className="text-white"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-[#3B5998]"><span className="rounded-full bg-white"><Image src={facebook} alt="google" width="14px" height="14px" /></span><span className="pl-4">Login with Facebook</span></button></p>
         </div>
