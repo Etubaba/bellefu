@@ -10,10 +10,6 @@ import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
 export default function Home({ data }) {
-
-
-
-
   return (
     <div>
       <Head>
@@ -31,12 +27,13 @@ export default function Home({ data }) {
               state={data.countryStates}
               languages={data.languages}
               countries={data.countries}
-              location={data.defaultCountry} />
+              location={data.defaultCountry}
+            />
           </div>
 
           {/* mobile header search */}
-          <div className="lg:hidden">
-            <MobileHeaderSearch state={data.countryStates} />
+          <div className="md:hidden">
+            <MobileHeaderSearch />
           </div>
 
           {/* main body */}
@@ -51,7 +48,11 @@ export default function Home({ data }) {
             </div>
             {/* list of products & slider */}
             <div className="flex-1">
-              <Body currency={data.defaultCurrency} products={data.products} slider={data.slider} />
+              <Body
+                currency={data.defaultCurrency}
+                products={data.products}
+                slider={data.slider}
+              />
             </div>
           </div>
         </div>
@@ -60,17 +61,15 @@ export default function Home({ data }) {
   );
 }
 
-
 export async function getServerSideProps() {
-
-  const res = await fetch(`https://bellefu.inmotionhub.xyz/api/web30/get/web/index`)
-  const data = await res.json()
-
+  const res = await fetch(
+    `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
+  );
+  const data = await res.json();
 
   return {
-
     props: {
-      data,
-    }
-  }
+      list,
+    },
+  };
 }

@@ -4,32 +4,34 @@ import MainProductHeader from "./MainProductHeader";
 import ProductList from "./ProductList";
 import { useRouter } from "next/router";
 import { countryChoice } from "../../features/bellefuSlice";
-import { useSelector } from 'react-redux'
-import axios from 'axios'
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const ProductComponent = ({ products, currency }) => {
-  const [countryData, setCountryData] = useState([])
+  const [countryData, setCountryData] = useState([]);
 
-  const getCountry = useSelector(state => state.bellefu.countrySelected)
+  const getCountry = useSelector((state) => state.bellefu.countrySelected);
   const router = useRouter();
 
   useEffect(() => {
-
     const newProducts = async () => {
-      axios.get(`https://bellefu.inmotionhub.xyz/api/general/get/product/${getCountry}`)
-        .then(res => {
-          console.log(res.data.data)
-          setCountryData(res.data.data)
+      axios
+        .get(
+          `https://bellefu.inmotionhub.xyz/api/general/get/product/${getCountry}`
+        )
+        .then((res) => {
+          console.log(res.data.data);
+          setCountryData(res.data.data);
         })
-        .catch(err => console.log(err))
-    }
+        .catch((err) => console.log(err));
+    };
     newProducts();
-  }, [getCountry])
+  }, [getCountry]);
 
-  const main = getCountry === null ? products : countryData
+  const main = getCountry === null ? products : countryData;
 
-  console.log('country wey u select ==>', getCountry)
-  console.log('data ==>', countryData)
+  console.log("country wey u select ==>", getCountry);
+  console.log("data ==>", countryData);
   return (
     <div>
       <MainProductHeader />
@@ -39,7 +41,11 @@ const ProductComponent = ({ products, currency }) => {
             onClick={() => router.push("/product/id")}
             className="cursor-pointer"
           >
-            <ProductList key={product.productId} currency={currency} product={product} />
+            <ProductList
+              key={product.productId}
+              currency={currency}
+              product={product}
+            />
           </div>
         ))}
       </div>

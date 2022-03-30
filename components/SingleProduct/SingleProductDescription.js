@@ -7,6 +7,7 @@ import { MdCall } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import { BsFacebook, BsTwitter, BsFillFlagFill } from "react-icons/bs";
+import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 
 const SingleProductDescription = () => {
   const [open, setOpen] = useState(true);
@@ -16,22 +17,22 @@ const SingleProductDescription = () => {
   return (
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
-      <div className="flex items-center justify-between px-7">
-        <p className="text-3xl text-bellefuTitleBlack font-semibold">
+      <div className="flex items-center justify-between lg:px-7 px-3">
+        <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
           Bags of Tiger Nuts...
         </p>
-        <BsHeart className="w-6 h-6 text-bellefuOrange" />
+        <BsHeart className="lg:w-6 lg:h-6 text-bellefuOrange" />
       </div>
 
       {/* tag section */}
-      <div className="flex items-center justify-between mt-5 px-7">
-        <div className="flex items-center space-x-8">
+      <div className="flex flex-col lg:flex-row mt-3 px-3 space-y-2 lg:items-center lg:justify-between lg:mt-5 lg:px-7">
+        <div className="flex flex-col lg:flex-row space-y-2 lg:items-center lg:space-x-8">
           <div className="flex items-center space-x-2">
-            <BsClockFill className="w-3 h-3 text-gray-500" />
+            <BsClockFill className="w-4 h-4 text-gray-500" />
             <p className="text-bellefuBlack1 text-sm">Posted 1 Hour Ago</p>
           </div>
-          <div className="flex items-center space-x-2">
-            <TiLocation className="w-4 h-4 text-gray-500" />
+          <div className="flex items-center space-x-1">
+            <TiLocation className="w-5 h-5 -ml-1 text-gray-500" />
             <p className="text-bellefuBlack1 text-sm">
               Port Harcourt, Rivers State, Nig.
             </p>
@@ -45,11 +46,11 @@ const SingleProductDescription = () => {
 
       {/* description section */}
       <div>
-        <p className="px-7 mt-6 text-2xl text-bellefuBlack1 font-medium">
+        <p className="lg:px-7 px-3 mt-4 lg:mt-6 text-xl lg:text-2xl text-bellefuBlack1 font-medium">
           Ads Description
         </p>
-        <div className="border-b mt-6" />
-        <p className="px-7 text-justify mt-5 text-gray-500">
+        <div className="border-b lg:mt-6 mt-4" />
+        <p className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -61,15 +62,22 @@ const SingleProductDescription = () => {
           including versions of Lorem Ipsum.
         </p>
       </div>
+      {/* product owner profile details */}
 
+      <div className="py-3 px-3 lg:hidden">
+        <SingleProductMobileSidebar />
+      </div>
+
+      {/* end of product owner details */}
       {/* contact section */}
       <div>
-        <p className="px-7 mt-6 text-2xl text-bellefuBlack1 font-medium">
+        <p className="lg:px-7 px-3 text-2xl text-bellefuBlack1 font-medium hidden lg:block">
           Contact
         </p>
         {/* divider */}
         <div className="border-b mt-6" />
-        <div className="px-40 mt-12">
+
+        <div className=" hidden lg:block px-40 mt-12">
           <div className="flex items-center flex-col justify-center border py-20 rounded-md bg-bellefuBackground space-y-14">
             <p className="text-2xl text-bellefuBlack1">Contact The Seller</p>
 
@@ -86,16 +94,16 @@ const SingleProductDescription = () => {
           </div>
         </div>
         {/* safety tips, share product, report product */}
-        <div className="px-7 mt-6">
+        <div className="lg:px-7 lg:mt-6 px-3 mt-4">
           <div className="flex items-center justify-between">
             <button
-              className="text-lg font-medium capitalize text-gray-400 active:text-bellefuTitleBlack cursor-pointer"
+              className=" text-sm lg:text-lg font-medium capitalize text-gray-400 active:text-bellefuTitleBlack cursor-pointer"
               onClick={() => (setOpen(!open), setOpen1(false), setOpen2(false))}
             >
               Safety tips
             </button>
             <button
-              className="text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
+              className="text-sm lg:text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
               onClick={() => (
                 setOpen1(!open1), setOpen(false), setOpen2(false)
               )}
@@ -103,7 +111,7 @@ const SingleProductDescription = () => {
               Share Product
             </button>
             <button
-              className="text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
+              className="text-sm lg:text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
               onClick={() => (
                 setOpen2(!open2), setOpen(false), setOpen1(false)
               )}
@@ -113,21 +121,27 @@ const SingleProductDescription = () => {
           </div>
         </div>
         {/* divider */}
-        <div className="border-b mt-6" />
+        <div className="border-b lg:mt-6 mt-3" />
         {/* safety tips => details */}
         {open === true && (
-          <div className="px-7 mt-4 pb-4">
+          <div className=" px-3 lg:px-7 mt-4 pb-4 space-y-2">
             <div className="flex items-center space-x-4">
               <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-              <p>Ensure quality/quantity of Products/Services.</p>
+              <p className="text-xs sm:text-sm">
+                Ensure quality/quantity of Products/Services.
+              </p>
             </div>
+
             <div className="flex items-center space-x-4">
               <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-              <p>Ensure meeting in a secured place if the need arise.</p>
+              <p className="text-xs sm:text-sm">
+                Ensure meeting in a secured place if the need arise.
+              </p>
             </div>
+
             <div className="flex items-center space-x-4">
-              <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-              <p>
+              <BsFillCheckSquareFill className="lg:w-3 lg:h-3 w-3 h-3 text-bellefuOrange rounded-sm" />
+              <p className="text-xs sm:text-sm whitespace-pre-wrap">
                 Contact support@bellefu.com if you require verification of buyer
                 or seller (Terms & Conditions apply)
               </p>
@@ -137,12 +151,12 @@ const SingleProductDescription = () => {
 
         {/* share product => details */}
         {open1 === true && (
-          <div className="px-7 pb-4">
-            <div className="flex items-center py-4 space-x-16">
-              <p className="text-lg font-medium text-bellefuBlack1">
+          <div className="px-3 lg:px-7 lg:pb-4 pb-2">
+            <div className="flex flex-col lg:items-center py-4 space-y-2 lg:space-x-16">
+              <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
                 Share this product on social media :
               </p>
-              <div className="flex items-center border px-24 py-6 rounded-md space-x-7 bg-bellefuBackground ">
+              <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <BsFacebook className="w-7 h-7 text-[#4267B2]" />
                 <BsTwitter className="w-7 h-7 text-[#1DA1F2]" />
               </div>
@@ -152,14 +166,14 @@ const SingleProductDescription = () => {
 
         {/* report product => details */}
         {open2 === true && (
-          <div className="px-7 mt-5 pb-4">
-            <div className="flex items-center py-4 space-x-16">
-              <p className="text-lg font-medium text-bellefuBlack1">
-                Did you think this product is not original/scam? :
+          <div className="lg:px-7 px-3 lg:mt-5 mt-2 lg:pb-4 pb-2">
+            <div className="flex flex-col lg:items-center lg:py-4 py-2 lg:space-x-16 space-y-2">
+              <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
+                Did you think this product is not original/scam?
               </p>
-              <div className="flex items-center border px-14 border-bellefuOrange py-3 rounded-md space-x-3 bg-bellefuBackground ">
-                <BsFillFlagFill className="w-7 h-7 text-orange-600" />
-                <p>Flag this product</p>
+              <div className="flex items-center border px-14 border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground ">
+                <BsFillFlagFill className="lg:w-7 lg:h-7 w-4 h-4 text-orange-600" />
+                <p className="text-md lg:text-lg">Flag this product</p>
               </div>
             </div>
           </div>
