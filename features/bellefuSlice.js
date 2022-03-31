@@ -34,8 +34,6 @@ export const selectLogin = (state) => {
 export const selectDisable = (state) => {
   state.bellefu.formDisabler;
 };
-export const countryChoice = (state) => {
-  state.bellefu
-}
+
 
 export default bellefuSlice.reducer;

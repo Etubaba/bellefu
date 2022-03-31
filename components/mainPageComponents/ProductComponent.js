@@ -30,8 +30,7 @@ const ProductComponent = ({ products, currency }) => {
 
   const main = getCountry === null ? products : countryData;
 
-  console.log("country wey u select ==>", getCountry);
-  console.log("data ==>", countryData);
+
   return (
     <div>
       <MainProductHeader />
