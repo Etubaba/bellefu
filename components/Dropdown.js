@@ -9,7 +9,6 @@ const Dropdown = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-
   const dispatch = useDispatch();
 
   if (category.sub_category) {
@@ -21,7 +20,7 @@ const Dropdown = ({ category }) => {
         >
           <div onClick={() => {
             dispatch(selectCat(category.id))
-            router.push("/category/id")
+            router.push(`/category/${category.id}`)
           }
 
           }
