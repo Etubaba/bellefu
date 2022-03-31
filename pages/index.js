@@ -69,7 +69,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      list,
+      data,
     },
   };
 }
