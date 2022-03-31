@@ -4,36 +4,34 @@ import { useState } from "react";
 import { MdClose } from "react-icons/md";
 
 export default function Details() {
+  const [inputtxt, setInputTxt] = useState("");
+  const [inputtxtarr, setinputTxtArr] = useState([]);
+  const [disablertag, setDisablertag] = useState(false);
 
+  const handleArrUpdate = (e) => {
+    e.preventDefault();
+    if (inputtxt === "" || inputtxtarr.length >= 7) {
+      return;
+    } else {
+      setinputTxtArr((prevState) => [...prevState, inputtxt]);
+      setInputTxt("");
+    }
+  };
 
-const [inputtxt, setInputTxt] = useState("");
-const [inputtxtarr, setinputTxtArr] = useState([]);
-const [disablertag, setDisablertag] = useState(false);
-
-const handleArrUpdate=(e)=>{
- e.preventDefault();
- if(inputtxt===""||inputtxtarr.length>=7){
-   return;
- }else{
-  setinputTxtArr((prevState)=>[...prevState,inputtxt]);
-  setInputTxt("");
- }
-}
-
-const handleRemovetag =(tags)=>{
-  const newArr = inputtxtarr.filter(tag => tag!==tags);
-  setinputTxtArr(newArr);
-}
-console.log(inputtxtarr);
-console.log(inputtxt);
+  const handleRemovetag = (tags) => {
+    const newArr = inputtxtarr.filter((tag) => tag !== tags);
+    setinputTxtArr(newArr);
+  };
+  console.log(inputtxtarr);
+  console.log(inputtxt);
 
   return (
-    <div className=" shadow bg-bellefuWhite rounded-md  p-5">
-      <div className="border  p-5 mt-7 ">
+    <div className=" shadow bg-bellefuWhite rounded-md  lg:p-5 p-2">
+      <div className="border lg:p-5 p-1 lg:mt-7 mt-2 rounded-sm">
         <div>
           <form action="#" method="POST">
             <div className=" overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 sm:p-6">
+              <div className="lg:px-4 px-2 py-2 lg:py-5 sm:p-3">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <label
@@ -76,32 +74,36 @@ console.log(inputtxt);
                       tags
                     </label>
                     <label className="block text-sm font-medium text-gray-700">
-                    Maximum : {inputtxtarr.length}/7
+                      Maximum : {inputtxtarr.length}/7
                     </label>
                   </div>
                   <div className="border-gray-300 border-2 rounded-md">
                     <div className=" p-3 flex">
-                      {inputtxtarr
-                      .length<=7?
-                      inputtxtarr.map((tags,index)=>(
-                          <span className="flex bg-gray-300 p-[3px] justify-around w-[6vw] rounded-md m-[2px]">
-                          <p>{tags}</p>
-                          <MdClose onClick={()=>handleRemovetag(tags)} className="text-[28px] cursor-pointer hover:bg-gray-400 p-[3px] rounded-md mt-[2px]" />
-                        </span>
-                      )):null}
-                      
+                      {inputtxtarr.length <= 7
+                        ? inputtxtarr.map((tags, index) => (
+                            <span className="flex bg-gray-300 p-[3px] justify-around w-[6vw] rounded-md m-[2px]">
+                              <p>{tags}</p>
+                              <MdClose
+                                onClick={() => handleRemovetag(tags)}
+                                className="text-[28px] cursor-pointer hover:bg-gray-400 p-[3px] rounded-md mt-[2px]"
+                              />
+                            </span>
+                          ))
+                        : null}
                     </div>
                     <div className="flex">
                       <input
-                      onChange={(e)=>setInputTxt(e.target.value)}
+                        onChange={(e) => setInputTxt(e.target.value)}
                         type="text"
                         disabled={disablertag}
                         value={inputtxt}
                         className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-[100%] shadow-sm sm:text-sm "
                       />
                       <button
-                      onClick={(e)=>handleArrUpdate(e)}
-                        class="flex justify-center items-center w-[4vw] m-[5px] py-[3px] px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                        onClick={(e) => handleArrUpdate(e)}
+                        className="
+                        text-xs px-4 py-1
+                        flex justify-center items-center lg:w-[4vw] lg:m-[5px] lg:py-[3px] lg:px-4 border border-transparent shadow-sm lg:text-sm lg:font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                       >
                         Enter
                       </button>
@@ -110,7 +112,7 @@ console.log(inputtxt);
                 </div>
               </div>
             </div>
-            <div className="p-5">
+            <div className="lg:p-5 p-2">
               <label
                 htmlFor="about"
                 className="block text-sm font-medium text-gray-700"
@@ -122,26 +124,26 @@ console.log(inputtxt);
                   id="about"
                   name="about"
                   rows={4}
-                  className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
+                  className="shadow-sm p-2 lg:p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
                   placeholder="you@example.com"
                   defaultValue={""}
                 />
               </div>
             </div>
             <div className="p-5 flex justify-between">
-                <button
-                  type="submit"
-                  class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-                >
-                  Continue
-                </button>
-                </div>
+              <button
+                type="submit"
+                class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+              >
+                Back
+              </button>
+              <button
+                type="submit"
+                class="flex justify-center items-center lg:w-[15vw] lg:py-2 lg:px-4 py-1 px-2 border border-transparent shadow-sm text-xs lg:text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+              >
+                Continue
+              </button>
+            </div>
           </form>
         </div>
       </div>
