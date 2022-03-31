@@ -4,11 +4,11 @@ import { MdLocationOn } from "react-icons/md";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 
-const ProductList = ({ product, currency }) => {
+const SingleProductList = ({ product }) => {
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
-        src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+        src="/bellefu/bellefu1.jpg"
         className="rounded-md w-full h-44 object-cover"
       />
       <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
@@ -25,8 +25,8 @@ const ProductList = ({ product, currency }) => {
       </div>
       <div className="flex items justify-between">
         <p className="text-bellefuGreen flex font-poppins font-semibold">
-          <p className="mr-1" dangerouslySetInnerHTML={{ __html: currency }} />
-          {product.price}
+          <p className="mr-1">$</p>
+          1234
         </p>
         <BsHeart className="w-4 h-4 text-bellefuOrange" />
       </div>
@@ -42,4 +42,4 @@ const ProductList = ({ product, currency }) => {
   );
 };
 
-export default ProductList;
+export default SingleProductList;

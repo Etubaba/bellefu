@@ -1,5 +1,5 @@
 import React from "react";
-import ProductList from "../mainPageComponents/ProductList";
+import SingleProductList from "./SingleProductList";
 
 const SimilarProducts = ({ products }) => {
   console.log("products =>", products);
@@ -7,7 +7,7 @@ const SimilarProducts = ({ products }) => {
     <div className="px-4 bg-bellefuWhite rounded-b-md">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 grid-flow-row-dense">
         {products.map((product) => (
-          <ProductList key={product.id} product={product} />
+          <SingleProductList key={product.id} product={product} />
         ))}
       </div>
     </div>
