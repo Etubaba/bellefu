@@ -6,13 +6,27 @@ import {BsEye, BsEyeSlash} from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import google from "../public/bellefu-images/google.svg"
 import facebook from "../public/bellefu-images/facebook.svg";
+import { apiData } from "../constant";
 
 const Login = () => {
+  const router = useRouter();
+  const [formFields, setFormFields] = useState({
+    username: "",
+    phone: "",
+    password: "",
+  });
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+  //const router = useRouter();
+  const handleChange = (input) => (evt) => {
+    if (input === "password") {
+      if (evt.target.value) setShowIcon(true);
+      else setShowIcon(false);
+    }
+    setFormFields({...formFields, [input]: evt.target.value})
+  }
   const onPasswordChange = (evt) => {
     setPassword(evt.target.value);
     if (evt.target.value) setShowIcon(true);
@@ -20,6 +34,20 @@ const Login = () => {
   };
   const onPhoneChange = (evt) => {
     setPhone(evt.target.value);
+  };
+  const handleLogin = () => {
+    fetch(`${apiData}user/login`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formFields),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status) router.push("/");
+      else router.push("/login");
+    })
   }
 
   const handleClickShowPassword = () => {
@@ -37,24 +65,24 @@ const Login = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader />
-      <div className="w-[80%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
+      <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
         <h1 className="text-center font-bold py-4">Welcome Back! Login To Your Account</h1>
         <hr />
-        <div className="py-8 px-12">
+        <div className="py-8 px-3 sm:px-6 md:px-12">
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="first-name">Phone Number</label></p>
-              <p><input type="text" htmlFor="first-name" value={phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onPhoneChange} /></p>
+              <p><label id="username" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name or Phone Number</label></p>
+              <p><input type="text" htmlFor="username" value={formFields.username || formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={handleChange("username")} /></p>
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
-              <p><label id="first-name">Password</label></p>
+              <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
               { showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9  right-[28%] hover:cursor-pointer':"hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9  right-[28%] hover:cursor-pointer':"hidden"} />
               }
-              <p className=""><input type={showPassword?"text":"password"} htmlFor="first-name" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={password} onChange={onPasswordChange} /></p>
+              <p className=""><input type={showPassword?"text":"password"} htmlFor="password" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={handleChange("password")} /></p>
               <p className="text-right hover:text-bellefuGreen mt-2"><button type="button" onClick={() => router.push("/forget-password")}>Forget Password</button></p>
             </div>
           </div>
-          <p className="w-[100%] md:w-[50%] mx-auto"><button className="hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" type="button">Login</button></p>
+          <p className="w-[100%] md:w-[50%] mx-auto"><button className="hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" type="button" onClick={handleLogin}>Login</button></p>
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
