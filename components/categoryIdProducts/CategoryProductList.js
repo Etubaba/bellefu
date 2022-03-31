@@ -6,7 +6,7 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 const CategoryProductList = ({ product }) => {
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
-      <img src={product.Icon} className="rounded-md w-full h-44 object-cover" />
+      <img src={`https://bellefu.inmotionhub.xyz/get/category/image/${product.images[0]}`} className="rounded-md w-full h-44 object-cover" alt={product.title} />
       <p className="capitalize text-medium">{product.title}</p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />

@@ -58,7 +58,7 @@ const Register = ({countries}) => {
     .then(user => {
       setIsLoading(false);
       console.log(user);
-      router.push("/");
+      router.push("/login");
     })
     .catch(error => {
       console.log(`Error for user registration ${error}`);
@@ -67,7 +67,7 @@ const Register = ({countries}) => {
   };
   const validateInput = (formValues) => {
     for (const key in formValues) {
-      if (Object.hasOwnProperty.call(object, key) && !formValues[key]) {
+      if (Object.hasOwnProperty.call(formValues, key) && !formValues[key]) {
         setFormFieldError(true);
         break;
       }
@@ -143,7 +143,7 @@ const Register = ({countries}) => {
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
-              { showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9  right-[28%] hover:cursor-pointer':"hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9  right-[28%] hover:cursor-pointer':"hidden"} />
+              { showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer':"hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9 right-[10%]  md:right-[27%] hover:cursor-pointer':"hidden"} />
               }
               <p><input type={showPassword?"text":"password"} htmlFor="password" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={onChange("password")} /></p>
             </div>
@@ -160,11 +160,11 @@ const Register = ({countries}) => {
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
-        <div className="flex justify-center mb-12">
-          <p className="mr-9">
+        <div className="flex flex-col md:flex-row items-center justify-center mb-12">
+          <p className="mb-3 md:mb-0 md:mr-9">
             <button
               type="button"
-              className="border-2 rounded-lg py-3 pl-4 pr-14"
+              className="border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2]"
             >
               <Image src={google} alt="google" width="14px" height="14px" />
               <span className="pl-4">Register with Google</span>
@@ -173,7 +173,7 @@ const Register = ({countries}) => {
           <p className="text-white">
             <button
               type="button"
-              className="border-2 rounded-lg py-3 pl-4 pr-14 bg-[#3B5998]"
+              className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600"
             >
               <span className="rounded-full bg-white">
                 <Image src={facebook} alt="google" width="14px" height="14px" />

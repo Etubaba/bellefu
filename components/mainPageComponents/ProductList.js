@@ -3,10 +3,15 @@ import Image from "next/image";
 import { MdLocationOn } from "react-icons/md";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const ProductList = ({ product, currency }) => {
+  const router = useRouter();
   return (
-    <div className="bg-bellefuWhite p-3 rounded-b-md">
+    <div
+      onClick={() => router.push(`/product/${product.productId}`)}
+      className="bg-bellefuWhite p-3 rounded-b-md"
+    >
       <img
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"

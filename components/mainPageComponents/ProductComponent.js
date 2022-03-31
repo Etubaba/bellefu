@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { productData } from "../../productData";
 import MainProductHeader from "./MainProductHeader";
 import ProductList from "./ProductList";
-import { useRouter } from "next/router";
-import { countryChoice } from "../../features/bellefuSlice";
+
+// import { countryChoice } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/dist/client/router";
 import axios from "axios";
 
 const ProductComponent = ({ products, currency }) => {

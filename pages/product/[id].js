@@ -41,3 +41,17 @@ const Product = () => {
 };
 
 export default Product;
+
+//server side fetching of the full product details
+// export async function getServerSideProps() {
+//   const res = await fetch(
+//     `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
+//   );
+//   const data = await res.json();
+
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
