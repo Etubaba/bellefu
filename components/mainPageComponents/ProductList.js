@@ -10,7 +10,7 @@ const ProductList = ({ product, currency }) => {
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
-      <img src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`}
+      <img src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover" />
       <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
       <div className="flex items-center space-x-2">

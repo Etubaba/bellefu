@@ -19,7 +19,7 @@ function Mobilefooter() {
                     </p>
                     <div className="flex">
                         <input
-                            className="w-40 rounded-sm p-1 outline-none "
+                            className="w-44 md:w-80 bg-[#2C2C2C] mr-1 rounded-sm p-1 outline-none "
                             type="email"
                             placeholder="Enter email here"
                         />
