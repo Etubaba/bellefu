@@ -5,8 +5,8 @@ const initialState = {
   profileDetails: [],
   formDisabler: true,
   countrySelected: null,
-  subcatfilter: null,
-  catfilter: null
+  catfilter: null,
+  subcategory: null,
 };
 
 export const bellefuSlice = createSlice({
@@ -30,7 +30,7 @@ export const bellefuSlice = createSlice({
     },
 
     selectSubcat: (state, action) => {
-      state.subcatfilter = action.payload
+      state.subcategory = action.payload
     }
   },
 
@@ -40,6 +40,7 @@ export const bellefuSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { isLoggedIn, isDisabled, chooseCountry, selectSubcat, selectCat } = bellefuSlice.actions;
+
 export const selectLogin = (state) => {
   state.bellefu.login;
 };
