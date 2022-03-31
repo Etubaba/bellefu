@@ -1,10 +1,10 @@
 import { useState } from "react";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
-import {BsEye, BsEyeSlash} from "react-icons/bs";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
-import google from "../public/bellefu-images/google.svg"
+import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
 import { apiData } from "../constant";
 
@@ -51,7 +51,7 @@ const Login = () => {
   }
 
   const handleClickShowPassword = () => {
-    setShowPassword(prevState => !prevState)
+    setShowPassword((prevState) => !prevState);
   };
 
   const handleMouseDownPassword = (event) => {
@@ -87,12 +87,30 @@ const Login = () => {
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
         <div className="flex flex-col md:flex-row items-center md:justify-center mb-12 p-4">
-          <p className="mb-3 md:mb-0 md:mr-9"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-14"><Image src={google} alt="google" width="14px" height="14px" /><span className="pl-4">Login with Google</span></button></p>
-          <p className="text-white"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-[#3B5998]"><span className="rounded-full bg-white"><Image src={facebook} alt="google" width="14px" height="14px" /></span><span className="pl-4">Login with Facebook</span></button></p>
+          <p className="mb-3 md:mb-0 md:mr-9">
+            <button
+              type="button"
+              className="border-2 rounded-lg py-3 pl-4 pr-14"
+            >
+              <Image src={google} alt="google" width="14px" height="14px" />
+              <span className="pl-4">Login with Google</span>
+            </button>
+          </p>
+          <p className="text-white">
+            <button
+              type="button"
+              className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-[#3B5998]"
+            >
+              <span className="rounded-full bg-white">
+                <Image src={facebook} alt="google" width="14px" height="14px" />
+              </span>
+              <span className="pl-4">Login with Facebook</span>
+            </button>
+          </p>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Login;

@@ -6,7 +6,7 @@ import axios from "axios";
 import { apiData } from "../constant";
 import {BsEye, BsEyeSlash} from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
-import google from "../public/bellefu-images/google.svg"
+import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
 
 export const getStaticProps = async () => {
@@ -35,7 +35,7 @@ const Register = ({countries}) => {
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const onChange = (input) => (evt) => {
-    setFormFields({...formFields, [input]: evt.target.value})
+    setFormFields({ ...formFields, [input]: evt.target.value });
     //setPassword(evt.target.value);
     if (input === "password") {
       if (evt.target.value) setShowIcon(true);
@@ -43,7 +43,7 @@ const Register = ({countries}) => {
     }
   };
   const handleClickShowPassword = () => {
-    setShowPassword(prevState => !prevState)
+    setShowPassword((prevState) => !prevState);
   };
   const handleRegister = () => {
     setIsLoading(true);
@@ -160,13 +160,31 @@ const Register = ({countries}) => {
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
-        <div className="flex flex-col md:flex-row items-center md:justify-center mb-12">
-          <p className="mb-3 md:mb-0 md:mr-9"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-14 hover:bg-bellefuWhite"><Image src={google} alt="google" width="14px" height="14px" /><span className="pl-4">Register with Google</span></button></p>
-          <p className="text-white"><button type="button" className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-[#3B5998] hover:bg-[#4276e6]"><span className="rounded-full bg-white"><Image src={facebook} alt="google" width="14px" height="14px" /></span><span className="pl-4">Register with Facebook</span></button></p>
+        <div className="flex justify-center mb-12">
+          <p className="mr-9">
+            <button
+              type="button"
+              className="border-2 rounded-lg py-3 pl-4 pr-14"
+            >
+              <Image src={google} alt="google" width="14px" height="14px" />
+              <span className="pl-4">Register with Google</span>
+            </button>
+          </p>
+          <p className="text-white">
+            <button
+              type="button"
+              className="border-2 rounded-lg py-3 pl-4 pr-14 bg-[#3B5998]"
+            >
+              <span className="rounded-full bg-white">
+                <Image src={facebook} alt="google" width="14px" height="14px" />
+              </span>
+              <span className="pl-4">Register with Facebook</span>
+            </button>
+          </p>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Register;

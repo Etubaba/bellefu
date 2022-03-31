@@ -161,37 +161,37 @@ const AddMoney = () => {
                   }
                   { showCard && !proceed ? <>
                   <div className="flex flex-col md:flex-row md:justify-center">
-                    <div className="flex flex-col flex-auto md:p-4 mb-4 md:mb-0">
+                    <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="card-no">Card Number</label></p>
                       <p className=""><input type="text" value={formFields.cardNo} htmlFor="card-no" onChange={handleChange("cardNo")} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg" /></p>
                     </div>
-                    <div className="flex flex-col flex-auto md:p-4 mb-4 md:mb-0">
+                    <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="account-no">Account Number</label></p>
                       <p className=""><input type="text" value={formFields.accountNo} htmlFor="account-no" onChange={handleChange("accountNo")} className="py-2 px-2 outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg w-full" /></p>
                     </div>
                   </div>
                   <div className="flex flex-col md:flex-row md:justify-center">
-                    <div className="flex flex-col  flex-auto md:p-4 mb-4 md:mb-0">
+                    <div className="flex flex-col  flex-auto p-4">
                       <p className="mb-2"><label id="account-name">Card Holder&apos;s Name</label></p>
                       <p><input type="text" value={formFields.accountName} htmlFor="account-name" onChange={handleChange("accountName")} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
                     </div>
-                    <div className="flex flex-col flex-auto md:p-4 mb-4 md:mb-0">
+                    <div className="flex flex-col flex-auto p-4">
                       <p className="mb-2"><label id="cvc">CVC</label></p>
                       <p><input type="text" value={formFields.cvc} htmlFor="cvc" onChange={handleChange("cvc")} className="py-2 px-2 w-full outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg"  /></p>
                     </div>
                   </div></> : proceed && !transactionSuccess ? <>
                   <p className="text-center my-2"><label id="amount">Add Amount</label></p>
-                  <p className="text-center mb-4"><input type="text" htmlFor="amount" className="py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg w-[100%] md:w-[40%]" /></p>
+                  <p className="text-center mb-4"><input type="text" htmlFor="amount" className="py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500] rounded-lg" /></p>
                   </>: transactionSuccess ? <>
-                  <p className="text-center font-semibold pt-6 md:pt-9 text-bellefuGreen">successful!</p>
-                  <p className="text-center mb-10 md:mb-20">Your wallet has been successfully funded</p>
+                  <p className="text-center font-semibold pt-9 text-bellefuGreen">successful!</p>
+                  <p className="text-center mb-20">Your wallet has been successfully funded</p>
                   </>:<></>}
-                  { showCard && !proceed ? <div className="mx-auto mt-3 hover:bg-bellefuOrange bg-[#fabe50] text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2 w-[100%] md:w-[57%]" onClick={handleContinue}>
+                  { showCard && !proceed ? <div className="mx-auto mt-3 bg-bellefuOrange hover:bg-[#fabe50] text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2" style={{width: "57%"}} onClick={handleContinue}>
                     <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Continue</p></div>
-                  </div>: proceed && !transactionSuccess? <div className="mx-auto hover:bg-bellefuOrange bg-[#fabe50] text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2 w-[100%] md:w-[45%]" onClick={fundWallet}>
+                  </div>: proceed && !transactionSuccess? <div className="mx-auto bg-bellefuOrange hover:bg-[#fabe50] text-bellefuWhite rounded-md hover:cursor-pointer font-semibold py-2 w-[100%] md:w-[45%]" onClick={fundWallet}>
                     <div className="flex justify-center"><p className="pt-1 pr-2"><GiWallet /></p> <p>Fund Wallet</p></div>
                   </div>: transactionSuccess ? <>
-                  <div className="flex flex-col md:flex-row md:justify-center md:px-16"><p className="text-center rounded-lg py-3 mb-2 md:mb-0 md:mr-20 hover:cursor-pointer hover:bg-bellefuOrange bg-[#fabe50] flex-auto text-white" onClick={showWallet}>View Wallet</p> <p className="text-center rounded-lg py-3 hover:cursor-pointer hover:bg-bellefuBackground flex-auto border-2" onClick={handleClose}>Close</p></div>
+                  <div className="flex flex-col md:flex-row md:justify-center md:px-16"><p className="text-center rounded-lg py-3 mb-2 md:mb-0 md:mr-20 hover:cursor-pointer bg-bellefuOrange hover:bg-[#fabe50] flex-auto text-white" onClick={showWallet}>View Wallet</p> <p className="text-center rounded-lg py-3 hover:cursor-pointer hover:bg-bellefuBackground flex-auto border-2" onClick={handleClose}>Close</p></div>
                   </>:<></>
                   }
                 </div>
