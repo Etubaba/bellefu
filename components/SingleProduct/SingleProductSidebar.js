@@ -5,8 +5,10 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { RiMessage2Fill, RiCloseFill } from "react-icons/ri";
 import { IoIosCall } from "react-icons/io";
 import { RiMessageFill } from "react-icons/ri";
+import moment from "moment";
 
-const SingleProductSidebar = () => {
+const SingleProductSidebar = ({ userDetails }) => {
+  //const userDetail = userDetails?.data;
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   return (
@@ -14,7 +16,12 @@ const SingleProductSidebar = () => {
       <div className="flex items-center px-3 py-2 justify-center">
         <p className="text-sm text-bellefuBlack1">Product Price:</p>{" "}
         <p className="font-bold ml-3 text-bellefuTitleBlack text-lg">
-          ₦285,000
+          <span
+            dangerouslySetInnerHTML={{
+              __html: userDetails[0]?.currencySymbol,
+            }}
+          />
+          {userDetails[0]?.productPrice}
         </p>
       </div>
       {/* border line */}
@@ -28,14 +35,16 @@ const SingleProductSidebar = () => {
           className="rounded-full object-cover"
         />
         <div className="flex items-center space-x-2 mt-2">
-          <p className="text-bellefuTitleBlack font-semibold">Marvin Obi</p>
+          <p className="text-bellefuTitleBlack font-semibold">
+            {userDetails[0]?.productOwner}
+          </p>
           <GoVerified className="w-3 h-3 text-bellefuGreen" />
         </div>
         <div className="flex items-center mt-2 space-x-2">
           <p className="text-sm text-gray-400 font-medium">Registered :</p>
           <p className="text-xs text-bellefuBlack1 font-medium tracking-wider">
             {" "}
-            11 Nov,2022
+            {moment(userDetails[0]?.joined).format("MMM Do YYYY")}
           </p>
         </div>
       </div>

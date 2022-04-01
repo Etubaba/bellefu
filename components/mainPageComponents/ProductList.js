@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 const ProductList = ({ product, currency }) => {
   const router = useRouter();
+
   return (
     <div
       onClick={() => router.push(`/product/${product.productId}`)}

@@ -5,8 +5,9 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { RiMessage2Fill, RiCloseFill } from "react-icons/ri";
 import { IoIosCall } from "react-icons/io";
 import { RiMessageFill } from "react-icons/ri";
+import moment from "moment";
 
-const SingleProductMobileSidebar = () => {
+const SingleProductMobileSidebar = ({ mobileDetails }) => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   return (
@@ -16,7 +17,15 @@ const SingleProductMobileSidebar = () => {
         <div className="w-full">
           <div className=" bg-bellefuBackground flex flex-col items-center justify-center py-2">
             <p className="text-sm text-bellefuBlack1">Product Price</p>{" "}
-            <p className="font-bold text-bellefuTitleBlack text-sm">₦285,000</p>
+            <p className="font-bold text-bellefuTitleBlack text-sm">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: mobileDetails[0]?.currencySymbol,
+                }}
+              />
+
+              {mobileDetails[0]?.productPrice}
+            </p>
           </div>
           {/* border line */}
           <div className="border-b" />
@@ -31,14 +40,17 @@ const SingleProductMobileSidebar = () => {
               />
             </div>
             <div className="flex items-center space-x-2 mt-1">
-              <p className="text-bellefuTitleBlack font-semibold">Marvin Obi</p>
+              <p className="text-bellefuTitleBlack font-semibold">
+                {" "}
+                {mobileDetails[0]?.productOwner}
+              </p>
               <GoVerified className="w-3 h-3 text-bellefuGreen" />
             </div>
             <div className="flex items-center mt-1 space-x-2">
               <p className="text-sm text-gray-400 font-medium">Registered :</p>
               <p className="text-xs text-bellefuBlack1 font-medium tracking-wider">
                 {" "}
-                11 Nov,2022
+                {moment(mobileDetails[0]?.joined).format("MMM Do YYYY")}
               </p>
             </div>
           </div>

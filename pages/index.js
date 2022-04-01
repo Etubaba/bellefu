@@ -11,8 +11,6 @@ import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
 export default function Home({ data }) {
 
-
-
   return (
     <div>
       <Head>
