@@ -34,13 +34,6 @@ const ProductComponent = ({ products, currency }) => {
   }, [getCountry]);
 
   const main = getCountry === null ? products : countryData;
-
-  // console.log(subCatClicked)
-  // if (subCatClicked=== undefined) {
-  //   return item
-  // } else if (item.subcatid === subCatClicked) {
-  //   return item
-  // }
   return (
     <div>
       <MainProductHeader />
@@ -53,11 +46,6 @@ const ProductComponent = ({ products, currency }) => {
           } else if (item.subcatid === subCatClicked) {
             return item
           }
-
-
-          //  else if (item.subcatid === subCatClicked) {
-          //   return item
-          // }
         }).map((product) => (
           <div
             onClick={() => router.push(`/product/${product.productId}`)}
