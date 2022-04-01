@@ -92,7 +92,7 @@ const NavBar = () => {
           </div>}
           {/* drop down beginning */}
           {open === true ? (
-            <div className="absolute w-52 bg-bellefuWhite rounded border z-40 shadow-lg top-12 right-80 space-y-3">
+            <div className="absolute w-52 bg-bellefuWhite rounded border z-40 shadow-lg top-12 right-[10%] space-y-3">
               <ul className="rounded px-2 py-3 space-y-2">
                 <div onClick={() => router.push('/users')} className="flex items-center space-x-4 mb-2 hover:bg-bellefuBackground px-2 rounded-md py-3">
                   <BsFillPersonFill className="w-4 h-4 text-bellefuOrange" />
@@ -117,7 +117,7 @@ const NavBar = () => {
                   router.push('/login')
                   setOpen(false)
                 }}
-                  className="px-2 py-1  flex space-x-3 items-center cursor-pointer rounded">
+                  className="px-2 py-1 hover:bg-bellefuBackground flex space-x-3 items-center cursor-pointer rounded">
                   <RiLogoutBoxFill className="w-5 h-5 text-bellefuOrange" />
                   <span className="text-xs text-bellefuOrange">Logout</span>
                 </li>

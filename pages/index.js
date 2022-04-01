@@ -9,7 +9,11 @@ import MobileCategoryBar from "../components/MobileCategoryBar/MobileCategoryBar
 import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
+
 export default function Home({ data }) {
+
+
+
 
   return (
     <div>
@@ -42,7 +46,7 @@ export default function Home({ data }) {
           <div className="flex flex-col lg:flex-row">
             {/* category side bar */}
             <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
-              <CategorySideBar categories={data.categories} />
+              <CategorySideBar indexData={data} categories={data.categories} />
             </div>
 
             <div className=" h-auto lg:hidden my-4 rounded-sm">

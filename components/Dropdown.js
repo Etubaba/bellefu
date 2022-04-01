@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import { useDispatch } from 'react-redux'
 import { selectCat } from '../features/bellefuSlice'
 import { Subcat } from "../features/bellefuSlice";
+import { fetchData } from "../features/bellefuSlice";
 
-const Dropdown = ({ category }) => {
+const Dropdown = ({ category, indexData }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState(null)
@@ -23,6 +24,7 @@ const Dropdown = ({ category }) => {
         >
           <div onClick={() => {
             dispatch(selectCat(category.id))
+            dispatch(fetchData(indexData))
             router.push(`/category/${category.id}`)
           }
 
