@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  login: null,
-  profileDetails: [],
+  subcatselected: undefined,
+  profileDetails: typeof window !== "undefined" ?localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null : null,
   formDisabler: true,
   countrySelected: null,
-  subcatfilter: null,
-  catfilter: null
+  catfilter: null,
+  login: null,
+  stateSelected: null,
 };
 
 export const bellefuSlice = createSlice({
@@ -29,9 +30,15 @@ export const bellefuSlice = createSlice({
       state.catfilter = action.payload
     },
 
-    selectSubcat: (state, action) => {
-      state.subcatfilter = action.payload
-    }
+    Subcat: (state, action) => {
+      state.subcatselected = action.payload
+    },
+    chooseState: (state, action) => {
+      state.stateSelected = action.payload
+    },
+    setProfileDetails: (state, action) => {
+      state.profileDetails = action.payload;
+    },
   },
 
 
@@ -39,13 +46,11 @@ export const bellefuSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { isLoggedIn, isDisabled, chooseCountry, selectSubcat, selectCat } = bellefuSlice.actions;
-export const selectLogin = (state) => {
-  state.bellefu.login;
-};
-export const selectDisable = (state) => {
-  state.bellefu.formDisabler;
-};
+export const { isLoggedIn, isDisabled, chooseCountry, Subcat, selectCat, chooseState, setProfileDetails } = bellefuSlice.actions;
+
+export const login = (state) => state.bellefu.login;
+export const profileDetails = (state) => state.bellefu.profileDetails;
+export const selectDisable = (state) => state.bellefu.formDisabler;
 
 
 export default bellefuSlice.reducer;

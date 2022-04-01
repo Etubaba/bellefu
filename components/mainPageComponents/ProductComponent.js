@@ -3,14 +3,20 @@ import { productData } from "../../productData";
 import MainProductHeader from "./MainProductHeader";
 import ProductList from "./ProductList";
 
-import { countryChoice } from "../../features/bellefuSlice";
+// import { countryChoice } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/dist/client/router";
 import axios from "axios";
 
 const ProductComponent = ({ products, currency }) => {
   const [countryData, setCountryData] = useState([]);
 
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
+  const getState = useSelector((state) => state.bellefu.stateSelected);
+
+  const subCatClicked = useSelector((state) => state.bellefu.subcatselected)
+
+  const router = useRouter();
 
   useEffect(() => {
     const newProducts = async () => {
@@ -28,13 +34,23 @@ const ProductComponent = ({ products, currency }) => {
   }, [getCountry]);
 
   const main = getCountry === null ? products : countryData;
-
   return (
     <div>
       <MainProductHeader />
       <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
-        {main.map((product) => (
-          <div className="cursor-pointer">
+        {main.filter((item) => {
+          if (getState === null && subCatClicked === undefined) {
+            return item
+          } else if (item.stateCode === getState) {
+            return item
+          } else if (item.subcatid === subCatClicked) {
+            return item
+          }
+        }).map((product) => (
+          <div
+            onClick={() => router.push(`/product/${product.productId}`)}
+            className="cursor-pointer"
+          >
             <ProductList
               key={product.productId}
               currency={currency}

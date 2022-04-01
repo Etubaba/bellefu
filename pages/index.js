@@ -26,6 +26,7 @@ export default function Home({ data }) {
             <HeaderSearch
               dialet={data.defaultLanguage}
               state={data.countryStates}
+              defaultCountry={data.defaultCountryName}
               languages={data.languages}
               countries={data.countries}
               location={data.defaultCountry}

@@ -1,15 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderSearch from "../../components/HeaderSearch";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import CategoryProducts from "../../components/categoryIdProducts/CategoryProducts";
 import Range from "../../components/RangeComponent/Range";
+import { apiData } from "../../constant";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+// import { productId } from "../../components/Dropdown";
 
+
+// export const getServerSideProps = async () => {
+//   console.log(productId);
+//   const response = await fetch(`${apiData}get/product/cat/${productId}`);
+//   const {data} = await response.json();
+//   return {
+//     props: {
+//       productList: data
+//     }
+//   }
+// }
 const Product = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
+  //const [productId, setProductId] = useState(null);
+  const [product, setProduct] = useState([]);
+  const productId = useSelector(state => state.bellefu.catfilter)
+  const router = useRouter();
+  //console.log(router.query);
+  //console.log(router.pathname)
+  //setProductId(router.query.id);
+  console.log(productId);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const response = await fetch(`${apiData}get/product/cat/${productId}`);
+      const { data } = await response.json();
+      setProduct(data);
+    };
+
+    getProduct()
+  }, [productId])
+
   return (
     <div className="max-w-[90%] mx-auto">
       <HeaderSearch />
@@ -32,7 +66,8 @@ const Product = () => {
                   className="w-6 h-6"
                 />
                 <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
-                  Agricultural Produce
+                  {/* Agricultural Produce */}
+                  {product[0]?.CatName}
                 </h5>
               </div>
               {open === false ? (
@@ -334,7 +369,7 @@ const Product = () => {
 
         {/* product session */}
         <div className="flex-1">
-          <CategoryProducts />
+          <CategoryProducts product={product} />
         </div>
       </div>
     </div>

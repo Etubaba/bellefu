@@ -7,19 +7,20 @@ import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
 import { apiData } from "../constant";
+import { useDispatch } from "react-redux";
+import { isLoggedIn, setProfileDetails } from "../features/bellefuSlice";
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const [formFields, setFormFields] = useState({
-    username: "",
     phone: "",
     password: "",
   });
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  //const router = useRouter();
   const handleChange = (input) => (evt) => {
     if (input === "password") {
       if (evt.target.value) setShowIcon(true);
@@ -27,15 +28,8 @@ const Login = () => {
     }
     setFormFields({...formFields, [input]: evt.target.value})
   }
-  const onPasswordChange = (evt) => {
-    setPassword(evt.target.value);
-    if (evt.target.value) setShowIcon(true);
-    else setShowIcon(false);
-  };
-  const onPhoneChange = (evt) => {
-    setPhone(evt.target.value);
-  };
   const handleLogin = () => {
+    setLoading(true);
     fetch(`${apiData}user/login`, {
       method: "POST",
       headers: {
@@ -44,9 +38,22 @@ const Login = () => {
       body: JSON.stringify(formFields),
     })
     .then(response => response.json())
-    .then(data => {
-      if (data.status) router.push("/");
+    .then((data) => {
+      setLoading(false);
+
+      if (data.status) {
+        localStorage.setItem("user", JSON.stringify(data.data.user));
+
+        dispatch(isLoggedIn(true));
+        dispatch(setProfileDetails(data.data.user));
+        router.replace("/");
+      }
       else router.push("/login");
+    })
+    .catch(error => {
+      setLoading(false);
+
+      console.log(`Error during login due to: ${error}`);
     })
   }
 
@@ -71,8 +78,8 @@ const Login = () => {
         <div className="py-8 px-3 sm:px-6 md:px-12">
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="username" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name or Phone Number</label></p>
-              <p><input type="text" htmlFor="username" value={formFields.username || formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={handleChange("username")} /></p>
+              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name or Phone Number</label></p>
+              <p><input type="text" htmlFor="phone" value={formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={handleChange("phone")} /></p>
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
@@ -82,7 +89,7 @@ const Login = () => {
               <p className="text-right hover:text-bellefuGreen mt-2"><button type="button" onClick={() => router.push("/forget-password")}>Forgot Password</button></p>
             </div>
           </div>
-          <p className="w-[100%] md:w-[50%] mx-auto"><button className="hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" type="button" onClick={handleLogin}>Login</button></p>
+          <p className="w-[100%] md:w-[50%] mx-auto"><button className={!isLoading?"hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4":"bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4"} type="button" onClick={handleLogin} disabled={isLoading?true:false}>{!isLoading?"Login":"Processing..."}</button></p>
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
