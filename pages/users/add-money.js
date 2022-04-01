@@ -77,18 +77,7 @@ const AddMoney = () => {
 
     setFormFields({...formFields, [input]: evt.target.value})
   }
-  // const handleCardNo = (evt) => {
-  //   setCardNo(evt.target.value);
-  // };
-  // const handleAccountNo = (evt) => {
-  //   setAccountNo(evt.target.value);
-  // };
-  // const handleAccountName = (evt) => {
-  //   setAccountName(evt.target.value);
-  // };
-  // const handleCvc = (evt) => {
-  //   setCvc(evt.target.value);
-  // };
+
   const handleContinue = () => {
     setProceed(true);
     //setTransactionSuccess(true);

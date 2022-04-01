@@ -2,7 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import axios from "axios";
+//import axios from "axios";
 import { apiData } from "../constant";
 import {BsEye, BsEyeSlash} from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
@@ -45,8 +45,12 @@ const Register = ({countries}) => {
     setShowPassword((prevState) => !prevState);
   };
   const handleRegister = () => {
-    setFormFields({...formFields, "email": `${formFields.username}@gmail.com`})
-    console.log(formFields);
+    const formValues = formFields;
+    if (!formFields.email) {
+      formValues = {...formFields, email: `${formFields.username}@gmail.com`}
+    }
+    //setFormFields({...formFields, email: `${formFields.username}@gmail.com`})
+    console.log(formValues);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
@@ -62,7 +66,7 @@ const Register = ({countries}) => {
       if (data.status) {
         localStorage.setItem("user", JSON.stringify(data.data));
       
-        router.push("/users/verify-account");
+        router.push("/verify-phone");
       }
     })
     .catch(error => {
@@ -105,17 +109,17 @@ const Register = ({countries}) => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-            {/* <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="email" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Email</label></p>
-              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
-            </div> */}
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
+              <p><label id="email" className="text-sm font-medium text-slate-700">Email (optional)</label></p>
+              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
+            </div>
+            <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
               <p><input type="text" htmlFor="phone" value={formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-          {/* <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
+          <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
               <p><label id="gender" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Gender</label></p>
               <p >
                 <select htmlFor="gender" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.gender} onChange={onChange("gender")} >
@@ -125,8 +129,8 @@ const Register = ({countries}) => {
                   <option value="O" key="o">Other</option>
                 </select>
               </p>
-            </div> */}
-            <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
+            </div>
+            <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="country" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Country</label></p>
               <p >
                 <select htmlFor="country" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.country} onChange={onChange("countryCode")} >
@@ -162,20 +166,20 @@ const Register = ({countries}) => {
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
-        <div className="flex flex-col md:flex-row items-center justify-center mb-12">
-          <p className="mb-3 md:mb-0 md:mr-9">
+        <div className="flex flex-col md:flex-row items-center justify-center mb-12 px-6 py-4 md:px-12 md:py-4">
+          <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2]"
+              className="border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
             >
               <Image src={google} alt="google" width="14px" height="14px" />
               <span className="pl-4">Register with Google</span>
             </button>
           </p>
-          <p className="text-white">
+          <p className="text-white w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600"
+              className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
             >
               <span className="rounded-full bg-white">
                 <Image src={facebook} alt="google" width="14px" height="14px" />
