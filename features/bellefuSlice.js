@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   subcatselected: undefined,
-  profileDetails: typeof window !== "undefined" ?localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null : null,
+  profileDetails: typeof window !== "undefined" ? localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null : null,
   formDisabler: true,
   countrySelected: null,
   catfilter: null,
-  login: null,
+  login: typeof window !== "undefined" ? localStorage.getItem('login') : null,
   stateSelected: null,
 };
 
@@ -16,6 +16,7 @@ export const bellefuSlice = createSlice({
   reducers: {
     isLoggedIn: (state, action) => {
       state.login = action.payload;
+      localStorage.setItem('login', state.login)
     },
 
 
