@@ -25,7 +25,7 @@ const CategoryProductList = ({ product }) => {
         </p>
         <BsHeart className="w-5 h-5 text-bellefuOrange" />
       </div>
-      <div className="flex items-center ml-2 space-x-3 mt-2">
+      <div className="flex items-center ml-1 space-x-3 mt-2">
         <button className="bg-bellefuOrange px-9 py-2 rounded-md">
           <MdOutlineMessage className="!text-white" />
         </button>
