@@ -45,6 +45,7 @@ const Register = ({countries}) => {
     setShowPassword((prevState) => !prevState);
   };
   const handleRegister = () => {
+    setFormFields({...formFields, "email": `${formFields.username}@gmail.com`})
     console.log(formFields);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
@@ -55,9 +56,14 @@ const Register = ({countries}) => {
       body: JSON.stringify(formFields),
     })
     .then(response => response.json())
-    .then(user => {
+    .then(data => {
+      console.log(data);
       setIsLoading(false);
-      router.push("/login");
+      if (data.status) {
+        localStorage.setItem("user", JSON.stringify(data.data));
+      
+        router.push("/users/verify-account");
+      }
     })
     .catch(error => {
       console.log(`Error for user registration ${error}`);
@@ -99,17 +105,17 @@ const Register = ({countries}) => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-            <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
+            {/* <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="email" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Email</label></p>
               <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
-            </div>
+            </div> */}
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
               <p><input type="text" htmlFor="phone" value={formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-          <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
+          {/* <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
               <p><label id="gender" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Gender</label></p>
               <p >
                 <select htmlFor="gender" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.gender} onChange={onChange("gender")} >
@@ -117,12 +123,9 @@ const Register = ({countries}) => {
                   <option value="M" key="m">Male</option>
                   <option value="F" key="f">Female</option>
                   <option value="O" key="o">Other</option>
-                  {/* { 
-                    countries.map(country => <option key={country.code} value={country.iso2} className="w-full">{country.name}</option>)
-                  } */}
                 </select>
               </p>
-            </div>
+            </div> */}
             <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
               <p><label id="country" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Country</label></p>
               <p >
