@@ -58,7 +58,8 @@ function verifyaccount() {
       <div className="text-xl ml-4 self p-2">Account Verification</div>
       <hr />
 
-      {verify ? (
+
+      {!verify ? (
         <div className="h-auto ">
           <div className="border mx-auto my-6  rounded-xl    w-7/12 h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">

@@ -8,12 +8,22 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { RiMessage2Fill } from "react-icons/ri";
 import { AiFillHeart } from "react-icons/ai";
 import { RiLogoutBoxFill } from "react-icons/ri";
+import { useSelector } from 'react-redux'
+import { login } from '../../features/bellefuSlice'
+import { useRouter } from 'next/router'
 
 import MobileNavbar from "./MobileNavbar";
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [mobileNavbar, setMobileNavbar] = useState(false);
+
+  const router = useRouter();
+
+  const getIsLoggedIn = useSelector(login)
+
+
+
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
       {/* left side */}
@@ -40,14 +50,16 @@ const NavBar = () => {
       <div className="hidden md:inline-flex">
         <div className="flex space-x-4 items-center">
           <div className="text-white space-x-4 capitalize text-md font-semibold">
-            <a href="">Webinar</a>
-            <a href="">Bellefu Radio</a>
-            <a href="">Blog</a>
+            <a className='hover:text-gray-200' href="https://webinar.bellefu.com/">Webinar</a>
+            <a className='hover:text-gray-200' href="https://radio.bellefu.com/">Bellefu Radio</a>
+            <a className='hover:text-gray-200' href="https://blog.bellefu.com/">Blog</a>
           </div>
 
           <div className="px-3 text-white text-2xl -mt-2">|</div>
           {/* the user profile */}
-          <div className="hidden md:inline-block">
+
+
+          {getIsLoggedIn && <div className="hidden md:inline-block">
             <div className="flex items-center space-x-2 relative">
               <Image
                 src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
@@ -70,7 +82,7 @@ const NavBar = () => {
                 )}
               </div>
             </div>
-          </div>
+          </div>}
           {/* drop down beginning */}
           {open === true ? (
             <div className="absolute w-52 bg-bellefuWhite rounded border z-40 shadow-lg top-12 right-80 space-y-3">
@@ -102,15 +114,15 @@ const NavBar = () => {
           {/* dropdown end */}
           {/* end of user profile */}
           {/* login register place */}
-          <div className="text-white space-x-5 capitalize text-md font-semibold">
-            <a href="">Register</a>
-            <a href="">Login</a>
+          <div className="text-white flex space-x-5 capitalize text-md font-semibold">
+            <p className='hover:text-gray-200' onClick={() => router.push('/register')}>Register</p>
+            <p className='hover:text-gray-200' onClick={() => router.push('/login')}>Login</p>
           </div>
 
           <IoMdNotifications className="text-white w-5 h-5" />
-          <div className="flex items-center bg-bellefuOrange px-2 py-1 rounded-md space-x-1">
+          <div onClick={() => router.push('/postAds')} className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1">
             <IoMdAddCircleOutline className="text-white w-4 h-4 text-md font-semibold" />
-            <p className="text-white capitalize text-md font-semibold">
+            <p className="text-white hover:text-gray-200 capitalize text-md font-semibold">
               Post free ads
             </p>
           </div>
