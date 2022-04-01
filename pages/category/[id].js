@@ -5,7 +5,7 @@ import CategoryProducts from "../../components/categoryIdProducts/CategoryProduc
 import Range from "../../components/RangeComponent/Range";
 import { apiData } from "../../constant";
 import { useSelector } from "react-redux";
-//import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 // import { productId } from "../../components/Dropdown";
 
 
@@ -28,7 +28,7 @@ const Product = () => {
   //const [productId, setProductId] = useState(null);
   const [product, setProduct] = useState([]);
   const productId = useSelector(state => state.bellefu.catfilter)
-  //const router = useRouter();
+  const router = useRouter();
   //console.log(router.query);
   //console.log(router.pathname)
   //setProductId(router.query.id);
