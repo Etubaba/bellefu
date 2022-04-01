@@ -46,6 +46,7 @@ const Register = ({countries}) => {
     setShowPassword((prevState) => !prevState);
   };
   const handleRegister = () => {
+    console.log(formFields);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
@@ -113,7 +114,7 @@ const Register = ({countries}) => {
           <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
               <p><label id="gender" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Gender</label></p>
               <p >
-                <select htmlFor="gender" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.country} onChange={onChange("gender")} >
+                <select htmlFor="gender" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.gender} onChange={onChange("gender")} >
                   <option className="w-full"></option>
                   <option value="M" key="m">Male</option>
                   <option value="F" key="f">Female</option>
