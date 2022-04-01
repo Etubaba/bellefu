@@ -21,7 +21,6 @@ const Login = () => {
   const [isLoading, setLoading] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  //const router = useRouter();
   const handleChange = (input) => (evt) => {
     if (input === "password") {
       if (evt.target.value) setShowIcon(true);
@@ -29,16 +28,7 @@ const Login = () => {
     }
     setFormFields({...formFields, [input]: evt.target.value})
   }
-  const onPasswordChange = (evt) => {
-    setPassword(evt.target.value);
-    if (evt.target.value) setShowIcon(true);
-    else setShowIcon(false);
-  };
-  const onPhoneChange = (evt) => {
-    setPhone(evt.target.value);
-  };
   const handleLogin = () => {
-    //console.log(formFields)
     setLoading(true);
     fetch(`${apiData}user/login`, {
       method: "POST",

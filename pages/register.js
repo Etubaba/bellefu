@@ -36,7 +36,6 @@ const Register = ({countries}) => {
   const [showPassword, setShowPassword] = useState(false);
   const onChange = (input) => (evt) => {
     setFormFields({ ...formFields, [input]: evt.target.value });
-    //setPassword(evt.target.value);
     if (input === "password") {
       if (evt.target.value) setShowIcon(true);
       else setShowIcon(false);
@@ -58,7 +57,6 @@ const Register = ({countries}) => {
     .then(response => response.json())
     .then(user => {
       setIsLoading(false);
-      console.log(user);
       router.push("/login");
     })
     .catch(error => {
