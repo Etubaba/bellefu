@@ -4,12 +4,15 @@ import DropdownItems from "./DropdownItems";
 import { useRouter } from "next/router";
 import { useDispatch } from 'react-redux'
 import { selectCat } from '../features/bellefuSlice'
+import { Subcat } from "../features/bellefuSlice";
 
 const Dropdown = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [text, setText] = useState(null)
 
   const dispatch = useDispatch();
+  console.log(text)
 
   if (category.sub_category) {
     return (
@@ -58,7 +61,11 @@ const Dropdown = ({ category }) => {
         >
           <div className=" border-t-2" />
           {category.sub_category.map((child) => (
-            <DropdownItems key={child.subCatId} child={child} />
+            <DropdownItems
+              onClick={() => {
+                setText(child.subCatId)
+                dispatch(Subcat(child.subcatId))
+              }} key={child.subCatId} child={child} />
           ))}
         </div>
       </div>

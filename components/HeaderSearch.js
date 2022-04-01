@@ -6,6 +6,7 @@ import axios from "axios";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
 import { chooseCountry } from "../features/bellefuSlice";
+import { chooseState } from "../features/bellefuSlice";
 
 const HeaderSearch = ({ countries, location, languages, state, dialet, defaultCountry }) => {
   const [open, setOpen] = useState(false);
@@ -147,7 +148,10 @@ const HeaderSearch = ({ countries, location, languages, state, dialet, defaultCo
         {open && (
           <div className="z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
             {province?.map((state) => (
-              <div key={state.id} className="py-1  hover:bg-bellefuBackground ">
+              <div onClick={() => {
+                setOpen(!open)
+                dispatch(chooseState(state.code))
+              }} key={state.id} className="py-1  hover:bg-bellefuBackground ">
                 <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">
                   {state.name}
                 </span>
@@ -160,7 +164,7 @@ const HeaderSearch = ({ countries, location, languages, state, dialet, defaultCo
           Search
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 export default HeaderSearch;

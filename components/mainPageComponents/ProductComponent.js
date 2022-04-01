@@ -12,8 +12,9 @@ const ProductComponent = ({ products, currency }) => {
   const [countryData, setCountryData] = useState([]);
 
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
+  const getState = useSelector((state) => state.bellefu.stateSelected);
 
-  const subCatClicked = useSelector((state) => state.bellefu.subcategory)
+  // const subCatClicked = useSelector((state) => state.bellefu.wahala)
 
   const router = useRouter();
 
@@ -34,15 +35,15 @@ const ProductComponent = ({ products, currency }) => {
 
   const main = getCountry === null ? products : countryData;
 
-  console.log(subCatClicked)
+  // console.log(subCatClicked)
   return (
     <div>
       <MainProductHeader />
       <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
         {main.filter((item) => {
-          if (subCatClicked === null) {
+          if (getState === null) {
             return item
-          } else if (item.subcatid !== subCatClicked) {
+          } else if (item.stateCode === getState) {
             return item
           }
         }).map((product) => (

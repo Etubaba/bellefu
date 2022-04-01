@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  login: null,
+  wahala: undefined,
   profileDetails: [],
   formDisabler: true,
   countrySelected: null,
   catfilter: null,
-  subcategory: null,
+  login: null,
+  stateSelected: null,
 };
 
 export const bellefuSlice = createSlice({
@@ -29,8 +30,11 @@ export const bellefuSlice = createSlice({
       state.catfilter = action.payload
     },
 
-    selectSubcat: (state, action) => {
-      state.subcategory = action.payload
+    Subcat: (state, action) => {
+      state.wahala = action.payload
+    },
+    chooseState: (state, action) => {
+      state.stateSelected = action.payload
     }
   },
 
@@ -39,7 +43,7 @@ export const bellefuSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { isLoggedIn, isDisabled, chooseCountry, selectSubcat, selectCat } = bellefuSlice.actions;
+export const { isLoggedIn, isDisabled, chooseCountry, Subcat, selectCat, chooseState } = bellefuSlice.actions;
 
 export const selectLogin = (state) => {
   state.bellefu.login;
