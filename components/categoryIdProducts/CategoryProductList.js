@@ -7,8 +7,8 @@ const CategoryProductList = ({ product }) => {
   console.log(product)
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
-      <img src={`https://bellefu.inmotionhub.xyz/get/category/image/${product.images[0]}`} className="rounded-md w-full h-44 object-cover" alt={product.title} />
-      <p className="capitalize text-medium">{product.title}</p>
+      <img src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`} className="rounded-md w-full h-44 object-cover" alt={product.title} />
+      <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
         <div className="flex items-center space-x-1">
@@ -16,7 +16,7 @@ const CategoryProductList = ({ product }) => {
             {product.state},
           </p>
           <p className="text-bellefuBlack1 text-sm capitalize">
-            {product.country}
+            {product.countryName}
           </p>
         </div>
       </div>
@@ -26,11 +26,11 @@ const CategoryProductList = ({ product }) => {
         </p>
         <BsHeart className="w-5 h-5 text-bellefuOrange" />
       </div>
-      <div className="flex items-center space-x-3 mt-2">
-        <button className="bg-bellefuOrange px-12 py-4 rounded-md">
+      <div className="flex items-center ml-1 space-x-3 mt-2">
+        <button className="bg-bellefuOrange px-9 py-2 rounded-md">
           <MdOutlineMessage className="!text-white" />
         </button>
-        <button className="bg-bellefuGreen px-12 py-4 rounded-md">
+        <button className="bg-bellefuGreen px-9 py-2 rounded-md">
           <MdCall className="text-white" />
         </button>
       </div>

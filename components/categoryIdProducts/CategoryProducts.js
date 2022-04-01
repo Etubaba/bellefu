@@ -1,9 +1,9 @@
 import React from "react";
 import MainProductHeader from "../mainPageComponents/MainProductHeader";
 import CategoryProductList from "./CategoryProductList";
-import { productData } from "../../productData";
+// import { productData } from "../../productData";
 
-const CategoryProducts = ({product = productData}) => {
+const CategoryProducts = ({ product }) => {
   console.log(product)
   return (
     <div>

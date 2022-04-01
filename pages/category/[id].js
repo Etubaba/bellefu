@@ -66,7 +66,8 @@ const Product = () => {
                   className="w-6 h-6"
                 />
                 <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
-                  Agricultural Produce
+                  {/* Agricultural Produce */}
+                  {product[0]?.CatName}
                 </h5>
               </div>
               {open === false ? (
@@ -368,7 +369,7 @@ const Product = () => {
 
         {/* product session */}
         <div className="flex-1">
-          <CategoryProducts product={product}/>
+          <CategoryProducts product={product} />
         </div>
       </div>
     </div>
