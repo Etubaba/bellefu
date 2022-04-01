@@ -10,6 +10,7 @@ import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
 export default function Home({ data }) {
+  console.log("This is the data => ", data);
   return (
     <div>
       <Head>
