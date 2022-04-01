@@ -23,7 +23,13 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const getIsLoggedIn = useSelector(login)
 
-
+  const toPostAds = () => {
+    if (getIsLoggedIn) {
+      router.push('/postAds')
+    } else {
+      router.push('/login')
+    }
+  }
 
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
@@ -127,7 +133,7 @@ const NavBar = () => {
           </div>}
 
           <IoMdNotifications className="text-white w-5 h-5" />
-          <div onClick={() => router.push('/postAds')} className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1">
+          <div onClick={toPostAds} className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1">
             <IoMdAddCircleOutline className="text-white w-4 h-4 text-md font-semibold" />
             <p className="text-white hover:text-gray-200 capitalize text-md font-semibold">
               Post free ads
