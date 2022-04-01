@@ -12,7 +12,7 @@ const Dropdown = ({ category }) => {
   const [text, setText] = useState(null)
 
   const dispatch = useDispatch();
-  console.log(text)
+  // console.log(text)
 
   if (category.sub_category) {
     return (

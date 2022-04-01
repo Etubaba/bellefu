@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  wahala: undefined,
+  subcatselected: undefined,
   profileDetails: [],
   formDisabler: true,
   countrySelected: null,
@@ -31,7 +31,7 @@ export const bellefuSlice = createSlice({
     },
 
     Subcat: (state, action) => {
-      state.wahala = action.payload
+      state.subcatselected = action.payload
     },
     chooseState: (state, action) => {
       state.stateSelected = action.payload

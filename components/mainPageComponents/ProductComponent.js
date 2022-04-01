@@ -14,7 +14,7 @@ const ProductComponent = ({ products, currency }) => {
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
   const getState = useSelector((state) => state.bellefu.stateSelected);
 
-  // const subCatClicked = useSelector((state) => state.bellefu.wahala)
+  const subCatClicked = useSelector((state) => state.bellefu.subcatselected)
 
   const router = useRouter();
 
@@ -36,16 +36,28 @@ const ProductComponent = ({ products, currency }) => {
   const main = getCountry === null ? products : countryData;
 
   // console.log(subCatClicked)
+  // if (subCatClicked=== undefined) {
+  //   return item
+  // } else if (item.subcatid === subCatClicked) {
+  //   return item
+  // }
   return (
     <div>
       <MainProductHeader />
       <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
         {main.filter((item) => {
-          if (getState === null) {
+          if (getState === null && subCatClicked === undefined) {
             return item
           } else if (item.stateCode === getState) {
             return item
+          } else if (item.subcatid === subCatClicked) {
+            return item
           }
+
+
+          //  else if (item.subcatid === subCatClicked) {
+          //   return item
+          // }
         }).map((product) => (
           <div
             onClick={() => router.push(`/product/${product.productId}`)}
