@@ -5,6 +5,11 @@ import { useDropzone } from "react-dropzone";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import {handleImagesUpdate} from "../../features/bellefuSlice";
+
+
 
 const thumbsContainer = {
   display: "flex",
@@ -31,6 +36,10 @@ const img = {
 };
 
 export default function Images(props) {
+  const router = useRouter();
+
+
+  const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
   const [files2, setFiles2] = useState([]);
 
@@ -51,7 +60,7 @@ export default function Images(props) {
     setFiles(newArr);
   };
 
-  console.log(files);
+  // console.log(files);
   console.log(files2);
   const thumbs = files.map((file, index) => (
     <div style={thumb} key={index}>
@@ -65,6 +74,21 @@ export default function Images(props) {
     </div>
   ));
 
+  const handleBack = (e) => {
+    e.preventDefault();
+    router.back();
+  };
+
+  const handleSubmit =(e)=>{
+    e.preventDefault();
+    if( files2.length!==0){
+          dispatch(handleImagesUpdate(files2));
+          router.push('/postAds/Publish')
+ 
+    }else{
+      return;
+    }
+  }
   // useEffect(() => {
   //   // Make sure to revoke the data uris to avoid memory leaks
   //   files.forEach(file => URL.revokeObjectURL(file.preview));
@@ -111,12 +135,15 @@ export default function Images(props) {
           </div>
           <div className="p-5 flex justify-between">
             <button
+            onClick={handleBack}
               type="submit"
               class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
             >
               Back
             </button>
             <button
+            disabled={files2.length===0?true:false}
+              onClick={handleSubmit}
               type="submit"
               class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
             >

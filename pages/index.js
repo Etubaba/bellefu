@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useSelector, useDispatch } from "react-redux";
+import { handleIndexApi, } from "../features/bellefuSlice"
+import { useEffect } from "react";
 
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
@@ -10,6 +13,15 @@ import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
 export default function Home({ data }) {
+ 
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(handleIndexApi(data))
+  // }, [])
+  
+
+
   return (
     <div>
       <Head>
@@ -69,7 +81,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      list,
+      data,
     },
   };
 }

@@ -135,7 +135,8 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 });
 
 export default function UnstyledSelectSimple5() {
-  const disable = useSelector(selectDisable);
+
+  const disable = useSelector((state) => state.bellefu.formDisabler);
 
   return (
     <CustomSelect disabled={disable} defaultValue={"+1"}>

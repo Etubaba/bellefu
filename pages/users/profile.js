@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { isDisabled, selectDisable } from "../../features/bellefuSlice"
+import { isDisabled, } from "../../features/bellefuSlice"
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { FaCamera } from "react-icons/fa";
@@ -19,9 +19,10 @@ const profile = () => {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
 
-  const disable = useSelector(selectDisable);
+  const disable = useSelector((state) => state.bellefu.formDisabler);
 
-  console.log(disable);
+
+  // console.log(disable);
   const dispatch = useDispatch();
 
 
@@ -79,7 +80,7 @@ const profile = () => {
                       id="first-name"
                       disabled={disable}
                       autocomplete="given-name"
-                      className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                      className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
                   </div>
 
