@@ -4,43 +4,52 @@ import { AiFillEye } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
 import { TiLocation } from "react-icons/ti";
 import { MdCall } from "react-icons/md";
-import { RiMessage2Fill } from "react-icons/ri";
+import { RiMessage2Fill, RiMessageFill, RiCloseFill } from "react-icons/ri";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import { BsFacebook, BsTwitter, BsFillFlagFill } from "react-icons/bs";
-import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 
-const SingleProductDescription = () => {
+import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
+import moment from "moment";
+
+const SingleProductDescription = ({ productDetails }) => {
   const [open, setOpen] = useState(true);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
   // const [active, setActive] = useState(false);
   return (
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
       <div className="flex items-center justify-between lg:px-7 px-3">
         <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
-          Bags of Tiger Nuts...
+          {productDetails[0]?.productTitle}
         </p>
         <BsHeart className="lg:w-6 lg:h-6 text-bellefuOrange" />
       </div>
 
       {/* tag section */}
-      <div className="flex flex-col lg:flex-row mt-3 px-3 space-y-2 lg:items-center lg:justify-between lg:mt-5 lg:px-7">
-        <div className="flex flex-col lg:flex-row space-y-2 lg:items-center lg:space-x-8">
-          <div className="flex items-center space-x-2">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-7 lg:mt-4 px-3 mt-2 space-y-2">
+        <div className="flex flex-col lg:flex-row space-y-2 lg:space-x-8 lg:items-center">
+          <div className="flex items-center space-x-1 lg:mt-2">
             <BsClockFill className="w-4 h-4 text-gray-500" />
-            <p className="text-bellefuBlack1 text-sm">Posted 1 Hour Ago</p>
-          </div>
-          <div className="flex items-center space-x-1">
-            <TiLocation className="w-5 h-5 -ml-1 text-gray-500" />
             <p className="text-bellefuBlack1 text-sm">
-              Port Harcourt, Rivers State, Nig.
+              Posted on{" "}
+              {moment(productDetails[0]?.productPostedOn).format("MMM Do YYYY")}
+            </p>
+          </div>
+          <div className="flex items-center space-x-2 -ml-1">
+            <TiLocation className="w-4 h-4 text-gray-500 ml-1" />
+            <p className="text-bellefuBlack1 text-sm">
+              {productDetails[0]?.lgaName}, {productDetails[0]?.stateName},
+              {productDetails[0]?.countryName}.
             </p>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <AiFillEye className="w-4 h-5 text-gray-500 " />
-          <p className="text-bellefuBlack1 text-sm">231 Views</p>
+        <div className="flex items-center space-x-1">
+          <AiFillEye className="w-4 h-4 text-gray-500 " />
+          <p className="text-bellefuBlack1 text-sm">
+            {productDetails[0]?.inorganic_views} Views
+          </p>
         </div>
       </div>
 
@@ -50,22 +59,17 @@ const SingleProductDescription = () => {
           Ads Description
         </p>
         <div className="border-b lg:mt-6 mt-4" />
-        <p className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </p>
+        <p
+          className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4 capitalize"
+          dangerouslySetInnerHTML={{
+            __html: productDetails[0]?.productDescription,
+          }}
+        />
       </div>
       {/* product owner profile details */}
 
       <div className="py-3 px-3 lg:hidden">
-        <SingleProductMobileSidebar />
+        <SingleProductMobileSidebar mobileDetails={productDetails} />
       </div>
 
       {/* end of product owner details */}
@@ -171,10 +175,37 @@ const SingleProductDescription = () => {
               <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
                 Did you think this product is not original/scam?
               </p>
-              <div className="flex items-center border px-14 border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground ">
+              <div
+                className="flex items-center border px-14 border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground "
+                onClick={() => setOpen3(!open3)}
+              >
                 <BsFillFlagFill className="lg:w-7 lg:h-7 w-4 h-4 text-orange-600" />
                 <p className="text-md lg:text-lg">Flag this product</p>
               </div>
+              {/* report box */}
+              {open3 === true && (
+                <div className="border -mt-10 bg-bellefuBackground divide-y lg:w-72 border-orange-200 rounded-md">
+                  <div className="flex items-center py-1">
+                    <div className="flex items-center w-full space-x-3 rounded-md justify-end">
+                      <RiMessageFill className="w-4 h-4 text-red-500" />{" "}
+                      <p className="text-gray-400 font-normal text-sm">
+                        Report
+                      </p>
+                    </div>
+                    <RiCloseFill
+                      className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
+                      onClick={() => setOpen3(false)}
+                    />
+                  </div>
+
+                  <textarea
+                    rows="5"
+                    className="w-full bg-transparent px-3 outline-none text-xs"
+                  ></textarea>
+                </div>
+              )}
+
+              {/* end of report box */}
             </div>
           </div>
         )}

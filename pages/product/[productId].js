@@ -5,8 +5,9 @@ import SingleProductSidebar from "../../components/SingleProduct/SingleProductSi
 import { productData } from "../../productData";
 import MobileHeaderSearch from "../../components/MobileHeaderSearch";
 
-const Product = () => {
+const Product = ({ details }) => {
   const newProducts = productData.slice(0, 4);
+  const newDetails = details.data;
 
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
@@ -26,14 +27,15 @@ const Product = () => {
       {/* container for the sidebar and body */}
       <div className="flex mt-10">
         {/* sidebar */}
+
         <div className=" mr-2 w-[20%] rounded-md hidden lg:inline">
-          <SingleProductSidebar />
+          <SingleProductSidebar userDetails={newDetails} />
         </div>
 
         {/* body section */}
         {/* w-[calc(100%_-_10rem)] */}
         <div className="w-full lg:flex-1">
-          <SingleProductBody products={newProducts} />
+          <SingleProductBody productDetails={newDetails} />
         </div>
       </div>
     </div>
@@ -41,3 +43,18 @@ const Product = () => {
 };
 
 export default Product;
+
+//server side fetching of the full product details
+export async function getServerSideProps(context) {
+  const { productId } = context.query;
+
+  const requests = await fetch(
+    `https://bellefu.inmotionhub.xyz/api/general/get/single/product/${productId}`
+  ).then((res) => res.json());
+
+  return {
+    props: {
+      details: requests,
+    },
+  };
+}

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  login: null,
-  profileDetails: [],
+  subcatselected: undefined,
+  profileDetails: typeof window !== "undefined" ? localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null : null,
   formDisabler: true,
   countrySelected: null,
   indexApi:[],
@@ -33,11 +33,17 @@ export const bellefuSlice = createSlice({
   reducers: {
     isLoggedIn: (state, action) => {
       state.login = action.payload;
+      localStorage.setItem('login', state.login)
     },
+    fetchData: (state, action) => {
+      state.indexData = action.payload;
 
-
+    },
     isDisabled: (state, action) => {
       state.formDisabler = action.payload;
+    },
+    updateIdpath: (state, action) => {
+      state.catId = action.payload;
     },
 
     chooseCountry: (state, action) => {
@@ -100,6 +106,9 @@ export const bellefuSlice = createSlice({
     // E don end here 
     
   },
+
+
+
 });
 
 // Action creators are generated for each case reducer function

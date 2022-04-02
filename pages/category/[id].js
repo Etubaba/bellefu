@@ -1,18 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderSearch from "../../components/HeaderSearch";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import CategoryProducts from "../../components/categoryIdProducts/CategoryProducts";
 import Range from "../../components/RangeComponent/Range";
+import { apiData } from "../../constant";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { homeData } from "../../features/bellefuSlice";
+// import { productId } from "../../components/Dropdown";
 
+
+// export const getServerSideProps = async () => {
+//   console.log(productId);
+//   const response = await fetch(`${apiData}get/product/cat/${productId}`);
+//   const {data} = await response.json();
+//   return {
+//     props: {
+//       productList: data
+//     }
+//   }
+// }
 const Product = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
+  const [catUpdate, setCatUpdate] = useState(null);
+  const [product, setProduct] = useState([]);
+
+
+
+
+  const productId = useSelector(state => state.bellefu.catfilter)
+
+  const newId = catUpdate === null ? productId : catUpdate
+
+  const index = useSelector(homeData)
+  const router = useRouter();
+  //console.log(router.query);
+
+  //setProductId(router.query.id);
+
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const response = await fetch(`${apiData}get/product/cat/${newId}`);
+      const { data } = await response.json();
+      setProduct(data);
+    };
+
+    getProduct()
+  }, [productId, catUpdate])
+
+  console.log(index)
   return (
     <div className="max-w-[90%] mx-auto">
-      <HeaderSearch />
+      <HeaderSearch
+        dialet={index?.defaultLanguage}
+        state={index?.countryStates}
+        defaultCountry={index?.defaultCountryName}
+        languages={index?.languages}
+        countries={index?.countries}
+        location={index?.defaultCountry}
+      />
 
       <div className="flex">
         {/* sidebar section */}
@@ -32,7 +83,8 @@ const Product = () => {
                   className="w-6 h-6"
                 />
                 <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
-                  Agricultural Produce
+                  {/* Agricultural Produce */}
+                  {product[0]?.CatName}
                 </h5>
               </div>
               {open === false ? (
@@ -48,30 +100,24 @@ const Product = () => {
             {open === true ? (
               <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
                 <ul className="rounded px-5 py-4">
-                  <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
-                  </li>
-                  <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
-                  </li>
-                  <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
-                  </li>
+                  {index?.categories.map((cat) => (
+
+                    <li key={cat.id} onClick={() => {
+                      setOpen(false)
+                      setCatUpdate(cat.id)
+                    }}
+                      className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
+                      <img
+                        src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat.image}`}
+                        alt="icons"
+                        className="w-6 h-6 object-cover"
+                      />
+                      <span>{cat.name}</span>
+                    </li>
+                  ))}
+
+
+
                 </ul>
               </div>
             ) : null}
@@ -84,7 +130,7 @@ const Product = () => {
             <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
               <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
                 <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
-                  Vegetables
+                  Select Subcategory
                 </h5>
               </div>
               {open1 === false ? (
@@ -100,30 +146,18 @@ const Product = () => {
             {open1 === true ? (
               <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
                 <ul className="rounded px-5 py-4">
+                  {/* {index?.category.map((item) => (
+                    <li key={item.id} className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
+
+                      <span>{item.sub_category}</span>
+                    </li>
+
+                  ))} */}
                   <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
+
+                    <span>sfvsfvsfffss</span>
                   </li>
-                  <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
-                  </li>
-                  <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
-                  </li>
+
                 </ul>
               </div>
             ) : null}
@@ -152,22 +186,7 @@ const Product = () => {
             {open2 === true ? (
               <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
                 <ul className="rounded px-5 py-4">
-                  <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
-                  </li>
-                  <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-                    <img
-                      src="/bellefulogo.png"
-                      alt="icons"
-                      className="w-6 h-6 object-cover"
-                    />
-                    <span>menu list 1</span>
-                  </li>
+                  { }
                   <li className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
                     <img
                       src="/bellefulogo.png"
@@ -334,7 +353,7 @@ const Product = () => {
 
         {/* product session */}
         <div className="flex-1">
-          <CategoryProducts />
+          <CategoryProducts product={product} />
         </div>
       </div>
     </div>

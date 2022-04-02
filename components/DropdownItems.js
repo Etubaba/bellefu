@@ -1,10 +1,21 @@
 import { useState } from "react";
-import { AiOutlineCaretRight } from "react-icons/ai";
+// import { AiOutlineCaretRight } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { Subcat } from "../features/bellefuSlice";
 
 const DropdownItems = ({ child }) => {
+
+
+  const sendAm = useDispatch()
+
   return (
-    <div className="hover:bg-bellefuBackground p-2">
-      <p>{child.subCatName}</p>
+    <div onClick={() => {
+      sendAm(Subcat(child.subCatId))
+
+    }} className="hover:bg-bellefuBackground">
+      <p className=" p-2 rounded-sm">
+        {child.subCatName}
+      </p>
     </div>
   );
 };

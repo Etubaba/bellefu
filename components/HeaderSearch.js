@@ -6,16 +6,31 @@ import axios from "axios";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
 import { chooseCountry } from "../features/bellefuSlice";
+import { chooseState } from "../features/bellefuSlice";
 
-const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
+const HeaderSearch = ({ countries, location, languages, state, dialet, defaultCountry }) => {
   const [open, setOpen] = useState(false);
   const [selectCountry, setSelectCountry] = useState(false);
   const [selectlang, setSelectlang] = useState(false);
   const [flag, setFlag] = useState(null);
   const [native, setNative] = useState(null);
+  const [countryName, setCountryName] = useState(null)
+  const [stateList, setStateList] = useState([])
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const fetchStates = async () => {
+      await axios.get(`https://bellefu.inmotionhub.xyz/api/general/get/${flag}/states`)
+        .then(res => setStateList(res.data.data))
+        .catch(err => console.log(err))
+    }
+
+    fetchStates()
+  }, [flag])
+
+
+  const province = flag !== null ? stateList : state
   return (
     <div
       className={
@@ -47,6 +62,7 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
                 onClick={() => {
                   setFlag(list.iso2);
                   setSelectCountry(false);
+                  setCountryName(list.name)
                   dispatch(chooseCountry(list.iso2));
                 }}
                 class="py-1 flex space-x-3 hover:bg-bellefuBackground"
@@ -126,13 +142,16 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
           className="relative w-9/12 flex cursor-pointer text-gray-500"
         >
           <ImLocation2 className="text-bellefuOrange mt-1 mr-1" />{" "}
-          <span>Where? Nigeria</span>{" "}
+          <span>Where? {countryName !== null ? countryName : defaultCountry}</span>{" "}
         </span>
 
         {open && (
           <div className="z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-            {state.map((state) => (
-              <div key={state.id} className="py-1  hover:bg-bellefuBackground ">
+            {province?.map((state) => (
+              <div onClick={() => {
+                setOpen(!open)
+                dispatch(chooseState(state.code))
+              }} key={state.id} className="py-1  hover:bg-bellefuBackground ">
                 <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">
                   {state.name}
                 </span>
@@ -145,7 +164,7 @@ const HeaderSearch = ({ countries, location, languages, state, dialet }) => {
           Search
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 export default HeaderSearch;

@@ -70,12 +70,12 @@ export default function Details() {
     }
   }
   return (
-    <div className=" shadow bg-bellefuWhite rounded-md  p-5">
-      <div className="border  p-5 mt-7 ">
+    <div className=" shadow bg-bellefuWhite rounded-md  lg:p-5 p-2">
+      <div className="border lg:p-5 p-1 lg:mt-7 mt-2 rounded-sm">
         <div>
           <form action="#" method="POST">
             <div className=" overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 sm:p-6">
+              <div className="lg:px-4 px-2 py-2 lg:py-5 sm:p-3">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <label
@@ -161,7 +161,7 @@ export default function Details() {
                 </div>
               </div>
             </div>
-            <div className="p-5">
+            <div className="lg:p-5 p-2">
               <label
                 htmlFor="about"
                 className="block text-sm font-medium text-gray-700"
@@ -172,7 +172,7 @@ export default function Details() {
                 <textarea
                   onChange={handleText}
                   rows={4}
-                  className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
+                  className="shadow-sm p-2 lg:p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
                   placeholder="you@example.com"
                   defaultValue={""}
                 />

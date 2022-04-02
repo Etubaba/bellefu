@@ -1,6 +1,6 @@
 import Dropdown from "./Dropdown";
 
-const CategorySideBar = ({ categories }) => {
+const CategorySideBar = ({ categories, indexData }) => {
   return (
     <div className="bg-bellefuWhite rounded-md pb-10">
       <div className="pt-4">

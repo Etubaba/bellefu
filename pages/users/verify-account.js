@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import { MdVerified } from "react-icons/md";
 import { BiCaretRight } from "react-icons/bi";
@@ -11,8 +12,11 @@ import UnstyledSelectSimple2 from "../../components/layoutComponents/form-fields
 import UnstyledSelectSimple3 from "../../components/layoutComponents/form-fields/StateProvince";
 import UnstyledSelectSimple4 from "../../components/layoutComponents/form-fields/City";
 import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields/Lga";
+import { profileDetails } from "../../features/bellefuSlice";
 
-function verifyaccount() {
+function Verifyaccount() {
+  const user = useSelector(profileDetails);
+
   const [verify, setVerify] = useState(false);
   const [phone, setPhone] = useState(false);
   const [idopen, setIdopen] = useState(false);
@@ -36,6 +40,19 @@ function verifyaccount() {
     window.location.reload(false);
     setPreview(undefined);
   };
+  const requestPhoneVerificationCode = async () => {
+    const {phone, userId} = user;
+    const response = await fetch("https://bellefu.inmotionhub.xyz/api/web30/send/phone/code", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({phone, userId})
+    });
+    const data = await response.json();
+
+    if (data.status) setVerify(true);
+  };
 
   const IDstyle = {
     transform: idopen ? "rotate(90deg)" : "rotate(0)",
@@ -58,7 +75,8 @@ function verifyaccount() {
       <div className="text-xl ml-4 self p-2">Account Verification</div>
       <hr />
 
-      {verify ? (
+
+      {!verify ? (
         <div className="h-auto ">
           <div className="border mx-auto my-6  rounded-xl    w-7/12 h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
@@ -73,7 +91,7 @@ function verifyaccount() {
                 className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"
               >
                 <MdVerified className="text-xl" />{" "}
-                <span>Request Phone Verification</span>
+                <span onClick={requestPhoneVerificationCode}>Request Phone Verification</span>
               </button>
             </div>
           </div>
@@ -605,5 +623,5 @@ function verifyaccount() {
     </div>
   );
 }
-verifyaccount.Layout = Layout;
-export default verifyaccount;
+Verifyaccount.Layout = Layout;
+export default Verifyaccount;
