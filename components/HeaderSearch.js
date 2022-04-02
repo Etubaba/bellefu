@@ -5,7 +5,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import axios from "axios";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
-import { chooseCountry } from "../features/bellefuSlice";
+import { chooseCountry, handleSearch } from "../features/bellefuSlice";
 import { chooseState } from "../features/bellefuSlice";
 
 const HeaderSearch = ({ countries, location, languages, state, dialet, defaultCountry }) => {
@@ -16,6 +16,7 @@ const HeaderSearch = ({ countries, location, languages, state, dialet, defaultCo
   const [native, setNative] = useState(null);
   const [countryName, setCountryName] = useState(null)
   const [stateList, setStateList] = useState([])
+  const [search, setSearch] = useState('')
 
   const dispatch = useDispatch();
 
@@ -124,6 +125,11 @@ const HeaderSearch = ({ countries, location, languages, state, dialet, defaultCo
         <input
           type="text"
           list="brow"
+          value={search}
+          onChange={(e) => {
+            dispatch(handleSearch(e.target.value))
+            setSearch(e.target.value)
+          }}
           placeholder="What are you looking for?"
           className="bg-bellefuBackground focus:outline-none w-9/12"
         />
