@@ -7,13 +7,14 @@ import { selectCat } from '../features/bellefuSlice'
 import { Subcat } from "../features/bellefuSlice";
 import { fetchData } from "../features/bellefuSlice";
 
-const Dropdown = ({ category, indexData }) => {
+const Dropdown = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState(null)
 
   const dispatch = useDispatch();
-  // console.log(text)
+
+
 
   if (category.sub_category) {
     return (
@@ -24,7 +25,7 @@ const Dropdown = ({ category, indexData }) => {
         >
           <div onClick={() => {
             dispatch(selectCat(category.id))
-            dispatch(fetchData(indexData))
+
             router.push(`/category/${category.id}`)
           }
 

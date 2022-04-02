@@ -10,6 +10,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { useSelector, useDispatch } from 'react-redux'
 import { login } from '../../features/bellefuSlice'
+import { profileDetails } from '../../features/bellefuSlice'
 import { isLoggedIn } from '../../features/bellefuSlice'
 import { useRouter } from 'next/router'
 
@@ -22,6 +23,7 @@ const NavBar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const getIsLoggedIn = useSelector(login)
+  const username = useSelector(profileDetails)
 
   const toPostAds = () => {
     if (getIsLoggedIn) {
@@ -74,8 +76,8 @@ const NavBar = () => {
                 height={30}
                 className="rounded-full object-cover"
               />
-              <p className="text-white font-semibold">
-                Hi <span>Mavin</span>
+              <p onClick={() => router.push('/users')} className="text-white hover:text-gray-200' font-semibold">
+                Hi <span>{username.username}</span>
               </p>
               <div className="">
                 {open === false ? (

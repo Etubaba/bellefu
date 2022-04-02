@@ -4,7 +4,7 @@ import CategoryProductList from "./CategoryProductList";
 // import { productData } from "../../productData";
 
 const CategoryProducts = ({ product }) => {
-  console.log(product)
+
   return (
     <div>
       <MainProductHeader />

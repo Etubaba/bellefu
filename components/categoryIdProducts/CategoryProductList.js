@@ -4,7 +4,7 @@ import { BsHeart } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 
 const CategoryProductList = ({ product }) => {
-  console.log(product)
+  // console.log(product)
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`} className="rounded-md w-full h-44 object-cover" alt={product.title} />

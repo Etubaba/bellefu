@@ -55,6 +55,7 @@ export const { isLoggedIn, fetchData, isDisabled, chooseCountry, Subcat, selectC
 export const login = (state) => state.bellefu.login;
 export const profileDetails = (state) => state.bellefu.profileDetails;
 export const selectDisable = (state) => state.bellefu.formDisabler;
+export const homeData = (state) => state.bellefu.indexData
 
 
 export default bellefuSlice.reducer;
