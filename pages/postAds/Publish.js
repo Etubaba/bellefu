@@ -8,6 +8,7 @@ import axios from "axios";
 export default function Publish() {
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
+  const dataTopost2 = useSelector((state) => state.bellefu.profileDetails);
   const dispatch = useDispatch();
   const handleFree = () => {
     dispatch(handlePlansUpdate("free"));
@@ -18,7 +19,9 @@ export default function Publish() {
     router.back();
   };
 
-  // publish ads....
+  // publish ads.... section wey i do beware###########################
+
+
   const handlePublish = (e) => {
     e.preventDefault();
 
@@ -30,24 +33,25 @@ export default function Publish() {
     // } else {
 
     const formData = new FormData();
-
+//  things i dey post from redux store
     formData.append("title", dataTopost.title);
     formData.append("location", dataTopost.location);
-    formData.append("images",dataTopost.images );
+    // see the image dey show for payload wen i post but wen e reach backend e no dey show
+    formData.append("images",dataTopost.images ); 
     formData.append("categoryid", dataTopost.categoryid);
     formData.append("subcategoryid", dataTopost.subcategoryid);
     formData.append("price",dataTopost.price);
     formData.append("description", dataTopost.description);
     formData.append("tag", dataTopost.tag);
-    formData.append("phone", dataTopost.phone);
-    formData.append("userid", dataTopost.userid);
+    formData.append("phone", dataTopost2.phone);
+    formData.append("userid", dataTopost2.id);
     formData.append("citycode", dataTopost.cityCode);
-    formData.append("countrycode", dataTopost.pushId);
+    formData.append("countrycode", dataTopost.countrycode);
     formData.append("states", dataTopost.states);
     formData.append("currencyCode",dataTopost.currencyCode);
     formData.append("plans", dataTopost.plans);
     
-
+      console.log(formData);
     axios({
       method: "POST",
       url: `https://bellefu.inmotionhub.xyz/api/general/create/product`,

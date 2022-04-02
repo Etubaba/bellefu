@@ -50,17 +50,17 @@ export default function Images(props) {
         ...prevState,
         URL.createObjectURL(acceptedFiles[0]),
       ]);
+
+      // see the file object image i dey end for back end which is files2 as arrays of files 
       setFiles2((prevState) => [...prevState, acceptedFiles]);
     },
   });
 
   const handleRemovetag = (tags) => {
-    // tags.stopPropagation();
     const newArr = files.filter((tag) => tag !== tags);
     setFiles(newArr);
   };
 
-  // console.log(files);
   console.log(files2);
   const thumbs = files.map((file, index) => (
     <div style={thumb} key={index}>
@@ -78,7 +78,7 @@ export default function Images(props) {
     e.preventDefault();
     router.back();
   };
-
+//  see where i dey dispatch the file object images to redux then from redux to publish page where i dey end everything
   const handleSubmit =(e)=>{
     e.preventDefault();
     if( files2.length!==0){

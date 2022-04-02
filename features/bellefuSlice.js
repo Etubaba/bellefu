@@ -10,7 +10,7 @@ const initialState = {
   stateSelected: null,
   indexData: null,
   catId: null,
-
+  searchFilter: '',
   indexApi: [],
   postAddata: {
     categoryid: "",
@@ -50,6 +50,9 @@ export const bellefuSlice = createSlice({
     },
     updateIdpath: (state, action) => {
       state.catId = action.payload;
+    },
+    handleSearch: (state, action) => {
+      state.searchFilter = action.payload;
     },
 
     chooseCountry: (state, action) => {
@@ -142,7 +145,7 @@ export const bellefuSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  isLoggedIn, isDisabled, chooseCountry, handleIndexApi,
+  isLoggedIn, isDisabled, chooseCountry, handleIndexApi, handleSearch,
   updateIdpath, fetchData, Subcat, selectCat, chooseState, setProfileDetails,
   handleUseridUpdate, handleImagesUpdate, handleDescriptionUpdate,
   handleTagUpdate, handlePriceUpdate, handlePhoneUpdate,
