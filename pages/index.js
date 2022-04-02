@@ -68,6 +68,7 @@ export default function Home({ data }) {
             {/* list of products & slider */}
             <div className="flex-1">
               <Body
+                location={data.defaultCountry}
                 currency={data.defaultCurrency}
                 products={data.products}
                 slider={data.slider}
