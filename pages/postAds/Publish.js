@@ -38,6 +38,7 @@ export default function Publish() {
     formData.append("subcategoryid", dataTopost.subcategoryid);
     formData.append("price",dataTopost.price);
     formData.append("description", dataTopost.description);
+    formData.append("tag", dataTopost.tag);
     formData.append("phone", dataTopost.phone);
     formData.append("userid", dataTopost.userid);
     formData.append("citycode", dataTopost.cityCode);
