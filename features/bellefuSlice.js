@@ -8,7 +8,8 @@ const initialState = {
   catfilter: null,
   login: typeof window !== "undefined" ? localStorage.getItem('login') : null,
   stateSelected: null,
-  indexData: null
+  indexData: null,
+  catId: null
 };
 
 export const bellefuSlice = createSlice({
@@ -25,6 +26,9 @@ export const bellefuSlice = createSlice({
     },
     isDisabled: (state, action) => {
       state.formDisabler = action.payload;
+    },
+    updateIdpath: (state, action) => {
+      state.catId = action.payload;
     },
 
     chooseCountry: (state, action) => {
@@ -50,7 +54,7 @@ export const bellefuSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { isLoggedIn, fetchData, isDisabled, chooseCountry, Subcat, selectCat, chooseState, setProfileDetails } = bellefuSlice.actions;
+export const { isLoggedIn, updateIdpath, fetchData, isDisabled, chooseCountry, Subcat, selectCat, chooseState, setProfileDetails } = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;
 export const profileDetails = (state) => state.bellefu.profileDetails;

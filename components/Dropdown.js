@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import DropdownItems from "./DropdownItems";
 import { useRouter } from "next/router";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectCat } from '../features/bellefuSlice'
 import { Subcat } from "../features/bellefuSlice";
 import { fetchData } from "../features/bellefuSlice";
@@ -13,6 +13,7 @@ const Dropdown = ({ category }) => {
   const [text, setText] = useState(null)
 
   const dispatch = useDispatch();
+  const catId = useSelector()
 
 
 
