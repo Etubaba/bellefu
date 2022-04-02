@@ -2,8 +2,8 @@ import * as React from 'react';
 import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled';
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
-// import {isDisabled ,selectDisable} from "../../../features/bellefuSlice";
-// import { useSelector,useDispatch } from "react-redux";
+import {handleStateUpdate} from "../../features/bellefuSlice";
+import { useDispatch } from "react-redux";
 import { styled } from '@mui/system';
 
 const blue = {
@@ -72,13 +72,15 @@ const StyledListbox = styled('ul')(
   box-sizing: border-box;
   padding: 4px;
   margin: 10px 0;
-  min-width: 517px;
+  min-width: 26vw;
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   overflow: auto;
   outline: 0px;
+  overflow-y:scroll;
+  height:36vh
   `,
 );
 
@@ -134,17 +136,33 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
   return <SelectUnstyled {...props} ref={ref} components={components} />;
 });
 
-export default function UnstyledSelectSimple4() {
+export default function UnstyledSelectSimple4({countryStuffs,states,checker2,catchLgas}) {
 
-//   const disable=useSelector(selectDisable);
+  const dispatch =useDispatch();
 
+  const handleThings=(counts)=>{
+    // setCat(counts.name);
+    const newLgaArr = countryStuffs.lga.filter((lgas) => lgas.stateCode === counts.code);
+   dispatch(handleStateUpdate(counts.code))
+    // console.log(counts);
+    // console.log(countryStuffs.lga);
+    // console.log(newLgaArr);
+    catchLgas(newLgaArr,counts.name);
+  }
 
 
   return (
-    <CustomSelect  defaultValue={"+1"}>
-      <StyledOption value={"+234"}>Ten</StyledOption>
-      <StyledOption value={"+43"}>Twenty</StyledOption>
-      <StyledOption value={"+90"}>Thirty</StyledOption>
+    <CustomSelect  disabled={checker2===""?true:false}>
+       {states?.map((counts,index)=>(
+       <span  onClick={() => handleThings(counts)}>
+       <StyledOption
+         key={index}
+         value={counts.name}
+       >
+         {counts.name}
+       </StyledOption>
+     </span>
+     ))}
     </CustomSelect>
   );
 };

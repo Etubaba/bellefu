@@ -2,10 +2,10 @@ import * as React from 'react';
 import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled';
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
-// import {isDisabled ,selectDisable} from "../../../features/bellefuSlice";
-// import { useSelector,useDispatch } from "react-redux";
+import {handleSubcatUpdate} from "../../features/bellefuSlice";
+import { useSelector,useDispatch } from "react-redux";
 import { styled } from '@mui/system';
-
+import {useState} from "react";
 const blue = {
   100: '#DAECFF',
   200: '#99CCF3',
@@ -72,13 +72,16 @@ const StyledListbox = styled('ul')(
   box-sizing: border-box;
   padding: 4px;
   margin: 10px 0;
-  min-width: 517px;
+  min-width: 26vw;
+  height: 36vh;
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   overflow: auto;
   outline: 0px;
+  z-index:100;
+  overflow-y:scroll;
   `,
 );
 
@@ -134,17 +137,32 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
   return <SelectUnstyled {...props} ref={ref} components={components} />;
 });
 
-export default function UnstyledSelectSimple2() {
+export default function UnstyledSelectSimple2({subCategory,checker }) {
 
-//   const disable=useSelector(selectDisable);
+ const dispatch=useDispatch()
 
+ console.log(subCategory);
 
+ const handleThings=(counts)=>{
+   dispatch(handleSubcatUpdate(counts.subCatId))
+  //  setSubcat(counts) ;
+   console.log(counts.subCatId);
+
+  }
 
   return (
-    <CustomSelect  defaultValue={"+1"}>
-      <StyledOption value={"+234"}>Ten</StyledOption>
-      <StyledOption value={"+43"}>Twenty</StyledOption>
-      <StyledOption value={"+90"}>Thirty</StyledOption>
+    <CustomSelect disabled={checker===""?true:false} >
+     {subCategory?.map((counts,index)=>(
+       <span onClick={() => handleThings(counts)}>
+       <StyledOption
+         key={index}
+         value={counts.subCatName}
+       >
+         {counts.subCatName}
+       </StyledOption>
+     </span>
+     ))}
+      
     </CustomSelect>
   );
 };

@@ -4,7 +4,7 @@ import Image from "next/image";
 import {useState} from "react";
 
 export default function Slider({slider}) {
-
+ console.log(slider);
 
   const [newSlider]=slider;
   

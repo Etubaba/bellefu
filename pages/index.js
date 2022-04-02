@@ -1,6 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useSelector, useDispatch } from "react-redux";
+import { handleIndexApi, } from "../features/bellefuSlice"
 import { useEffect } from "react";
+
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
 // import axios from "axios";
@@ -8,7 +11,7 @@ import Body from "../components/Body";
 import MobileCategoryBar from "../components/MobileCategoryBar/MobileCategoryBar";
 import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
-import { useDispatch } from "react-redux";
+
 import { fetchData } from "../features/bellefuSlice";
 
 
@@ -18,10 +21,11 @@ export default function Home({ data }) {
 
   if (data) {
     dispatch(fetchData(data))
-  };
+  }
 
-
-
+  // useEffect(() => {
+  //   dispatch(handleIndexApi(data))
+  // }, [])
 
 
 

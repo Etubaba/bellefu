@@ -135,13 +135,16 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 });
 
 export default function UnstyledSelectSimple() {
-  const disable = useSelector(selectDisable);
+
+  const disable = useSelector((state) => state.bellefu.formDisabler);
+  const optionSelect = useSelector((state) => state.bellefu.indexApi);
 
   return (
     <CustomSelect disabled={disable} defaultValue={"+1"}>
-      <StyledOption value={"+234"}>Ten</StyledOption>
-      <StyledOption value={"+43"}>Twenty</StyledOption>
-      <StyledOption value={"+90"}>Thirty</StyledOption>
+      {optionSelect.countries?.map((datas,index)=>(
+        <StyledOption key={index} value={phone_code}>+{datas.phone_code}</StyledOption>
+
+      ))}
     </CustomSelect>
   );
 };

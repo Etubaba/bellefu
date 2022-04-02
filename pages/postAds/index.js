@@ -1,13 +1,73 @@
 import React from "react";
 import Head from "next/head";
+// import Link from "next/link";
+import { useRouter } from 'next/router';
 import Layout from "../../components/postAdsComponent/Layout";
 import UnstyledSelectSimple1 from "../../components/postAdsComponent/CatInput";
 import UnstyledSelectSimple2 from "../../components/postAdsComponent/SubCatInput";
 import UnstyledSelectSimple3 from "../../components/postAdsComponent/CountrySelect";
 import UnstyledSelectSimple4 from "../../components/postAdsComponent/State";
 import UnstyledSelectSimple5 from "../../components/postAdsComponent/City";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {handleLocationUpdate} from "../../features/bellefuSlice"
 
-function Index() {
+function Index({ data1, data2 }) {
+
+  const router = useRouter();
+
+
+  const [subcat, setSubcat] = useState([]);
+  const [checker, setChecker] = useState("");
+  const [states, setStates] = useState([]);
+  const [checker2, setChecker2] = useState("");
+  const [lga, setLga] = useState([]);
+  const [checker3, setChecker3] = useState("");
+  const [address, setAddress] = useState("");
+  const [symbolcatcher, setSymbolcatcher] = useState("");
+
+  const handleCatching = (e, e2) => {
+    console.log(e);
+    console.log(e2);
+    setSubcat(e);
+    setChecker(e2);
+  };
+  const handleStateCatch = (e, e2,e3) => {
+    console.log(e);
+    console.log(e2);    
+    console.log(e3);
+    setStates(e);
+    setChecker2(e2);   
+   setSymbolcatcher(e3)
+
+  };
+  const handleLgacatch = (localgvt, e2) => {
+    console.log(localgvt + "lga is here");
+    console.log(e2);
+    setLga(localgvt);
+    setChecker3(e2);
+  };
+
+
+ const  handleLocation =(e)=>{
+  setAddress(e.target.value)
+ }
+ 
+ const dispatch=useDispatch();
+
+ const handleSubmit =(e)=>{
+   e.preventDefault();
+   if(address!==""){
+         dispatch(handleLocationUpdate(address));
+         router.push('/postAds/Details')
+
+   }else{
+     return;
+   }
+ }
+  //  console.log(data1);
+  //  console.log(data2);
+
   return (
     <div>
       <Head>
@@ -30,7 +90,10 @@ function Index() {
                       >
                         Category
                       </label>
-                      <UnstyledSelectSimple1/>
+                      <UnstyledSelectSimple1
+                        category={data2}
+                        subcatCatcher={handleCatching}
+                      />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -40,8 +103,10 @@ function Index() {
                       >
                         Sub-Category
                       </label>
-                      <UnstyledSelectSimple2/>
-
+                      <UnstyledSelectSimple2
+                        subCategory={subcat}
+                        checker={checker}
+                      />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -50,8 +115,10 @@ function Index() {
                       >
                         Country
                       </label>
-                      <UnstyledSelectSimple3/>
-
+                      <UnstyledSelectSimple3
+                        countryStuffs={data1}
+                        catchState={handleStateCatch}
+                      />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -60,18 +127,21 @@ function Index() {
                       >
                         State
                       </label>
-                      <UnstyledSelectSimple4/>
-
+                      <UnstyledSelectSimple4
+                        countryStuffs={data1}
+                        catchLgas={handleLgacatch}
+                        states={states}
+                        checker2={checker2}
+                      />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         for="email"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        City
+                        Lga/City
                       </label>
-                      <UnstyledSelectSimple5/>
-
+                      <UnstyledSelectSimple5 lga={lga} checker3={checker3} />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -81,17 +151,17 @@ function Index() {
                         Location
                       </label>
                       <input
-                      type="text"
-                      name="location"
-                      id="location"
-                      autocomplete="given-name"
-                      className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                    />
+                        type="text"
+                        name="location"
+                        id="location"
+                        onChange={handleLocation}
+                        className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               <div className="p-5 flex justify-between">
                 <button
                   type="submit"
@@ -99,22 +169,54 @@ function Index() {
                 >
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-                >
-                  Continue
-                </button>
+                {/* <Link href="/postAds/Details"> */}
+                  <button
+                  disabled={address===""?true:false}
+                    type="submit"
+                    onClick={handleSubmit}
+                    class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  >
+                    Continue
+                  </button>
+                {/* </Link> */}
               </div>
             </form>
           </div>
         </div>
-
-
       </div>
     </div>
   );
 }
+export async function getServerSideProps() {
+  const res1 = await fetch(
+    `https://bellefu.inmotionhub.xyz/api/web30/get/web/postadd/info`
+  );
+  const res2 = await fetch(
+    `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
+  );
+  const data1 = await res1.json();
+  const data2 = await res2.json();
+
+  return {
+    props: {
+      data1,
+      data2,
+    },
+  };
+}
+
+// export async function getServerSideProps() {
+//   const res2 = await fetch(
+//     `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
+//   );
+//   const data2 = await res2.json();
+
+//   return {
+//     props: {
+//       data2,
+//     },
+//   };
+// }
 
 Index.Layout = Layout;
 export default Index;
