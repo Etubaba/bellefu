@@ -7,7 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import {handleImagesUpdate} from "../../features/bellefuSlice";
+import { handleImagesUpdate } from "../../features/bellefuSlice";
 
 
 
@@ -52,7 +52,13 @@ export default function Images(props) {
       ]);
 
       // see the file object image i dey end for back end which is files2 as arrays of files 
-      setFiles2((prevState) => [...prevState, acceptedFiles]);
+
+      for (let i = 0; i < acceptedFiles.length; i++) {
+        let loopedFile = acceptedFiles[i]
+        console.log(loopedFile[0])
+        setFiles2((prevState) => [...prevState, loopedFile]);
+      }
+      // setFiles2((prevState) => [...prevState, acceptedFiles]);
     },
   });
 
@@ -78,14 +84,14 @@ export default function Images(props) {
     e.preventDefault();
     router.back();
   };
-//  see where i dey dispatch the file object images to redux then from redux to publish page where i dey end everything
-  const handleSubmit =(e)=>{
+  //  see where i dey dispatch the file object images to redux then from redux to publish page where i dey end everything
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if( files2.length!==0){
-          dispatch(handleImagesUpdate(files2));
-          router.push('/postAds/Publish')
- 
-    }else{
+    if (files2.length !== 0) {
+      dispatch(handleImagesUpdate(files2));
+      router.push('/postAds/Publish')
+
+    } else {
       return;
     }
   }
@@ -135,14 +141,14 @@ export default function Images(props) {
           </div>
           <div className="p-5 flex justify-between">
             <button
-            onClick={handleBack}
+              onClick={handleBack}
               type="submit"
               class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
             >
               Back
             </button>
             <button
-            disabled={files2.length===0?true:false}
+              disabled={files2?.length === 0 ? true : false}
               onClick={handleSubmit}
               type="submit"
               class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
