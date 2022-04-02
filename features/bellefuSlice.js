@@ -55,6 +55,12 @@ export const bellefuSlice = createSlice({
     chooseCountry: (state, action) => {
       state.countrySelected = action.payload
     },
+    chooseState: (state, action) => {
+      state.stateSelected = action.payload
+    },
+    handlePriceUpdate: (state, action) => {
+      state.postAddata.price = action.payload
+    },
     handleIndexApi: (state, action) => {
       state.indexApi = action.payload
     },
@@ -97,6 +103,23 @@ export const bellefuSlice = createSlice({
     handleStateUpdate: (state, action) => {
       state.postAddata.states = action.payload
     },
+    setProfileDetails: (state, action) => {
+      state.profileDetails = action.payload
+    },
+    Subcat: (state, action) => {
+      state.subcatselected = action.payload
+    },
+    selectCat: (state, action) => {
+      state.catfilter = action.payload
+
+    },
+
+    handlePhoneUpdate: (state, action) => {
+      state.postAddata.phone = action.payload
+    },
+    handleTagUpdate: (state, action) => {
+      state.postAddata.tag = action.payload
+    },
     handleCurrencyUpdate: (state, action) => {
       state.postAddata.currencyCode = action.payload
     },
@@ -118,7 +141,8 @@ export const bellefuSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { isLoggedIn, isDisabled, chooseCountry, handleIndexApi,
+export const {
+  isLoggedIn, isDisabled, chooseCountry, handleIndexApi,
   updateIdpath, fetchData, Subcat, selectCat, chooseState, setProfileDetails,
   handleUseridUpdate, handleImagesUpdate, handleDescriptionUpdate,
   handleTagUpdate, handlePriceUpdate, handlePhoneUpdate,

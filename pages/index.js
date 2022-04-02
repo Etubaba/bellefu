@@ -28,7 +28,6 @@ export default function Home({ data }) {
   // }, [])
 
 
-
   return (
     <div>
       <Head>
