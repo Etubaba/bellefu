@@ -5,6 +5,8 @@ import { MdVerified } from "react-icons/md";
 import { BiCaretRight } from "react-icons/bi";
 import { profileDetails } from "../features/bellefuSlice";
 import {useRouter} from "next/router";
+import Head from "next/head";
+import { toast } from "react-toastify";
 
 
 const VerifyPhone = () => {
@@ -74,6 +76,10 @@ const VerifyPhone = () => {
       setVerify(true);
       setPhone(prev => !prev);
       firstInput.current.focus();
+    } else {
+      toast.info("Server busy. Try again", {
+        position: POSITION.TOP_CENTER,
+      })
     }
   };
   const verificationCodeFieldsFilled = (verificationCode) => {
@@ -99,13 +105,13 @@ const VerifyPhone = () => {
     } 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verificationCode])
-  // const phonestyle = {
-  //   transform: phone ? "rotate(90deg)" : "rotate(0)",
-  //   transition: "transform 150ms ease",
-  //   color: phone ? "#FFA500" : "rgb(116, 110, 110)",
-  // };
 
   return (
+    <>
+    <Head>
+      <title>verify phone</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto md:w-[50%] md:mx-auto pb-2">
       <h1 className="text-xl ml-4 self p-2">Phone Number Verification</h1>
       <hr />
@@ -244,6 +250,7 @@ const VerifyPhone = () => {
       )
     }
     </div>
+    </>
   )
 };
 
