@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { homeData, updateIdpath } from "../../features/bellefuSlice";
 import axios from "axios";
 
-
 const Product = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
@@ -19,19 +18,16 @@ const Product = () => {
   const [catUpdate, setCatUpdate] = useState(null);
   const [subcat, setSubcat] = useState([]);
   const [product, setProduct] = useState([]);
-  const [subCatText, setSubCatText] = useState(null)
-  const [stateList, setStateList] = useState([])
+  const [subCatText, setSubCatText] = useState(null);
+  const [stateList, setStateList] = useState([]);
 
+  const productId = useSelector((state) => state.bellefu.catfilter);
 
+  const country = useSelector((state) => state.bellefu.countrySelected);
 
-
-  const productId = useSelector(state => state.bellefu.catfilter)
-
-  const country = useSelector(state => state.bellefu.countrySelected)
-
-  const newId = catUpdate === null ? productId : catUpdate
-  const dispatch = useDispatch()
-  const index = useSelector(homeData)
+  const newId = catUpdate === null ? productId : catUpdate;
+  const dispatch = useDispatch();
+  const index = useSelector(homeData);
   const router = useRouter();
   //console.log(router.query);
 
@@ -45,9 +41,8 @@ const Product = () => {
       setProduct(data);
     };
 
-    getProduct()
-  }, [productId, catUpdate])
-
+    getProduct();
+  }, [productId, catUpdate]);
 
   // getting subcategory
   useEffect(() => {
@@ -57,30 +52,29 @@ const Product = () => {
       setSubcat(data);
     };
 
-    getsubcat()
-  }, [newId])
+    getsubcat();
+  }, [newId]);
 
   // fetch state
-  const state = country === null ? index?.defaultCountry : country
+  const state = country === null ? index?.defaultCountry : country;
 
   useEffect(() => {
     const fetchStates = async () => {
-      await axios.get(`https://bellefu.inmotionhub.xyz/api/general/get/${state}/states`)
-        .then(res => setStateList(res.data.data))
-        .catch(err => console.log(err))
-    }
-    fetchStates()
-  }, [state])
+      await axios
+        .get(`https://bellefu.inmotionhub.xyz/api/general/get/${state}/states`)
+        .then((res) => setStateList(res.data.data))
+        .catch((err) => console.log(err));
+    };
+    fetchStates();
+  }, [state]);
 
-
-  // const filterproduct = product.filter((newP)=>{ 
+  // const filterproduct = product.filter((newP)=>{
   //   if(newP.catId===product)
   // })
 
-  const province = country === null ? index.countryStates : stateList
+  const province = country === null ? index?.countryStates : stateList;
 
-
-  console.log(state)
+  console.log(state);
   return (
     <div className="max-w-[90%] mx-auto">
       <HeaderSearch
@@ -128,13 +122,15 @@ const Product = () => {
               <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
                 <ul className="rounded px-5 py-4">
                   {index?.categories.map((cat) => (
-
-                    <li key={cat.id} onClick={() => {
-                      setOpen(false)
-                      dispatch(updateIdpath(cat.id))
-                      setCatUpdate(cat.id)
-                    }}
-                      className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
+                    <li
+                      key={cat.id}
+                      onClick={() => {
+                        setOpen(false);
+                        dispatch(updateIdpath(cat.id));
+                        setCatUpdate(cat.id);
+                      }}
+                      className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
+                    >
                       <img
                         src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat.image}`}
                         alt="icons"
@@ -143,9 +139,6 @@ const Product = () => {
                       <span>{cat.name}</span>
                     </li>
                   ))}
-
-
-
                 </ul>
               </div>
             ) : null}
@@ -158,7 +151,7 @@ const Product = () => {
             <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
               <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
                 <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
-                  {subCatText === null ? ' Select Subcategory' : subCatText}
+                  {subCatText === null ? " Select Subcategory" : subCatText}
                 </h5>
               </div>
               {open1 === false ? (
@@ -175,18 +168,17 @@ const Product = () => {
               <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
                 <ul className="rounded px-5 py-4">
                   {subcat?.map((item) => (
-                    <li onClick={() => {
-                      setOpen1(!open1)
-                      setSubCatText(item.subCatName)
-                    }} key={item.id}
-                      className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
-
+                    <li
+                      onClick={() => {
+                        setOpen1(!open1);
+                        setSubCatText(item.subCatName);
+                      }}
+                      key={item.id}
+                      className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
+                    >
                       <span>{item.subCatName}</span>
                     </li>
-
                   ))}
-
-
                 </ul>
               </div>
             ) : null}
@@ -216,12 +208,13 @@ const Product = () => {
               <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
                 <ul className="rounded h-80 overflow-y-scroll px-5 py-4">
                   {province.map((state) => (
-                    <li key={state.id} className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded">
+                    <li
+                      key={state.id}
+                      className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
+                    >
                       <span>{state.name}</span>
                     </li>
-
                   ))}
-
                 </ul>
               </div>
             ) : null}
