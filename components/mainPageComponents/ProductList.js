@@ -7,38 +7,30 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { apiData } from "../../constant";
 
-
 const ProductList = ({ product, currency, currencyCode }) => {
-  const [from, setFrom] = useState(null)
-  const [amount, setAmount] = useState(null)
-  const [newPrice, setNewPrice] = useState(null)
-  const [converter, setConverter] = useState(false)
+  const [from, setFrom] = useState(null);
+  const [amount, setAmount] = useState(null);
+  const [newPrice, setNewPrice] = useState(null);
+  const [converter, setConverter] = useState(false);
 
   const router = useRouter();
 
-
   // useEffect(() => {
-
-
 
   // },[amount,from])
 
   const convert = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     const parameters = {
       from: from,
       to: currencyCode,
-      amount: amount
-    }
-    axios.post(`${apiData}convert/currency`, parameters)
-      .then(res => {
-        setNewPrice(res.data.data.result)
-        console.log('result of convertion=>', res.data.data.result)
-      })
-
-  }
-
-
+      amount: amount,
+    };
+    axios.post(`${apiData}convert/currency`, parameters).then((res) => {
+      setNewPrice(res.data.data.result);
+      console.log("result of convertion=>", res.data.data.result);
+    });
+  };
 
   return (
     <div
@@ -63,17 +55,32 @@ const ProductList = ({ product, currency, currencyCode }) => {
       </div>
       <div className="flex items justify-between">
         <p className="text-bellefuGreen flex font-poppins font-semibold">
-          {product.currency_code && !converter ? <p className="mr-1" dangerouslySetInnerHTML={{ __html: product.currencySymbol }} /> :
-            <p className="mr-1" dangerouslySetInnerHTML={{ __html: currency }} />}
+          {product.currency_code && !converter ? (
+            <p
+              className="mr-1"
+              dangerouslySetInnerHTML={{ __html: product.currencySymbol }}
+            />
+          ) : (
+            <p
+              className="mr-1"
+              dangerouslySetInnerHTML={{ __html: currency }}
+            />
+          )}
 
           {!converter ? product.price : newPrice?.toFixed(2)}
-          {product.currency_code ? <span onClick={(e) => {
-            setAmount(product.price)
-            setFrom(product.currency_code)
-            convert(e)
-            setConverter(true)
-          }}
-            className='ml-5'>convert</span> : null}
+          {product.currency_code ? (
+            <span
+              onClick={(e) => {
+                setAmount(product.price);
+                setFrom(product.currency_code);
+                convert(e);
+                setConverter(true);
+              }}
+              className="ml-5"
+            >
+              convert
+            </span>
+          ) : null}
         </p>
         <BsHeart className="w-4 h-4 text-bellefuOrange" />
       </div>

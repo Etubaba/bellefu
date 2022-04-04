@@ -17,21 +17,20 @@ const Product = ({ details }) => {
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
       {/* header section */}
       {/* large screen header */}
-      <div className="hidden md:inline">
-        <HeaderSearch
-          dialet={index?.defaultLanguage}
-          state={index?.countryStates}
-          defaultCountry={index?.defaultCountryName}
-          languages={index?.languages}
-          countries={index?.countries}
-          location={index?.defaultCountry}
-        />
-      </div>
+
+      <HeaderSearch
+        dialet={index?.defaultLanguage}
+        state={index?.countryStates}
+        defaultCountry={index?.defaultCountryName}
+        languages={index?.languages}
+        countries={index?.countries}
+        location={index?.defaultCountry}
+      />
 
       {/* mobile screen header */}
-      <div className="md:hidden">
+      {/* <div className="md:hidden">
         <MobileHeaderSearch />
-      </div>
+      </div> */}
 
       {/* end of header section */}
 

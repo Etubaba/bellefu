@@ -17,13 +17,13 @@ import { fetchData } from "../features/bellefuSlice";
 export default function Home({ data }) {
   const dispatch = useDispatch();
 
-  if (data) {
-    dispatch(fetchData(data));
-  }
+  // if (data) {
+  //   dispatch(fetchData(data));
+  // }
 
-  // useEffect(() => {
-  //   dispatch(handleIndexApi(data))
-  // }, [])
+  useEffect(() => {
+    dispatch(fetchData(data))
+  }, [])
 
   return (
     <div>
@@ -39,21 +39,20 @@ export default function Home({ data }) {
       <main className="bg-bellefuBackground ">
         <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
           {/* second nav bar */}
-          <div className="hidden lg:inline">
-            <HeaderSearch
-              dialet={data.defaultLanguage}
-              state={data.countryStates}
-              defaultCountry={data.defaultCountryName}
-              languages={data.languages}
-              countries={data.countries}
-              location={data.defaultCountry}
-            />
-          </div>
+
+          <HeaderSearch
+            dialet={data.defaultLanguage}
+            state={data.countryStates}
+            defaultCountry={data.defaultCountryName}
+            languages={data.languages}
+            countries={data.countries}
+            location={data.defaultCountry}
+          />
 
           {/* mobile header search */}
-          <div className="md:hidden">
-            <MobileHeaderSearch />
-          </div>
+          {/* <div className="md:hidden">
+            <MobileHeaderSearch defaultCountry={data.defaultCountry} />
+          </div> */}
 
           {/* main body */}
           <div className="flex flex-col lg:flex-row">
