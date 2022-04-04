@@ -15,22 +15,9 @@ const ProductList = ({ product, currency, currencyCode }) => {
 
   const router = useRouter();
 
-  // useEffect(() => {
 
-  // },[amount,from])
 
-  const convert = (e) => {
-    e.stopPropagation();
-    const parameters = {
-      from: from,
-      to: currencyCode,
-      amount: amount,
-    };
-    axios.post(`${apiData}convert/currency`, parameters).then((res) => {
-      setNewPrice(res.data.data.result);
-      console.log("result of convertion=>", res.data);
-    });
-  };
+
 
   return (
     <div
@@ -76,7 +63,7 @@ const ProductList = ({ product, currency, currencyCode }) => {
                   { amount: product.price, to: currencyCode, from: product.currency_code })
                   .then((res) => {
                     setNewPrice(res.data.data.result);
-                    console.log("result of convertion=>", res.data);
+
                   })
 
                 setConverter(true);
