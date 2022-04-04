@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { MdVerified } from "react-icons/md";
+import { MdVerified, MdCall } from "react-icons/md";
 import { BiCaretRight } from "react-icons/bi";
 import { profileDetails } from "../features/bellefuSlice";
 import { useRouter } from "next/router";
@@ -42,15 +42,15 @@ const VerifyPhone = () => {
     setVerificationCode({ ...verificationCode, [input]: evt.target.value });
   };
   const submitVerificationCode = async () => {
-    const response = await fetch("https://bellefu.inmotionhub.xyz/api/web30/verify/phone/code", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token: Number(verificationCode.firstNo.concat(verificationCode.secondNo, verificationCode.thirdNo, verificationCode.fourthNo, verificationCode.fivethNo, verificationCode.sixthNo)) })
-    });
-    const data = await response.json();
-    console.log(data);
+    const response = await fetch("https://bellefu.inmotionhub.xyz/api/general/verify/phone/code", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({token: Number(verificationCode.firstNo.concat(verificationCode.secondNo, verificationCode.thirdNo, verificationCode.fourthNo, verificationCode.fivethNo, verificationCode.sixthNo))})
+      });
+      const data = await response.json();
+      console.log(data);
 
     if (data.status) setPCongrats(true);
   };
@@ -59,7 +59,7 @@ const VerifyPhone = () => {
     const { phone, id } = user;
     const dispatchTime = Date.now();
 
-    const response = await fetch("https://bellefu.inmotionhub.xyz/api/web30/send/phone/code", {
+    const response = await fetch("https://bellefu.inmotionhub.xyz/api/general/send/phone/code", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const VerifyPhone = () => {
       firstInput.current.focus();
     } else {
       toast.info("Server busy. Try again", {
-        position: POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_CENTER
       })
     }
   };
@@ -108,35 +108,55 @@ const VerifyPhone = () => {
 
   return (
     <>
-      <Head>
-        <title>verify phone</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto md:w-[50%] md:mx-auto pb-2">
-        <h1 className="text-xl ml-4 self p-2">Phone Number Verification</h1>
-        <hr />
-        {!isVerified ? (
-          <div className="h-auto ">
-            <div className="border mx-auto my-8 bg-bellefuWhite  rounded-xl w-[80%] md:w-7/12 h-11/12 ">
-              <div className="flex flex-col justify-center mt-8 mb-4 items-center">
-                <MdVerified className="text-8xl mb-5 text-gray-600" />
-                <p className="text-sm text-center text-gray-600 mb-20">
-                  You have not verified your account
-                  <br />
-                  Kindly click on the botton below for Phone verification
-                </p>
-                <button
-                  onClick={requestPhoneVerificationCode}
-                  className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"
-                >
-                  <span className="mt-1 mr-3"><MdVerified className="text-xl" /></span>{" "}
-                  <span>Request Phone Verification</span>
-                </button>
-                <p className="px-3 mt-4 text-center text-md hover:text-bellefuBlack1 hover:cursor-pointer" onClick={() => router.push("/login")}>SKIP VERIFICATION</p>
+    <Head>
+      <title>verify phone</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
+    <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto md:w-[50%] md:mx-auto pb-2">
+      <h1 className="text-xl ml-4 self p-2">Phone Number Verification</h1>
+      <hr />
+      {!isVerified ? (
+        <div className="h-auto ">
+          <div className="border mx-auto my-8 bg-bellefuWhite  rounded-xl w-[80%] md:w-7/12 h-11/12 ">
+            <div className="flex flex-col justify-center mt-8 mb-4 items-center">
+              <MdVerified className="text-8xl mb-5 text-gray-600" />
+              <p className="text-sm text-center text-gray-600 mb-20">
+                You have not verified your account
+                <br />
+                Kindly click on the botton below for Phone verification
+              </p>
+              <div className="flex flex-col md:flex-row px-6">
+                <div className="flex-auto mr-3">
+                  <button
+                    onClick={requestPhoneVerificationCode}
+                    className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-full justify-center bg-bellefuOrange"
+                  >
+                    <span className="mt-1 mr-3"><MdVerified className="text-xl" /></span>{" "}
+                    <span>Request Code Verification</span>
+                  </button>
+                </div>
+                <div className="flex-auto">
+                  <button
+                    onClick={requestPhoneVerificationCode}
+                    className="flex hover:bg-green-400 ease-in-out duration-300 rounded-md text-white py-2 w-full justify-center bg-bellefuGreen"
+                  >
+                    <span className="mt-1 mr-3"><MdCall className="text-xl" /></span>{" "}
+                    <span>Request Call Verification</span>
+                  </button>
+                </div>
               </div>
+              {/* <button
+                onClick={requestPhoneVerificationCode}
+                className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"
+              >
+                <span className="mt-1 mr-3"><MdVerified className="text-xl" /></span>{" "}
+                <span>Request Phone Verification</span>
+              </button> */}
+              <p className="px-3 mt-4 text-center text-md hover:text-bellefuBlack1 hover:cursor-pointer" onClick={() => router.push("/login")}>SKIP VERIFICATION</p>
             </div>
           </div>
-        ) : (
+        </div>
+      ) : (
           // verification options
           <div className="flex flex-col flex-auto mb-4">
             <div className="hover:bg-[#F8FDF2] mt-10 mx-10 py-8 rounded-lg border">
@@ -147,13 +167,6 @@ const VerifyPhone = () => {
                   </p>
                   <p className="mt-2">Phone Verification</p>
                 </div>
-                {/* <p
-                style={phonestyle}
-                onClick={() => setPhone(!phone)}
-                className="mr-8"
-              >
-                <BiCaretRight className="text-xl " />
-              </p> */}
               </div>
               {phone && <hr className="mt-7" />}
 
@@ -162,7 +175,7 @@ const VerifyPhone = () => {
 
                 <div className="">
                   <div className="flex flex-col space-y-5 justify-center items-center mt-16 mb-1">
-                    <p className="mb-5">
+                    <p className="mb-5 px-3">
                       A verification code has been sent to this number :{" "}
                       <strong>{user.phone ? user.phone : "+2348133886084"}</strong>
                     </p>
@@ -213,9 +226,9 @@ const VerifyPhone = () => {
                       />
                     </div>
 
-                    <p className="mb-7">
-                      Request another code in:<strong className="ml-3">{resTimeInSec}</strong>{" "}
-                    </p>
+                  <p className="mb-7">
+                    Request another code in:<strong className="ml-3">{resTimeInSec}s</strong>{" "}
+                  </p>
 
                     <button
                       onClick={requestPhoneVerificationCode}
