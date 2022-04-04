@@ -6,7 +6,7 @@ import Range from "../../components/RangeComponent/Range";
 import { apiData } from "../../constant";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { homeData, updateIdpath } from "../../features/bellefuSlice";
+import { homeData, updateIdpath, selectCat } from "../../features/bellefuSlice";
 import axios from "axios";
 
 const Product = () => {
@@ -74,7 +74,7 @@ const Product = () => {
 
   const province = country === null ? index?.countryStates : stateList;
 
-  console.log(state);
+  console.log(index);
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
       <HeaderSearch
@@ -126,6 +126,7 @@ const Product = () => {
                       key={cat.id}
                       onClick={() => {
                         setOpen(false);
+                        dispatch(selectCat(cat.id));
                         dispatch(updateIdpath(cat.id));
                         setCatUpdate(cat.id);
                       }}
