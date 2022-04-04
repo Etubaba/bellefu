@@ -10,7 +10,9 @@ import UnstyledSelectSimple4 from "../../components/postAdsComponent/State";
 import UnstyledSelectSimple5 from "../../components/postAdsComponent/City";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {handleLocationUpdate} from "../../features/bellefuSlice"
+import {handleLocationUpdate} from "../../features/bellefuSlice";
+import { toast } from "react-toastify";
+
 
 function Index({ data1, data2 }) {
 
@@ -62,8 +64,8 @@ function Index({ data1, data2 }) {
          router.push('/postAds/Details')
 
    }else{
-     return;
-   }
+    toast.error("All fields are required", {
+      position: 'top-center'    })   }
  }
   //  console.log(data1);
   //  console.log(data2);
@@ -171,7 +173,7 @@ function Index({ data1, data2 }) {
                 </button>
                 {/* <Link href="/postAds/Details"> */}
                   <button
-                  disabled={address===""?true:false}
+                  // disabled={address===""?true:false}
                     type="submit"
                     onClick={handleSubmit}
                     class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "

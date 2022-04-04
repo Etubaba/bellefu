@@ -24,7 +24,6 @@ const initialState = {
     currencyCode: "",
     tag: [],
     description: "",
-    images: null,
     userid: "",
     cityCode: "",
     plans: "",

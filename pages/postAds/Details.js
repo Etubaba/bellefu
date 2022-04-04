@@ -3,6 +3,7 @@ import Layout from "../../components/postAdsComponent/Layout";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { handleTitleUpdate,handleDescriptionUpdate,handleTagUpdate ,handlePriceUpdate} from "../../features/bellefuSlice";
 
@@ -30,9 +31,10 @@ export default function Details() {
 
   const handleArrUpdate = (e) => {
     e.preventDefault();
-    if (inputtxt === "" || inputtxtarr.length >= 7) {
-      return;
-    } else {
+    if (inputtxt === "" || inputtxtarr.length >= 5) {
+      toast.error("Tags can't be more than 5", {
+        position: 'top-center',
+      })} else {
       setinputTxtArr((prevState) => [...prevState, inputtxt]);
       setInputTxt("");
     }
@@ -66,8 +68,9 @@ export default function Details() {
           router.push('/postAds/Images')
  
     }else{
-      return;
-    }
+      toast.error("All fields are required", {
+        position: 'top-center',
+      })    }
   }
   return (
     <div className=" shadow bg-bellefuWhite rounded-md  lg:p-5 p-2">
@@ -125,7 +128,7 @@ export default function Details() {
                       tags
                     </label>
                     <label className="block text-sm font-medium text-gray-700">
-                      Maximum : {inputtxtarr.length}/7
+                      Maximum : {inputtxtarr.length}/5
                     </label>
                   </div>
                   <div className="border-gray-300 border-2 rounded-md">
@@ -188,7 +191,7 @@ export default function Details() {
               </button>
               <button
               onClick={handleSubmit}
-              disabled={inpt===""?true:false}
+              // disabled={inpt===""?true:false}
                 type="submit"
                 class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
               >

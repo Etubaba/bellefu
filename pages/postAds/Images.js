@@ -8,6 +8,8 @@ import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { handleImagesUpdate } from "../../features/bellefuSlice";
+import { toast } from "react-toastify";
+
 
 
 
@@ -55,19 +57,26 @@ export default function Images(props) {
 
       for (let i = 0; i < acceptedFiles.length; i++) {
         let loopedFile = acceptedFiles[i]
-        console.log(loopedFile[0])
-        setFiles2((prevState) => [...prevState, loopedFile]);
+       
+        if(files2.length>=10){
+
+          toast.error("Image upload can not be more than 10", {
+            position: 'top-center',
+          })
+        }else{
+          setFiles2((prevState) => [...prevState, loopedFile]);
+
+        }
       }
       // setFiles2((prevState) => [...prevState, acceptedFiles]);
     },
   });
-
+ console.log(files2);
   const handleRemovetag = (tags) => {
     const newArr = files.filter((tag) => tag !== tags);
     setFiles(newArr);
   };
 
-  console.log(files2);
   const thumbs = files.map((file, index) => (
     <div style={thumb} key={index}>
       <div className="flex">
@@ -92,7 +101,9 @@ export default function Images(props) {
       router.push('/postAds/Publish')
 
     } else {
-      return;
+      toast.error("You have not uoloaded any Images", {
+        position: 'top-center',
+      })
     }
   }
   // useEffect(() => {
