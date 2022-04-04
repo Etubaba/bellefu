@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
 import { setProfileDetails } from "../features/bellefuSlice";
-import { data } from "autoprefixer";
+//import { data } from "autoprefixer";
 
 export const getStaticProps = async () => {
   const response = await fetch(`${apiData}get/countries`);
@@ -36,8 +36,6 @@ const Register = ({countries}) => {
   });
   const [usernameExists, setUsernameExists] = useState(false);
   const [phoneExists, setPhoneExists] = useState(false);
-  const phoneExistsRef = useRef(false);
-  const usernameExistsRef = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formFieldError, setFormFieldError] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
@@ -58,8 +56,6 @@ const Register = ({countries}) => {
     if (!formFields.email) {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
     }
-    //setFormFields({...formFields, email: `${formFields.username}@gmail.com`})
-    //console.log(formValues);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
@@ -110,7 +106,6 @@ const Register = ({countries}) => {
       data = {username: target.value}
     }
 
-    console.log("!");
     fetch(url, {
       method: "POST",
       headers: {
@@ -137,12 +132,6 @@ const Register = ({countries}) => {
     if (target.name === "username") setUsernameExists(false);
   }
 
-  // useEffect(() => {
-  //   console.log("!!!");
-    
-  //   if (formFields.phone && !phoneExistsRef.current.value) checkExists(formFields.phone, phoneExistsRef, setPhoneExists);
-  //   if (formFields.username && !usernameExistsRef.current.value) checkExists(formFields.username, usernameExistsRef, setUsernameExists);
-  // }, [formFields]);
 
   return (
     <>
@@ -155,7 +144,6 @@ const Register = ({countries}) => {
         <h1 className="text-center font-bold py-4">Create Your Account With Bellefu!</h1>
         <hr />
         <div className="py-4 md:py-8 px-3 sm:px-6 md:px-12">
-          {/* <p className="before:content-['*'] befoe:mr-0.9 before:text-red-500 text-md font-medium text-slate-700">Required fields</p> */}
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">First Name</label></p>
