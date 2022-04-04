@@ -4,23 +4,33 @@ import SingleProductBody from "../../components/SingleProduct/SingleProductBody"
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar";
 import { productData } from "../../productData";
 import MobileHeaderSearch from "../../components/MobileHeaderSearch";
+import { homeData } from "../../features/bellefuSlice";
+import { useSelector } from "react-redux";
 
 const Product = ({ details }) => {
   const newProducts = productData.slice(0, 4);
   const newDetails = details.data;
 
+  const index = useSelector(homeData);
+
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
       {/* header section */}
       {/* large screen header */}
-      <div className="hidden md:inline">
-        <HeaderSearch />
-      </div>
+
+      <HeaderSearch
+        dialet={index?.defaultLanguage}
+        state={index?.countryStates}
+        defaultCountry={index?.defaultCountryName}
+        languages={index?.languages}
+        countries={index?.countries}
+        location={index?.defaultCountry}
+      />
 
       {/* mobile screen header */}
-      <div className="md:hidden">
+      {/* <div className="md:hidden">
         <MobileHeaderSearch />
-      </div>
+      </div> */}
 
       {/* end of header section */}
 

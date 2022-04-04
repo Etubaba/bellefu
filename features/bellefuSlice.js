@@ -5,10 +5,10 @@ const initialState = {
   profileDetails: typeof window !== "undefined" ? localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null : null,
   formDisabler: true,
   countrySelected: null,
-  catfilter: null,
+  catfilter: typeof window !== "undefined" ? localStorage.getItem('cat') : null,
   login: typeof window !== "undefined" ? localStorage.getItem('login') : null,
   stateSelected: null,
-  indexData: null,
+  indexData: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("indexData")) : null,
   catId: null,
   searchFilter: '',
   indexApi: [],
@@ -42,6 +42,10 @@ export const bellefuSlice = createSlice({
     },
     fetchData: (state, action) => {
       state.indexData = action.payload;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('indexData', JSON.stringify(state.indexData))
+      }
+
 
     },
     isDisabled: (state, action) => {
@@ -113,6 +117,7 @@ export const bellefuSlice = createSlice({
     },
     selectCat: (state, action) => {
       state.catfilter = action.payload
+      localStorage.setItem('cat', state.catfilter)
 
     },
 

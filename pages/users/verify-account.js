@@ -15,7 +15,7 @@ import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields
 import { profileDetails } from "../../features/bellefuSlice";
 
 function Verifyaccount() {
-  const user = useSelector(profileDetails);
+  //const user = useSelector(profileDetails);
 
   const [verify, setVerify] = useState(false);
   const [phone, setPhone] = useState(false);
@@ -40,19 +40,19 @@ function Verifyaccount() {
     window.location.reload(false);
     setPreview(undefined);
   };
-  const requestPhoneVerificationCode = async () => {
-    const {phone, userId} = user;
-    const response = await fetch("https://bellefu.inmotionhub.xyz/api/web30/send/phone/code", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({phone, userId})
-    });
-    const data = await response.json();
+  // const requestPhoneVerificationCode = async () => {
+  //   const {phone, userId} = user;
+  //   const response = await fetch("https://bellefu.inmotionhub.xyz/api/web30/send/phone/code", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({phone, userId})
+  //   });
+  //   const data = await response.json();
 
-    if (data.status) setVerify(true);
-  };
+  //   if (data.status) setVerify(true);
+  // };
 
   const IDstyle = {
     transform: idopen ? "rotate(90deg)" : "rotate(0)",
