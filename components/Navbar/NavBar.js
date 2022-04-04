@@ -13,6 +13,7 @@ import { login } from '../../features/bellefuSlice'
 import { profileDetails } from '../../features/bellefuSlice'
 import { isLoggedIn } from '../../features/bellefuSlice'
 import { useRouter } from 'next/router'
+import { toast } from "react-toastify";
 
 import MobileNavbar from "./MobileNavbar";
 const NavBar = () => {
@@ -29,6 +30,7 @@ const NavBar = () => {
     if (getIsLoggedIn) {
       router.push('/postAds')
     } else {
+      toast.info('Login to make post', { position: 'top-right' })
       router.push('/login')
     }
   }
@@ -118,6 +120,7 @@ const NavBar = () => {
                   localStorage.clear()
                   router.push('/login')
                   setOpen(false)
+                  toast.info('You have logged out successfully', { position: 'top-center' })
                 }}
                   className="px-2 py-1 hover:bg-bellefuBackground flex space-x-3 items-center cursor-pointer rounded">
                   <RiLogoutBoxFill className="w-5 h-5 text-bellefuOrange" />
