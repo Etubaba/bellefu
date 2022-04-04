@@ -2,11 +2,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { MdVerified, MdCall } from "react-icons/md";
-import { BiCaretRight } from "react-icons/bi";
+//import { BiCaretRight } from "react-icons/bi";
 import { profileDetails } from "../features/bellefuSlice";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { toast } from "react-toastify";
+import Countdown from "react-countdown";
 
 
 const VerifyPhone = () => {
@@ -27,18 +28,19 @@ const VerifyPhone = () => {
     fivethNo: "",
     sixthNo: "",
   });
-  const [resTimeInSec, setResTimeInSec] = useState("");
+  const [countdown, setCountDown] = useState(false);
+  //const [resTimeInSec, setResTimeInSec] = useState("");
   const [phone, setPhone] = useState(false);
   const [pCongrats, setPCongrats] = useState(false);
 
-  const wantToVerify = () => {
-    setVerify(true);
-    setPhone(prev => !prev);
-  };
-  const focus = (evt) => {
-    console.log("!")
-    evt.target.focus();
-  }
+  // const wantToVerify = () => {
+  //   setVerify(true);
+  //   setPhone(prev => !prev);
+  // };
+  // const focus = (evt) => {
+  //   console.log("!")
+  //   evt.target.focus();
+  // }
   const handleChange = (input) => (evt) => {
     setVerificationCode({ ...verificationCode, [input]: evt.target.value });
   };
@@ -57,7 +59,7 @@ const VerifyPhone = () => {
 
   const requestPhoneVerificationCode = async () => {
     const { phone, id } = user;
-    const dispatchTime = Date.now();
+    //const dispatchTime = Date.now();
 
     const response = await fetch("https://bellefu.inmotionhub.xyz/api/general/send/phone/code", {
       method: "POST",
@@ -69,10 +71,11 @@ const VerifyPhone = () => {
     const data = await response.json();
 
     if (data.status) {
-      const returnTime = Date.now();
-      const timeTaken = returnTime - dispatchTime;
+      //const returnTime = ;
+      //const timeTaken = returnTime - dispatchTime;
 
-      setResTimeInSec((new Date(timeTaken)).getSeconds());
+      //setResTimeInSec((new Date(timeTaken)).getMinutes());
+      setCountDown(true);
       setVerify(true);
       setPhone(prev => !prev);
       console.log(firstInput.current)
@@ -104,7 +107,14 @@ const VerifyPhone = () => {
 
     if (!emptyField) return true;
     else return false;
-  }
+  };
+  const renderer = ({minutes,seconds, completed}) => {
+    if (completed) {
+      setCountDown(true);
+      return null
+    }
+    else return <strong className="ml-3">{minutes}mins:{seconds}s</strong>
+  } 
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
 
@@ -257,12 +267,13 @@ const VerifyPhone = () => {
                     </div>
 
                   <p className="mb-7">
-                    Request another code in:<strong className="ml-3">{resTimeInSec}s</strong>{" "}
+                    Request another code in:<Countdown date={Date.now() + 1000*60*2} renderer={renderer} />{" "}
                   </p>
 
                     <button
                       onClick={requestPhoneVerificationCode}
                       className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"
+                      disabled={true}
                     >
                       <MdVerified className="text-xl mr-2 mt-1" />
                       <span>Request another code</span>
