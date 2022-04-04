@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import {toast} from "react-toastify";
 import Head from "next/head";
 import Image from "next/image";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -48,7 +49,12 @@ const Login = () => {
         dispatch(setProfileDetails(data.data.user));
         router.replace("/");
       }
-      else router.push("/login");
+      else {
+        toast.error(data.msg, {
+          position: toast.POSITION.TOP_CENTER
+        })
+        router.push("/login");
+      }
     })
     .catch(error => {
       setLoading(false);
