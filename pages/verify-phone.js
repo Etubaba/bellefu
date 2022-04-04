@@ -10,11 +10,15 @@ import { toast } from "react-toastify";
 
 
 const VerifyPhone = () => {
-  const firstInput = useRef(null);
+  const firstInput = useRef(false);
+  const secondInput = useRef(false);
+  const thirdInput = useRef(false);
+  const fourthInput = useRef(false);
+  const fivethInput = useRef(false);
+  const sixthInput = useRef(false)
   const router = useRouter();
   const [isVerified, setVerify] = useState(false);
   const user = useSelector(profileDetails);
-  //const [verify, setVerify] = useState(false);
   const [verificationCode, setVerificationCode] = useState({
     firstNo: "",
     secondNo: "",
@@ -23,14 +27,10 @@ const VerifyPhone = () => {
     fivethNo: "",
     sixthNo: "",
   });
-  const [codeComplete, setCodeComplete] = useState(true);
   const [resTimeInSec, setResTimeInSec] = useState("");
   const [phone, setPhone] = useState(false);
-  const [idopen, setIdopen] = useState(false);
-  const [kycOpen, setKycOpen] = useState(false);
   const [pCongrats, setPCongrats] = useState(false);
 
-  //if (phone && !verificationCode.firstNo) firstInput.current.focus()
   const wantToVerify = () => {
     setVerify(true);
     setPhone(prev => !prev);
@@ -51,7 +51,6 @@ const VerifyPhone = () => {
         body: JSON.stringify({token: Number(verificationCode.firstNo.concat(verificationCode.secondNo, verificationCode.thirdNo, verificationCode.fourthNo, verificationCode.fivethNo, verificationCode.sixthNo))})
       });
       const data = await response.json();
-      console.log(data);
 
     if (data.status) setPCongrats(true);
   };
@@ -71,18 +70,20 @@ const VerifyPhone = () => {
 
     if (data.status) {
       const returnTime = Date.now();
-      console.log(dispatchTime);
-      console.log(returnTime)
       const timeTaken = returnTime - dispatchTime;
-      console.log(timeTaken);
-      console.log((new Date(timeTaken)).getSeconds());
 
       setResTimeInSec((new Date(timeTaken)).getSeconds());
       setVerify(true);
       setPhone(prev => !prev);
-      firstInput.current.focus();
+      console.log(firstInput.current)
+
+      if (!verificationCode.firstNo) {
+        firstInput.current.focus();
+        firstInput.current = true;
+        console.log(firstInput.current.value)
+      }
     } else {
-      toast.info("Server busy. Try again", {
+      toast.info(data.msg, {
         position: toast.POSITION.TOP_CENTER
       })
     }
@@ -106,6 +107,31 @@ const VerifyPhone = () => {
   }
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
+
+    if (verificationCode.firstNo && !verificationCode.secondNo) {
+      secondInput.current.focus();
+      secondInput.current = true;
+    }
+
+    if (verificationCode.firstNo && verificationCode.secondNo && !verificationCode.thirdNo) {
+      thirdInput.current.focus();
+      thirdInput.current = true;
+    }
+
+    if (verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo && !verificationCode.fourthNo) {
+      fourthInput.current.focus();
+      fourthInput.current = true;
+    }
+
+    if (verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo && verificationCode.fourthNo && !verificationCode.fivethNo) {
+      fivethInput.current.focus();
+      fivethInput.current = true;
+    }
+
+    if (verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo && verificationCode.fourthNo && verificationCode.fivethNo && !verificationCode.sixthNo) {
+      sixthInput.current.focus();
+      sixthInput.current = true;
+    }
 
 
     if (isFilled) {
@@ -176,19 +202,17 @@ const VerifyPhone = () => {
 
                 <div className="">
                   <div className="flex flex-col space-y-5 justify-center items-center mt-16 mb-1">
-                    <p className="mb-5 px-3">
-                      A verification code has been sent to this number :{" "}
-                      <strong>{user.phone ? user.phone : "+2348133886084"}</strong>
+                    <p className="mb-5 px-9">
+                      A verification code has been sent to this number : <strong>{user.phone ? user.phone : "+2348133886084"}</strong>
                     </p>
-                    <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md" ref={firstInput}>
+                    <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md">
                       <input
-                        className="m-2 border h-12 w-12 text-center form-control rounded"
+                        className={firstInput.current.value?"m-2 outline outline-bellefuOrange h-12 w-12 text-center form-control rounded":"m-2 border h-12 w-12 text-center form-control rounded"}
                         type="text"
                         maxLength="1"
                         value={verificationCode.firstNo}
                         onChange={handleChange("firstNo")}
-                        id="firstNo"
-                        onLoad={focus}
+                        ref={firstInput}
                       />
                       <input
                         className="m-2 border h-12 w-12 text-center form-control rounded"
@@ -196,6 +220,7 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.secondNo}
                         onChange={handleChange("secondNo")}
+                        ref={secondInput}
                       />
                       <input
                         className="m-2 border h-12 w-12 text-center form-control rounded"
@@ -203,6 +228,7 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.thirdNo}
                         onChange={handleChange("thirdNo")}
+                        ref={thirdInput}
                       />
                       <input
                         className="m-2 border h-12 w-12 text-center form-control rounded"
@@ -210,6 +236,7 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.fourthNo}
                         onChange={handleChange("fourthNo")}
+                        ref={fourthInput}
                       />
                       <input
                         className="m-2 border h-12 w-12 text-center form-control rounded"
@@ -217,6 +244,7 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.fivethNo}
                         onChange={handleChange("fivethNo")}
+                        ref={fivethInput}
                       />
                       <input
                         className="m-2 border h-12 w-12 text-center form-control rounded"
@@ -224,6 +252,7 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.sixthNo}
                         onChange={handleChange("sixthNo")}
+                        ref={sixthInput}
                       />
                     </div>
 
@@ -249,14 +278,7 @@ const VerifyPhone = () => {
                     <strong> Congrats !!!</strong>
                     <br /> Your Phone number has been verified
                   </p>
-
-                  {/* <div className="flex space-x-5">
-                  <button className="px-28 py-4 border  rounded"> skip</button>
-                  <button className="px-16 py-4 bg-bellefuOrange text-white rounded">
-                    {" "}
-                    Continue with ID verification{" "}
-                  </button>
-                </div> */}
+                  <p className="font-medium"><button type="button" onClick={() => router.push("/login")} className="hover:underline bg-bellefuGreen hover:bg-bellefuOrange">Login</button> to continue</p>
                 </div>
               )}
             </div>
