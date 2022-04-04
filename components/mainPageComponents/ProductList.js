@@ -28,7 +28,7 @@ const ProductList = ({ product, currency, currencyCode }) => {
     };
     axios.post(`${apiData}convert/currency`, parameters).then((res) => {
       setNewPrice(res.data.data.result);
-      console.log("result of convertion=>", res.data.data.result);
+      console.log("result of convertion=>", res.data);
     });
   };
 
@@ -71,9 +71,14 @@ const ProductList = ({ product, currency, currencyCode }) => {
           {product.currency_code ? (
             <span
               onClick={(e) => {
-                setAmount(product.price);
-                setFrom(product.currency_code);
-                convert(e);
+                e.stopPropagation();
+                axios.post(`${apiData}convert/currency`,
+                  { amount: product.price, to: currencyCode, from: product.currency_code })
+                  .then((res) => {
+                    setNewPrice(res.data.data.result);
+                    console.log("result of convertion=>", res.data);
+                  })
+
                 setConverter(true);
               }}
               className="ml-5"
