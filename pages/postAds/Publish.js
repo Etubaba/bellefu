@@ -4,12 +4,21 @@ import { useRouter } from "next/router";
 import { handlePlansUpdate } from "../../features/bellefuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { useState } from "react";
+import { MdVerified } from "react-icons/md";
+import { toast } from "react-toastify";
+
+
 
 export default function Publish() {
+
+  const [showSuccess, setShowSuccess] = useState(true)
+
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
   const dataTopost2 = useSelector((state) => state.bellefu.profileDetails);
   const dispatch = useDispatch();
+
   const handleFree = () => {
     dispatch(handlePlansUpdate("free"));
   };
@@ -21,61 +30,98 @@ export default function Publish() {
 
   // publish ads.... section wey i do beware###########################
 
-
   const handlePublish = (e) => {
     e.preventDefault();
 
-    //   if (reason === undefined) {
-    //     toast.error('Please enter reason', {
-    //         position: 'top-right'
-    //     })
+      if (dataTopost.plans === "") {
+        toast.error('You must choose a plan', {
+            position: 'top-center'
+        })
 
-    // } else {
-
-    const formData = new FormData();
-//  things i dey post from redux store
-    formData.append("title", dataTopost.title);
-    formData.append("location", dataTopost.location);
-    // see the image dey show for payload wen i post but wen e reach backend e no dey show
-    formData.append("images",dataTopost.images ); 
-    formData.append("categoryid", dataTopost.categoryid);
-    formData.append("subcategoryid", dataTopost.subcategoryid);
-    formData.append("price",dataTopost.price);
-    formData.append("description", dataTopost.description);
-    formData.append("tag", dataTopost.tag);
-    formData.append("phone", dataTopost2.phone);
-    formData.append("userid", dataTopost2.id);
-    formData.append("citycode", dataTopost.cityCode);
-    formData.append("countrycode", dataTopost.countrycode);
-    formData.append("states", dataTopost.states);
-    formData.append("currencyCode",dataTopost.currencyCode);
-    formData.append("plans", dataTopost.plans);
-    
-      console.log(formData);
-    axios({
-      method: "POST",
-      url: `https://bellefu.inmotionhub.xyz/api/general/create/product`,
-      data: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+    } else if(dataTopost.plans === ""||dataTopost.categoryid===""||dataTopost.subcategoryid===""||dataTopost.title===""||dataTopost.location===""||dataTopost. countrycode===""||dataTopost.states===""||dataTopost.price===null||dataTopost.tag.length===0||dataTopost.cityCode===""||dataTopost.description===""){
+      toast.error('All fields are required', {
+        position: 'top-center'
     })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    }
+    else {
+      console.log(dataTopost.images);
+      const formData = new FormData();
+      //  things i dey post from redux store
+      formData.append("title", dataTopost.title);
+      formData.append("location", dataTopost.location);
+      // see the image dey show for payload wen i post but wen e reach backend e no dey show
+      formData.append("images1", dataTopost.images[0]);
+      formData.append("images2", dataTopost.images[1]);
+      formData.append("images3", dataTopost.images[2]);
+      formData.append("images4", dataTopost.images[3]);
+      formData.append("images5", dataTopost.images[4]);
+      formData.append("images6", dataTopost.images[5]);
+      formData.append("images7", dataTopost.images[6]);
+      formData.append("images8", dataTopost.images[7]);
+      formData.append("images9", dataTopost.images[8]);
+      formData.append("images10", dataTopost.images[9]);
+      formData.append("categoryid", dataTopost.categoryid);
+      formData.append("subcategoryid", dataTopost.subcategoryid);
+      formData.append("price", dataTopost.price);
+      formData.append("description", dataTopost.description);
+      formData.append(
+        "tag1",
+        dataTopost.tag[0] === undefined ? "" : dataTopost.tag[0]
+      );
+      formData.append(
+        "tag2",
+        dataTopost.tag[1] === undefined ? "" : dataTopost.tag[1]
+      );
+      formData.append(
+        "tag3",
+        dataTopost.tag[2] === undefined ? "" : dataTopost.tag[2]
+      );
+      formData.append(
+        "tag4",
+        dataTopost.tag[3] === undefined ? "" : dataTopost.tag[3]
+      );
+      formData.append(
+        "tag5",
+        dataTopost.tag[4] === undefined ? "" : dataTopost.tag[4]
+      );
+      formData.append("phone", dataTopost2.phone);
+      formData.append("userid", dataTopost2.id);
+      formData.append("citycode", dataTopost.cityCode);
+      formData.append("countrycode", dataTopost.countrycode);
+      formData.append("states", dataTopost.states);
+      formData.append("currencyCode", dataTopost.currencyCode);
+      formData.append("plans", dataTopost.plans);
+  
+      
+  
+      console.log(formData);
+      axios({
+        method: "POST",
+        url: `https://bellefu.inmotionhub.xyz/api/general/create/product`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((res) =>{
+          res.status===200?setShowSuccess(false):setShowSuccess(true) &&  toast.error("Server busy. Try again", {
+            position: 'top-center'       })
+        })
+        .catch((err) => err?  toast.error("Something happend. Try again", {
+          position: 'top-center'      }):null);
+  
 
-    // toast.error("User Declined", {
-    //   position: "top-right",
-    // });
+    }
+
   };
 
-  //  axios.post()
-
-  //   router.back();
-  // };
+ 
 
   return (
     <div className="rounded-lg  bg-bellefuWhite h-auto w-auto p-10 ">
-      <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+      {showSuccess?
+        <>
+          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
         <div className="flex ">
           <input
             id="ads_plan"
@@ -186,6 +232,25 @@ export default function Publish() {
           Publish
         </button>
       </div>
+        </>
+      :
+      <div className="flex flex-col border rounded-lg justify-center py-10 mt-[5%]  mb-24 items-center">
+        <MdVerified className="text-8xl text-bellefuGreen mb-5 " />
+        <p className="mb-7 text-center">
+          <strong> Congrats !!!</strong>
+          <br /> Your Product is under Review
+        </p>
+
+        <button
+          onClick={handlePublish}
+          type="submit"
+          class="flex justify-center items-center w-[15vw] py-2 px-4 mt-[30px]  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+        >
+          Back to Home
+        </button>
+      </div>
+      }
+      
     </div>
   );
 }
