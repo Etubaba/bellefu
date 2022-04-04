@@ -2,20 +2,18 @@ import { useState } from "react";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import DropdownItems from "./DropdownItems";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from 'react-redux'
-import { selectCat } from '../features/bellefuSlice'
+import { useDispatch, useSelector } from "react-redux";
+import { selectCat } from "../features/bellefuSlice";
 import { Subcat, changeId } from "../features/bellefuSlice";
-
 
 const Dropdown = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [text, setText] = useState(null)
+  const [text, setText] = useState(null);
 
   const dispatch = useDispatch();
 
-  const catId = useSelector(changeId)
-
+  const catId = useSelector(changeId);
 
   if (category.sub_category) {
     return (
@@ -24,23 +22,20 @@ const Dropdown = ({ category }) => {
           key={category.id}
           className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
         >
-          <div onClick={() => {
-            dispatch(selectCat(category.id))
+          <div
+            onClick={() => {
+              dispatch(selectCat(category.id));
 
-            router.push(`/category/${catId === null ? category.id : catId}`)
-          }
-
-          }
-            className="flex items-center flex-1 space-x-2 cursor-pointer select-none">
+              router.push(`/category/${catId === null ? category.id : catId}`);
+            }}
+            className="flex items-center flex-1 space-x-2 cursor-pointer select-none"
+          >
             <img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
               alt="icons"
               className="w-4 h-4"
             />
-            <h5
-              className="text-bellefuBlack1 font-medium text-normal whitespace-nowrap"
-
-            >
+            <h5 className="text-bellefuBlack1 font-medium text-normal whitespace-nowrap">
               {category.name}
             </h5>
           </div>
@@ -67,9 +62,12 @@ const Dropdown = ({ category }) => {
           {category.sub_category.map((child) => (
             <DropdownItems
               onClick={() => {
-                setText(child.subCatId)
-                dispatch(Subcat(child.subcatId))
-              }} key={child.subCatId} child={child} />
+                setText(child.subCatId);
+                dispatch(Subcat(child.subcatId));
+              }}
+              key={child.subCatId}
+              child={child}
+            />
           ))}
         </div>
       </div>

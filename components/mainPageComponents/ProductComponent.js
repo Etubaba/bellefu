@@ -9,7 +9,7 @@ import { useRouter } from "next/dist/client/router";
 import axios from "axios";
 import { apiData } from "../../constant";
 
-const ProductComponent = ({ products, currency, location }) => {
+const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [countryData, setCountryData] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [test, setTest] = useState([])
@@ -72,40 +72,7 @@ const ProductComponent = ({ products, currency, location }) => {
   }, [search])
 
   const main = getCountry !== null ? countryData : search !== '' ? searchResult : products
-  // if (search) {
 
-  //   const getSearchResult = async () => {
-
-  //     await axios.get(`${apiData}search/product/${where}/${search.toLocaleLowerCase()}`)
-  //       .then(response => setMain(response.data.data))
-  //       .catch(err => console.log(err))
-  //   }
-
-  //   getSearchResult()
-  // } else {
-  //   setMain(arr)
-  // }
-
-
-
-  //   const handleSearch = async (e) => {
-
-
-
-  //     if (search!=='') {
-  //         try {
-  //             const response = await axios.get(`${apiData}search/product/${getCountry}/${search.toLocaleLowerCase()}`);
-  //             set(response.data.data.data);
-  //             setTotalSearch(response.data.data.total)
-  //         } catch (error) {
-  //             console.log(`Search error due to: ${error.message}`);
-  //         }
-  //     } else {
-  //         setProductList(initailProducts);
-  //         setTotalSearch(30);
-  //     }
-
-  // };
 
   return (
     <div>
@@ -128,6 +95,7 @@ const ProductComponent = ({ products, currency, location }) => {
               key={product.productId}
               currency={currency}
               product={product}
+              currencyCode={currencyCode}
             />
           </div>
         ))}

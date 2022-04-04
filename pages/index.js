@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
-import { handleIndexApi, } from "../features/bellefuSlice"
+import { handleIndexApi } from "../features/bellefuSlice";
 import { useEffect } from "react";
 
 import HeaderSearch from "../components/HeaderSearch";
@@ -14,30 +14,30 @@ import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
 import { fetchData } from "../features/bellefuSlice";
 
-
 export default function Home({ data }) {
-
   const dispatch = useDispatch();
 
   if (data) {
-    dispatch(fetchData(data))
+    dispatch(fetchData(data));
   }
 
   // useEffect(() => {
   //   dispatch(handleIndexApi(data))
   // }, [])
 
-
   return (
     <div>
       <Head>
         <title>Bellefu</title>
-        <meta name="description" content="food products, agricultural machinery,farmers" />
+        <meta
+          name="description"
+          content="food products, agricultural machinery,farmers"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
       <main className="bg-bellefuBackground ">
-        <div className="max-w-[90%] mx-auto">
+        <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
           {/* second nav bar */}
           <div className="hidden lg:inline">
             <HeaderSearch
@@ -70,6 +70,7 @@ export default function Home({ data }) {
               <Body
                 location={data.defaultCountry}
                 currency={data.defaultCurrency}
+                currencyCode={data.defaultCurrencyCode}
                 products={data.products}
                 slider={data.slider}
               />

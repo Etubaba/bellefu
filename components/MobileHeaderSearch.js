@@ -3,7 +3,7 @@ import { BiSearch } from "react-icons/bi";
 import { ImLocation2 } from "react-icons/im";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 
-const MobileHeaderSearch = () => {
+const MobileHeaderSearch = ({ province, countryName, defaultCountry }) => {
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -28,7 +28,9 @@ const MobileHeaderSearch = () => {
       <div className="bg-white mt-2 p-3 flex items-center rounded-md relative">
         <div className=" flex flex-1 items-center space-x-2 cursor-ponter">
           <ImLocation2 className="text-bellefuOrange" />
-          <span>Where? Nigeria</span>
+          <span>
+            Where? {countryName !== null ? countryName : defaultCountry}
+          </span>
         </div>
         <div className="">
           {open === false ? (
@@ -41,37 +43,25 @@ const MobileHeaderSearch = () => {
             </div>
           )}
         </div>
-      </div>
-      {open && (
-        <div class="z-20 absolute top-48 left-0 right-0 w-64 sm:w-80 mx-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
-          <div class="py-1">
-            <a
-              href="#"
-              class="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm"
-            >
-              Account settings
-            </a>
-            <a
-              href="#"
-              class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-            >
-              Support
-            </a>
-            <a
-              href="#"
-              class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-            >
-              License
-            </a>
-            <a
-              href="#"
-              class="text-gray-700 hover:bg-bellefuBackground block px-4 py-2 text-sm"
-            >
-              License
-            </a>
+        {open && (
+          <div className=" -ml-3 z-10 absolute h-80 overflow-y-scroll top-12 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            {province?.map((state) => (
+              <div
+                onClick={() => {
+                  setOpen(!open);
+                  dispatch(chooseState(state.code));
+                }}
+                key={state.id}
+                className="py-1  hover:bg-bellefuBackground "
+              >
+                <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">
+                  {state.name}
+                </span>
+              </div>
+            ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
