@@ -74,7 +74,7 @@ const Product = () => {
 
   const province = country === null ? index?.countryStates : stateList;
 
-  console.log(index);
+  // console.log(index);
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
       <HeaderSearch
