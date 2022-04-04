@@ -1,18 +1,19 @@
 import React from "react";
 import Layout from "../../components/postAdsComponent/Layout";
-import { useRouter } from "next/router";
 import { handlePlansUpdate } from "../../features/bellefuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useState } from "react";
 import { MdVerified } from "react-icons/md";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+
 
 
 
 export default function Publish() {
 
-  const [showSuccess, setShowSuccess] = useState(true)
+  const [showSuccess, setShowSuccess] = useState(false)
 
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
@@ -115,7 +116,11 @@ export default function Publish() {
 
   };
 
- 
+  const handleHome =(e)=>{
+    e.preventDefault();
+    router.push('/')
+
+  }
 
   return (
     <div className="rounded-lg  bg-bellefuWhite h-auto w-auto p-10 ">
@@ -242,7 +247,7 @@ export default function Publish() {
         </p>
 
         <button
-          onClick={handlePublish}
+          onClick={handleHome}
           type="submit"
           class="flex justify-center items-center w-[15vw] py-2 px-4 mt-[30px]  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
         >
