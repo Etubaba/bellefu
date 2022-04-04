@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import Tooltip from '@mui/material/Tooltip'
 import { MdLocationOn } from "react-icons/md";
 import { BsHeart } from "react-icons/bs";
+import { CgArrowsExchange } from "react-icons/cg";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -70,7 +72,11 @@ const ProductList = ({ product, currency, currencyCode }) => {
               }}
               className="ml-5"
             >
-              convert
+              <Tooltip title='Convert'>
+
+                <CgArrowsExchange className='text-2xl' />
+              </Tooltip>
+
             </span>
           ) : null}
         </p>
