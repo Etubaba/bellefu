@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "./mainPageComponents/slider/Slider";
 import ProductComponent from "./mainPageComponents/ProductComponent";
 
-const Body = ({ products, slider, currency, location }) => {
+const Body = ({ products, slider, currency, location, currencyCode }) => {
   // console.log("The products here :", products);
   return (
     <div className="">
@@ -10,7 +10,7 @@ const Body = ({ products, slider, currency, location }) => {
         <Slider slider={slider} />
       </div>
       {/* product component session */}
-      <ProductComponent currency={currency} location={location} products={products} />
+      <ProductComponent currency={currency} currencyCode={currencyCode} location={location} products={products} />
     </div>
   );
 };

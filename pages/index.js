@@ -70,6 +70,7 @@ export default function Home({ data }) {
               <Body
                 location={data.defaultCountry}
                 currency={data.defaultCurrency}
+                currencyCode={data.defaultCurrencyCode}
                 products={data.products}
                 slider={data.slider}
               />
