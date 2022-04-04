@@ -100,20 +100,30 @@ const Register = ({countries}) => {
 
     if (!target.value) return;
 
+    let url, data;
+    if (target.name === "phone") {
+      url = `${apiData}userphone/exist`;
+      data = {phone: target.value} 
+    }
+    if (target.name === "username") {
+      url = `${apiData}username/exist`;
+      data = {username: target.value}
+    }
+
     console.log("!");
-    fetch(`${apiData}user/exist`, {
+    fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(target.value)
+      body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(resData => {
-      if (!resData.status && target.name === "phone") setPhoneExists(true);
+      if (resData.status && target.name === "phone") setPhoneExists(true);
       else setPhoneExists(false);
 
-      if (!resData.status && target.name === "username") setUsernameExists(true);
+      if (resData.status && target.name === "username") setUsernameExists(true);
       else setUsernameExists(false);
     })
     .catch(error => {
@@ -137,7 +147,7 @@ const Register = ({countries}) => {
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader />

@@ -17,13 +17,13 @@ import { fetchData } from "../features/bellefuSlice";
 export default function Home({ data }) {
   const dispatch = useDispatch();
 
-  if (data) {
-    dispatch(fetchData(data));
-  }
+  // if (data) {
+  //   dispatch(fetchData(data));
+  // }
 
-  // useEffect(() => {
-  //   dispatch(handleIndexApi(data))
-  // }, [])
+  useEffect(() => {
+    dispatch(fetchData(data))
+  }, [])
 
   return (
     <div>

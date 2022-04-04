@@ -34,10 +34,11 @@ const VerifyPhone = () => {
   const wantToVerify = () => {
     setVerify(true);
     setPhone(prev => !prev);
-    //console.log(firstInput)
-    //console.log(firstInput.current)
-    //firstInput.current.focus();
   };
+  const focus = (evt) => {
+    console.log("!")
+    evt.target.focus();
+  }
   const handleChange = (input) => (evt) => {
     setVerificationCode({ ...verificationCode, [input]: evt.target.value });
   };
@@ -70,9 +71,13 @@ const VerifyPhone = () => {
 
     if (data.status) {
       const returnTime = Date.now();
+      console.log(dispatchTime);
+      console.log(returnTime)
       const timeTaken = returnTime - dispatchTime;
+      console.log(timeTaken);
+      console.log((new Date(timeTaken)).getSeconds());
 
-      setResTimeInSec(timeTaken.getSeconds());
+      setResTimeInSec((new Date(timeTaken)).getSeconds());
       setVerify(true);
       setPhone(prev => !prev);
       firstInput.current.focus();
@@ -81,6 +86,9 @@ const VerifyPhone = () => {
         position: toast.POSITION.TOP_CENTER
       })
     }
+  };
+  const requestCallVerification = () => {
+    return false;
   };
   const verificationCodeFieldsFilled = (verificationCode) => {
     let emptyField = false;
@@ -120,39 +128,32 @@ const VerifyPhone = () => {
           <div className="border mx-auto my-8 bg-bellefuWhite  rounded-xl w-[80%] md:w-7/12 h-11/12 ">
             <div className="flex flex-col justify-center mt-8 mb-4 items-center">
               <MdVerified className="text-8xl mb-5 text-gray-600" />
-              <p className="text-sm text-center text-gray-600 mb-20">
+              <p className="text-sm text-center text-gray-600 mb-10">
                 You have not verified your account
                 <br />
                 Kindly click on the botton below for Phone verification
               </p>
-              <div className="flex flex-col md:flex-row px-6">
-                <div className="flex-auto mr-3">
+              <div className="flex flex-col md:flex-row px-2"> 
+                <div className="flex-auto md:mr-3 mb-2 md:mb-0">
                   <button
                     onClick={requestPhoneVerificationCode}
-                    className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-full justify-center bg-bellefuOrange"
+                    className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 bg-bellefuOrange"
                   >
-                    <span className="mt-1 mr-3"><MdVerified className="text-xl" /></span>{" "}
-                    <span>Request Code Verification</span>
+                    <span className="mt-1 mr-1"><MdVerified className="text-xl" /></span>
+                    <span>Code Verification</span>
                   </button>
                 </div>
                 <div className="flex-auto">
                   <button
-                    onClick={requestPhoneVerificationCode}
-                    className="flex hover:bg-green-400 ease-in-out duration-300 rounded-md text-white py-2 w-full justify-center bg-bellefuGreen"
+                    onClick={requestCallVerification}
+                    className="flex hover:bg-green-400 ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center bg-bellefuGreen"
                   >
-                    <span className="mt-1 mr-3"><MdCall className="text-xl" /></span>{" "}
-                    <span>Request Call Verification</span>
+                    <span className="mt-1 mr-1 "><MdCall className="text-xl" /></span>
+                    <span>Call Verification</span>
                   </button>
                 </div>
               </div>
-              {/* <button
-                onClick={requestPhoneVerificationCode}
-                className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"
-              >
-                <span className="mt-1 mr-3"><MdVerified className="text-xl" /></span>{" "}
-                <span>Request Phone Verification</span>
-              </button> */}
-              <p className="px-3 mt-4 text-center text-md hover:text-bellefuBlack1 hover:cursor-pointer" onClick={() => router.push("/login")}>SKIP VERIFICATION</p>
+              {/* <p className="px-3 mt-4 text-center text-md hover:text-bellefuBlack1 hover:cursor-pointer" onClick={() => router.push("/login")}>SKIP VERIFICATION</p> */}
             </div>
           </div>
         </div>
@@ -187,7 +188,7 @@ const VerifyPhone = () => {
                         value={verificationCode.firstNo}
                         onChange={handleChange("firstNo")}
                         id="firstNo"
-                      //ref={firstInput}
+                        onLoad={focus}
                       />
                       <input
                         className="m-2 border h-12 w-12 text-center form-control rounded"
@@ -243,7 +244,7 @@ const VerifyPhone = () => {
 
               {phone && pCongrats && (
                 <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-                  <MdVerified className="text-8xl  mb-5 text-gray-600" />
+                  <MdVerified className="text-8xl  mb-5 text-bellefuGreen" />
                   <p className="mb-7 text-center">
                     <strong> Congrats !!!</strong>
                     <br /> Your Phone number has been verified
