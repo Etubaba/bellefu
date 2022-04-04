@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
 import { setProfileDetails } from "../features/bellefuSlice";
+import { data } from "autoprefixer";
 
 export const getStaticProps = async () => {
   const response = await fetch(`${apiData}get/countries`);
@@ -33,6 +34,10 @@ const Register = ({countries}) => {
     username: "",
     password: ""
   });
+  const [usernameExists, setUsernameExists] = useState(false);
+  const [phoneExists, setPhoneExists] = useState(false);
+  const phoneExistsRef = useRef(false);
+  const usernameExistsRef = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formFieldError, setFormFieldError] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
@@ -54,7 +59,7 @@ const Register = ({countries}) => {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
     }
     //setFormFields({...formFields, email: `${formFields.username}@gmail.com`})
-    console.log(formValues);
+    //console.log(formValues);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
@@ -89,7 +94,45 @@ const Register = ({countries}) => {
 
     if (formFieldError) return false;
     else return true;
+  };
+  const checkExists = (evt) => {
+    const target = evt.target;
+
+    if (!target.value) return;
+
+    console.log("!");
+    fetch(`${apiData}user/exist`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(target.value)
+    })
+    .then(response => response.json())
+    .then(resData => {
+      if (!resData.status && target.name === "phone") setPhoneExists(true);
+      else setPhoneExists(false);
+
+      if (!resData.status && target.name === "username") setUsernameExists(true);
+      else setUsernameExists(false);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  };
+  const clearExists = (evt) => {
+    const target = evt.target;
+
+    if (target.name === "phone") setPhoneExists(false);
+    if (target.name === "username") setUsernameExists(false);
   }
+
+  // useEffect(() => {
+  //   console.log("!!!");
+    
+  //   if (formFields.phone && !phoneExistsRef.current.value) checkExists(formFields.phone, phoneExistsRef, setPhoneExists);
+  //   if (formFields.username && !usernameExistsRef.current.value) checkExists(formFields.username, usernameExistsRef, setUsernameExists);
+  // }, [formFields]);
 
   return (
     <>
@@ -106,11 +149,11 @@ const Register = ({countries}) => {
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">First Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.firstName} onChange={onChange("fname")} /></p>
+              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.fname} onChange={onChange("fname")} /></p>
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Last Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lastName} onChange={onChange("lname")} /></p>
+              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lname} onChange={onChange("lname")} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
@@ -120,7 +163,8 @@ const Register = ({countries}) => {
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
-              <p><input type="text" htmlFor="phone" value={formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} /></p>
+              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
+              { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
@@ -150,7 +194,8 @@ const Register = ({countries}) => {
           <div className="flex flex-col md:flex-row my-3 md:mb-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="user-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name</label></p>
-              <p><input type="text" htmlFor="user-name" value={formFields.username} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("username")} /></p>
+              <p><input type="text" htmlFor="user-name" value={formFields.username} name="username" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("username")} onFocus={clearExists} onBlur={checkExists} /></p>
+              { usernameExists && <p className="text-red-500 text-sm font-medium">username already exists!</p> }
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
