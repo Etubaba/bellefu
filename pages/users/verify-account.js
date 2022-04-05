@@ -36,23 +36,8 @@ function Verifyaccount() {
   //     setPreview(URL.createObjectURL(acceptedFiles[0]))
   // }, [])
 
-  const idsubmit = () => {
-    window.location.reload(false);
-    setPreview(undefined);
-  };
-  // const requestPhoneVerificationCode = async () => {
-  //   const {phone, userId} = user;
-  //   const response = await fetch("https://bellefu.inmotionhub.xyz/api/web30/send/phone/code", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({phone, userId})
-  //   });
-  //   const data = await response.json();
 
-  //   if (data.status) setVerify(true);
-  // };
+
 
   const IDstyle = {
     transform: idopen ? "rotate(90deg)" : "rotate(0)",
@@ -91,7 +76,7 @@ function Verifyaccount() {
                 className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"
               >
                 <MdVerified className="text-xl" />{" "}
-                <span onClick={requestPhoneVerificationCode}>Request Phone Verification</span>
+                <span >Request Phone Verification</span>
               </button>
             </div>
           </div>
@@ -291,7 +276,7 @@ function Verifyaccount() {
                     Cancel
                   </button>
                   <button
-                    onClick={idsubmit}
+
                     className="px-32 py-4 bg-bellefuOrange hover:bg-orange-500 text-white rounded"
                   >
                     {" "}

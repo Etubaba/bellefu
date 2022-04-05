@@ -8,6 +8,9 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { apiData } from "../../constant";
+import { login } from '../../features/bellefuSlice'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const ProductList = ({ product, currency, currencyCode }) => {
   const [from, setFrom] = useState(null);
@@ -16,8 +19,18 @@ const ProductList = ({ product, currency, currencyCode }) => {
   const [converter, setConverter] = useState(false);
 
   const router = useRouter();
+  const getIsLoggedIn = useSelector(login)
 
+  const handleMessage = () => {
+    if (getIsLoggedIn) {
+      router.push('/messages')
+    } else {
+      router.push('/login')
+      toast.info('Login to contact seller', { position: 'top-center' })
 
+    }
+
+  }
 
 
 
@@ -83,7 +96,7 @@ const ProductList = ({ product, currency, currencyCode }) => {
         <BsHeart className="w-4 h-4 text-bellefuOrange" />
       </div>
       <div className="flex items-center mt-2 space-x-3">
-        <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
+        <button onClick={handleMessage} className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
           <MdOutlineMessage className="!text-white" />
         </button>
         <button className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
