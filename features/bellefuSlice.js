@@ -2,15 +2,27 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   subcatselected: undefined,
-  profileDetails: typeof window !== "undefined" ? localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null : null,
+  userDetails:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("details"))
+      : null,
+  profileDetails:
+    typeof window !== "undefined"
+      ? localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user"))
+        : null
+      : null,
   formDisabler: true,
   countrySelected: null,
-  catfilter: typeof window !== "undefined" ? localStorage.getItem('cat') : null,
-  login: typeof window !== "undefined" ? localStorage.getItem('login') : null,
+  catfilter: typeof window !== "undefined" ? localStorage.getItem("cat") : null,
+  login: typeof window !== "undefined" ? localStorage.getItem("login") : null,
   stateSelected: null,
-  indexData: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("indexData")) : null,
+  indexData:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("indexData"))
+      : null,
   catId: null,
-  searchFilter: '',
+  searchFilter: "",
   indexApi: [],
   postAddata: {
     categoryid: "",
@@ -29,7 +41,6 @@ const initialState = {
     plans: "",
     symbo: "",
   },
-
 };
 
 export const bellefuSlice = createSlice({
@@ -38,15 +49,13 @@ export const bellefuSlice = createSlice({
   reducers: {
     isLoggedIn: (state, action) => {
       state.login = action.payload;
-      localStorage.setItem('login', state.login)
+      localStorage.setItem("login", state.login);
     },
     fetchData: (state, action) => {
       state.indexData = action.payload;
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('indexData', JSON.stringify(state.indexData))
+      if (typeof window !== "undefined") {
+        localStorage.setItem("indexData", JSON.stringify(state.indexData));
       }
-
-
     },
     isDisabled: (state, action) => {
       state.formDisabler = action.payload;
@@ -59,110 +68,133 @@ export const bellefuSlice = createSlice({
     },
 
     chooseCountry: (state, action) => {
-      state.countrySelected = action.payload
+      state.countrySelected = action.payload;
     },
     chooseState: (state, action) => {
-      state.stateSelected = action.payload
+      state.stateSelected = action.payload;
     },
     handlePriceUpdate: (state, action) => {
-      state.postAddata.price = action.payload
+      state.postAddata.price = action.payload;
     },
     handleIndexApi: (state, action) => {
-      state.indexApi = action.payload
+      state.indexApi = action.payload;
     },
     // postAds reducers please no vex
 
     handleCatUpdate: (state, action) => {
-      state.postAddata.categoryid = action.payload
+      state.postAddata.categoryid = action.payload;
     },
     handleSubcatUpdate: (state, action) => {
-      state.postAddata.subcategoryid = action.payload
+      state.postAddata.subcategoryid = action.payload;
     },
     handleTitleUpdate: (state, action) => {
-      state.postAddata.title = action.payload
+      state.postAddata.title = action.payload;
     },
     handleLocationUpdate: (state, action) => {
-      state.postAddata.location = action.payload
+      state.postAddata.location = action.payload;
     },
     handleCountryCodeUpdate: (state, action) => {
-      state.postAddata.countrycode = action.payload
+      state.postAddata.countrycode = action.payload;
     },
 
     handlePhoneUpdate: (state, action) => {
-      state.postAddata.phone = action.payload
+      state.postAddata.phone = action.payload;
     },
     handlePriceUpdate: (state, action) => {
-      state.postAddata.price = action.payload
+      state.postAddata.price = action.payload;
     },
     handleTagUpdate: (state, action) => {
-      state.postAddata.tag = action.payload
+      state.postAddata.tag = action.payload;
     },
     handleDescriptionUpdate: (state, action) => {
-      state.postAddata.description = action.payload
+      state.postAddata.description = action.payload;
     },
     handleImagesUpdate: (state, action) => {
-      state.postAddata.images = action.payload
+      state.postAddata.images = action.payload;
     },
     handleUseridUpdate: (state, action) => {
-      state.postAddata.userid = action.payload
+      state.postAddata.userid = action.payload;
     },
     handleStateUpdate: (state, action) => {
-      state.postAddata.states = action.payload
+      state.postAddata.states = action.payload;
     },
     setProfileDetails: (state, action) => {
-      state.profileDetails = action.payload
+      state.profileDetails = action.payload;
     },
     Subcat: (state, action) => {
-      state.subcatselected = action.payload
+      state.subcatselected = action.payload;
     },
     selectCat: (state, action) => {
-      state.catfilter = action.payload
-      localStorage.setItem('cat', state.catfilter)
-
+      state.catfilter = action.payload;
+      localStorage.setItem("cat", state.catfilter);
     },
 
     handlePhoneUpdate: (state, action) => {
-      state.postAddata.phone = action.payload
+      state.postAddata.phone = action.payload;
     },
     handleTagUpdate: (state, action) => {
-      state.postAddata.tag = action.payload
+      state.postAddata.tag = action.payload;
     },
     handleCurrencyUpdate: (state, action) => {
-      state.postAddata.currencyCode = action.payload
+      state.postAddata.currencyCode = action.payload;
     },
     handleCitycodeUpdate: (state, action) => {
-      state.postAddata.cityCode = action.payload
+      state.postAddata.cityCode = action.payload;
     },
     handlePlansUpdate: (state, action) => {
-      state.postAddata.plans = action.payload
+      state.postAddata.plans = action.payload;
     },
     handleSymbolUpdate: (state, action) => {
-      state.postAddata.symbo = action.payload
+      state.postAddata.symbo = action.payload;
     },
-    // E don end here 
-
+    handleUserDetails: (state, action) => {
+      state.userDetails = action.payload;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("details", JSON.stringify(state.userDetails));
+      }
+    },
+    // E don end here
   },
-
-
-
 });
 
 // Action creators are generated for each case reducer function
 export const {
-  isLoggedIn, isDisabled, chooseCountry, handleIndexApi, handleSearch,
-  updateIdpath, fetchData, Subcat, selectCat, chooseState, setProfileDetails,
-  handleUseridUpdate, handleImagesUpdate, handleDescriptionUpdate,
-  handleTagUpdate, handlePriceUpdate, handlePhoneUpdate,
-  handleCountryCodeUpdate, handleLocationUpdate, handleTitleUpdate,
-  handleSubcatUpdate, handleCatUpdate, handleStateUpdate,
-  handleCurrencyUpdate, handleCitycodeUpdate, handlePlansUpdate,
-  handleSymbolUpdate } = bellefuSlice.actions;
+  isLoggedIn,
+  isDisabled,
+  chooseCountry,
+  handleIndexApi,
+  handleSearch,
+  updateIdpath,
+  fetchData,
+  Subcat,
+  selectCat,
+  chooseState,
+  setProfileDetails,
+  handleUseridUpdate,
+  handleImagesUpdate,
+  handleDescriptionUpdate,
+  handleTagUpdate,
+  handlePriceUpdate,
+  handlePhoneUpdate,
+  handleCountryCodeUpdate,
+  handleLocationUpdate,
+  handleTitleUpdate,
+  handleSubcatUpdate,
+  handleCatUpdate,
+  handleStateUpdate,
+  handleCurrencyUpdate,
+  handleCitycodeUpdate,
+  handlePlansUpdate,
+  handleSymbolUpdate,
+  handleUserDetails,
+} = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;
 export const profileDetails = (state) => state.bellefu.profileDetails;
 export const selectDisable = (state) => state.bellefu.formDisabler;
-export const homeData = (state) => state.bellefu.indexData
-export const changeId = (state) => state.bellefu.catId
+export const homeData = (state) => state.bellefu.indexData;
+export const changeId = (state) => state.bellefu.catId;
+export const userDId = (state) => state.bellefu.userDetails;
 
 // export const selectLogin = (state) => {
 //   state.bellefu.login;

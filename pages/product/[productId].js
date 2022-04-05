@@ -4,13 +4,17 @@ import SingleProductBody from "../../components/SingleProduct/SingleProductBody"
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar";
 import { productData } from "../../productData";
 import MobileHeaderSearch from "../../components/MobileHeaderSearch";
-import { homeData } from "../../features/bellefuSlice";
-import { useSelector } from "react-redux";
+import { homeData, handleUserDetails } from "../../features/bellefuSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Product = ({ details }) => {
-  const newProducts = productData.slice(0, 4);
   const newDetails = details.data;
+  const dispatch = useDispatch();
 
+  if (newDetails) {
+    dispatch(handleUserDetails(newDetails));
+  }
+  console.log("newDetails", newDetails);
   const index = useSelector(homeData);
 
   return (
