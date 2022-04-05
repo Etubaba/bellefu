@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import Tooltip from '@mui/material/Tooltip'
+import Tooltip from "@mui/material/Tooltip";
 import { MdLocationOn } from "react-icons/md";
 import { BsHeart, BsSuitHeartFill } from "react-icons/bs";
 import { CgArrowsExchange } from "react-icons/cg";
@@ -8,45 +8,36 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { apiData } from "../../constant";
-import { login } from '../../features/bellefuSlice'
-import { useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+import { login } from "../../features/bellefuSlice";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const ProductList = ({ product, currency, currencyCode, fav }) => {
   const [from, setFrom] = useState(null);
   const [amount, setAmount] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
-  const [fav2, setFav2] = useState(false)
-  const [productId, setProductId] = useState([])
+  const [fav2, setFav2] = useState(false);
+  const [productId, setProductId] = useState([]);
 
   const router = useRouter();
-  const getIsLoggedIn = useSelector(login)
+  const getIsLoggedIn = useSelector(login);
 
   const handleMessage = () => {
     if (getIsLoggedIn) {
-      router.push('/messages')
+      router.push("/messages");
     } else {
-      router.push('/login')
-      toast.info('Login to contact seller', { position: 'top-center' })
-
+      router.push("/login");
+      toast.info("Login to contact seller", { position: "top-center" });
     }
+  };
 
-  }
-
-
-  const userId = useSelector(state => state.bellefu?.profileDetails?.id)
-
-
-
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   // console.log(productId)
 
   return (
-    <div
-
-      className="bg-bellefuWhite p-3 rounded-b-md"
-    >
+    <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
         onClick={() => router.push(`/product/${product.productId}`)}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
@@ -83,47 +74,61 @@ const ProductList = ({ product, currency, currencyCode, fav }) => {
             <span
               onClick={(e) => {
                 e.stopPropagation();
-                axios.post(`${apiData}convert/currency`,
-                  { amount: product.price, to: currencyCode, from: product.currency_code })
+                axios
+                  .post(`${apiData}convert/currency`, {
+                    amount: product.price,
+                    to: currencyCode,
+                    from: product.currency_code,
+                  })
                   .then((res) => {
                     setNewPrice(res.data.data.result);
-
-                  })
+                  });
 
                 setConverter(true);
               }}
               className="ml-5"
             >
-              <Tooltip title='Convert'>
-
-                <CgArrowsExchange className='text-2xl' />
+              <Tooltip title="Convert">
+                <CgArrowsExchange className="text-2xl" />
               </Tooltip>
             </span>
           ) : null}
         </p>
-        {fav.includes(product.productId) ? < BsSuitHeartFill onClick={() => setFav2(!fav2)} className="w-4 h-4 text-bellefuOrange" /> :
-          <BsHeart onClick={(e) => {
-            e.stopPropagation()
-            if (getIsLoggedIn) {
-
-              axios.post(`${apiData}add/favorite`,
-                { userId: userId.id, productId: product.productId })
-                .then((res) => {
-                  console.log('dwd')
-
-                })
-              setFav2(true)
-              toast.success(`${product.title.substring(0, 20)} added to favourite`)
-            } else {
-              toast.error('Login to add favorite product')
-            }
-
-          }} className="w-4 h-4 text-bellefuOrange" />
-
-        }
+        {fav?.includes(product.productId) ? (
+          <BsSuitHeartFill
+            onClick={() => setFav2(!fav2)}
+            className="w-4 h-4 text-bellefuOrange"
+          />
+        ) : (
+          <BsHeart
+            onClick={(e) => {
+              e.stopPropagation();
+              if (getIsLoggedIn) {
+                axios
+                  .post(`${apiData}add/favorite`, {
+                    userId: userId.id,
+                    productId: product.productId,
+                  })
+                  .then((res) => {
+                    console.log("dwd");
+                  });
+                setFav2(true);
+                toast.success(
+                  `${product.title.substring(0, 20)} added to favourite`
+                );
+              } else {
+                toast.error("Login to add favorite product");
+              }
+            }}
+            className="w-4 h-4 text-bellefuOrange"
+          />
+        )}
       </div>
       <div className="flex items-center mt-2 space-x-3">
-        <button onClick={handleMessage} className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
+        <button
+          onClick={handleMessage}
+          className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4"
+        >
           <MdOutlineMessage className="!text-white" />
         </button>
         <button className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
