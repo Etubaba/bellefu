@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 
 export default function Publish() {
 
-  const [showSuccess, setShowSuccess] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(true)
 
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
