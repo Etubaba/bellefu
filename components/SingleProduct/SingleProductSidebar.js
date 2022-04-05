@@ -32,6 +32,7 @@ const SingleProductSidebar = ({ userDetails }) => {
           src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
           width={150}
           height={150}
+          alt=""
           className="rounded-full object-cover"
         />
         <div className="flex items-center space-x-2 mt-2">
