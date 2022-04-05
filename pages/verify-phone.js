@@ -28,20 +28,14 @@ const VerifyPhone = () => {
     fivethNo: "",
     sixthNo: "",
   });
-  const [countdown, setCountDown] = useState(false);
-  //const [resTimeInSec, setResTimeInSec] = useState("");
+  const [isCounting, setCounting] = useState(true);
+  const [showCount, setShowCount] = useState(false);
   const [phone, setPhone] = useState(false);
   const [pCongrats, setPCongrats] = useState(false);
 
-  // const wantToVerify = () => {
-  //   setVerify(true);
-  //   setPhone(prev => !prev);
-  // };
-  // const focus = (evt) => {
-  //   console.log("!")
-  //   evt.target.focus();
-  // }
   const handleChange = (input) => (evt) => {
+    if (isNaN(evt.target.value)) return;
+    
     setVerificationCode({ ...verificationCode, [input]: evt.target.value });
   };
   const submitVerificationCode = async () => {
@@ -57,9 +51,8 @@ const VerifyPhone = () => {
     if (data.status) setPCongrats(true);
   };
 
-  const requestPhoneVerificationCode = async () => {
+  const requestPhoneVerificationCode = async (evt) => {
     const { phone, id } = user;
-    //const dispatchTime = Date.now();
 
     const response = await fetch("https://bellefu.inmotionhub.xyz/api/general/send/phone/code", {
       method: "POST",
@@ -71,20 +64,17 @@ const VerifyPhone = () => {
     const data = await response.json();
 
     if (data.status) {
-      //const returnTime = ;
-      //const timeTaken = returnTime - dispatchTime;
+      // if (evt.target.name === "anothercode") {
+      //   setShowCount(true);
+      //   setCounting(true);
+      // }
+      setShowCount(true);
+      setCounting(true);
 
-      //setResTimeInSec((new Date(timeTaken)).getMinutes());
-      setCountDown(true);
       setVerify(true);
       setPhone(prev => !prev);
-      console.log(firstInput.current)
 
-      if (!verificationCode.firstNo) {
-        firstInput.current.focus();
-        firstInput.current = true;
-        console.log(firstInput.current.value)
-      }
+      if (!verificationCode.firstNo && isCounting) firstInput.current.focus();
     } else {
       toast.info(data.msg, {
         position: toast.POSITION.TOP_CENTER
@@ -108,10 +98,14 @@ const VerifyPhone = () => {
     if (!emptyField) return true;
     else return false;
   };
+  const Completionist = ({setState}) => {
+    setState(false);
+    return null;
+  }
   const renderer = ({minutes,seconds, completed}) => {
     if (completed) {
-      setCountDown(true);
-      return null
+      //setCounting(false);
+      return <Completionist setState={setCounting} />
     }
     else return <strong className="ml-3">{minutes}mins:{seconds}s</strong>
   } 
@@ -172,7 +166,7 @@ const VerifyPhone = () => {
               <div className="flex flex-col md:flex-row px-2"> 
                 <div className="flex-auto md:mr-3 mb-2 md:mb-0">
                   <button
-                    onClick={requestPhoneVerificationCode}
+                    onClick={(evt) => requestPhoneVerificationCode(evt)}
                     className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 bg-bellefuOrange"
                   >
                     <span className="mt-1 mr-1"><MdVerified className="text-xl" /></span>
@@ -217,7 +211,7 @@ const VerifyPhone = () => {
                     </p>
                     <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md">
                       <input
-                        className={firstInput.current.value?"m-2 outline outline-bellefuOrange h-12 w-12 text-center form-control rounded":"m-2 border h-12 w-12 text-center form-control rounded"}
+                        className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
                         type="text"
                         maxLength="1"
                         value={verificationCode.firstNo}
@@ -225,7 +219,7 @@ const VerifyPhone = () => {
                         ref={firstInput}
                       />
                       <input
-                        className="m-2 border h-12 w-12 text-center form-control rounded"
+                        className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
                         type="text"
                         maxLength="1"
                         value={verificationCode.secondNo}
@@ -233,7 +227,7 @@ const VerifyPhone = () => {
                         ref={secondInput}
                       />
                       <input
-                        className="m-2 border h-12 w-12 text-center form-control rounded"
+                        className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
                         type="text"
                         maxLength="1"
                         value={verificationCode.thirdNo}
@@ -241,7 +235,7 @@ const VerifyPhone = () => {
                         ref={thirdInput}
                       />
                       <input
-                        className="m-2 border h-12 w-12 text-center form-control rounded"
+                        className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
                         type="text"
                         maxLength="1"
                         value={verificationCode.fourthNo}
@@ -249,7 +243,7 @@ const VerifyPhone = () => {
                         ref={fourthInput}
                       />
                       <input
-                        className="m-2 border h-12 w-12 text-center form-control rounded"
+                        className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
                         type="text"
                         maxLength="1"
                         value={verificationCode.fivethNo}
@@ -257,7 +251,7 @@ const VerifyPhone = () => {
                         ref={fivethInput}
                       />
                       <input
-                        className="m-2 border h-12 w-12 text-center form-control rounded"
+                        className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
                         type="text"
                         maxLength="1"
                         value={verificationCode.sixthNo}
@@ -267,14 +261,14 @@ const VerifyPhone = () => {
                     </div>
 
                   <p className="mb-7">
-                    Request another code in:<Countdown date={Date.now() + 1000*60*2} renderer={renderer} />{" "}
+                    Request another code in: {showCount && <Countdown date={Date.now() + 1000*60*2} renderer={renderer} />}{" "}
                   </p>
 
-                    <button
-                      onClick={requestPhoneVerificationCode}
-                      className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"
-                      disabled={true}
-                    >
+                    <button 
+                      onClick={(evt) => requestPhoneVerificationCode(evt)} 
+                      className={isCounting?"flex rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange bg-opacity-50 hover:cursor-not-allowed":"flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"} 
+                      name="anothercode"
+                      disabled={isCounting?true:false}>
                       <MdVerified className="text-xl mr-2 mt-1" />
                       <span>Request another code</span>
                     </button>
