@@ -9,26 +9,12 @@ import moment from "moment";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
 
-const SingleProductSidebar = ({ userDetails }) => {
-  console.log("userDetails from sidebar", userDetails[0]?.currencySymbol);
+const ShopSideBar = ({ userDetails }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   return (
-    <div className="bg-bellefuWhite rounded-md flex flex-col pb-10 ">
-      <div className="flex items-center px-3 py-2 justify-center">
-        <p className="text-sm text-bellefuBlack1">Product Price:</p>{" "}
-        <p className="font-bold ml-3 text-bellefuTitleBlack text-lg">
-          <span
-            dangerouslySetInnerHTML={{
-              __html: userDetails[0]?.currencySymbol,
-            }}
-          />
-          {userDetails[0]?.productPrice}
-        </p>
-      </div>
-      {/* border line */}
-      <div className="border-b " />
+    <div className="bg-bellefuWhite rounded-md flex flex-col pb-10 w-80 mr-3 ">
       {/* user brief info */}
       <div className="mt-5 flex flex-col items-center justify-center">
         <Image
@@ -162,4 +148,4 @@ const SingleProductSidebar = ({ userDetails }) => {
   );
 };
 
-export default SingleProductSidebar;
+export default ShopSideBar;
