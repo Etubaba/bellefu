@@ -1,8 +1,17 @@
 import React from "react";
 import Layout from "../../components/Layout";
+import { apiData } from '../../constant'
 import FavouriteProducts from "../../components/layoutComponents/favouriteComponents/FavouriteProducts";
 
 const MyFavourites = () => {
+
+
+
+
+
+
+
+
   return (
     <div className="mt-5">
       {/* header section */}
@@ -23,3 +32,17 @@ const MyFavourites = () => {
 
 MyFavourites.Layout = Layout;
 export default MyFavourites;
+
+// export async function getServerSideProps(context) {
+//   // const {}
+//   const res = await fetch(
+//     `${apiData}get/user/favorite/`
+//   );
+//   const data = await res.json();
+
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
