@@ -16,7 +16,7 @@ const FavouriteProducts = () => {
   const router = useRouter()
 
   const userId = useSelector(state => state.bellefu.profileDetails)
-  const a = 903
+
   useEffect(() => {
     const getFav = async () => {
 
