@@ -95,20 +95,29 @@ const NavBar = () => {
             </div>
           </div>}
           {/* drop down beginning */}
-          {open === true ? (
+          {open ? (
             <div className="absolute w-52 bg-bellefuWhite rounded border z-40 shadow-lg top-12 right-[10%] space-y-3">
               <ul className="rounded px-2 py-3 space-y-2">
-                <div onClick={() => router.push('/users')} className="flex items-center space-x-4 mb-2 hover:bg-bellefuBackground px-2 rounded-md py-3">
+                <div onClick={() => {
+                  setOpen(!open)
+                  router.push('/users')
+                }} className="flex items-center space-x-4 mb-2 hover:bg-bellefuBackground px-2 rounded-md py-3">
                   <BsFillPersonFill className="w-4 h-4 text-bellefuOrange" />
                   <p className="text-xs text-bellefuBlack1 font-normal whitespace-nowrap">
                     My Account
                   </p>
                 </div>
-                <li onClick={() => router.push('/users/messages')} className="px-2 hover:bg-bellefuBackground py-1  flex space-x-3 items-center cursor-pointer rounded">
+                <li onClick={() => {
+                  setOpen(!open)
+                  router.push('/users/messages')
+                }} className="px-2 hover:bg-bellefuBackground py-1  flex space-x-3 items-center cursor-pointer rounded">
                   <RiMessage2Fill className="w-4 h-4 text-bellefuBlack1" />
                   <span className="text-xs text-gray-500">Messages</span>
                 </li>
-                <li onClick={() => router.push('/users/favourite-items')} className="px-2 py-1 hover:bg-bellefuBackground  flex space-x-3 items-center cursor-pointer rounded">
+                <li onClick={() => {
+                  setOpen(!open)
+                  router.push('/users/favourite-items')
+                }} className="px-2 py-1 hover:bg-bellefuBackground  flex space-x-3 items-center cursor-pointer rounded">
                   <AiFillHeart className="w-4 h-4 text-gray-500" />
                   <span className="text-xs text-bellefuBlack1">
                     Favourite Products
