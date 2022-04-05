@@ -12,7 +12,11 @@ import { apiData } from "../../constant";
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [countryData, setCountryData] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
-  const [test, setTest] = useState([]);
+  const [fav, setFav] = useState([]);
+
+
+
+
 
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
   const getState = useSelector((state) => state.bellefu.stateSelected);
@@ -38,9 +42,33 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     newProducts();
   }, [getCountry]);
 
+
+
+  // get fav products
+  const userId = useSelector(state => state.bellefu?.profileDetails?.id)
+
+
+  useEffect(() => {
+    const getFav = async () => {
+
+      await axios.get(`${apiData}get/user/favorite/${userId}`)
+        .then(res => setFav(res.data.data))
+        .catch(err => console.log(err))
+    }
+    getFav()
+  }, [])
+
+
+
+
   // const main = getCountry !== null ? countryData: search !== '' ? searchResult:  products
 
-  // const [main, setMain] = useState(arr)
+
+
+  const favId = fav?.map(item => item.productId)
+
+  // search query and fetch
+  console.log('favid array=>', favId)
 
   const where = getCountry === null ? location : getCountry;
 
@@ -87,8 +115,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
             >
               <ProductList
                 key={product.productId}
+
                 currency={currency}
                 product={product}
+                fav={favId}
                 currencyCode={currencyCode}
               />
             </div>
