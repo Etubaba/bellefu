@@ -59,16 +59,13 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   }, [])
 
 
-
-
-  // const main = getCountry !== null ? countryData: search !== '' ? searchResult:  products
-
-
-
   const favId = fav?.map(item => item.productId)
+  // const favdelete = fav?.map(item => item.favId)
+
+
 
   // search query and fetch
-  console.log('favid array=>', favId)
+
 
   const where = getCountry === null ? location : getCountry;
 
@@ -119,6 +116,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
                 currency={currency}
                 product={product}
                 fav={favId}
+                favdata={fav}
                 currencyCode={currencyCode}
               />
             </div>

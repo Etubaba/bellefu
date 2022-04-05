@@ -12,7 +12,7 @@ import { login } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const ProductList = ({ product, currency, currencyCode, fav }) => {
+const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [from, setFrom] = useState(null);
   const [amount, setAmount] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
@@ -94,9 +94,29 @@ const ProductList = ({ product, currency, currencyCode, fav }) => {
             </span>
           ) : null}
         </p>
-        {fav?.includes(product.productId) ? (
+        {fav?.includes(product.productId) && getIsLoggedIn || fav2 ? (
           <BsSuitHeartFill
-            onClick={() => setFav2(!fav2)}
+            onClick={(e) => {
+              e.stopPropagation();
+              const favId = fav.find(items => items === product.productId);
+              console.log(favId);
+              if (favId !== undefined) {
+                axios
+                  .post(`${apiData}delete/favorite`, {
+                    favoriteId: favId,
+                  })
+                  .then((res) => {
+                    if (res.data.status) {
+                      setFav2(false);
+                      toast.error('you have removed from favorite', { position: 'top-center' })
+                    }
+                  });
+              } else {
+                return;
+              }
+
+
+            }}
             className="w-4 h-4 text-bellefuOrange"
           />
         ) : (
@@ -106,16 +126,21 @@ const ProductList = ({ product, currency, currencyCode, fav }) => {
               if (getIsLoggedIn) {
                 axios
                   .post(`${apiData}add/favorite`, {
-                    userId: userId.id,
+                    userId: userId,
                     productId: product.productId,
                   })
                   .then((res) => {
-                    console.log("dwd");
+                    console.log(res.data)
+                    if (res.data.status) {
+                      setFav2(true)
+                      toast.success(
+                        `${product.title.substring(0, 20)} added to favourite`
+                      );
+
+                    }
                   });
-                setFav2(true);
-                toast.success(
-                  `${product.title.substring(0, 20)} added to favourite`
-                );
+
+
               } else {
                 toast.error("Login to add favorite product");
               }
