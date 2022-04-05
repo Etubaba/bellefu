@@ -43,10 +43,11 @@ const Login = () => {
       setLoading(false);
 
       if (data.status) {
-        localStorage.setItem("user", JSON.stringify(data.data.user));
+        const user = {...data.data.user, ...data.data.others[0]}
+        localStorage.setItem("user", JSON.stringify(user));
 
         dispatch(isLoggedIn(true));
-        dispatch(setProfileDetails(data.data.user));
+        dispatch(setProfileDetails(user));
         router.replace("/");
       }
       else {

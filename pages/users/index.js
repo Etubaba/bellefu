@@ -1,34 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdPending } from "react-icons/md";
 import { ImPushpin, ImClock } from "react-icons/im";
 import { FaWallet } from "react-icons/fa";
 import Layout from "../../components/Layout";
+import { profileDetails } from "../../features/bellefuSlice";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { apiData } from "../../constant";
+
 
 const Index = () => {
-  const [firstName, setFirstName] = useState("fffffffffhghghghh"),
-    [lastName, setLastName] = useState("ttttttttttrttrttrtrtrt"),
-    [email, setEmail] = useState("ghfftrtrtrttrttrtgrg"),
-    [image, setImage] = useState(
-      "https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"
-    );
+  const user = useSelector(profileDetails) || null;
+  console.log(user);
+  const [productStat, setProductStat] = useState({});
+  console.log(productStat)
+  //   [image, setImage] = useState();
+
+  useEffect(() => {
+    const getuserProductStat = async () => {
+      const res = await axios.get(`${apiData}user/product/stats/${user.id}`);
+      if (res.data.status) setProductStat(res.data.data);
+    }
+
+    getuserProductStat();
+  }, [user, setProductStat])
 
   return (
     <div className="w-auto mt-2" id="profile-overview">
+      {!user &&  
       <div className="">
         <div className="flex flex-col">
           <div className="bg-bellefuWhite rounded-[20px] my-4 ">
             <div className="flex justify-between px-8 py-6">
               <h1 className="font-semibold">My Profile Details</h1>
-              <button className="text-bellefuOrange"><Link href="/users/profile">View Profile</Link></button>
+              <button className="text-bellefuOrange hover:underline"><Link href="/users/profile">View Profile</Link></button>
             </div>
             <hr />
             <div className="flex justify-between">
               <div id="avatar" className="py-6 pl-20">
                 <Image
                   className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
-                  src={image}
+                  src={user?.avatar?`https://bellefu.inmotionhub.xyz/get/user/images/${user?.avatar}`:"https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"}
                   alt="avatar"
                   width="150"
                   height="150"
@@ -44,8 +58,8 @@ const Index = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-left">{firstName}</td>
-                      <td className="text-left">{lastName}</td>
+                      <td className="text-left">{user?.first_name}</td>
+                      <td className="text-left">{user?.last_name}</td>
                     </tr>
                   </tbody>
                   <thead>
@@ -56,7 +70,7 @@ const Index = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-left">{email}</td>
+                      <td className="text-left">{user?.email}</td>
                       <td className="text-left">********</td>
                     </tr>
                   </tbody>
@@ -67,7 +81,7 @@ const Index = () => {
           <div className="bg-bellefuWhite rounded-[20px] mb-4">
             <div className="flex justify-between px-8 py-6">
               <h3 className="font-semibold">Ads Details</h3>
-              <button className="text-bellefuOrange"><Link href='/users/myads'>View Ads</Link></button>
+              <button className="text-bellefuOrange hover:underline"><Link href='/users/myads'>View Ads</Link></button>
             </div>
             <hr />
             <div
@@ -80,7 +94,7 @@ const Index = () => {
                   className="text-center"
                   style={{ fontSize: "50px", lineHeight: "75px" }}
                 >
-                  19
+                  {productStat.approved}
                 </p>
                 <p id="detail" className="flex" style={{ fontSize: "25px" }}>
                   <span className="pt-1">
@@ -95,7 +109,7 @@ const Index = () => {
                   className="text-center"
                   style={{ fontSize: "50px", lineHeight: "75px" }}
                 >
-                  9
+                  {productStat.pending}
                 </p>
                 <p id="detail" className="flex" style={{ fontSize: "25px" }}>
                   <span className="pt-1">
@@ -110,7 +124,7 @@ const Index = () => {
                   className="text-center"
                   style={{ fontSize: "50px", lineHeight: "75px" }}
                 >
-                  3
+                  {productStat.expired}
                 </p>
                 <p id="detail" className="flex" style={{ fontSize: "25px" }}>
                   <span className="pt-1">
@@ -124,13 +138,13 @@ const Index = () => {
           <div className="bg-bellefuWhite rounded-[20px] mb-5">
             <div className="flex justify-between px-8 py-6">
               <h1 className="font-semibold">Wallet</h1>
-              <button className="text-bellefuOrange"><Link href="/users/my-wallet">View Wallet</Link></button>
+              <button className="text-bellefuOrange hover:underline"><Link href="/users/my-wallet">View Wallet</Link></button>
             </div>
             <hr />
             <div className="w-9/12 mx-auto my-7 bg-[#F9FDF5] rounded-[10px]">
               <p className="flex justify-center py-7">
                 <span className="pt-1 pr-2"><FaWallet /></span> 
-                <span>No Record Found</span>
+                <span>{user?.wallet_balance}</span>
               </p>
               <p className="text-center pb-8">
                 <button className="bg-bellefuOrange text-bellefuWhite py-2 px-4 rounded-md"><Link href="/users/add-money">Add Money</Link></button>
@@ -139,6 +153,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+    }
     </div>
   );
 };
