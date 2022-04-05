@@ -30,6 +30,7 @@ const VerifyPhone = () => {
   });
   const [isCounting, setCounting] = useState(true);
   const [showCount, setShowCount] = useState(false);
+  const [countDate, setCountDate] = useState(null);
   const [phone, setPhone] = useState(false);
   const [pCongrats, setPCongrats] = useState(false);
 
@@ -53,6 +54,7 @@ const VerifyPhone = () => {
 
   const requestPhoneVerificationCode = async (evt) => {
     const { phone, id } = user;
+    const currentTarget = evt.currentTarget;
 
     const response = await fetch("https://bellefu.inmotionhub.xyz/api/general/send/phone/code", {
       method: "POST",
@@ -64,17 +66,17 @@ const VerifyPhone = () => {
     const data = await response.json();
 
     if (data.status) {
-      // if (evt.target.name === "anothercode") {
-      //   setShowCount(true);
-      //   setCounting(true);
-      // }
       setShowCount(true);
       setCounting(true);
+      setCountDate(null);
+      setCountDate(Date.now() + 1000*60*2)
 
-      setVerify(true);
-      setPhone(prev => !prev);
+      if (currentTarget.name !== "anothercode") {
+        setVerify(true);
+        setPhone(prev => !prev);
+      }
 
-      if (!verificationCode.firstNo && isCounting) firstInput.current.focus();
+      if (!verificationCode.firstNo) firstInput.current.focus();
     } else {
       toast.info(data.msg, {
         position: toast.POSITION.TOP_CENTER
@@ -98,19 +100,19 @@ const VerifyPhone = () => {
     if (!emptyField) return true;
     else return false;
   };
-  const Completionist = ({setState}) => {
-    setState(false);
-    return null;
+  const onComplete = () => {
+    setCounting(false);
+    setShowCount(false);
   }
   const renderer = ({minutes,seconds, completed}) => {
     if (completed) {
-      //setCounting(false);
-      return <Completionist setState={setCounting} />
+      return null;
     }
-    else return <strong className="ml-3">{minutes}mins:{seconds}s</strong>
+    else return <strong className="ml-3">{minutes}mins:{seconds}s</strong>;
   } 
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
+    //if (!verificationCode.firstNo && isCounting) firstInput.current.focus();
 
     if (verificationCode.firstNo && !verificationCode.secondNo) {
       secondInput.current.focus();
@@ -168,6 +170,7 @@ const VerifyPhone = () => {
                   <button
                     onClick={(evt) => requestPhoneVerificationCode(evt)}
                     className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 bg-bellefuOrange"
+                    name="code"
                   >
                     <span className="mt-1 mr-1"><MdVerified className="text-xl" /></span>
                     <span>Code Verification</span>
@@ -261,7 +264,7 @@ const VerifyPhone = () => {
                     </div>
 
                   <p className="mb-7">
-                    Request another code in: {showCount && <Countdown date={Date.now() + 1000*60*2} renderer={renderer} />}{" "}
+                    Request another code in: {showCount ? <Countdown date={countDate} renderer={renderer} onComplete={onComplete} />: <span>0s</span>}{" "}
                   </p>
 
                     <button 
