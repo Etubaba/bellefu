@@ -13,10 +13,7 @@ import { apiData } from "../../constant";
 
 const Index = () => {
   const user = useSelector(profileDetails) || null;
-  console.log(user);
   const [productStat, setProductStat] = useState({});
-  console.log(productStat)
-  //   [image, setImage] = useState();
 
   useEffect(() => {
     const getuserProductStat = async () => {
@@ -29,7 +26,7 @@ const Index = () => {
 
   return (
     <div className="w-auto mt-2" id="profile-overview">
-      {!user &&  
+      {user &&  
       <div className="">
         <div className="flex flex-col">
           <div className="bg-bellefuWhite rounded-[20px] my-4 ">
@@ -142,7 +139,7 @@ const Index = () => {
             </div>
             <hr />
             <div className="w-9/12 mx-auto my-7 bg-[#F9FDF5] rounded-[10px]">
-              <p className="flex justify-center py-7">
+              <p className="flex justify-center py-7 font-medium text-4xl">
                 <span className="pt-1 pr-2"><FaWallet /></span> 
                 <span>{user?.wallet_balance}</span>
               </p>
