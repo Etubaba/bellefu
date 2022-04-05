@@ -103,7 +103,7 @@ export default function Details() {
                       Product Price
                       
                     </label>
-                    <div className=" relative bottom-[7px] pl-[7px]">
+                    <div className=" relative bottom-[3px] pl-[7px]">
                       <p className="text-bellefuGreen flex font-poppins font-semibold">
                         <p
                           className="mr-1 text-bellefuGreen"
