@@ -10,9 +10,13 @@ import UnstyledSelectSimple2 from "../../components/layoutComponents/form-fields
 import UnstyledSelectSimple3 from "../../components/layoutComponents/form-fields/StateProvince";
 import UnstyledSelectSimple4 from "../../components/layoutComponents/form-fields/City";
 import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields/Lga";
-// import CustomizedDividers from "../../components/form-fields/TextFormate";
+// import {profileDummy} from "../../public/bellefu-images/userprofiledetails.png";
 
 const profile = () => {
+
+  const userThings = useSelector((state) => state.bellefu.profileDetails);
+  // const profileDummy = "../../public/bellefu-images/userprofiledetails.png";
+
   // const [disable, setDisable] = useState(true);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -22,7 +26,7 @@ const profile = () => {
   const disable = useSelector((state) => state.bellefu.formDisabler);
 
 
-  // console.log(disable);
+  // console.log(profileDummy);
   const dispatch = useDispatch();
 
 
@@ -48,7 +52,7 @@ const profile = () => {
           <div>
           <img
             className=" h-15 w-15 object-cover  rounded-full ring-2 ring-white"
-            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            src= "/bellefu-images/userprofiledetails.png"
             alt="profile"
           />
           <div className=" border border-bellefuGreen  absolute bottom-[7%] left-[56%] rounded-[50%] cursor-pointer p-[10px]  bg-gray-300 hover:bg-gray-100 w-[50px] h-[50px]">
@@ -75,11 +79,11 @@ const profile = () => {
                       First name
                     </label>
                     <input
+                    // Value={"john"}
                       type="text"
                       name="first-name"
                       id="first-name"
-                      disabled={disable}
-                      autocomplete="given-name"
+                      disabled
                       className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
                   </div>
@@ -94,9 +98,9 @@ const profile = () => {
                     <input
                       type="text"
                       name="last-name"
-                      disabled={disable}
+                      // Value={"Doe"}
+                      disabled
                       id="last-name"
-                      autocomplete="family-name"
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
                   </div>
@@ -108,11 +112,12 @@ const profile = () => {
                       Email
                     </label>
                     <input
+                      value={userThings?.email}
                       type="email"
                       name="email"
                       id="email"
-                      disabled={disable}
-                      autocomplete="email-address"
+                      // Value={userThings.email}
+                      disabled
                       className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
                   </div>
@@ -125,10 +130,11 @@ const profile = () => {
                       Password
                     </label>
                     <input
+                    // value={"**********"}
                       type="password"
                       name="password"
                       id="password"
-                      disabled={disable}
+                      disabled
                       autocomplete="your password"
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
