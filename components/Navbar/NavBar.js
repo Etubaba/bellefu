@@ -79,7 +79,7 @@ const NavBar = () => {
                 className="rounded-full object-cover"
               />
               <p onClick={() => router.push('/users')} className="text-white hover:text-gray-200' font-semibold">
-                Hi <span>{username.username}</span>
+                Hi <span>{username?.username}</span>
               </p>
               <div className="">
                 {open === false ? (

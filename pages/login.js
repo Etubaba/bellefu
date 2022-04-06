@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import Head from "next/head";
 import Image from "next/image";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -22,12 +22,15 @@ const Login = () => {
   const [isLoading, setLoading] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+
+
   const handleChange = (input) => (evt) => {
     if (input === "password") {
       if (evt.target.value) setShowIcon(true);
       else setShowIcon(false);
     }
-    setFormFields({...formFields, [input]: evt.target.value})
+    setFormFields({ ...formFields, [input]: evt.target.value })
   }
   const handleLogin = () => {
     setLoading(true);
@@ -38,30 +41,30 @@ const Login = () => {
       },
       body: JSON.stringify(formFields),
     })
-    .then(response => response.json())
-    .then((data) => {
-      setLoading(false);
+      .then(response => response.json())
+      .then((data) => {
+        setLoading(false);
 
-      if (data.status) {
-        const user = {...data.data.user, ...data.data.others[0]}
-        localStorage.setItem("user", JSON.stringify(user));
+        if (data.status) {
+          const user = data.data.user
+          localStorage.setItem("user", JSON.stringify(user));
 
-        dispatch(isLoggedIn(true));
-        dispatch(setProfileDetails(user));
-        router.replace("/");
-      }
-      else {
-        toast.error(data.msg, {
-          position: toast.POSITION.TOP_CENTER
-        })
-        router.push("/login");
-      }
-    })
-    .catch(error => {
-      setLoading(false);
+          dispatch(isLoggedIn(true));
+          dispatch(setProfileDetails(user));
+          router.replace("/");
+        }
+        else {
+          toast.error(data.msg, {
+            position: toast.POSITION.TOP_CENTER
+          })
+          router.push("/login");
+        }
+      })
+      .catch(error => {
+        setLoading(false);
 
-      console.log(`Error during login due to: ${error}`);
-    })
+        console.log(`Error during login due to: ${error}`);
+      })
   }
 
   const handleClickShowPassword = () => {
@@ -90,13 +93,13 @@ const Login = () => {
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
-              { showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9  right-[10%] md:right-[27%] hover:cursor-pointer':"hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer':"hidden"} />
+              {showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9  right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} />
               }
-              <p className=""><input type={showPassword?"text":"password"} htmlFor="password" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={handleChange("password")} /></p>
+              <p className=""><input type={showPassword ? "text" : "password"} htmlFor="password" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={handleChange("password")} /></p>
               <p className="text-right hover:text-bellefuGreen mt-2"><button type="button" onClick={() => router.push("/forget-password")}>Forgot Password</button></p>
             </div>
           </div>
-          <p className="w-[100%] md:w-[50%] mx-auto"><button className={!isLoading?"hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4":"bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4"} type="button" onClick={handleLogin} disabled={isLoading?true:false}>{!isLoading?"Login":"Processing..."}</button></p>
+          <p className="w-[100%] md:w-[50%] mx-auto"><button className={!isLoading ? "hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" : "bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4"} type="button" onClick={handleLogin} disabled={isLoading ? true : false}>{!isLoading ? "Login" : "Processing..."}</button></p>
         </div>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>

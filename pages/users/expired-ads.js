@@ -1,10 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
-import { ImClock } from "react-icons/im"
-import MyAds from "../../components/layoutComponents/adsComponents/MyAds";
+import { BsClock } from "react-icons/bs"
+import ExpiredAds from "../../components/layoutComponents/expiredComponents/ExpiredAds";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { apiData } from "../../constant";
 
 const expiredads = () => {
-  const [exp, setexp] = useState(true)
+  const [exp, setExp] = useState([])
+
+
+
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+
+  const test = 1285
+
+  useEffect(() => {
+    const getProduct = async () => {
+
+      const res = await axios.get(`${apiData}list/user/product/${test}/expired`)
+      setExp(res.data.data.data)
+    }
+
+    getProduct()
+  }, [])
+
+
+
+
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
 
@@ -13,19 +36,19 @@ const expiredads = () => {
       </div>
       <hr />
 
-      {!exp ? <div className="h-full ">
+      {exp.length === 0 ? <div className="h-full ">
         <div className="border mx-auto my-10  rounded-xl    w-7/12 h-11/12 ">
           <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-            <ImClock className="text-5xl mb-5 text-gray-600" />
+            <BsClock className="text-6xl mb-5 text-gray-600" />
             <p className="text-lg text-gray-600">
-              You do not have any expired products
+              You do not have any expired product
             </p>
           </div>
         </div>
       </div> : (
         <div className='bg-bellefuWhite mt-5 rounded-b-md overflow-y-scroll h-screen'>
 
-          <MyAds />
+          <ExpiredAds product={exp} />
 
 
         </div>

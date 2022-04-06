@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { MdPending } from "react-icons/md";
@@ -9,6 +10,7 @@ import { profileDetails } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { apiData } from "../../constant";
+import CountUp from "react-countup";
 
 
 const Index = () => {
@@ -25,6 +27,11 @@ const Index = () => {
   }, [user, setProductStat])
 
   return (
+    <>
+    <Head>
+      <title>account overview</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
     <div className="w-auto mt-2" id="profile-overview">
       {user &&  
       <div className="">
@@ -35,8 +42,8 @@ const Index = () => {
               <button className="text-bellefuOrange hover:underline"><Link href="/users/profile">View Profile</Link></button>
             </div>
             <hr />
-            <div className="flex justify-between">
-              <div id="avatar" className="py-6 pl-20">
+            <div className="flex flex-col md:flex-row items-center md:justify-between">
+              <div id="avatar" className="pb-0 pt-6 md:pb-6 md:pt-6 pl-0 md:pl-20">
                 <Image
                   className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                   src={user?.avatar?`https://bellefu.inmotionhub.xyz/get/user/images/${user?.avatar}`:"https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"}
@@ -45,29 +52,29 @@ const Index = () => {
                   height="150"
                 />
               </div>
-              <div id="details" className="m-4 ml-24 py-6 flex-auto">
-                <table className="w-4/5">
+              <div id="details" className="m-4 md:ml-24 pt-2 pb-2 md:pt-6 md:pb-6 w-[100%] md:w-[50%]">
+                <table className="w-[100%] pl-10 md:pl-0">
                   <thead>
-                    <tr>
-                      <th className="text-left pr-10">First Name</th>
-                      <th className="text-left">Last Name</th>
+                    <tr className="">
+                      <th className="text-left pr-10 text-xl pl-10 md:pl-0">First Name</th>
+                      <th className="text-left text-xl ">Last Name</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-left">{user?.first_name}</td>
-                      <td className="text-left">{user?.last_name}</td>
+                      <td className="text-left text-xl pl-10 md:pl-0">{user?.first_name}</td>
+                      <td className="text-left text-xl">{user?.last_name}</td>
                     </tr>
                   </tbody>
                   <thead>
                     <tr>
-                      <th className="text-left">Email</th>
-                      <th className="text-left">Password</th>
+                      <th className="text-left text-xl pt-4 pl-10 md:pl-0">Email</th>
+                      <th className="text-left text-xl pt-4">Password</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-left">{user?.email}</td>
+                      <td className="text-left pl-10 md:pl-0">{user?.email}</td>
                       <td className="text-left">********</td>
                     </tr>
                   </tbody>
@@ -91,7 +98,7 @@ const Index = () => {
                   className="text-center"
                   style={{ fontSize: "50px", lineHeight: "75px" }}
                 >
-                  {productStat.approved}
+                  <CountUp end={productStat.approved} />
                 </p>
                 <p id="detail" className="flex" style={{ fontSize: "25px" }}>
                   <span className="pt-1">
@@ -106,7 +113,7 @@ const Index = () => {
                   className="text-center"
                   style={{ fontSize: "50px", lineHeight: "75px" }}
                 >
-                  {productStat.pending}
+                  <CountUp end={productStat.pending} />
                 </p>
                 <p id="detail" className="flex" style={{ fontSize: "25px" }}>
                   <span className="pt-1">
@@ -121,7 +128,7 @@ const Index = () => {
                   className="text-center"
                   style={{ fontSize: "50px", lineHeight: "75px" }}
                 >
-                  {productStat.expired}
+                  <CountUp end={productStat.expired} />
                 </p>
                 <p id="detail" className="flex" style={{ fontSize: "25px" }}>
                   <span className="pt-1">
@@ -152,6 +159,7 @@ const Index = () => {
       </div>
     }
     </div>
+    </>
   );
 };
 
