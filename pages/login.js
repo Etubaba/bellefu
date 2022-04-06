@@ -43,7 +43,7 @@ const Login = () => {
       setLoading(false);
 
       if (data.status) {
-        const user = {...data.data.user, ...data.data.others[0]}
+        const user = data.data.user
         localStorage.setItem("user", JSON.stringify(user));
 
         dispatch(isLoggedIn(true));
