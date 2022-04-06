@@ -13,7 +13,7 @@ const MyAd = ({ product }) => {
     <div>
       <div className="bg-bellefuWhite p-3 rounded-md border border-[#dfdfdf]">
         <img
-          src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`}
+          src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
           className="rounded-md w-full h-44 object-cover"
         />
         <p className="capitalize text-medium">{product.title}</p>
