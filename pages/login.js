@@ -32,7 +32,9 @@ const Login = () => {
     }
     setFormFields({ ...formFields, [input]: evt.target.value })
   }
-  const handleLogin = () => {
+  const handleLogin = (evt) => {
+    evt.preventDefault();
+    
     setLoading(true);
     fetch(`${apiData}user/login`, {
       method: "POST",
@@ -85,7 +87,7 @@ const Login = () => {
       <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
         <h1 className="text-center font-bold py-4">Welcome Back! Login To Your Account</h1>
         <hr />
-        <div className="py-8 px-3 sm:px-6 md:px-12">
+        <form className="py-8 px-3 sm:px-6 md:px-12" onSubmit={handleLogin}>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name or Phone Number</label></p>
@@ -99,8 +101,8 @@ const Login = () => {
               <p className="text-right hover:text-bellefuGreen mt-2"><button type="button" onClick={() => router.push("/forget-password")}>Forgot Password</button></p>
             </div>
           </div>
-          <p className="w-[100%] md:w-[50%] mx-auto"><button className={!isLoading ? "hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" : "bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4"} type="button" onClick={handleLogin} disabled={isLoading ? true : false}>{!isLoading ? "Login" : "Processing..."}</button></p>
-        </div>
+          <p className="w-[100%] md:w-[50%] mx-auto"><button className={!isLoading ? "hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" : "bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4"} type="submit" disabled={isLoading ? true : false}>{!isLoading ? "Login" : "Processing..."}</button></p>
+        </form>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
         <div className="flex flex-col md:flex-row items-center md:justify-center mb-12 px-2 py-4 md:px-4 md:py-4">

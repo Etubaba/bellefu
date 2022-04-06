@@ -288,7 +288,7 @@ const VerifyPhone = () => {
                     <strong> Congrats !!!</strong>
                     <br /> Your Phone number has been verified
                   </p>
-                  <p className="font-medium"><button type="button" onClick={() => router.push("/login")} className="hover:underline bg-bellefuGreen hover:bg-bellefuOrange">Login</button> to continue</p>
+                  <p className="font-medium"><button type="button" onClick={() => router.push("/login")} className="hover:underline text-bellefuGreen hover:text-bellefuOrange font-semibold">Login</button> to continue</p>
                 </div>
               )}
             </div>
