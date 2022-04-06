@@ -94,11 +94,11 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             </span>
           ) : null}
         </p>
-        {fav?.includes(product.productId) && getIsLoggedIn || fav2 ? (
+        {(fav?.includes(product.productId) && getIsLoggedIn) || fav2 ? (
           <BsSuitHeartFill
             onClick={(e) => {
               e.stopPropagation();
-              const favId = fav.find(items => items === product.productId);
+              const favId = fav.find((items) => items === product.productId);
               console.log(favId);
               if (favId !== undefined) {
                 axios
@@ -108,14 +108,14 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                   .then((res) => {
                     if (res.data.status) {
                       setFav2(false);
-                      toast.error('you have removed from favorite', { position: 'top-center' })
+                      toast.error("you have removed from favorite", {
+                        position: "top-center",
+                      });
                     }
                   });
               } else {
                 return;
               }
-
-
             }}
             className="w-4 h-4 text-bellefuOrange"
           />
@@ -130,17 +130,14 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                     productId: product.productId,
                   })
                   .then((res) => {
-                    console.log(res.data)
+                    console.log(res.data);
                     if (res.data.status) {
-                      setFav2(true)
+                      setFav2(true);
                       toast.success(
                         `${product.title.substring(0, 20)} added to favourite`
                       );
-
                     }
                   });
-
-
               } else {
                 toast.error("Login to add favorite product");
               }

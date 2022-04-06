@@ -266,11 +266,11 @@ const VerifyPhone = () => {
                     </div>
 
                   <p className="mb-7">
-                    Request another code in: {showCount ? <Countdown date={countDate} renderer={renderer} onComplete={onComplete} />: <span>0s</span>}{" "}
+                    Request another code in: {showCount ? <Countdown date={Date.now() + 1000*60*2} renderer={renderer} onComplete={onComplete} />: <span>0s</span>}
                   </p>
 
                     <button 
-                      onClick={(evt) => requestPhoneVerificationCode(evt)} 
+                      onClick={(evt) => requestPhoneVerificationCode(evt)}
                       className={isCounting?"flex rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange bg-opacity-50 hover:cursor-not-allowed":"flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"} 
                       name="anothercode"
                       disabled={isCounting?true:false}>
