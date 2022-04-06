@@ -68,7 +68,6 @@ const VerifyPhone = () => {
     if (data.status) {
       setShowCount(true);
       setCounting(true);
-      setCountDate(null);
       setCountDate(Date.now() + 1000*60*2)
 
       if (currentTarget.name !== "anothercode") {
@@ -102,6 +101,7 @@ const VerifyPhone = () => {
   };
   const onComplete = () => {
     setCounting(false);
+    setCountDate(null);
     setShowCount(false);
   }
   const renderer = ({minutes,seconds, completed}) => {
@@ -112,6 +112,8 @@ const VerifyPhone = () => {
   } 
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
+    console.log(showCount);
+    console.log(countDate);
     //if (!verificationCode.firstNo && isCounting) firstInput.current.focus();
 
     if (verificationCode.firstNo && !verificationCode.secondNo) {
@@ -144,7 +146,7 @@ const VerifyPhone = () => {
       submitVerificationCode();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [verificationCode])
+  }, [verificationCode, showCount, countDate])
 
   return (
     <>
