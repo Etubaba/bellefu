@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
-import {
-  productData,
-  pendingProductData,
-  publishedProductData,
-  expiredProductData,
-} from "../../productData";
+import { useRouter } from "next/router";
 import MyAds from "../../components/layoutComponents/adsComponents/MyAds";
+import ExpiredAds from '../../components/layoutComponents/expiredComponents/ExpiredAds'
+import PublishedAds from '../../components/layoutComponents/publishAds/PublishedAds'
 import MyAdsHeader from "../../components/layoutComponents/adsComponents/MyAdsHeader";
 import axios from "axios";
+import { apiData } from "../../constant";
+import { useSelector } from "react-redux";
 
 const Ads = () => {
   const [published, setPublished] = useState([])
@@ -17,6 +16,10 @@ const Ads = () => {
 
 
 
+
+  const router = useRouter();
+
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const test = 1285
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const Ads = () => {
   }, [])
 
 
-
+  console.log(published)
 
 
   useEffect(() => {
@@ -44,10 +47,18 @@ const Ads = () => {
   }, [])
 
 
+  useEffect(() => {
+    const getProduct = async () => {
+
+      const res = await axios.get(`${apiData}list/user/product/${test}/expired`)
+      setExpired(res.data.data.data)
+    }
+
+    getProduct()
+  }, [])
 
 
-
-
+  const all = [...published, ...pend, ...expired]
 
   return (
     <div className="mt-5">
@@ -62,40 +73,40 @@ const Ads = () => {
               View All
             </p>
           </div>
-          <MyAds products={productData} />
+          <ExpiredAds product={all} />
         </div>
         <div className="">
           <div className="flex items-center px-4 justify-between pt-2">
             <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
               Published Ads
             </p>
-            <p className="text-bellefuOrange text-xs font-medium tracking-wider">
+            <p onClick={() => router.push('/users/published')} className="text-bellefuOrange hover:text-orange-300 text-xs font-medium tracking-wider">
               View All
             </p>
           </div>
-          <MyAds products={publishedProductData} />
+          <PublishedAds product={published} />
         </div>
         <div className="">
           <div className="flex items-center px-4 justify-between pt-2">
             <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
               Pending Ads
             </p>
-            <p className="text-bellefuOrange text-xs font-medium tracking-wider">
+            <p onClick={() => router.push('/users/pending-ads')} className="text-bellefuOrange hover:text-orange-300 text-xs font-medium tracking-wider">
               View All
             </p>
           </div>
-          <MyAds products={pendingProductData} />
+          <MyAds products={pend} />
         </div>
         <div className="">
           <div className="flex items-center px-4 justify-between pt-2">
             <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
               Expired Ads
             </p>
-            <p className="text-bellefuOrange text-xs font-medium tracking-wider">
+            <p onClick={() => router.push('/users/expired-ads')} className="text-bellefuOrange hover:text-orange-300 text-xs font-medium tracking-wider">
               View All
             </p>
           </div>
-          <MyAds products={expiredProductData} />
+          <ExpiredAds products={expired} />
         </div>
       </div>
     </div>
