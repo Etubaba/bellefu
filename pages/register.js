@@ -19,7 +19,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       countries: data.slice().sort(),
-      countries1: data.slice().sort((a, b) => b-a)
+      countries1: data.slice().sort((a, b) => a.phone_code-b.phone_code)
     }
   }
 };
@@ -67,7 +67,6 @@ const Register = ({countries, countries1}) => {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
     }
 
-    const countryInfo = countries.find(country => country.iso2 === formValues.countryCode);
     formValues = {...formValues, phone: phoneCode.concat(formValues.phone)};
     console.log(formValues);
     setIsLoading(true);
@@ -144,8 +143,7 @@ const Register = ({countries, countries1}) => {
 
     if (target.name === "phone") setPhoneExists(false);
     if (target.name === "username") setUsernameExists(false);
-  }
-
+  };
 
   return (
     <>
@@ -169,17 +167,17 @@ const Register = ({countries, countries1}) => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-            <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="email" className="text-sm font-medium text-slate-700">Email (optional)</label></p>
-              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
+          <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
+              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
+              <select className="absolute  mt-8 left-[9%] md:left-[27%] w-[16%] md:w-[8%] hover:cursor-pointer outline-none" value={formFields.phoneCode} onChange={onPhoneCodeChange}>
+                { countries1.map((country, index) => <option key={index} value={`+${country.phone_code}`}>{`+${country.phone_code}`} {country.name}</option>)}
+              </select>
+              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-32 pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
+              { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
-              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
-              <select className="absolute  mt-8 left-[9%] md:left-[18%] w-[75px] hover:cursor-pointer outline-none" value={formFields.phoneCode} onChange={onPhoneCodeChange}>
-                { countries1.map((country, index) => <option key={index} value={`+${country.phone_code}`}>{`+${country.phone_code}`}</option>)}
-              </select>
-              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-20 pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
-              { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
+              <p><label id="email" className="text-sm font-medium text-slate-700">Email (optional)</label></p>
+              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
