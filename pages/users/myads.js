@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import {
   productData,
@@ -8,8 +8,47 @@ import {
 } from "../../productData";
 import MyAds from "../../components/layoutComponents/adsComponents/MyAds";
 import MyAdsHeader from "../../components/layoutComponents/adsComponents/MyAdsHeader";
+import axios from "axios";
 
 const Ads = () => {
+  const [published, setPublished] = useState([])
+  const [pend, setPend] = useState([])
+  const [expired, setExpired] = useState([])
+
+
+
+  const test = 1285
+
+  useEffect(() => {
+    const getProduct = async () => {
+
+      const res = await axios.get(`${apiData}list/user/product/${test}/approved`)
+      setPublished(res.data.data.data)
+    }
+
+    getProduct()
+  }, [])
+
+
+
+
+
+  useEffect(() => {
+    const getProduct = async () => {
+
+      const res = await axios.get(`${apiData}list/user/product/${test}/pending`)
+      setPend(res.data.data.data)
+    }
+
+    getProduct()
+  }, [])
+
+
+
+
+
+
+
   return (
     <div className="mt-5">
       <MyAdsHeader />
