@@ -4,29 +4,57 @@ import { isDisabled, } from "../../features/bellefuSlice"
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { FaCamera } from "react-icons/fa";
+import Image from 'next/image';
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import UnstyledSelectSimple from "../../components/layoutComponents/form-fields/CustomSelect";
 import UnstyledSelectSimple2 from "../../components/layoutComponents/form-fields/CountrySelect";
 import UnstyledSelectSimple3 from "../../components/layoutComponents/form-fields/StateProvince";
 import UnstyledSelectSimple4 from "../../components/layoutComponents/form-fields/City";
 import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields/Lga";
-// import {profileDummy} from "../../public/bellefu-images/userprofiledetails.png";
+import {useDropzone} from 'react-dropzone';
+
 
 const profile = () => {
 
   const userThings = useSelector((state) => state.bellefu.profileDetails);
-  // const profileDummy = "../../public/bellefu-images/userprofiledetails.png";
 
-  // const [disable, setDisable] = useState(true);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
+   
 
+
+  const [files, setFiles] = useState("/userprofiledetails.png");
+  const [files2, setFiles2] = useState();
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    onDrop: (acceptedFiles) => {
+      setFiles( URL.createObjectURL(acceptedFiles[0]),
+      );
+
+
+      for (let i = 0; i < acceptedFiles.length; i++) {
+        let loopedFile = acceptedFiles[i]
+       
+        setFiles2(loopedFile);
+
+      }
+    },
+  });
+ console.log(files2);
+  
+
+  // const thumbs = () => (
+    
+  //   <div>
+  //       <img src={file} style={img} />
+  //   </div>
+  // ));
   const disable = useSelector((state) => state.bellefu.formDisabler);
 
 
-  // console.log(profileDummy);
   const dispatch = useDispatch();
 
 
@@ -50,17 +78,18 @@ const profile = () => {
       <div className="border  p-5 mt-7 ">
         <div className="justify-center item-center flex  relative">
           <div>
-          <img
-            className=" h-15 w-15 object-cover  rounded-full ring-2 ring-white"
-            src= "/bellefu-images/userprofiledetails.png"
+          <Image
+          width="180vw" height="180vh"
+            className="  object-cover  rounded-full ring-2 ring-white"
+            src={userThings?.avatar===null? files:`https://bellefu.inmotionhub.xyz/get/user/images/${userThings?.avatar}`}
             alt="profile"
           />
-          <div className=" border border-bellefuGreen  absolute bottom-[7%] left-[56%] rounded-[50%] cursor-pointer p-[10px]  bg-gray-300 hover:bg-gray-100 w-[50px] h-[50px]">
+          <div className=" border border-bellefuGreen  absolute bottom-[7%] left-[53%] rounded-[50%] cursor-pointer p-[10px]  bg-gray-300 hover:bg-gray-100 w-[50px] h-[50px]"  >
             <label>
               <div className=" mt-[2px] relative">
                 <FaCamera  />
               </div>
-              <input type="file" className="opacity-0" />
+              <input type="file" className="opacity-0" {...getInputProps()} />
             </label>
           </div>
           </div>
@@ -79,7 +108,7 @@ const profile = () => {
                       First name
                     </label>
                     <input
-                    // Value={"john"}
+                    Value={userThings?.first_name}
                       type="text"
                       name="first-name"
                       id="first-name"
@@ -98,7 +127,7 @@ const profile = () => {
                     <input
                       type="text"
                       name="last-name"
-                      // Value={"Doe"}
+                      Value={userThings?.last_name}
                       disabled
                       id="last-name"
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -130,7 +159,7 @@ const profile = () => {
                       Password
                     </label>
                     <input
-                    // value={"**********"}
+                    value={"**********"}
                       type="password"
                       name="password"
                       id="password"
