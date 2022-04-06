@@ -199,7 +199,7 @@ const VerifyPhone = () => {
               <div className="flex justify-between items-center">
                 <div className="flex px-8">
                   <p className="mr-5 pt-1">
-                    <MdVerified className="text-3xl text-gray-600" />
+                    <MdVerified className={pCongrats?"text-3xl text-bellefuGreen":"text-3xl text-gray-600"} />
                   </p>
                   <p className="mt-2">Phone Verification</p>
                 </div>
