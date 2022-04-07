@@ -59,10 +59,6 @@ const Register = ({countries, countries1}) => {
       else setShowIcon(false);
     }
   };
-  const onPhoneCodeChange = (evt) => {
-    evt.stopPropagation();
-    setPhoneCode(evt.target.value);
-  }
   const handleClickShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
