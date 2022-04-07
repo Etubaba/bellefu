@@ -17,11 +17,14 @@ export const getStaticProps = async () => {
   const {data} = await response.json()
 
   return {
-    props: {countries: data.slice().sort()}
+    props: {
+      countries: data.slice().sort(),
+      countries1: data.slice().sort((a, b) => a.phone_code-b.phone_code)
+    }
   }
 };
 
-const Register = ({countries}) => {
+const Register = ({countries, countries1}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState({
@@ -34,6 +37,7 @@ const Register = ({countries}) => {
     username: "",
     password: ""
   });
+  const [phoneCode, setPhoneCode] = useState("");
   const [usernameExists, setUsernameExists] = useState(false);
   const [phoneExists, setPhoneExists] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,12 +45,18 @@ const Register = ({countries}) => {
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const onChange = (input) => (evt) => {
+    evt.stopPropagation();
+
     setFormFields({ ...formFields, [input]: evt.target.value });
     if (input === "password") {
       if (evt.target.value) setShowIcon(true);
       else setShowIcon(false);
     }
   };
+  const onPhoneCodeChange = (evt) => {
+    evt.stopPropagation();
+    setPhoneCode(evt.target.value);
+  }
   const handleClickShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -56,6 +66,9 @@ const Register = ({countries}) => {
     if (!formFields.email) {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
     }
+
+    formValues = {...formValues, phone: phoneCode.concat(formValues.phone)};
+    console.log(formValues);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
@@ -130,8 +143,7 @@ const Register = ({countries}) => {
 
     if (target.name === "phone") setPhoneExists(false);
     if (target.name === "username") setUsernameExists(false);
-  }
-
+  };
 
   return (
     <>
@@ -155,14 +167,17 @@ const Register = ({countries}) => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-            <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="email" className="text-sm font-medium text-slate-700">Email (optional)</label></p>
-              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
+          <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
+              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
+              <select className="absolute  mt-8 left-[9%] md:left-[27%] w-[16%] md:w-[8%] hover:cursor-pointer outline-none" value={formFields.phoneCode} onChange={onPhoneCodeChange}>
+                { countries1.map((country, index) => <option key={index} value={`+${country.phone_code}`}>{`+${country.phone_code}`} {country.name}</option>)}
+              </select>
+              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-32 pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
+              { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
-              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
-              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
-              { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
+              <p><label id="email" className="text-sm font-medium text-slate-700">Email (optional)</label></p>
+              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">

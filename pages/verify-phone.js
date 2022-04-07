@@ -199,7 +199,7 @@ const VerifyPhone = () => {
               <div className="flex justify-between items-center">
                 <div className="flex px-8">
                   <p className="mr-5 pt-1">
-                    <MdVerified className="text-3xl text-gray-600" />
+                    <MdVerified className={pCongrats?"text-3xl text-bellefuGreen":"text-3xl text-gray-600"} />
                   </p>
                   <p className="mt-2">Phone Verification</p>
                 </div>
@@ -288,7 +288,7 @@ const VerifyPhone = () => {
                     <strong> Congrats !!!</strong>
                     <br /> Your Phone number has been verified
                   </p>
-                  <p className="font-medium"><button type="button" onClick={() => router.push("/login")} className="hover:underline bg-bellefuGreen hover:bg-bellefuOrange">Login</button> to continue</p>
+                  <p className="font-medium"><button type="button" onClick={() => router.push("/login")} className="hover:underline text-bellefuGreen hover:text-bellefuOrange font-semibold">Login</button> to continue</p>
                 </div>
               )}
             </div>
