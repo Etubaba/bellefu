@@ -17,7 +17,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [amount, setAmount] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
-  const [fav2, setFav2] = useState(true);
+  const [fav2, setFav2] = useState(false);
   const [productId, setProductId] = useState([]);
 
   const router = useRouter();
@@ -38,11 +38,13 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
-      <img
-        onClick={() => router.push(`/product/${product.productId}`)}
-        src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
-        className="rounded-md w-full h-44 object-cover"
-      />
+      <div onClick={() => router.push(`/product/${product.productId}`)}  >
+        <img
+
+          src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+          className="rounded-md w-full h-44 object-cover"
+        />
+      </div>
       <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
@@ -94,7 +96,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             </span>
           ) : null}
         </p>
-        {(fav?.includes(product.productId) && getIsLoggedIn && fav2) ? (
+        {(fav2 || fav?.includes(product.productId) && getIsLoggedIn) ? (
           <BsSuitHeartFill
             onClick={(e) => {
               // e.stopPropagation();
