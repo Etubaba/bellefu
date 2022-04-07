@@ -33,7 +33,7 @@ const StyledButton = styled('button')(
   font-size: 0.875rem;
   box-sizing: border-box;
   min-height: calc(1.5em + 17px);
-  min-width: 100%;
+  min-width: 70px;
   background: ${theme.palette.mode === 'dark' ? grey[900] : "#ffffff"};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
@@ -137,14 +137,12 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 export default function UnstyledSelectSimple() {
 
   const disable = useSelector((state) => state.bellefu.formDisabler);
-  const optionSelect = useSelector((state) => state.bellefu.indexApi);
+  const userThing = useSelector((state) => state.bellefu.profileDetails);
 
   return (
-    <CustomSelect disabled={disable} defaultValue={"+1"}>
-      {optionSelect.countries?.map((datas,index)=>(
-        <StyledOption key={index} value={phone_code}>+{datas.phone_code}</StyledOption>
+    <CustomSelect Value={"hello"}>
+        <StyledOption >{userThing?.country_code}</StyledOption>
 
-      ))}
     </CustomSelect>
   );
 };

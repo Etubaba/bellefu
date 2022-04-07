@@ -137,13 +137,13 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 export default function UnstyledSelectSimple2() {
 
   const disable = useSelector((state) => state.bellefu.formDisabler);
+  const userThing = useSelector((state) => state.bellefu.profileDetails);
 
 
   return (
-    <CustomSelect disabled={disable} defaultValue={"+1"}>
-      <StyledOption value={"+234"}>Ten</StyledOption>
-      <StyledOption value={"+43"}>Twenty</StyledOption>
-      <StyledOption value={"+90"}>Thirty</StyledOption>
+    <CustomSelect disabled Value={userThing?.country_code}>
+      <StyledOption >{userThing?.country_code}</StyledOption>
+     
     </CustomSelect>
   );
 };

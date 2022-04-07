@@ -22,8 +22,8 @@ export default function Home({ data }) {
   // }
 
   useEffect(() => {
-    dispatch(fetchData(data))
-  }, [])
+    dispatch(fetchData(data));
+  }, []);
 
   return (
     <div>
