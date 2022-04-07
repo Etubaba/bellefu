@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
       ) : (
         <AlternateComponent />
       )}
-    </div>
+    </>
   );
 };
 
