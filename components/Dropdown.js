@@ -15,7 +15,7 @@ const Dropdown = ({ category }) => {
 
   const catId = useSelector(changeId);
 
-  if (category.sub_category) {
+  if (category?.sub_category) {
     return (
       <div className="">
         <div
@@ -24,19 +24,19 @@ const Dropdown = ({ category }) => {
         >
           <div
             onClick={() => {
-              dispatch(selectCat(category.id));
+              dispatch(selectCat(category?.id));
 
-              router.push(`/category/${catId === null ? category.id : catId}`);
+              router.push(`/category/${catId === null ? category?.id : catId}`);
             }}
             className="flex items-center flex-1 space-x-2 cursor-pointer select-none"
           >
             <img
-              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
+              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category?.image}`}
               alt="icons"
               className="w-4 h-4"
             />
             <h5 className="text-bellefuBlack1 font-medium text-normal whitespace-nowrap">
-              {category.name}
+              {category?.name}
             </h5>
           </div>
           <div className="">
@@ -59,7 +59,7 @@ const Dropdown = ({ category }) => {
           }
         >
           <div className=" border-t-2" />
-          {category.sub_category.map((child) => (
+          {category?.sub_category.map((child) => (
             <DropdownItems
               onClick={() => {
                 setText(child.subCatId);
@@ -76,12 +76,12 @@ const Dropdown = ({ category }) => {
     return (
       <div className="">
         <div
-          key={category.id}
+          key={category?.id}
           className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
         >
           <div className="flex  items-center flex-1 space-x-2 cursor-pointer">
             <img
-              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
+              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category?.image}`}
               alt="icons"
               className="w-4 h-4"
             />
@@ -89,7 +89,7 @@ const Dropdown = ({ category }) => {
               className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
               onClick={() => router.push("/category/id")}
             >
-              {category.name}
+              {category?.name}
             </h5>
           </div>
         </div>

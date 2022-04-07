@@ -42,7 +42,7 @@ const Expired = ({ product }) => {
                 </div>
                 <div className="flex items-center justify-between mt-2">
                     <p className="text-[#767873]  capitalize italic text-xs font-medium">
-                        In stock
+                        Active
                     </p>
                     <div
                         onClick={() => setOpen(!open)}

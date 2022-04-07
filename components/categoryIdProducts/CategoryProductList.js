@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const CategoryProductList = ({ product }) => {
+
+
+  const router = useRouter();
+
   // console.log(product)
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
+        onClick={() => router.push(`/product/${product.productId}`)}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
         alt={product.title}
@@ -16,9 +22,9 @@ const CategoryProductList = ({ product }) => {
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
         <div className="flex items-center space-x-1">
-          <p className="text-bellefuBlack1 text-sm capitalize">
+          {/* <p className="text-bellefuBlack1 text-sm capitalize">
             {product.state},
-          </p>
+          </p> */}
           <p className="text-bellefuBlack1 text-sm capitalize">
             {product.countryName}
           </p>

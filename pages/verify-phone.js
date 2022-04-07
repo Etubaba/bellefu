@@ -199,7 +199,7 @@ const VerifyPhone = () => {
               <div className="flex justify-between items-center">
                 <div className="flex px-8">
                   <p className="mr-5 pt-1">
-                    <MdVerified className="text-3xl text-gray-600" />
+                    <MdVerified className={pCongrats?"text-3xl text-bellefuGreen":"text-3xl text-gray-600"} />
                   </p>
                   <p className="mt-2">Phone Verification</p>
                 </div>
@@ -266,11 +266,11 @@ const VerifyPhone = () => {
                     </div>
 
                   <p className="mb-7">
-                    Request another code in: {showCount ? <Countdown date={countDate} renderer={renderer} onComplete={onComplete} />: <span>0s</span>}{" "}
+                    Request another code in: {showCount ? <Countdown date={Date.now() + 1000*60*2} renderer={renderer} onComplete={onComplete} />: <span>0s</span>}
                   </p>
 
                     <button 
-                      onClick={(evt) => requestPhoneVerificationCode(evt)} 
+                      onClick={(evt) => requestPhoneVerificationCode(evt)}
                       className={isCounting?"flex rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange bg-opacity-50 hover:cursor-not-allowed":"flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"} 
                       name="anothercode"
                       disabled={isCounting?true:false}>
@@ -288,7 +288,7 @@ const VerifyPhone = () => {
                     <strong> Congrats !!!</strong>
                     <br /> Your Phone number has been verified
                   </p>
-                  <p className="font-medium"><button type="button" onClick={() => router.push("/login")} className="hover:underline bg-bellefuGreen hover:bg-bellefuOrange">Login</button> to continue</p>
+                  <p className="font-medium"><button type="button" onClick={() => router.push("/login")} className="hover:underline text-bellefuGreen hover:text-bellefuOrange font-semibold">Login</button> to continue</p>
                 </div>
               )}
             </div>

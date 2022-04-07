@@ -5,17 +5,20 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 
 const MyAd = ({ product }) => {
     const [open, setOpen] = useState(false);
 
+    const router = useRouter();
 
     const details = useSelector(state => state.bellefu?.indexData)
     return (
         <div>
             <div className="bg-bellefuWhite p-3 rounded-md border border-[#dfdfdf]">
                 <img
+                    onClick={() => router.push(`/product/${product.productId}`)}
                     src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`}
                     className="rounded-md w-full h-44 object-cover"
                 />

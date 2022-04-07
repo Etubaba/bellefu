@@ -5,7 +5,6 @@ import ProductList from "./ProductList";
 
 // import { countryChoice } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/dist/client/router";
 import axios from "axios";
 import { apiData } from "../../constant";
 
@@ -14,17 +13,11 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [searchResult, setSearchResult] = useState([]);
   const [fav, setFav] = useState([]);
 
-
-
-
-
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
   const getState = useSelector((state) => state.bellefu.stateSelected);
 
   const subCatClicked = useSelector((state) => state.bellefu.subcatselected);
   const search = useSelector((state) => state.bellefu.searchFilter);
-
-  const router = useRouter();
 
   useEffect(() => {
     const newProducts = async () => {
@@ -42,30 +35,23 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     newProducts();
   }, [getCountry]);
 
-
-
   // get fav products
-  const userId = useSelector(state => state.bellefu?.profileDetails?.id)
-
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   useEffect(() => {
     const getFav = async () => {
+      await axios
+        .get(`${apiData}get/user/favorite/${userId}`)
+        .then((res) => setFav(res.data.data))
+        .catch((err) => console.log(err));
+    };
+    getFav();
+  }, []);
 
-      await axios.get(`${apiData}get/user/favorite/${userId}`)
-        .then(res => setFav(res.data.data))
-        .catch(err => console.log(err))
-    }
-    getFav()
-  }, [])
-
-
-  const favId = fav?.map(item => item.productId)
+  const favId = fav?.map((item) => item.productId);
   // const favdelete = fav?.map(item => item.favId)
 
-
-
   // search query and fetch
-
 
   const where = getCountry === null ? location : getCountry;
 
@@ -105,14 +91,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
             }
           })
           .map((product) => (
-            <div
-              key={product.productId}
-              onClick={() => router.push(`/product/${product.productId}`)}
-              className="cursor-pointer"
-            >
+            <div key={product.productId} className="cursor-pointer">
               <ProductList
                 key={product.productId}
-
                 currency={currency}
                 product={product}
                 fav={favId}
