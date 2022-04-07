@@ -371,7 +371,7 @@ const profile = ({ data1 }) => {
                       Address
                     </label>
                     <input
-                      defaultValue={userThings?.address}
+                      value={userThings?.address}
                       type="text"
                       onChange={handleAddress}
                       disabled={disable}
@@ -397,7 +397,7 @@ const profile = ({ data1 }) => {
                   rows={4}
                   disabled={disable}
                   className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
-                  defaultValue={userThings?.description}
+                  value={userThings?.description}
                 />
               </div>
             </div>
