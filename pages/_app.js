@@ -5,8 +5,8 @@ import NavBar from "../components/Navbar/NavBar";
 
 import Footer from "../components/footer/Footer";
 import Mobilefooter from "../components/footer/Mobilefooter";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout || EmptyLayout;
