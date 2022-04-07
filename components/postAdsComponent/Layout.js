@@ -20,9 +20,11 @@ const Layout = ({ children }) => {
           </div>
         </>
       ) : (
-        <AlternateComponent />
+        <>
+          <AlternateComponent />
+        </>
       )}
-    </>
+    </div>
   );
 };
 
