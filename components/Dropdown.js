@@ -15,7 +15,7 @@ const Dropdown = ({ category }) => {
 
   const catId = useSelector(changeId);
 
-  if (category.sub_category) {
+  if (category?.sub_category) {
     return (
       <div className="">
         <div
