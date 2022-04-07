@@ -3,7 +3,7 @@ import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled'
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
-import { isDisabled, selectDisable } from "../../../features/bellefuSlice"
+import {  handleStates,handleLga} from "../../../features/bellefuSlice"
 import { useSelector, useDispatch } from "react-redux";
 
 const blue = {
@@ -73,13 +73,17 @@ const StyledListbox = styled('ul')(
   box-sizing: border-box;
   padding: 4px;
   margin: 10px 0;
-  min-width: 27vw;
+  min-width: 30vw;
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.50em;
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   overflow: auto;
   outline: 0px;
+  overflow-y:scroll;
+  height:36vh
+
+
   `,
 );
 
@@ -135,15 +139,39 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
   return <SelectUnstyled {...props} ref={ref} components={components} />;
 });
 
-export default function UnstyledSelectSimple3() {
+export default function UnstyledSelectSimple3({countryStuffs,catchLgas}) {
+  const userThing = useSelector((state) => state.bellefu.profileDetails);
+  // const newLgaArr = countryStuffs.lga.filter((lgas) => lgas.stateCode === counts.code);
 
+  const stateSelect = countryStuffs.states.filter((stat)=>stat.countryCode===userThing?.country_code)
   const disable = useSelector((state) => state.bellefu.formDisabler);
+  const dispatch = useDispatch();
 
+  const handleThings=(counts)=>{
+    // setCat(counts.name);
+    const newLgaArr = countryStuffs.lga.filter((lgas) => lgas.stateCode === counts.code);
+    // console.log(newLgaArr);
+   dispatch(handleStates(counts.code));
+   
+    catchLgas(newLgaArr,counts.name);
+  }
+
+
+
+
+  
   return (
     <CustomSelect disabled={disable} defaultValue={"+1"}>
-      <StyledOption value={"+234"}>Ten</StyledOption>
-      <StyledOption value={"+43"}>Twenty</StyledOption>
-      <StyledOption value={"+90"}>Thirty</StyledOption>
+       {stateSelect?.map((counts,index)=>(
+       <span  onClick={() => handleThings(counts)}>
+       <StyledOption
+         key={index}
+         value={counts.name}
+       >
+         {counts.name}
+       </StyledOption>
+     </span>
+     ))}
     </CustomSelect>
   );
 };
