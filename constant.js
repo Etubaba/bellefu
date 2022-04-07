@@ -19,7 +19,7 @@ export default function Loader({ isLoading }) {
 
     return (
         <Backdrop
-            sx={{ color: '#fff', zIndex: '100', textAlign: 'center' }}
+            sx={{ color: '#FFA500', zIndex: '100', textAlign: 'center' }}
             open={isLoading}
         >
             <CircularProgress color="inherit" />
