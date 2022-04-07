@@ -7,6 +7,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { apiData } from "../constant";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 export const getStaticProps = async () => {
   const response = await fetch(`${apiData}get/countries`);
@@ -19,7 +20,7 @@ export const getStaticProps = async () => {
   }
 };
 
-const ForgetPassword = ({countries}) => {
+const ForgotPassword = ({countries}) => {
   const router = useRouter();
   const defaultCountry = useSelector(homeData)?.defaultCountry;
   const [phone, setPhone] = useState("");
@@ -42,11 +43,17 @@ const ForgetPassword = ({countries}) => {
 
   const handleSubmit =  () => {
     const phoneWithCountryCode = countryPhoneCode.concat(phone);
+    console.log(phoneWithCountryCode);
 
     axios.post(`${apiData}user/forgot/password`, {phone: phoneWithCountryCode})
     .then(res => {
       if (res.status) {
         setCodeSent(true);
+      } else {
+        toast.error("Server busy. Try again later.", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        router.push("/forgot-password");
       }
     })
   }
@@ -57,7 +64,8 @@ const ForgetPassword = ({countries}) => {
       if (res.status) {
         router.push("/login");
       } else {
-
+        router.push("/forgot-password");
+        setCodeSent(false);
       }
     })
   }
@@ -65,7 +73,7 @@ const ForgetPassword = ({countries}) => {
   return (
     <>
     <Head>
-      <title>forget password</title>
+      <title>forgot password</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <RegisterHeader />
@@ -125,7 +133,7 @@ const ForgetPassword = ({countries}) => {
                     ))}
                   </div>
                 )}
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[78px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
+              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[98px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
               <div className="w-auto"><button type="submit" className="w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg">Send</button></div>
             </>:
             <>
@@ -145,4 +153,4 @@ const ForgetPassword = ({countries}) => {
   )
 }
 
-export default ForgetPassword;
+export default ForgotPassword;
