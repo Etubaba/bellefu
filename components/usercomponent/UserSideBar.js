@@ -1,6 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { MdAccountBox, MdPending, MdNotifications, MdPublishedWithChanges } from "react-icons/md";
+import {
+  MdAccountBox,
+  MdPending,
+  MdNotifications,
+  MdPublishedWithChanges,
+} from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { ImKey, ImPushpin, ImClock } from "react-icons/im";
 import { HiUser } from "react-icons/hi";
@@ -23,7 +28,11 @@ const UserSideBar = () => {
       { icon: RiMessage2Fill, text: "Messages", to: "/users/messages" },
       { icon: false },
       { icon: ImPushpin, text: "My Ads", to: "/users/myads" },
-      { icon: MdPublishedWithChanges, text: "Published Ads", to: "/users/published" },
+      {
+        icon: MdPublishedWithChanges,
+        text: "Published Ads",
+        to: "/users/published",
+      },
       {
         icon: FaHeart,
         text: "My Favourite Items",
@@ -49,8 +58,8 @@ const UserSideBar = () => {
     };
 
   return (
-    <div className="mt-5 bg-bellefuWhite w-[24vw] h-screen mr-3 rounded-lg pt-4">
-      <div className="h-screen w-[23vw] overflow-auto" id="side-bar">
+    <div className="mt-6 bg-bellefuWhite w-80  mr-3 rounded-lg pt-4">
+      <div className="h-screen w-80 overflow-auto" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
@@ -59,7 +68,9 @@ const UserSideBar = () => {
                 onClick={handleLogout}
                 key={index}
               >
-                <span className="pt-1 px-3"><iconValue.icon /></span>
+                <span className="pt-1 px-3">
+                  <iconValue.icon />
+                </span>
                 <span>{iconValue.text}</span>
               </p>
             );

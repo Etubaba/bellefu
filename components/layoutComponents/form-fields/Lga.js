@@ -5,6 +5,8 @@ import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
 import { isDisabled, selectDisable } from "../../../features/bellefuSlice"
 import { useSelector, useDispatch } from "react-redux";
+import {  handleStates,handleLga} from "../../../features/bellefuSlice";
+
 
 const blue = {
   100: '#DAECFF',
@@ -79,6 +81,8 @@ const StyledListbox = styled('ul')(
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   overflow: auto;
   outline: 0px;
+  overflow-y:scroll;
+  height:36vh
   `,
 );
 
@@ -134,15 +138,31 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
   return <SelectUnstyled {...props} ref={ref} components={components} />;
 });
 
-export default function UnstyledSelectSimple5() {
+export default function UnstyledSelectSimple5({lgachecker,lgaholder}) {
 
   const disable = useSelector((state) => state.bellefu.formDisabler);
+  // const userThings = useSelector((state) => state.bellefu.profileDetails);
+  const dispatch=useDispatch();
+
+  const handleThings=(counts)=>{
+   
+   dispatch(handleLga(counts.code));
+   
+  }
+
 
   return (
-    <CustomSelect disabled={disable} defaultValue={"+1"}>
-      <StyledOption value={"+234"}>Ten</StyledOption>
-      <StyledOption value={"+43"}>Twenty</StyledOption>
-      <StyledOption value={"+90"}>Thirty</StyledOption>
+    <CustomSelect disabled={lgachecker===""?true:disable} defaultValue={"+1"}>
+     {lgaholder?.map((counts,index)=>(
+       <span  onClick={() => handleThings(counts)}>
+       <StyledOption
+         key={index}
+         value={counts.name}
+       >
+         {counts.name}
+       </StyledOption>
+     </span>
+     ))}
     </CustomSelect>
   );
 };
