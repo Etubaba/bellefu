@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import { homeData } from "../features/bellefuSlice";
@@ -30,6 +30,7 @@ const ForgotPassword = ({countries}) => {
   const [countryPhoneCode, setCountryPhoneCode] = useState("");
   const [selectCountry, setSelectCountry] = useState(false);
   const [flag, setFlag] = useState(null);
+  const [isLoading, setLoading] = useState(false)
 
   const handleChange = (evt) => {
     if (isNaN(evt.target.value)) return;
@@ -41,34 +42,62 @@ const ForgotPassword = ({countries}) => {
     setFormFields({...formFields, [input]: evt.target.value});
   }
 
-  const handleSubmit =  () => {
-    const phoneWithCountryCode = countryPhoneCode.concat(phone);
-    console.log(phoneWithCountryCode);
+  const handleSubmit =  (evt) => {
+    evt.preventDefault();
 
+    const phoneWithCountryCode = countryPhoneCode.concat(phone);
+
+    setLoading(true);
     axios.post(`${apiData}user/forgot/password`, {phone: phoneWithCountryCode})
     .then(res => {
       if (res.status) {
+        setLoading(false);
         setCodeSent(true);
       } else {
         toast.error("Server busy. Try again later.", {
           position: toast.POSITION.TOP_CENTER
         });
+        setLoading(false);
         router.push("/forgot-password");
       }
     })
+    .catch(error => {
+      console.log(`Error getting password forgot code due to: ${error.message}`);
+      setLoading(false)
+    })
   }
 
-  const handleSubmitForNewPassword = () => {
+  const handleSubmitForNewPassword = (evt) => {
+    console.log("!")
+    evt.preventDefault();
+
+    setLoading(true);
     axios.post(`${apiData}user/password/reset`, formFields)
     .then(res => {
       if (res.status) {
         router.push("/login");
       } else {
-        router.push("/forgot-password");
         setCodeSent(false);
+        setInvalidCode(true);
+        setLoading(false)
+        router.push("/forgot-password");
       }
     })
+    .catch(error => {
+      setLoading(false);
+      console.log(`Error resetting password due to: ${error.message}`);
+      toast.error("Server busy. Try again later.", {
+        position: toast.POSITION.TOP_CENTER
+      });
+    })
   }
+
+  useEffect(() => {
+    if (!countryPhoneCode) {
+      const country = countries.find(country => country.iso2 === defaultCountry)
+      setCountryPhoneCode(`+${country.phone_code}`);
+    }
+  }, [])
 
   return (
     <>
@@ -134,14 +163,14 @@ const ForgotPassword = ({countries}) => {
                   </div>
                 )}
               <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[98px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-              <div className="w-auto"><button type="submit" className="w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg">Send</button></div>
+              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Send":"Processing"}</button></div>
             </>:
             <>
               <div className="mr-2 pt-2 w-auto"><label id="token" className="w-full">code: </label></div>
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChangeForNewPassword("token")} htmlFor="token" className="w-full rounded-lg py-2 pl-[78px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
+              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={formFields.token} onChange={handleChangeForNewPassword("token")} htmlFor="token" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
               <div className="mr-2 pt-2 w-auto"><label id="newpassword" className="w-full">New Password: </label></div>
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 pl-[78px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-              <div className="w-auto"><button type="submit" className="w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg">Send</button></div>
+              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={formFields.password} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
+              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Submit":"Processing"}</button></div>
             </>
            }
           </div>
