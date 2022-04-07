@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails);
   const [open, setOpen] = useState(false);
   return (
-    <div>
+    <>
       {userId ? (
         <div className="bg-bellefuBackground w-full">
           <div className="flex flex-col lg:flex-row max-w-[95%] lg:max-w-[90%] mx-auto">
@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
       ) : (
         <AlternateComponent />
       )}
-    </div>
+    </>
   );
 };
 
