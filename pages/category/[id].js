@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import HeaderSearch from "../../components/HeaderSearch";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import CategoryProducts from "../../components/categoryIdProducts/CategoryProducts";
@@ -77,6 +78,15 @@ const Product = () => {
   // console.log(index);
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
+      <Head>
+        <title>Categories</title>
+        <meta
+          name="categories of agricultural produce"
+          content="food products, agricultural machinery,farmers"
+        />
+        <link rel="icon" href="/bellefulogo-fav.png" />
+      </Head>
+
       <HeaderSearch
         dialet={index?.defaultLanguage}
         state={index?.countryStates}
