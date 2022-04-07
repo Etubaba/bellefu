@@ -17,7 +17,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [amount, setAmount] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
-  const [fav2, setFav2] = useState(false);
+  const [fav2, setFav2] = useState(true);
   const [productId, setProductId] = useState([]);
 
   const router = useRouter();
@@ -94,23 +94,26 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             </span>
           ) : null}
         </p>
-        {(fav?.includes(product.productId) && getIsLoggedIn) || fav2 ? (
+        {(fav?.includes(product.productId) && getIsLoggedIn && fav2) ? (
           <BsSuitHeartFill
             onClick={(e) => {
-              e.stopPropagation();
+              // e.stopPropagation();
               const favId = fav.find((items) => items === product.productId);
-              console.log(favId);
+              // console.log(favId);
               if (favId !== undefined) {
                 axios
-                  .post(`${apiData}delete/favorite`, {
-                    favoriteId: favId,
+                  .post(`${apiData}delete/favorite/webindex`, {
+                    productId: favId,
+                    userId: userId,
                   })
                   .then((res) => {
                     if (res.data.status) {
                       setFav2(false);
-                      toast.error("you have removed from favorite", {
+                      fav.filter((items) => items !== favId);
+                      toast.error(`${product.title.substring(0, 20)} removed from favorite product`, {
                         position: "top-center",
                       });
+
                     }
                   });
               } else {
