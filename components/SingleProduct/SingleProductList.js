@@ -8,7 +8,7 @@ const SingleProductList = ({ similarProductDetail }) => {
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
-        src="/bellefu/bellefu1.jpg"
+        src={`https://bellefu.inmotionhub.xyz/get/product/image/${similarProductDetail?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
       />
       <p className="capitalize text-medium">

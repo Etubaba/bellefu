@@ -10,7 +10,7 @@ import { RiShoppingCart2Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
 
 const SingleProductSidebar = ({ userDetails }) => {
-  console.log("userDetails from sidebar", userDetails[0]?.currencySymbol);
+  console.log("userDetails from sidebar", userDetails);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
@@ -32,10 +32,10 @@ const SingleProductSidebar = ({ userDetails }) => {
       {/* user brief info */}
       <div className="mt-5 flex flex-col items-center justify-center">
         <Image
-          src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
+          src={`https://bellefu.inmotionhub.xyz/get/user/images/${userDetails[0]?.userAvatar}`}
+          alt="UserImage"
           width={150}
           height={150}
-          alt=""
           className="rounded-full object-cover"
         />
         <div className="flex items-center space-x-2 mt-2">
