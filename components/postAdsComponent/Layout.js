@@ -6,7 +6,7 @@ import Smallhead from "./Smallhead";
 const Layout = ({ children }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails);
   return (
-    <div>
+    <>
       {userId ? (
         <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
           <div>
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
       ) : (
         <AlternateComponent />
       )}
-    </div>
+    </>
   );
 };
 
