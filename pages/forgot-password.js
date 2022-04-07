@@ -182,8 +182,8 @@ const ForgotPassword = ({countries}) => {
               <div className="mr-2 pt-2 w-auto"><label id="token" className="w-full">code: </label></div>
               <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={formFields.token} onChange={handleChangeForNewPassword("token")} htmlFor="token" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
               <div className="mr-2 pt-2 w-auto"><label id="newpassword" className="w-full">New Password: </label></div>
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type={showPassword ? "text" : "password"} value={formFields.password} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Submit":"Processing"}</button></div>
+              <div className="w-[100%] md:w-[100%] mb-3 md:mb-0 md:mr-2"><input type={showPassword ? "text" : "password"} value={formFields.password} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
+              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-4 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Submit":"Processing"}</button></div>
             </>
            }
           </div>
