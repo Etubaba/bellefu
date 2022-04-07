@@ -16,16 +16,16 @@ const MobileCategory = ({ category }) => {
           key={category.id}
           className="flex bg-gray-100 px-1 py-2 rounded-md h-24 relative"
         >
-          <div className="flex flex-col items-center flex-1 space-x-2 cursor-pointer select-none">
+          <div
+            className="flex flex-col items-center flex-1 space-x-2 cursor-pointer select-none"
+            onClick={() => router.push("/category/id")}
+          >
             <img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
             />
-            <h5
-              className="text-bellefuBlack1 font-medium text-xs text-center"
-              onClick={() => router.push("/category/id")}
-            >
+            <h5 className="text-bellefuBlack1 font-medium text-xs text-center">
               {category.name}
             </h5>
           </div>
@@ -76,16 +76,16 @@ const MobileCategory = ({ category }) => {
           key={category.id}
           className="flex items-center mb-1 bg-gray-100 px-1 py-2 rounded-md h-24"
         >
-          <div className="flex flex-col items-center flex-1 space-x-2 cursor-pointer">
+          <div
+            className="flex flex-col items-center flex-1 space-x-2 cursor-pointer"
+            onClick={() => router.push("/category/id")}
+          >
             <img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
             />
-            <h5
-              className="text-bellefuBlack1 text-xs text-center font-medium"
-              onClick={() => router.push("/category/id")}
-            >
+            <h5 className="text-bellefuBlack1 text-xs text-center font-medium">
               {category.name}
             </h5>
           </div>

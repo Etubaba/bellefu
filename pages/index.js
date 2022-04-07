@@ -33,7 +33,7 @@ export default function Home({ data }) {
           name="description"
           content="food products, agricultural machinery,farmers"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/bellefulogo-fav.png" />
       </Head>
       {/* Overall container */}
       <main className="bg-bellefuBackground ">
