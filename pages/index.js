@@ -9,7 +9,6 @@ import CategorySideBar from "../components/CategorySideBar";
 // import axios from "axios";
 import Body from "../components/Body";
 import MobileCategoryBar from "../components/MobileCategorybar/MobileCategoryBar";
-import { categories } from "../data";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 
 import { fetchData } from "../features/bellefuSlice";
