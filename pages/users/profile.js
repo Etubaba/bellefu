@@ -2,7 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { isDisabled } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { profileDetails, userUpdate } from "../../features/bellefuSlice";
+import {
+  profileDetails,
+  userUpdate,
+  setProfileDetails,
+} from "../../features/bellefuSlice";
 import Layout from "../../components/Layout";
 import { FaCamera } from "react-icons/fa";
 import { GiPadlockOpen, GiPadlock } from "react-icons/gi";
@@ -16,8 +20,6 @@ import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-
 
 const profile = ({ data1 }) => {
   const userThings = useSelector(profileDetails) || null;
@@ -91,15 +93,15 @@ const profile = ({ data1 }) => {
     formData.append("userid", userThings?.id);
 
     if (files === "") {
-      const url = `https://bellefu.inmotionhub.xyz/get/user/images/${userThings?.avatar}`;
-      const response = await fetch(url);
-      const arrBuff = await response.arrayBuffer(); //Get read response as array buffer
-      const imgExt = userThings?.avatar.match(/.\w+$/)[0].substring(1); //Get image extension
-      const fileData = new File([arrBuff], userThings?.avatar, {
-        type: `image/${imgExt}`,
-      });
-      console.log("Here is JavaScript File Object:", fileData);
-      formData.append("image", fileData);
+      // const url = `https://bellefu.inmotionhub.xyz/get/user/images/${userThings?.avatar}`;
+      // const response = await fetch(url);
+      // const arrBuff = await response.arrayBuffer(); //Get read response as array buffer
+      // const imgExt = userThings?.avatar.match(/.\w+$/)[0].substring(1); //Get image extension
+      // const fileData = new File([arrBuff], userThings?.avatar, {
+      //   type: `image/${imgExt}`,
+      // });
+      // console.log("Here is JavaScript File Object:", fileData);
+      formData.append("image", userThings?.avatar);
     } else {
       formData.append("image", files2);
     }
@@ -113,6 +115,11 @@ const profile = ({ data1 }) => {
       },
     })
       .then((res) => {
+        const [upDateuser] = res.data.data;
+
+        localStorage.setItem("user", JSON.stringify(upDateuser));
+
+        dispatch(setProfileDetails(upDateuser));
         res.status === 200
           ? toast.success("Profile Update sucessful", {
               position: "top-center",
@@ -364,12 +371,13 @@ const profile = ({ data1 }) => {
                       Address
                     </label>
                     <input
+                      defaultValue={userThings?.address}
                       type="text"
                       onChange={handleAddress}
                       disabled={disable}
                       name="address"
                       id="address"
-                      autocomplete="your address"
+                      autoComplete="your address"
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
                   </div>
@@ -389,8 +397,7 @@ const profile = ({ data1 }) => {
                   rows={4}
                   disabled={disable}
                   className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
-                  placeholder="you@example.com"
-                  defaultValue={""}
+                  defaultValue={userThings?.description}
                 />
               </div>
             </div>
