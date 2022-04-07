@@ -6,10 +6,10 @@ import Smallhead from "./Smallhead";
 const Layout = ({ children }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails);
   return (
-    <div>
+    <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
       {userId ? (
-        <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
-          <div>
+        <>
+          <div className="">
             <Smallhead />
           </div>
           <div className="flex flex-col lg:flex-row">
@@ -18,11 +18,11 @@ const Layout = ({ children }) => {
               {children}
             </main>
           </div>
-        </div>
+        </>
       ) : (
         <AlternateComponent />
       )}
-    </div>
+    </>
   );
 };
 
