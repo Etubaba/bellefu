@@ -187,7 +187,7 @@ const profile = ({ data1 }) => {
                       First name
                     </label>
                     <input
-                      Value={userThings?.first_name}
+                      value={userThings?.first_name}
                       type="text"
                       disabled
                       className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -203,7 +203,7 @@ const profile = ({ data1 }) => {
                     </label>
                     <input
                       type="text"
-                      Value={userThings?.last_name}
+                      value={userThings?.last_name}
                       disabled
                       className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
@@ -397,7 +397,7 @@ const profile = ({ data1 }) => {
                   rows={4}
                   disabled={disable}
                   className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1  w-full sm:text-sm  border-gray-300 rounded-md"
-                  defaultValue={userThings?.description}
+                  value={userThings?.description}
                 />
               </div>
             </div>
