@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 const Product = ({ details }) => {
   const newDetails = details.data;
   const similarProductDetails = details.similarProducts;
+  console.log("similarProductDetails => ", similarProductDetails);
   const dispatch = useDispatch();
 
   if (newDetails) {
@@ -49,7 +50,10 @@ const Product = ({ details }) => {
         {/* body section */}
         {/* w-[calc(100%_-_10rem)] */}
         <div className="w-full lg:flex-1">
-          <SingleProductBody productDetails={newDetails} />
+          <SingleProductBody
+            productDetails={newDetails}
+            similarProductDetails={similarProductDetails}
+          />
         </div>
       </div>
     </div>

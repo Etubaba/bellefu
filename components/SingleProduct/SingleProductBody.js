@@ -3,7 +3,7 @@ import SimilarProducts from "./SimilarProducts";
 import SingleProductDescription from "./SingleProductDescription";
 import SingleProductSlider from "./SingleProductSlider";
 
-const SingleProductBody = ({ productDetails }) => {
+const SingleProductBody = ({ productDetails, similarProductDetails }) => {
   return (
     <div className="rounded-t-md -mt-5 lg:mt-0">
       <SingleProductSlider sliderDetails={productDetails} />
@@ -17,7 +17,7 @@ const SingleProductBody = ({ productDetails }) => {
             View All
           </p>
         </div>
-        {/* <SimilarProducts products={products} /> */}
+        <SimilarProducts similarProductDetails={similarProductDetails} />
       </div>
     </div>
   );

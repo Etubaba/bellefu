@@ -33,7 +33,8 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
           <div className="mt-2 flex flex-col items-center justify-center">
             <div className="">
               <Image
-                src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
+                src={`https://bellefu.inmotionhub.xyz/get/user/images/${mobileDetails[0]?.userAvatar}`}
+                alt="UserImage"
                 width={70}
                 height={70}
                 className="rounded-full object-cover"
@@ -84,7 +85,12 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
                 <textarea
                   rows="5"
                   className="w-full bg-transparent px-3 outline-none text-xs"
-                ></textarea>
+                />
+                <div className="flex items-center justify-center py-2">
+                  <button className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-4 rounded-md capitalize">
+                    send
+                  </button>
+                </div>
               </div>
             )}
 

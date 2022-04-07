@@ -4,11 +4,7 @@ import CategoryProductList from "./CategoryProductList";
 import Loader from '../../constant'
 
 const CategoryProducts = ({ product }) => {
-
-  if (product.length === 0) {
-
-  }
-
+  console.log('product check=>', product)
   return (
     <div>
       <MainProductHeader />
