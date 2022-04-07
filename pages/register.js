@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
 import Image from "next/image";
@@ -10,7 +10,9 @@ import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
 import { setProfileDetails } from "../features/bellefuSlice";
-//import { data } from "autoprefixer";
+import { homeData } from "../features/bellefuSlice";
+import { useSelector } from "react-redux";
+import { AiFillCaretDown } from "react-icons/ai";
 
 export const getStaticProps = async () => {
   const response = await fetch(`${apiData}get/countries`);
@@ -27,6 +29,7 @@ export const getStaticProps = async () => {
 const Register = ({countries, countries1}) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const defaultCountry = useSelector(homeData)?.defaultCountry;
   const [formFields, setFormFields] = useState({
     fname: "",
     lname: "",
@@ -37,13 +40,16 @@ const Register = ({countries, countries1}) => {
     username: "",
     password: ""
   });
-  const [phoneCode, setPhoneCode] = useState("");
+  const [countryPhoneCode, setCountryPhoneCode] = useState("");
   const [usernameExists, setUsernameExists] = useState(false);
   const [phoneExists, setPhoneExists] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formFieldError, setFormFieldError] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [selectCountry, setSelectCountry] = useState(false);
+  const [flag, setFlag] = useState(null);
+
   const onChange = (input) => (evt) => {
     evt.stopPropagation();
 
@@ -67,7 +73,7 @@ const Register = ({countries, countries1}) => {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
     }
 
-    formValues = {...formValues, phone: phoneCode.concat(formValues.phone)};
+    formValues = {...formValues, phone: countryPhoneCode.concat(formValues.phone)};
     console.log(formValues);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
@@ -145,6 +151,13 @@ const Register = ({countries, countries1}) => {
     if (target.name === "username") setUsernameExists(false);
   };
 
+  useEffect(() => {
+    if (!countryPhoneCode) {
+      const country = countries1.find(country => country.iso2 === defaultCountry)
+      setCountryPhoneCode(`+${country.phone_code}`);
+    }
+  }, [])
+
   return (
     <>
       <Head>
@@ -168,11 +181,57 @@ const Register = ({countries, countries1}) => {
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
           <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Phone Number</label></p>
-              <select className="absolute  mt-8 left-[9%] md:left-[27%] w-[16%] md:w-[8%] hover:cursor-pointer outline-none" value={formFields.phoneCode} onChange={onPhoneCodeChange}>
+              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700 z-0">Phone Number</label></p>
+              <div className="absolute mt-8 left-[5%] md:left-[24%] flex space-x-1 items-center justify-center ml-8 hover:cursor-pointer" onClick={() => setSelectCountry(!selectCountry)}>
+                <div className="flex">
+                 <span className="mr-1">{`${countryPhoneCode}`}</span>
+                  <img
+                    alt="error"
+                    src={
+                      flag === null
+                        ? `https://flagcdn.com/32x24/${defaultCountry?.toLowerCase()}.png`
+                        : `https://flagcdn.com/32x24/${flag?.toLowerCase()}.png`
+                    }
+                  />
+                </div>
+                <AiFillCaretDown
+                  className={
+                    selectCountry ? "text-bellefuOrange" : "text-gray-600"
+                  }
+                />
+              </div>
+              {selectCountry && (
+                <div className="z-50 absolute top-32 left-[9%] md:left-[24%] h-80 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  {countries1?.map((country) => (
+                    <div
+                      key={country.id}
+                      onClick={() => {
+                        setFlag(country.iso2);
+                        setSelectCountry(false);
+                        setCountryPhoneCode(`+${country.phone_code}`);
+                      }}
+                      className="py-1 flex space-x-3 hover:bg-bellefuBackground"
+                    >
+                      <p
+                        key={country.id}
+                        className="text-gray-700 space-x-3 px-4 flex py-2 text-sm"
+                      >
+                        <div className="flex">
+                          <span className="mr-2">{`+${country.phone_code}`}</span>
+                          <img
+                            alt="error"
+                            src={`https://flagcdn.com/20x15/${country.iso2.toLowerCase()}.png`}
+                          />
+                        </div>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {/* <select className="absolute  mt-8 left-[9%] md:left-[27%] w-[16%] md:w-[8%] hover:cursor-pointer outline-none" value={formFields.phoneCode} onChange={onPhoneCodeChange}>
                 { countries1.map((country, index) => <option key={index} value={`+${country.phone_code}`}>{`+${country.phone_code}`} {country.name}</option>)}
-              </select>
-              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-32 pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
+              </select> */}
+              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-28 pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
               { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">

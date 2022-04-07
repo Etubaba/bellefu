@@ -41,6 +41,11 @@ const initialState = {
     plans: "",
     symbo: "",
   },
+  // update user profile things
+  userUpdate:{
+    states:"",
+    lga:""
+  }
 };
 
 export const bellefuSlice = createSlice({
@@ -79,6 +84,16 @@ export const bellefuSlice = createSlice({
     handleIndexApi: (state, action) => {
       state.indexApi = action.payload;
     },
+    // userUpdate things 
+      handleStates: (state, action) => {
+        state.userUpdate.states = action.payload;
+      },
+      handleLga: (state, action) => {
+        state.userUpdate.lga = action.payload;
+      },
+
+    // end here
+
     // postAds reducers please no vex
 
     handleCatUpdate: (state, action) => {
@@ -187,10 +202,13 @@ export const {
   handlePlansUpdate,
   handleSymbolUpdate,
   handleUserDetails,
+  handleStates,
+  handleLga
 } = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;
 export const profileDetails = (state) => state.bellefu.profileDetails;
+export const userUpdate = (state) => state.bellefu.userUpdate;
 export const selectDisable = (state) => state.bellefu.formDisabler;
 export const homeData = (state) => state.bellefu.indexData;
 export const changeId = (state) => state.bellefu.catId;
