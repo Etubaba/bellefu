@@ -89,10 +89,10 @@ const Index = () => {
             </div>
             <hr />
             <div
-              className="flex justify-between px-8 py-5 my-3"
+              className="flex flex-col md:flex-row items-center md:justify-between px-8 py-5 my-3"
               style={{ fontFamily: "Poppins", fontWeight: "500px" }}
             >
-              <div className="bg-[#f7f8f6] p-3 text-[#76BA1B]">
+              <div className="bg-[#f7f8f6] p-3 text-[#76BA1B] mb-3 md:mb-0 rounded-md flex-auto">
                 <p
                   id="number"
                   className="text-center"
@@ -107,7 +107,7 @@ const Index = () => {
                   <span className="ml-2">Published Ads</span>
                 </p>
               </div>
-              <div className="bg-[#fffbf4] text-[#FFA500] p-3">
+              <div className="bg-[#fffbf4] text-[#FFA500] p-3 mb-3 md:mb-0 rounded-md flex-auto">
                 <p
                   id="number"
                   className="text-center"
@@ -122,7 +122,7 @@ const Index = () => {
                   <span className="ml-2">Pending Ads</span>
                 </p>
               </div>
-              <div className="bg-[#fff7f7] text-[#FF0303] p-3">
+              <div className="bg-[#fff7f7] text-[#FF0303] p-3 mb-3 md:mb-0 rounded-md flex-auto">
                 <p
                   id="number"
                   className="text-center"

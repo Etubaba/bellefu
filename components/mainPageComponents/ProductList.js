@@ -38,11 +38,13 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
-      <img
-        onClick={() => router.push(`/product/${product.productId}`)}
-        src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
-        className="rounded-md w-full h-44 object-cover"
-      />
+      <div onClick={() => router.push(`/product/${product.productId}`)}  >
+        <img
+
+          src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+          className="rounded-md w-full h-44 object-cover"
+        />
+      </div>
       <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
@@ -94,23 +96,26 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             </span>
           ) : null}
         </p>
-        {(fav?.includes(product.productId) && getIsLoggedIn) || fav2 ? (
+        {(fav2 || fav?.includes(product.productId) && getIsLoggedIn) ? (
           <BsSuitHeartFill
             onClick={(e) => {
-              e.stopPropagation();
+              // e.stopPropagation();
               const favId = fav.find((items) => items === product.productId);
-              console.log(favId);
+              // console.log(favId);
               if (favId !== undefined) {
                 axios
-                  .post(`${apiData}delete/favorite`, {
-                    favoriteId: favId,
+                  .post(`${apiData}delete/favorite/webindex`, {
+                    productId: favId,
+                    userId: userId,
                   })
                   .then((res) => {
                     if (res.data.status) {
                       setFav2(false);
-                      toast.error("you have removed from favorite", {
+                      fav.filter((items) => items !== favId);
+                      toast.error(`${product.title.substring(0, 20)} removed from favorite product`, {
                         position: "top-center",
                       });
+
                     }
                   });
               } else {
