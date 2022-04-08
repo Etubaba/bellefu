@@ -8,22 +8,33 @@ import { MdVerified } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-
-
-
 export default function Publish() {
-
-  const [showSuccess, setShowSuccess] = useState(true)
+  const [showSuccess, setShowSuccess] = useState(true);
 
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
   const dataTopost2 = useSelector((state) => state.bellefu.profileDetails);
   const dispatch = useDispatch();
+  //  plans handling section
+
+  const handleFeatured = () => {
+    dispatch(handlePlansUpdate("featured"));
+    router.push("/postAds/Payment");
+  };
+  const handleUrgent = () => {
+    dispatch(handlePlansUpdate("urgent"));
+    router.push("/postAds/Payment");
+  };
+  const handleHighlighted = () => {
+    dispatch(handlePlansUpdate("highlighted"));
+    router.push("/postAds/Payment");
+  };
 
   const handleFree = () => {
     dispatch(handlePlansUpdate("free"));
   };
 
+  // ends here#########################
   const handleBack = (e) => {
     e.preventDefault();
     router.back();
@@ -34,17 +45,27 @@ export default function Publish() {
   const handlePublish = (e) => {
     e.preventDefault();
 
-      if (dataTopost.plans === "") {
-        toast.error('You must choose a plan', {
-            position: 'top-center'
-        })
-
-    } else if(dataTopost.plans === ""||dataTopost.categoryid===""||dataTopost.subcategoryid===""||dataTopost.title===""||dataTopost.location===""||dataTopost. countrycode===""||dataTopost.states===""||dataTopost.price===null||dataTopost.tag.length===0||dataTopost.cityCode===""||dataTopost.description===""){
-      toast.error('All fields are required', {
-        position: 'top-center'
-    })
-    }
-    else {
+    if (dataTopost.plans === "") {
+      toast.error("You must choose a plan", {
+        position: "top-center",
+      });
+    } else if (
+      dataTopost.plans === "" ||
+      dataTopost.categoryid === "" ||
+      dataTopost.subcategoryid === "" ||
+      dataTopost.title === "" ||
+      dataTopost.location === "" ||
+      dataTopost.countrycode === "" ||
+      dataTopost.states === "" ||
+      dataTopost.price === null ||
+      dataTopost.tag.length === 0 ||
+      dataTopost.cityCode === "" ||
+      dataTopost.description === ""
+    ) {
+      toast.error("All fields are required", {
+        position: "top-center",
+      });
+    } else {
       console.log(dataTopost.images);
       const formData = new FormData();
       //  things i dey post from redux store
@@ -92,9 +113,7 @@ export default function Publish() {
       formData.append("states", dataTopost.states);
       formData.append("currencyCode", dataTopost.currencyCode);
       formData.append("plans", dataTopost.plans);
-  
-      
-  
+
       console.log(formData);
       axios({
         method: "POST",
@@ -104,158 +123,167 @@ export default function Publish() {
           "Content-Type": "multipart/form-data",
         },
       })
-        .then((res) =>{
-          res.status===200?setShowSuccess(false):setShowSuccess(true) &&  toast.error("Server busy. Try again", {
-            position: 'top-center'       })
+        .then((res) => {
+          res.status === 200
+            ? setShowSuccess(false)
+            : setShowSuccess(true) &&
+              toast.error("Server busy. Try again", {
+                position: "top-center",
+              });
         })
-        .catch((err) => err?  toast.error("Something happend. Try again", {
-          position: 'top-center'      }):null);
-  
-
+        .catch((err) =>
+          err
+            ? toast.error("Something happend. Try again", {
+                position: "top-center",
+              })
+            : null
+        );
     }
-
   };
 
-  const handleHome =(e)=>{
+  const handleHome = (e) => {
     e.preventDefault();
-    router.push('/')
-
-  }
+    router.push("/");
+  };
 
   return (
     <div className="rounded-lg  bg-bellefuWhite h-auto w-auto p-10 ">
-      {showSuccess?
+      {showSuccess ? (
         <>
           <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-        <div className="flex ">
-          <input
-            id="ads_plan"
-            name="plans"
-            type="radio"
-            className="focus:ring-bellefuGreen h-10 w-10 text-bellefuGreen border-gray-300"
-          />
-          <div className="ml-[4%]">
-            <h3 className="font-semibold">FEATURED:</h3>
-            <p className="text-[#3F3F3F] mb-3 text-base">
-              Featured Ads attracts high quality views and are displayed
-              prominently in the featured ads section on the home page
-            </p>
+            <div className="flex ">
+              <input
+                onClick={handleFeatured}
+                id="ads_plan"
+                name="plans"
+                type="radio"
+                className="focus:ring-bellefuGreen h-10 w-10 text-bellefuGreen border-gray-300"
+              />
+              <div className="ml-[4%]">
+                <h3 className="font-semibold">FEATURED:</h3>
+                <p className="text-[#3F3F3F] mb-3 text-base">
+                  Featured Ads attracts high quality views and are displayed
+                  prominently in the featured ads section on the home page
+                </p>
+              </div>
+              <div className="ml-[6%]">
+                <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
+                  $1.00 FOR 30 DAYS
+                </p>
+                <h3 className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-bellefuOrange">
+                  RECOMMENDED
+                </h3>
+              </div>
+            </div>
           </div>
-          <div className="ml-[6%]">
-            <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-              $1.00 FOR 30 DAYS
-            </p>
-            <h3 className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-bellefuOrange">
-              RECOMMENDED
-            </h3>
+          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            <div className="flex">
+              <input
+                onClick={handleUrgent}
+                id="ads_plan"
+                name="plans"
+                type="radio"
+                className="focus:ring-bellefuGreen h-7 w-7 text-bellefuGreen border-gray-300"
+              />
+              <div className="ml-[4%]">
+                <h3 className="font-semibold">URGENT:</h3>
+                <p className="text-[#3F3F3F] mb-3 text-base">
+                  Make your ads stand out and let viewers know that your advert
+                  is time-bound
+                </p>
+              </div>
+              <div className="ml-[10%]">
+                <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
+                  $2.00 FOR 30 DAYS
+                </p>
+                <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-[orangered]">
+                  MORE RECOMMENDED
+                </pre>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-        <div className="flex">
-          <input
-            id="ads_plan"
-            name="plans"
-            type="radio"
-            className="focus:ring-bellefuGreen h-7 w-7 text-bellefuGreen border-gray-300"
-          />
-          <div className="ml-[4%]">
-            <h3 className="font-semibold">URGENT:</h3>
-            <p className="text-[#3F3F3F] mb-3 text-base">
-              Make your ads stand out and let viewers know that your advert is
-              time-bound
-            </p>
+          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            <div className="flex ">
+              <input
+                onClick={handleHighlighted}
+                id="ads_plan"
+                name="plans"
+                type="radio"
+                className="focus:ring-bellefuGreen h-7 w-7 text-bellefuGreen border-gray-300"
+              />
+              <div className="ml-[4%]">
+                <h3 className="font-semibold">HIGHLIGHTED:</h3>
+                <p className="text-[#3F3F3F] mb-3 text-base">
+                  Make your ads highlighted with borders in the search listing
+                  result page.Easy to focus on.
+                </p>
+              </div>
+              <div className="ml-[6%]">
+                <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
+                  $2.00 FOR 7 DAYS
+                </p>
+                <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-bellefuGreen">
+                  MOST RECOMMENDED
+                </pre>
+              </div>
+            </div>
           </div>
-          <div className="ml-[10%]">
-            <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-              $2.00 FOR 30 DAYS
-            </p>
-            <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-[orangered]">
-              MORE RECOMMENDED
-            </pre>
+          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            <div className="flex ">
+              <input
+                id="ads_plan"
+                onClick={handleFree}
+                name="plans"
+                type="radio"
+                className="focus:ring-indigo-500 h-7 w-7 text-indigo-600 border-gray-300"
+              />
+              <div className="ml-[4%]">
+                <h3 className="font-semibold">POST FREE AD:</h3>
+                <p className="text-[#3F3F3F] mb-3 text-base">
+                  Just post an ordinary ad
+                </p>
+              </div>
+              <div className="ml-[60%]">
+                <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
+                  FREE
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-        <div className="flex ">
-          <input
-            id="ads_plan"
-            name="plans"
-            type="radio"
-            className="focus:ring-bellefuGreen h-7 w-7 text-bellefuGreen border-gray-300"
-          />
-          <div className="ml-[4%]">
-            <h3 className="font-semibold">HIGHLIGHTED:</h3>
-            <p className="text-[#3F3F3F] mb-3 text-base">
-              Make your ads highlighted with borders in the search listing
-              result page.Easy to focus on.
-            </p>
+          <div className="p-5 flex justify-between">
+            <button
+              onClick={handleBack}
+              type="submit"
+              class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+            >
+              Back
+            </button>
+            <button
+              onClick={handlePublish}
+              type="submit"
+              class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+            >
+              Publish
+            </button>
           </div>
-          <div className="ml-[6%]">
-            <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-              $2.00 FOR 7 DAYS
-            </p>
-            <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-bellefuGreen">
-              MOST RECOMMENDED
-            </pre>
-          </div>
-        </div>
-      </div>
-      <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-        <div className="flex ">
-          <input
-            id="ads_plan"
-            onClick={handleFree}
-            name="plans"
-            type="radio"
-            className="focus:ring-indigo-500 h-7 w-7 text-indigo-600 border-gray-300"
-          />
-          <div className="ml-[4%]">
-            <h3 className="font-semibold">POST FREE AD:</h3>
-            <p className="text-[#3F3F3F] mb-3 text-base">
-              Just post an ordinary ad
-            </p>
-          </div>
-          <div className="ml-[60%]">
-            <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">FREE</p>
-          </div>
-        </div>
-      </div>
-      <div className="p-5 flex justify-between">
-        <button
-          onClick={handleBack}
-          type="submit"
-          class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-        >
-          Back
-        </button>
-        <button
-          onClick={handlePublish}
-          type="submit"
-          class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-        >
-          Publish
-        </button>
-      </div>
         </>
-      :
-      <div className="flex flex-col border rounded-lg justify-center py-10 mt-[5%]  mb-24 items-center">
-        <MdVerified className="text-8xl text-bellefuGreen mb-5 " />
-        <p className="mb-7 text-center">
-          <strong> Congrats !!!</strong>
-          <br /> Your Product is under Review
-        </p>
+      ) : (
+        <div className="flex flex-col border rounded-lg justify-center py-10 mt-[5%]  mb-24 items-center">
+          <MdVerified className="text-8xl text-bellefuGreen mb-5 " />
+          <p className="mb-7 text-center">
+            <strong> Congrats !!!</strong>
+            <br /> Your Product is under Review
+          </p>
 
-        <button
-          onClick={handleHome}
-          type="submit"
-          class="flex justify-center items-center w-[15vw] py-2 px-4 mt-[30px]  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-        >
-          Back to Home
-        </button>
-      </div>
-      }
-      
+          <button
+            onClick={handleHome}
+            type="submit"
+            class="flex justify-center items-center w-[15vw] py-2 px-4 mt-[30px]  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+          >
+            Back to Home
+          </button>
+        </div>
+      )}
     </div>
   );
 }
