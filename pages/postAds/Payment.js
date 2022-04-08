@@ -3,6 +3,11 @@ import Layout from "../../components/postAdsComponent/Layout";
 import UnstyledSelectSimpleCard from "../../components/postAdsComponent/Card";
 
 export default function Payment() {
+  const handleBack = (e) => {
+    e.preventDefault();
+    router.back();
+  };
+
   return (
     <div className="w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
       <div className="bg-bellefuGreen p-4 ">
@@ -53,14 +58,23 @@ export default function Payment() {
             <UnstyledSelectSimpleCard />
           </div>
         </div>
-        <button
-          // disabled={address===""?true:false}
-          type="submit"
-        //   onClick={handleSubmit}
-          class="flex justify-center items-center w-[10vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange ml-7 hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-        >
-          Proceed
-        </button>
+        <div className="p-5 flex justify-between">
+          <button
+            onClick={handleBack}
+            type="submit"
+            class="flex justify-center items-center w-[10vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+          >
+            Back
+          </button>
+          <button
+            // disabled={address===""?true:false}
+            type="submit"
+            //   onClick={handleSubmit}
+            class="flex justify-center items-center w-[10vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange ml-7 hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+          >
+            Proceed
+          </button>
+        </div>
       </div>
     </div>
   );
