@@ -44,7 +44,9 @@ const initialState = {
   // update user profile things
   userUpdate:{
     states:"",
-    lga:""
+    lga:"",
+    statesname: typeof window !== "undefined" ? localStorage.getItem("userState") : null,
+    lganame: typeof window !== "undefined" ? localStorage.getItem("userLga") : null,
   }
 };
 
@@ -90,6 +92,12 @@ export const bellefuSlice = createSlice({
       },
       handleLga: (state, action) => {
         state.userUpdate.lga = action.payload;
+      },
+      handleStatesname: (state, action) => {
+        state.userUpdate.statesname = action.payload;
+      },
+      handleLganame: (state, action) => {
+        state.userUpdate.lganame = action.payload;
       },
 
     // end here
@@ -203,7 +211,9 @@ export const {
   handleSymbolUpdate,
   handleUserDetails,
   handleStates,
-  handleLga
+  handleLga,
+  handleLganame,
+  handleStatesname
 } = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;

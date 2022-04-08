@@ -3,7 +3,8 @@ import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled'
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
-import {  handleStates,handleLga} from "../../../features/bellefuSlice"
+import {  handleStates,handleLga, handleLganame,
+  handleStatesname} from "../../../features/bellefuSlice"
 import { useSelector, useDispatch } from "react-redux";
 
 const blue = {
@@ -151,7 +152,10 @@ export default function UnstyledSelectSimple3({countryStuffs,catchLgas}) {
     // setCat(counts.name);
     const newLgaArr = countryStuffs.lga.filter((lgas) => lgas.stateCode === counts.code);
     // console.log(newLgaArr);
+    localStorage.setItem("userState", JSON.stringify(counts.name));
+
    dispatch(handleStates(counts.code));
+   dispatch(handleStatesname(counts.name));
    
     catchLgas(newLgaArr,counts.name);
   }
@@ -161,7 +165,8 @@ export default function UnstyledSelectSimple3({countryStuffs,catchLgas}) {
 
   
   return (
-    <CustomSelect disabled={disable} value="+1">
+    <CustomSelect disabled={disable} defaultValue={userThing.state}>
+
        {stateSelect?.map((counts,index)=>(
        <span  onClick={() => handleThings(counts)}>
        <StyledOption

@@ -5,7 +5,8 @@ import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
 import { isDisabled, selectDisable } from "../../../features/bellefuSlice"
 import { useSelector, useDispatch } from "react-redux";
-import {  handleStates,handleLga} from "../../../features/bellefuSlice";
+import {  handleStates,handleLga, handleLganame,
+  handleStatesname} from "../../../features/bellefuSlice";
 
 
 const blue = {
@@ -145,8 +146,10 @@ export default function UnstyledSelectSimple5({lgachecker,lgaholder}) {
   const dispatch=useDispatch();
 
   const handleThings=(counts)=>{
-   
+    localStorage.setItem("userLga", JSON.stringify(counts.name));
+
    dispatch(handleLga(counts.code));
+   dispatch(handleLganame(counts.name));
    
   }
 
