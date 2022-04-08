@@ -325,7 +325,7 @@ const profile = ({ data1 }) => {
                       for="state"
                       className="block  text-sm font-medium text-gray-700"
                     >
-                      States/Province
+                      States/Province:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {userCountrythings.statesname}
                     </label>
                     <UnstyledSelectSimple3
                       countryStuffs={data1}
@@ -339,7 +339,7 @@ const profile = ({ data1 }) => {
                       for="email"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      LGA/City
+                      LGA/City:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {userCountrythings.lganame}
                     </label>
                     <UnstyledSelectSimple5
                       lgachecker={lgachecker}
