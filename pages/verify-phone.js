@@ -61,7 +61,7 @@ const VerifyPhone = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ phone, userid: id })
+      body: JSON.stringify({ phone, userid: id, action: "sms" })
     });
     const data = await response.json();
 

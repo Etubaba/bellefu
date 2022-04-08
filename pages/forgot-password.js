@@ -106,6 +106,8 @@ const ForgotPassword = ({countries}) => {
 
   useEffect(() => {
     if (!countryPhoneCode) {
+      console.log(countries)
+      console.log(defaultCountry);
       const country = countries.find(country => country.iso2 === defaultCountry);
       console.log(country);
       //setCountryPhoneCode(`+${country.phone_code}`);
@@ -119,7 +121,7 @@ const ForgotPassword = ({countries}) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader />
-      {/* <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
+      <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
         <h1 className={!invalidCode?"text-center font-bold py-4":"text-center font-bold py-4 text-red-500"}>{!codeSent && !invalidCode?"Recover Your Password": codeSent && !invalidCode? "Set New Password":"Code Provided Is Invalid"}</h1>
         <hr />
         <div className="py-8 px-6">
@@ -208,7 +210,7 @@ const ForgotPassword = ({countries}) => {
             </form>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   )
 }
