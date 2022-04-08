@@ -392,7 +392,8 @@ const profile = ({ data1 }) => {
                 About Me
               </label>
               <div className="mt-1">
-                <input
+                <textarea
+                  cols={3}
                   onChange={handleBio}
                   disabled={disable}
                   className="shadow-sm p-5 focus:outline-0 border-2 bg-[white] mt-1 h-[25vh]  w-full sm:text-sm  border-gray-300 rounded-md"
