@@ -28,9 +28,7 @@ const VerifyPhone = () => {
     fivethNo: "",
     sixthNo: "",
   });
-  const [isCounting, setCounting] = useState(true);
   const [showCount, setShowCount] = useState(false);
-  const [countDate, setCountDate] = useState(null);
   const [phone, setPhone] = useState(false);
   const [pCongrats, setPCongrats] = useState(false);
 
@@ -67,8 +65,6 @@ const VerifyPhone = () => {
 
     if (data.status) {
       setShowCount(true);
-      setCounting(true);
-      setCountDate(Date.now() + 1000*60*2)
 
       if (currentTarget.name !== "anothercode") {
         setVerify(true);
@@ -100,8 +96,8 @@ const VerifyPhone = () => {
     else return false;
   };
   const onComplete = () => {
-    setCounting(false);
-    setCountDate(null);
+    //setCounting(false);
+    //setCountDate(null);
     setShowCount(false);
   }
   const renderer = ({minutes,seconds, completed}) => {
@@ -112,8 +108,6 @@ const VerifyPhone = () => {
   } 
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
-    console.log(showCount);
-    console.log(countDate);
     //if (!verificationCode.firstNo && isCounting) firstInput.current.focus();
 
     if (verificationCode.firstNo && !verificationCode.secondNo) {
@@ -146,12 +140,12 @@ const VerifyPhone = () => {
       submitVerificationCode();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [verificationCode, showCount, countDate])
+  }, [verificationCode, showCount])
 
   return (
     <>
     <Head>
-      <title>verify phone</title>
+      <title>Verify Phone</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto md:w-[50%] md:mx-auto pb-2">
@@ -271,9 +265,9 @@ const VerifyPhone = () => {
 
                     <button 
                       onClick={(evt) => requestPhoneVerificationCode(evt)}
-                      className={isCounting?"flex rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange bg-opacity-50 hover:cursor-not-allowed":"flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"} 
+                      className={showCount?"flex rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange bg-opacity-50 hover:cursor-not-allowed":"flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"} 
                       name="anothercode"
-                      disabled={isCounting?true:false}>
+                      disabled={showCount?true:false}>
                       <MdVerified className="text-xl mr-2 mt-1" />
                       <span>Request another code</span>
                     </button>

@@ -118,7 +118,7 @@ const ForgotPassword = ({ countries }) => {
   return (
     <>
       <Head>
-        <title>forgot password</title>
+        <title>Forgot Password</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader />
