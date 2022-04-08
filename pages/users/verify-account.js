@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import { MdVerified } from "react-icons/md";
@@ -52,15 +52,12 @@ function Verifyaccount() {
   });
 
   // verification code 
-  const [verificationCode, setVerificationCode] = useState({
-    firstNo: "",
-    secondNo: "",
-    thirdNo: "",
-    fourthNo: "",
-    fivethNo: "",
-    sixthNo: "",
-  });
-
+  const [firstNo, setFirstNo] = useState('')
+  const [secondNo, setSecondNo] = useState('')
+  const [thirdNo, setThirdNo] = useState('')
+  const [fourthNo, setFouthNo] = useState('')
+  const [fifthNo, setFifthNo] = useState('')
+  const [sixthNo, setSixthNo] = useState('')
 
 
 
@@ -102,17 +99,17 @@ function Verifyaccount() {
 
 
   const handleVerification = (e) => {
-    setVerificationCode({ sixthNo: e.target.value })
-    if (verificationCode.firstNo === "" ||
-      verificationCode.secondNo === "" ||
-      verificationCode.thirdNo === "" ||
-      verificationCode.fourthNo === "" ||
-      verificationCode.fivethNo === "") {
+
+    if (firstNo === "" ||
+      secondNo === "" ||
+      thirdNo === "" ||
+      fourthNo === "" ||
+      fifthNo === "") {
       toast.error("Please enter all the code digits", {
         position: "top-center",
       })
     } else {
-      const OTP = verificationCode.firstNo + verificationCode.secondNo + verificationCode.thirdNo + verificationCode.fourthNo + verificationCode.fivethNo + verificationCode.sixthNo
+      const OTP = firstNo + secondNo + thirdNo + fourthNo + fifthNo + sixthNo
       console.log(OTP)
       axios.post(`${apiData}verify/phone/code`, {
         token: Number(OTP)
@@ -133,6 +130,17 @@ function Verifyaccount() {
     }
 
   }
+
+
+  if (sixthNo !== '' && showCount) {
+    handleVerification()
+  }
+
+
+
+
+
+
 
 
   const handleOTPRequest = () => {
@@ -274,9 +282,19 @@ function Verifyaccount() {
 
       {!verify ? (
         <div className="h-auto ">
-          <div className="border mx-auto my-6  rounded-xl    w-7/12 h-11/12 ">
+          <div className="border mx-auto my-3  rounded-xl    w-7/12 h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-              <MdVerified className="text-8xl mb-5 text-gray-600" />
+              <MdVerified className="text-8xl mb-7 text-gray-600" />
+
+              <div className='flex mb-4'><MdVerified /><hr className='w-40 m-1' /><MdVerified className='text-bellefuOrange' /><hr className='w-40 m-1' /><MdVerified className='text-bellefuGreen' /></div>
+              <div className='flex justify-between  space-x-32 text-xs mb-10'>
+                <p>phone verified</p>
+                <p>ID verified</p>
+                <p>KYC verified</p>
+
+              </div>
+
+
               <p className="text-sm text-center text-gray-600 mb-20">
                 Proceed with your verification
                 <br />
@@ -324,43 +342,43 @@ function Verifyaccount() {
                   </p>
                   <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md">
                     <input
-                      value={verificationCode.firstNo}
-                      onChange={(e) => setVerificationCode({ firstNo: e.target.value })}
+                      value={firstNo}
+                      onChange={(e) => setFirstNo(e.target.value)}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
-                      value={verificationCode.secondNo}
-                      onChange={(e) => setVerificationCode({ secondNo: e.target.value })}
+                      value={secondNo}
+                      onChange={(e) => setSecondNo(e.target.value)}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
-                      value={verificationCode.thirdNo}
-                      onChange={(e) => setVerificationCode({ thirdNo: e.target.value })}
+                      value={thirdNo}
+                      onChange={(e) => setThirdNo(e.target.value)}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
-                      value={verificationCode.fourthNo}
-                      onChange={(e) => setVerificationCode({ fourthNo: e.target.value })}
+                      value={fourthNo}
+                      onChange={(e) => setFouthNo(e.target.value)}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
-                      value={verificationCode.fifthNo}
-                      onChange={(e) => setVerificationCode({ fifthNo: e.target.value })}
+                      value={fifthNo}
+                      onChange={(e) => setFifthNo(e.target.value)}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
-                      value={verificationCode.sixthNo}
-                      onChange={handleVerification}
+                      value={sixthNo}
+                      onChange={(e) => setSixthNo(e.target.value)}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
