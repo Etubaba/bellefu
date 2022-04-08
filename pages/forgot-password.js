@@ -71,7 +71,6 @@ const ForgotPassword = ({ countries }) => {
           toast.error("You have not register yet", {
             position: toast.POSITION.TOP_CENTER,
           });
-          console.log("!!");
           setLoading(false);
           router.push("/register");
         }
@@ -94,7 +93,7 @@ const ForgotPassword = ({ countries }) => {
         if (res.data.status) {
           router.push("/login");
         } else {
-          setCodeSent(false);
+          //setCodeSent(false);
           setInvalidCode(true);
           setLoading(false);
           router.push("/forgot-password");
@@ -111,10 +110,13 @@ const ForgotPassword = ({ countries }) => {
 
   useEffect(() => {
     if (!countryPhoneCode) {
+      console.log(countries);
+      console.log(defaultCountry);
       const country = countries.find(
         (country) => country.iso2 === defaultCountry
       );
-      setCountryPhoneCode(`+${country.phone_code}`);
+      console.log(country);
+      //setCountryPhoneCode(`+${country.phone_code}`);
     }
   }, []);
 
@@ -133,9 +135,9 @@ const ForgotPassword = ({ countries }) => {
               : "text-center font-bold py-4 text-red-500"
           }
         >
-          {!codeSent
+          {!codeSent && !invalidCode
             ? "Recover Your Password"
-            : !invalidCode
+            : codeSent && !invalidCode
             ? "Set New Password"
             : "Code Provided Is Invalid"}
         </h1>
@@ -146,7 +148,7 @@ const ForgotPassword = ({ countries }) => {
               onSubmit={!codeSent ? handleSubmit : handleSubmitForNewPassword}
             >
               <div>
-                {!codeSent ? (
+                {!codeSent && !invalidCode ? (
                   <>
                     <div className="flex flex-col md:flex-row">
                       <div className="mr-2 pt-2 w-auto">
@@ -220,7 +222,7 @@ const ForgotPassword = ({ countries }) => {
                           className={
                             !isLoading
                               ? "w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg"
-                              : "w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"
+                              : "w-full bg-[#fabe50] text-white px-3 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"
                           }
                           disabled={isLoading ? true : false}
                         >
@@ -248,7 +250,6 @@ const ForgotPassword = ({ countries }) => {
                           />
                         </div>
                       </div>
-                      {/* <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"></div> */}
                       <div className="flex flex-col flex-auto mb-4 md:mb-0">
                         <div>
                           <label id="newpassword" className="w-full">
@@ -284,7 +285,6 @@ const ForgotPassword = ({ countries }) => {
                           />
                         </div>
                       </div>
-                      {/* <div className="w-[100%] md:w-[100%] mb-3 md:mb-0 md:mr-2"></div> */}
                     </div>
                     <div className="w-[100%] md:w-[50%] mx-auto">
                       <button
