@@ -90,7 +90,7 @@ const ForgotPassword = ({countries}) => {
       if (res.data.status) {
         router.push("/login");
       } else {
-        setCodeSent(false);
+        //setCodeSent(false);
         setInvalidCode(true);
         setLoading(false)
         router.push("/forgot-password");
@@ -113,20 +113,20 @@ const ForgotPassword = ({countries}) => {
   }, [])
 
   return (
-    <>
+    <div>
     <Head>
       <title>forgot password</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <RegisterHeader />
     <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
-      <h1 className={!invalidCode?"text-center font-bold py-4":"text-center font-bold py-4 text-red-500"}>{!codeSent?"Recover Your Password": !invalidCode? "Set New Password":"Code Provided Is Invalid"}</h1>
+      <h1 className={!invalidCode?"text-center font-bold py-4":"text-center font-bold py-4 text-red-500"}>{!codeSent && !invalidCode?"Recover Your Password": codeSent && !invalidCode? "Set New Password":"Code Provided Is Invalid"}</h1>
       <hr />
       <div className="py-8 px-6">
         <div className="w-[100%] mx-auto">
           <form onSubmit={!codeSent?handleSubmit:handleSubmitForNewPassword}> 
           <div>
-          { !codeSent?
+          { !codeSent && !invalidCode?
             <>
               <div className="flex flex-col md:flex-row">
                 <div className="mr-2 pt-2 w-auto"><label id="phone" className="w-full">Phone Number: </label></div>
@@ -177,7 +177,7 @@ const ForgotPassword = ({countries}) => {
                     </div>
                   )}
                 <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[112px] sm:pl-[98px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-                <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Send":"Processing..."}</button></div>
+                <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-3 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Send":"Processing..."}</button></div>
               </div>
             </>:
             <>
@@ -211,7 +211,7 @@ const ForgotPassword = ({countries}) => {
         </div>
       </div>
     </div>
-    </>
+    </div>
   )
 }
 
