@@ -8,13 +8,14 @@ import { Modal, Typography, Divider, Box, Button } from '@mui/material'
 import { apiData } from '../../../constant'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 
 const FavouriteProduct = ({ product }) => {
   const [open, setOpen] = useState(false)
   const [favId, setFavId] = useState(null)
 
-
+  const router = useRouter()
   const details = useSelector(state => state.bellefu.indexData)
 
   const remove = () => {
@@ -47,7 +48,10 @@ const FavouriteProduct = ({ product }) => {
 
   return (
     <div className="bg-bellefuWhite mb-5 p-3 rounded-b-md">
-      <img src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`} className="rounded-md w-full h-44 object-cover" />
+      <img
+        onClick={() => router.push(`/product/${product.productId}`)}
+        src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`}
+        className="rounded-md w-full h-44 object-cover" />
       <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
