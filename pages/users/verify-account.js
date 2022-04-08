@@ -7,15 +7,18 @@ import { BsCloudUpload } from "react-icons/bs";
 import { VscAdd } from "react-icons/vsc";
 import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
-import UnstyledSelectSimple from "../../components/layoutComponents/form-fields/CustomSelect";
-import UnstyledSelectSimple2 from "../../components/layoutComponents/form-fields/CountrySelect";
-import UnstyledSelectSimple3 from "../../components/layoutComponents/form-fields/StateProvince";
-import UnstyledSelectSimple4 from "../../components/layoutComponents/form-fields/City";
-import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields/Lga";
 import { profileDetails } from "../../features/bellefuSlice";
+import { useRouter } from 'next/router'
+import axios from "axios";
+import { apiData } from "../../constant";
+import { toast } from 'react-toastify';
+import Countdown from "react-countdown";
 
 function Verifyaccount() {
-  //const user = useSelector(profileDetails);
+  //conditional rendering
+  const [isCounting, setCounting] = useState(true);
+  const [showCount, setShowCount] = useState(false);
+  const [countDate, setCountDate] = useState(null);
 
   const [verify, setVerify] = useState(false);
   const [phone, setPhone] = useState(false);
@@ -24,20 +27,44 @@ function Verifyaccount() {
   const [pCongrats, setPCongrats] = useState(false);
   const [file, setFile] = useState(undefined);
   const [idfile, setIdfile] = useState();
+  // Id preview
   const [preview, setPreview] = useState();
   const [preview2, setPreview2] = useState();
 
+  // text preview of images
   const [biz, setBiz] = useState(undefined);
   const [pics, setPics] = useState(undefined);
   const [bill, setBill] = useState(undefined);
+  //id image file posting
+  const [idImage, setIdImage] = useState();
+  const [idImage2, setIdImage2] = useState();
+  const [idsubmitted, setIdsubmitted] = useState(false);
+  //kYc file posting
+  const [bizDoc, setBizDoc] = useState();
+  const [picDoc, setPicDoc] = useState();
+  const [billDoc, setBillDoc] = useState();
+  //kyc account
+  const [account, setAccount] = useState({
+    accountType: "",
+    accountNumber: "",
+    bankName: "",
+    accountName: "",
+  });
 
-  // const onDrop = useCallback(acceptedFiles => {
-  //     setFile(acceptedFiles)
-  //     setPreview(URL.createObjectURL(acceptedFiles[0]))
-  // }, [])
+  // verification code 
+  const [verificationCode, setVerificationCode] = useState({
+    firstNo: "",
+    secondNo: "",
+    thirdNo: "",
+    fourthNo: "",
+    fivethNo: "",
+    sixthNo: "",
+  });
 
 
 
+
+  const router = useRouter()
 
   const IDstyle = {
     transform: idopen ? "rotate(90deg)" : "rotate(0)",
@@ -55,6 +82,190 @@ function Verifyaccount() {
     color: phone ? "#FFA500" : "rgb(116, 110, 110)",
   };
 
+
+
+
+
+  const userId = useSelector((state) => state.bellefu?.profileDetails);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const handleVerification = (e) => {
+    setVerificationCode({ sixthNo: e.target.value })
+    if (verificationCode.firstNo === "" ||
+      verificationCode.secondNo === "" ||
+      verificationCode.thirdNo === "" ||
+      verificationCode.fourthNo === "" ||
+      verificationCode.fivethNo === "") {
+      toast.error("Please enter all the code digits", {
+        position: "top-center",
+      })
+    } else {
+      const OTP = verificationCode.firstNo + verificationCode.secondNo + verificationCode.thirdNo + verificationCode.fourthNo + verificationCode.fivethNo + verificationCode.sixthNo
+      console.log(OTP)
+      axios.post(`${apiData}verify/phone/code`, {
+        token: Number(OTP)
+      }).then((res) => {
+        if (res.data.status) {
+          toast.success("Account verified successfully", {
+            position: "top-center",
+          })
+          router.push("/dashboard")
+        } else {
+          toast.error("Verification code is incorrect", {
+            position: "top-center",
+          })
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
+  }
+
+
+  const handleOTPRequest = () => {
+    setShowCount(true);
+    axios.post(`${apiData}send/phone/code`, {
+      userid: userId.id,
+      phone: userId.phone
+    })
+      .then((res) => {
+        console.log(res.data);
+        // if (res.data.status) {
+        //   // setPCongrats(true)
+        // }
+      });
+
+
+  }
+
+  const handleCall = (e) => {
+    e.preventDefault()
+    setShowCount(true)
+    // axios.post(`${apiData}send/phone/code`, {
+    //   userid: userId.id,
+    //   phone: userId.phone
+    // })
+    //   .then((res) => {
+    //    console.log(res.data)
+    //   });
+
+  }
+
+
+
+
+
+  const onComplete = () => {
+
+    setShowCount(false);
+    if (verificationCode.sixthNo === "") {
+      toast.info("Try request OTP by call", {
+        position: "top-center",
+      })
+    }
+
+
+  }
+  const renderer = ({ minutes, seconds, completed }) => {
+    if (completed) {
+      return null;
+    }
+    else return <strong className="ml-3">{minutes}mins:{seconds}s</strong>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const handleIdSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("images1", idImage);
+    formData.append("images", idImage2);
+    formData.append("userid", userId?.id);
+    axios({
+      method: "post",
+      url: `${apiData}verify/user/id`,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    })
+      .then((res) => {
+        if (res.data.status) {
+          toast.success('Your ID verification is under review', {
+            position: "top-center"
+          })
+          setIdsubmitted(true)
+        }
+      })
+
+  }
+
+  const handleKycSubmit = (e) => {
+    e.preventDefault();
+    if (account.accountType === '' ||
+      account.accountNumber === '' ||
+      account.bankName === '' ||
+      account.accountName === '' ||
+      bizDoc === undefined ||
+      billDoc === undefined) {
+      toast.error('Please all fields are required', {
+        position: "top-center"
+      })
+
+    } else {
+      const formData = new FormData();
+      formData.append("images1", bizDoc);
+      formData.append("images", picDoc);
+      formData.append("images2", billDoc);
+      formData.append("userid", userId);
+      formData.append("accountname", account.accountName);
+      formData.append("accountnumber", account.accountNumber);
+      formData.append("bankname", account.bankName);
+      formData.append("accounttype", account.accountType);
+      axios({
+        method: "post",
+        url: `${apiData}verify/user/kyc`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      })
+        .then((res) => {
+          if (res.data.status) {
+            toast.success('Your KYC verification is under review', {
+              position: "top-center"
+            })
+            setIdsubmitted(true)
+          }
+        })
+    }
+  }
+
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
       <div className="text-xl ml-4 self p-2">Account Verification</div>
@@ -67,16 +278,16 @@ function Verifyaccount() {
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <MdVerified className="text-8xl mb-5 text-gray-600" />
               <p className="text-sm text-center text-gray-600 mb-20">
-                You have not verified your account
+                Proceed with your verification
                 <br />
-                Kindly click on the botton below for Phone verification
+                Kindly click on the botton below to complete verification process
               </p>
               <button
                 onClick={() => setVerify(true)}
                 className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"
               >
                 <MdVerified className="text-xl" />{" "}
-                <span >Request Phone Verification</span>
+                <span >Complete Verification</span>
               </button>
             </div>
           </div>
@@ -105,56 +316,80 @@ function Verifyaccount() {
             {phone && !pCongrats && (
               // phone verification
 
-              <div className=" ease-out h-96">
-                <div className="flex flex-col space-y-5 justify-center items-center mt-16 mb-24">
+              <div className=" ease-out h-auto">
+                <div className="flex flex-col h-auto space-y-5 justify-center items-center  mt-16 mb-16">
                   <p className="mb-5">
                     A verification code has been sent to this number :{" "}
-                    <strong>+2348133886084</strong>
+                    <strong>{userId?.phone} </strong>
                   </p>
                   <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md">
                     <input
+                      value={verificationCode.firstNo}
+                      onChange={(e) => setVerificationCode({ firstNo: e.target.value })}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
+                      value={verificationCode.secondNo}
+                      onChange={(e) => setVerificationCode({ secondNo: e.target.value })}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
+                      value={verificationCode.thirdNo}
+                      onChange={(e) => setVerificationCode({ thirdNo: e.target.value })}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
+                      value={verificationCode.fourthNo}
+                      onChange={(e) => setVerificationCode({ fourthNo: e.target.value })}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
+                      value={verificationCode.fifthNo}
+                      onChange={(e) => setVerificationCode({ fifthNo: e.target.value })}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
+                      value={verificationCode.sixthNo}
+                      onChange={handleVerification}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                   </div>
 
-                  <p className="mb-7">
-                    Request another code in:<strong className="ml-3">0s</strong>{" "}
+                  <p className="my-14 ">
+                    Request another code in:{showCount ? <Countdown date={Date.now() + 1000 * 60 * 2} renderer={renderer} onComplete={onComplete} /> : <span className='ml-3'>0s</span>}
                   </p>
 
-                  <button
-                    onClick={() => setPCongrats(true)}
-                    className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-4 px-32 space-x-3 bg-bellefuOrange"
-                  >
-                    <MdVerified className="text-xl" />
-                    <span>Request another code</span>
-                  </button>
+
+                  <div className='flex space-x-3 pt-10 justify-center items-center'>
+                    <button
+                      onClick={handleCall}
+                      disabled={showCount ? true : false}
+                      className={!showCount ? "flex hover:bg-green-600  rounded-md text-white py-3 px-10 space-x-3 bg-bellefuGreen" : "flex   rounded-md text-white py-3 px-10 space-x-3 bg-[#E0E0E0] "}
+                    >
+                      <MdVerified className={showCount ? "text-xl text-[#A6A6A6]" : 'text-xl'} />
+                      <span className={showCount ? 'text-[#A6A6A6]' : null}>Request call verification</span>
+                    </button>
+                    <button
+                      disabled={showCount ? true : false}
+                      onClick={handleOTPRequest}
+                      className={!showCount ? "flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-3 px-10 space-x-3 bg-bellefuOrange" : "flex rounded-md text-white py-3 px-10 space-x-3 bg-[#E0E0E0] "}
+                    >
+                      <MdVerified className={showCount ? "text-xl text-[#A6A6A6]" : 'text-xl'} />
+                      <span className={showCount ? 'text-[#A6A6A6]' : null}>Request OTP verification</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -168,6 +403,7 @@ function Verifyaccount() {
                 </p>
 
                 <div className="flex space-x-5">
+
                   <button className="px-28 py-4 border  rounded"> skip</button>
                   <button className="px-16 py-4 bg-bellefuOrange text-white rounded">
                     {" "}
@@ -201,11 +437,41 @@ function Verifyaccount() {
 
             {idopen && <hr className="mt-7" />}
 
-            {idopen && preview === undefined && (
+
+
+
+            {idopen && preview === undefined && idsubmitted && (
+
+              <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+                <MdVerified className="text-8xl  mb-5 text-bellefuOrange-600" />
+                <p className="mb-7 text-center">
+                  <strong> Congrats !!!</strong>
+                  <br /> Your ID is under review
+                </p>
+
+                <div className="flex space-x-5">
+
+                  <button
+                    onClick={() => router.push("/user")}
+                    className="px-16 py-2 bg-bellefuOrange text-white rounded">
+                    Go to Dashboard
+                  </button>
+                </div>
+              </div>
+
+            )}
+
+            {idopen && preview === undefined && !idsubmitted && (
               <div className="h-80">
                 <Dropzone
-                  onDrop={(acceptedFiles) =>
+                  onDrop={(acceptedFiles) => {
+                    for (let i = 0; i < acceptedFiles.length; i++) {
+                      let loopedfile = acceptedFiles[i];
+                      setIdImage(loopedfile);
+                    }
+
                     setPreview(URL.createObjectURL(acceptedFiles[0]))
+                  }
                   }
                 >
                   {({ getRootProps, getInputProps }) => (
@@ -249,8 +515,15 @@ function Verifyaccount() {
                   <div className="h-40 w-[40%] items-center justify-center border-dashed border">
                     {preview2 === undefined ? (
                       <Dropzone
-                        onDrop={(acceptedFiles) =>
+                        onDrop={(acceptedFiles) => {
+
+                          for (let i = 0; i < acceptedFiles.length; i++) {
+                            let looped = acceptedFiles[i]
+                            setIdImage2(looped)
+                          }
+
                           setPreview2(URL.createObjectURL(acceptedFiles[0]))
+                        }
                         }
                       >
                         {({ getRootProps, getInputProps }) => (
@@ -276,7 +549,7 @@ function Verifyaccount() {
                     Cancel
                   </button>
                   <button
-
+                    onClick={handleIdSubmit}
                     className="px-32 py-4 bg-bellefuOrange hover:bg-orange-500 text-white rounded"
                   >
                     {" "}
@@ -320,6 +593,10 @@ function Verifyaccount() {
                 <Dropzone
                   onDrop={(acceptedFiles) => {
                     setBiz(acceptedFiles[0].name);
+                    for (let i = 0; i < acceptedFiles.length; i++) {
+                      let looped = acceptedFiles[i]
+                      setBizDoc(looped)
+                    }
                     // setBiz(URL.createObjectURL(acceptedFiles[0]))
                   }}
                 >
@@ -348,16 +625,6 @@ function Verifyaccount() {
                   )}
                 </Dropzone>
 
-                <div className=" m-10 space-y-5">
-                  <label className="block  text-sm font-medium text-gray-700">
-                    Document description
-                  </label>
-                  <input
-                    type="text"
-                    autocomplete="family-name"
-                    className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                  />
-                </div>
 
                 <hr className="mb-10" />
 
@@ -370,6 +637,10 @@ function Verifyaccount() {
                 <Dropzone
                   onDrop={(acceptedFiles) => {
                     setBill(acceptedFiles[0].name);
+                    for (let i = 0; i < acceptedFiles.length; i++) {
+                      let looped = acceptedFiles[i]
+                      setBillDoc(looped)
+                    }
                     // setBiz(URL.createObjectURL(acceptedFiles[0]))
                   }}
                 >
@@ -398,16 +669,7 @@ function Verifyaccount() {
                   )}
                 </Dropzone>
 
-                <div className=" m-10 space-y-5">
-                  <label className="block  text-sm font-medium text-gray-700">
-                    Document description
-                  </label>
-                  <input
-                    type="text"
-                    autocomplete="family-name"
-                    className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                  />
-                </div>
+
 
                 {/* third upload  */}
 
@@ -420,6 +682,10 @@ function Verifyaccount() {
                 <Dropzone
                   onDrop={(acceptedFiles) => {
                     setPics(acceptedFiles[0].name);
+                    for (let i = 0; i < acceptedFiles.length; i++) {
+                      let looped = acceptedFiles[i]
+                      setPicDoc(looped)
+                    }
                     // setBiz(URL.createObjectURL(acceptedFiles[0]))
                   }}
                 >
@@ -448,16 +714,7 @@ function Verifyaccount() {
                   )}
                 </Dropzone>
 
-                <div className=" m-10 space-y-5">
-                  <label className="block  text-sm font-medium text-gray-700">
-                    Document description
-                  </label>
-                  <input
-                    type="text"
-                    autocomplete="family-name"
-                    className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                  />
-                </div>
+
 
                 {/* company account details form  */}
                 <hr className="mb-10" />
@@ -467,6 +724,8 @@ function Verifyaccount() {
                     Account Number
                   </label>
                   <input
+                    value={account.accountNumber}
+                    onChange={(e) => setAccount({ accountNumber: e.target.value })}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -478,6 +737,8 @@ function Verifyaccount() {
                     Account Name
                   </label>
                   <input
+                    value={account.accountName}
+                    onChange={(e) => setAccount({ accountName: e.target.value })}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -489,6 +750,8 @@ function Verifyaccount() {
                     Type of Account
                   </label>
                   <input
+                    value={account.accountType}
+                    onChange={(e) => setAccount({ accountType: e.target.value })}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -500,106 +763,25 @@ function Verifyaccount() {
                     Bank Name
                   </label>
                   <input
+                    value={account.bankName}
+                    onChange={(e) => setAccount({ bankName: e.target.value })}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                   />
                 </div>
 
-                <hr className="mb-10" />
 
-                <form action="#" method="POST">
-                  <div className=" overflow-hidden sm:rounded-md">
-                    <div className="px-4 py-5 sm:p-6">
-                      <div className="grid grid-cols-6 gap-6">
-                        <div className="col-span-6 sm:col-span-3">
-                          <div className=" relative rounded-md">
-                            <div className="absolute inset-y-0 left-0 top-[1.23rem] flex items-center">
-                              <UnstyledSelectSimple />
-                            </div>
-                            <label
-                              htmlFor="price"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Phone Number
-                            </label>
-                            <input
-                              type="tele"
-                              name="phone-number"
-                              id="phone-number"
-                              className="bg-[white] p-[8px] mt-[2px] focus:ring-bellefuGreen focus:outline-0 block w-[70%] relative left-[7vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                              placeholder="Your number"
-                            />
-                          </div>
-                        </div>
-                        {/* first field */}
-                        <div className="col-span-6 sm:col-span-3">
-                          <label
-                            htmlFor="price"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Country
-                          </label>
-                          <UnstyledSelectSimple2 />
-                        </div>
-                        {/* second field */}
-                        <div className="col-span-6 sm:col-span-3">
-                          <label
-                            for="state"
-                            className="block  text-sm font-medium text-gray-700"
-                          >
-                            States/Province
-                          </label>
-                          <UnstyledSelectSimple3 />
-                        </div>
 
-                        <div className="col-span-6 sm:col-span-3">
-                          <label
-                            for="last-name"
-                            className="block  text-sm font-medium text-gray-700"
-                          >
-                            City
-                          </label>
-                          <UnstyledSelectSimple4 />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                          <label
-                            for="email"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            LGA
-                          </label>
-                          <UnstyledSelectSimple5 />
-                        </div>
+                <div className="p-5 flex justify-center items-center ">
+                  <button
+                    onClick={handleKycSubmit}
 
-                        <div className="col-span-6 sm:col-span-3">
-                          <label
-                            for="last-name"
-                            className="block  text-sm font-medium text-gray-700"
-                          >
-                            Address
-                          </label>
-                          <input
-                            type="text"
-                            name="address"
-                            id="address"
-                            autocomplete="your address"
-                            className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-5">
-                    <button
-                      type="submit"
-                      class="flex justify-center items-center w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-                    >
-                      Save
-                    </button>
-                  </div>
-                </form>
+                    className="  w-[50%] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  >
+                    submit
+                  </button>
+                </div>
               </div>
             )}
           </div>

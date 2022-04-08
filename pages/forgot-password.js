@@ -4,6 +4,7 @@ import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import { homeData } from "../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { apiData } from "../constant";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -30,7 +31,9 @@ const ForgotPassword = ({countries}) => {
   const [countryPhoneCode, setCountryPhoneCode] = useState("");
   const [selectCountry, setSelectCountry] = useState(false);
   const [flag, setFlag] = useState(null);
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showIcon, setShowIcon] = useState(false)
 
   const handleChange = (evt) => {
     if (isNaN(evt.target.value)) return;
@@ -39,8 +42,18 @@ const ForgotPassword = ({countries}) => {
 
   const handleChangeForNewPassword = (input) => (evt) => {
     if (input === "token" && isNaN(evt.target.value)) return;
+
+    if (input === "password") {
+      if (evt.target.value) setShowIcon(true);
+      else setShowIcon(false);
+    }
+
     setFormFields({...formFields, [input]: evt.target.value});
-  }
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const handleSubmit =  (evt) => {
     evt.preventDefault();
@@ -50,15 +63,16 @@ const ForgotPassword = ({countries}) => {
     setLoading(true);
     axios.post(`${apiData}user/forgot/password`, {phone: phoneWithCountryCode})
     .then(res => {
-      if (res.status) {
+      if (res.data.status) {
         setLoading(false);
         setCodeSent(true);
       } else {
-        toast.error("Server busy. Try again later.", {
+        toast.error("You have not register yet", {
           position: toast.POSITION.TOP_CENTER
         });
+        console.log("!!");
         setLoading(false);
-        router.push("/forgot-password");
+        router.push("/register");
       }
     })
     .catch(error => {
@@ -68,13 +82,12 @@ const ForgotPassword = ({countries}) => {
   }
 
   const handleSubmitForNewPassword = (evt) => {
-    console.log("!")
     evt.preventDefault();
 
     setLoading(true);
     axios.post(`${apiData}user/password/reset`, formFields)
     .then(res => {
-      if (res.status) {
+      if (res.data.status) {
         router.push("/login");
       } else {
         setCodeSent(false);
@@ -162,15 +175,15 @@ const ForgotPassword = ({countries}) => {
                     ))}
                   </div>
                 )}
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[98px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
+              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[112px] sm:pl-[98px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
               <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Send":"Processing"}</button></div>
             </>:
             <>
               <div className="mr-2 pt-2 w-auto"><label id="token" className="w-full">code: </label></div>
               <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={formFields.token} onChange={handleChangeForNewPassword("token")} htmlFor="token" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
               <div className="mr-2 pt-2 w-auto"><label id="newpassword" className="w-full">New Password: </label></div>
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={formFields.password} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Submit":"Processing"}</button></div>
+              <div className="w-[100%] md:w-[100%] mb-3 md:mb-0 md:mr-2"><input type={showPassword ? "text" : "password"} value={formFields.password} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
+              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-4 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Submit":"Processing"}</button></div>
             </>
            }
           </div>
