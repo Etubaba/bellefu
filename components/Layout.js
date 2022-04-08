@@ -13,12 +13,12 @@ const Layout = ({ children }) => {
       {userId ? (
         <>
           {/* small header for popping mobile sidebar for user profile  */}
-          <div className="lg:hidden flex items-center mt-1 bg-bellefuGreen justify-between rounded-md px-2 py-1">
+          {/* <div className="lg:hidden flex items-center mt-1 bg-bellefuGreen justify-between rounded-md px-2 py-1">
             <p className="text-white font-semibold">Dashboard </p>
             <button className="" onClick={() => setOpen(!open)}>
               <FiMenu className="w-6 h-6 text-white" />
             </button>
-          </div>
+          </div> */}
           {/* end of small header for popping mobile sidebar for user profile  */}
           <div className="flex flex-col lg:flex-row">
             <div className="hidden lg:inline">
