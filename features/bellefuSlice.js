@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   subcatselected: undefined,
+  verificationStatus: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("verify")) : null,
   userDetails:
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("details"))
@@ -42,12 +43,12 @@ const initialState = {
     symbo: "",
   },
   // update user profile things
-  userUpdate:{
-    states:"",
-    lga:"",
-    statesname: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userState")):null,
-  
-    lganame: typeof window !== "undefined" ?  JSON.parse(localStorage.getItem("userLga")):null,
+  userUpdate: {
+    states: "",
+    lga: "",
+    statesname: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userState")) : null,
+
+    lganame: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userLga")) : null,
   }
 };
 
@@ -67,6 +68,9 @@ export const bellefuSlice = createSlice({
     },
     isDisabled: (state, action) => {
       state.formDisabler = action.payload;
+    },
+    ifVerified: (state, action) => {
+      state.verificationStatus = action.payload;
     },
     updateIdpath: (state, action) => {
       state.catId = action.payload;
@@ -88,18 +92,18 @@ export const bellefuSlice = createSlice({
       state.indexApi = action.payload;
     },
     // userUpdate things 
-      handleStates: (state, action) => {
-        state.userUpdate.states = action.payload;
-      },
-      handleLga: (state, action) => {
-        state.userUpdate.lga = action.payload;
-      },
-      handleStatesname: (state, action) => {
-        state.userUpdate.statesname = action.payload;
-      },
-      handleLganame: (state, action) => {
-        state.userUpdate.lganame = action.payload;
-      },
+    handleStates: (state, action) => {
+      state.userUpdate.states = action.payload;
+    },
+    handleLga: (state, action) => {
+      state.userUpdate.lga = action.payload;
+    },
+    handleStatesname: (state, action) => {
+      state.userUpdate.statesname = action.payload;
+    },
+    handleLganame: (state, action) => {
+      state.userUpdate.lganame = action.payload;
+    },
 
     // end here
 
@@ -212,7 +216,7 @@ export const {
   handleSymbolUpdate,
   handleUserDetails,
   handleStates,
-  handleLga,
+  handleLga, ifVerified,
   handleLganame,
   handleStatesname
 } = bellefuSlice.actions;
@@ -224,7 +228,7 @@ export const selectDisable = (state) => state.bellefu.formDisabler;
 export const homeData = (state) => state.bellefu.indexData;
 export const changeId = (state) => state.bellefu.catId;
 export const userDId = (state) => state.bellefu.userDetails;
-
+export const verified = (state) => state.bellefu.verificationStatus
 // export const selectLogin = (state) => {
 //   state.bellefu.login;
 // };
