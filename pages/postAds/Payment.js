@@ -1,8 +1,14 @@
 import React from "react";
 import Layout from "../../components/postAdsComponent/Layout";
 import UnstyledSelectSimpleCard from "../../components/postAdsComponent/Card";
+import { useRouter } from "next/router";
+
 
 export default function Payment() {
+
+  const router = useRouter();
+
+
   const handleBack = (e) => {
     e.preventDefault();
     router.back();
