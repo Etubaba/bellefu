@@ -125,65 +125,85 @@ const ForgotPassword = ({countries}) => {
       <div className="py-8 px-6">
         <div className="w-[100%] mx-auto">
           <form onSubmit={!codeSent?handleSubmit:handleSubmitForNewPassword}> 
-          <div className="flex flex-col md:flex-row">
+          <div>
           { !codeSent?
             <>
-              <div className="mr-2 pt-2 w-auto"><label id="phone" className="w-full">Phone Number: </label></div>
-              <div className="absolute mt-10 md:mt-2 left-[6%] md:left-[31%] flex space-x-1 items-center justify-center ml-8 hover:cursor-pointer" onClick={() => setSelectCountry(!selectCountry)}>
-                  <div className="flex">
-                  <span className="mr-1">{`${countryPhoneCode}`}</span>
-                    <img
-                      alt="error"
-                      src={
-                        flag === null
-                          ? `https://flagcdn.com/32x24/${defaultCountry?.toLowerCase()}.png`
-                          : `https://flagcdn.com/32x24/${flag?.toLowerCase()}.png`
+              <div className="flex flex-col md:flex-row">
+                <div className="mr-2 pt-2 w-auto"><label id="phone" className="w-full">Phone Number: </label></div>
+                <div className="absolute mt-10 md:mt-2 left-[6%] md:left-[31%] flex space-x-1 items-center justify-center ml-8 hover:cursor-pointer" onClick={() => setSelectCountry(!selectCountry)}>
+                    <div className="flex">
+                      <img
+                        alt="error"
+                        src={
+                          flag === null
+                            ? `https://flagcdn.com/32x24/${defaultCountry?.toLowerCase()}.png`
+                            : `https://flagcdn.com/32x24/${flag?.toLowerCase()}.png`
+                        }
+                      />
+                      <span className="ml-1">{countryPhoneCode}</span>
+                    </div>
+                    <AiFillCaretDown
+                      className={
+                        selectCountry ? "text-bellefuOrange" : "text-gray-600"
                       }
                     />
                   </div>
-                  <AiFillCaretDown
-                    className={
-                      selectCountry ? "text-bellefuOrange" : "text-gray-600"
-                    }
-                  />
-                </div>
-                {selectCountry && (
-                  <div className="z-50 absolute -top-7 left-[8%] md:left-[32%] pt-2 h-80 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {countries.map((country) => (
-                      <div
-                        key={country.id}
-                        onClick={() => {
-                          setFlag(country.iso2);
-                          setSelectCountry(false);
-                          setCountryPhoneCode(`+${country.phone_code}`);
-                        }}
-                        className="py-1 flex space-x-3 hover:bg-bellefuBackground"
-                      >
-                        <p
+                  {selectCountry && (
+                    <div className="z-50 absolute -top-7 left-[8%] md:left-[32%] pt-2 h-80 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      {countries.map((country) => (
+                        <div
                           key={country.id}
-                          className="text-gray-700 space-x-3 px-4 flex py-2 text-sm"
+                          onClick={() => {
+                            setFlag(country.iso2);
+                            setSelectCountry(false);
+                            setCountryPhoneCode(`+${country.phone_code}`);
+                          }}
+                          className="py-1 flex space-x-3 hover:bg-bellefuBackground"
                         >
-                          <div className="flex">
-                            <span className="mr-2">{`+${country.phone_code}`}</span>
-                            <img
-                              alt="error"
-                              src={`https://flagcdn.com/20x15/${country.iso2.toLowerCase()}.png`}
-                            />
-                          </div>
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[112px] sm:pl-[98px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Send":"Processing"}</button></div>
+                          <p
+                            key={country.id}
+                            className="text-gray-700 space-x-3 px-4 flex py-2 text-sm"
+                          >
+                            <div className="flex">
+                              <img
+                                alt="error"
+                                src={`https://flagcdn.com/20x15/${country.iso2.toLowerCase()}.png`}
+                              />
+                              <span className="ml-2">{`+${country.phone_code}`}</span>
+                            </div>
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={phone} onChange={handleChange} htmlFor="phone" className="w-full rounded-lg py-2 pl-[112px] sm:pl-[98px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
+                <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Send":"Processing..."}</button></div>
+              </div>
             </>:
             <>
-              <div className="mr-2 pt-2 w-auto"><label id="token" className="w-full">code: </label></div>
-              <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"><input type="text" value={formFields.token} onChange={handleChangeForNewPassword("token")} htmlFor="token" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-              <div className="mr-2 pt-2 w-auto"><label id="newpassword" className="w-full">New Password: </label></div>
-              <div className="w-[100%] md:w-[100%] mb-3 md:mb-0 md:mr-2"><input type={showPassword ? "text" : "password"} value={formFields.password} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" /></div>
-              <div className="w-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-4 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Submit":"Processing"}</button></div>
+              <div className="flex flex-col md:flex-row my-3 md:my-9">
+                <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
+                  <div>
+                    <label id="token" className="w-full">code: </label>
+                  </div>
+                  <div className="w-full mb-3 md:mb-0 md:mr-2">
+                    <input type="text" value={formFields.token} onChange={handleChangeForNewPassword("token")} htmlFor="token" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" />
+                  </div>
+                </div>
+                {/* <div className="w-[100%] md:w-[60%] mb-3 md:mb-0 md:mr-2"></div> */}
+                <div className="flex flex-col flex-auto mb-4 md:mb-0">
+                  <div>
+                    <label id="newpassword" className="w-full">New Password: </label>
+                  </div>
+                    {showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9  right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} />
+                    }
+                  <div className="w-full mb-3 md:mb-0 md:mr-2">
+                    <input type={showPassword ? "text" : "password"} value={formFields.password} onChange={handleChangeForNewPassword("password")} htmlFor="newpassword" className="w-full rounded-lg py-2 px-4 outline outline-[#F1F1F1] focus:outline-[#FFA500]" />
+                  </div>
+                </div>
+                {/* <div className="w-[100%] md:w-[100%] mb-3 md:mb-0 md:mr-2"></div> */}
+              </div>
+              <div className="w-[100%] md:w-[50%] mx-auto"><button type="submit" className={!isLoading?"w-full bg-[#FFA500] hover:bg-[#fabe50] text-white px-4 py-2 text-center rounded-lg":"w-full bg-[#fabe50] text-white px-9 py-2 text-center rounded-lg hover:cursor-not-allowed cursor-not-allowed"} disabled={isLoading?true:false}>{!isLoading?"Submit":"Processing..."}</button></div>
             </>
            }
           </div>
