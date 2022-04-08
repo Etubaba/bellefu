@@ -46,8 +46,9 @@ const initialState = {
   userUpdate: {
     states: "",
     lga: "",
-    statesname: typeof window !== "undefined" ? localStorage.getItem("userState") : null,
-    lganame: typeof window !== "undefined" ? localStorage.getItem("userLga") : null,
+    statesname: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userState")) : null,
+
+    lganame: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userLga")) : null,
   }
 };
 
