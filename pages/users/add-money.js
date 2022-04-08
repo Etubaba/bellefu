@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { BiCaretRight } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
@@ -116,6 +117,11 @@ const AddMoney = () => {
   }
 
   return (
+    <>
+    <Head>
+      <title>Add Money</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
     <div className="bg-bellefuWhite rounded-md mt-5 ">
       <h1 className="px-8 py-4 font-bold">Fund My Wallet</h1>
       <hr />
@@ -224,6 +230,7 @@ const AddMoney = () => {
         </div>
       </div>
     </div>
+    </>
   )
 };
 

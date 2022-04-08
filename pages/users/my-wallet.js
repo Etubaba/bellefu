@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { GiWallet } from "react-icons/gi";
 import Layout from "../../components/Layout";
 import { useSelector } from 'react-redux'
@@ -13,6 +14,11 @@ const Creditwallet = () => {
 
   const creditwallet = useSelector((state) => state.bellefu?.profileDetails?.wallet_balance)
   return (
+    <>
+    <Head>
+      <title>My Wallet</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
     <div className="bg-bellefuWhite rounded-md mt-5 ">
       <h1 className="px-8 py-4 font-semibold">My Wallet</h1>
       <hr />
@@ -32,6 +38,7 @@ const Creditwallet = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

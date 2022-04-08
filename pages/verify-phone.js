@@ -96,8 +96,6 @@ const VerifyPhone = () => {
     else return false;
   };
   const onComplete = () => {
-    //setCounting(false);
-    //setCountDate(null);
     setShowCount(false);
   }
   const renderer = ({minutes,seconds, completed}) => {
@@ -108,7 +106,6 @@ const VerifyPhone = () => {
   } 
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
-    //if (!verificationCode.firstNo && isCounting) firstInput.current.focus();
 
     if (verificationCode.firstNo && !verificationCode.secondNo) {
       secondInput.current.focus();
