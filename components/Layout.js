@@ -10,7 +10,32 @@ const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
-      <main className="">{children}</main>{" "}
+      {userId ? (
+        <>
+          {/* small header for popping mobile sidebar for user profile  */}
+          <div className="lg:hidden flex items-center mt-1 bg-bellefuGreen justify-between rounded-md px-2 py-1">
+            <p className="text-white font-semibold">Dashboard </p>
+            <button className="" onClick={() => setOpen(!open)}>
+              <FiMenu className="w-6 h-6 text-white" />
+            </button>
+          </div>
+          {/* end of small header for popping mobile sidebar for user profile  */}
+          <div className="flex flex-col lg:flex-row">
+            <div className="hidden lg:inline">
+              <UserSideBar />
+            </div>
+            {open && (
+              <div className="lg:hidden">
+                {" "}
+                <MobileUserSidebar open={open} setOpen={setOpen} />
+              </div>
+            )}
+            <main className="flex-grow">{children}</main>{" "}
+          </div>
+        </>
+      ) : (
+        <AlternateComponent />
+      )}
     </div>
   );
 };
