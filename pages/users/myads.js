@@ -22,7 +22,7 @@ const Ads = () => {
   useEffect(() => {
     const getProduct = async () => {
       const res = await axios.get(
-        `${apiData}list/user/product/${test}/approved`
+        `${apiData}list/user/product/${userId}/approved`
       );
       setPublished(res.data.data.data);
     };
@@ -35,7 +35,7 @@ const Ads = () => {
   useEffect(() => {
     const getProduct = async () => {
       const res = await axios.get(
-        `${apiData}list/user/product/${test}/pending`
+        `${apiData}list/user/product/${userId}/pending`
       );
       setPend(res.data.data.data);
     };
@@ -46,7 +46,7 @@ const Ads = () => {
   useEffect(() => {
     const getProduct = async () => {
       const res = await axios.get(
-        `${apiData}list/user/product/${test}/expired`
+        `${apiData}list/user/product/${userId}/expired`
       );
       setExpired(res.data.data.data);
     };

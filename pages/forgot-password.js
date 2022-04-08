@@ -110,11 +110,8 @@ const ForgotPassword = ({ countries }) => {
 
   useEffect(() => {
     if (!countryPhoneCode) {
-      console.log(countries)
-      console.log(defaultCountry);
       const country = countries.find(country => country.iso2 === defaultCountry);
-      console.log(country);
-      //setCountryPhoneCode(`+${country.phone_code}`);
+      setCountryPhoneCode(`+${country.phone_code}`);
     }
   }, []);
 

@@ -25,7 +25,7 @@ const Published = () => {
     useEffect(() => {
         const getProduct = async () => {
 
-            const res = await axios.get(`${apiData}list/user/product/${test}/approved`)
+            const res = await axios.get(`${apiData}list/user/product/${userId}/approved`)
             setApprovedProduct(res.data.data.data)
         }
 
