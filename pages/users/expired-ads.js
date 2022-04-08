@@ -18,7 +18,7 @@ const expiredads = () => {
   useEffect(() => {
     const getProduct = async () => {
 
-      const res = await axios.get(`${apiData}list/user/product/${test}/expired`)
+      const res = await axios.get(`${apiData}list/user/product/${userId}/expired`)
       setExp(res.data.data.data)
     }
 
