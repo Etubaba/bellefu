@@ -98,7 +98,7 @@ const Login = () => {
               {showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9  right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} />
               }
               <p className=""><input type={showPassword ? "text" : "password"} htmlFor="password" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={handleChange("password")} /></p>
-              <p className="text-right hover:text-bellefuGreen mt-2"><button type="button" onClick={() => router.push("/forgot-password")}>Forgot Password</button></p>
+              <p className="text-right hover:text-bellefuGreen mt-2"><button type="button" onClick={() => router.push("/forgot-password")}>forgot password</button></p>
             </div>
           </div>
           <p className="w-[100%] md:w-[50%] mx-auto"><button className={!isLoading ? "hover:bg-[#FFA500] bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4" : "bg-[#fabe50] w-full text-white py-2 text-center rounded-md mb-4"} type="submit" disabled={isLoading ? true : false}>{!isLoading ? "Login" : "Processing..."}</button></p>
