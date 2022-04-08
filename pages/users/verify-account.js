@@ -7,12 +7,13 @@ import { BsCloudUpload } from "react-icons/bs";
 import { VscAdd } from "react-icons/vsc";
 import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
-import { profileDetails } from "../../features/bellefuSlice";
+import { profileDetails, verified } from "../../features/bellefuSlice";
 import { useRouter } from 'next/router'
 import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from 'react-toastify';
 import Countdown from "react-countdown";
+
 
 function Verifyaccount() {
   //conditional rendering
@@ -62,6 +63,7 @@ function Verifyaccount() {
 
 
   const router = useRouter()
+  const isverified = useSelector(verified)
 
   const IDstyle = {
     transform: idopen ? "rotate(90deg)" : "rotate(0)",
@@ -286,11 +288,11 @@ function Verifyaccount() {
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <MdVerified className="text-8xl mb-7 text-gray-600" />
 
-              <div className='flex mb-4'><MdVerified /><hr className='w-40 m-1' /><MdVerified className='text-bellefuOrange' /><hr className='w-40 m-1' /><MdVerified className='text-bellefuGreen' /></div>
+              <div className='flex mb-4'><MdVerified className={!isverified.phone ? 'text-[#A6A6A6] text-xl' : "text-black/70 text-xl"} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified.id ? 'text-bellefuOrange text-xl' : 'text-[#A6A6A6] text-xl'} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified.kyc ? 'text-bellefuGreen text-xl' : 'text-[#A6A6A6] text-xl'} /></div>
               <div className='flex justify-between  space-x-32 text-xs mb-10'>
-                <p>phone verified</p>
-                <p>ID verified</p>
-                <p>KYC verified</p>
+                <p className={!isverified.phone ? 'text-[#A6A6A6]' : null}>phone verified</p>
+                <p className={!isverified.id ? 'text-[#A6A6A6]' : null}>ID verified</p>
+                <p className={!isverified.kyc ? 'text-[#A6A6A6]' : null}>KYC verified</p>
 
               </div>
 
@@ -301,11 +303,12 @@ function Verifyaccount() {
                 Kindly click on the botton below to complete verification process
               </p>
               <button
+                disabled={isverified.kyc ? true : false}
                 onClick={() => setVerify(true)}
-                className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"
+                className={isverified.kyc ? 'bg-[#E0E0E0] rounded-md py-4 px-28 space-x-3' : "flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"}
               >
                 <MdVerified className="text-xl" />{" "}
-                <span >Complete Verification</span>
+                <span className={isverified.kyc ? 'text-[#A6A6A6]' : null} >{isverified.kyc ? ' You have completed verification ' : " Complete Verification"}</span>
               </button>
             </div>
           </div>
@@ -458,7 +461,7 @@ function Verifyaccount() {
 
 
 
-            {idopen && preview === undefined && idsubmitted && (
+            {/* {idopen && preview === undefined && idsubmitted && (
 
               <div className="flex flex-col justify-center mt-24 mb-24 items-center">
                 <MdVerified className="text-8xl  mb-5 text-bellefuOrange-600" />
@@ -477,9 +480,9 @@ function Verifyaccount() {
                 </div>
               </div>
 
-            )}
+            )} */}
 
-            {idopen && preview === undefined && !idsubmitted && (
+            {idopen && preview === undefined && (
               <div className="h-80">
                 <Dropzone
                   onDrop={(acceptedFiles) => {
@@ -520,7 +523,7 @@ function Verifyaccount() {
             )}
             {/* when first file is uploaded  */}
 
-            {preview !== undefined && idopen && (
+            {preview !== undefined && idopen && !idsubmitted ?
               <div className="h-80  ">
                 <div className="flex items-center my-10 justify-center">
                   <div className="h-40 w-[40%] mr-3 justify-center items-center  border-dashed border">
@@ -575,7 +578,23 @@ function Verifyaccount() {
                   </button>
                 </div>
               </div>
-            )}
+              :
+              <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+                <MdVerified className="text-8xl  mb-5 text-bellefuOrange-600" />
+                <p className="mb-7 text-center">
+                  <strong> Congrats !!!</strong>
+                  <br /> Your ID is under review
+                </p>
+
+                <div className="flex space-x-5">
+
+                  <button
+                    onClick={() => setVerify(false)}
+                    className="px-16 py-2 bg-bellefuOrange text-white rounded">
+                    Go back
+                  </button>
+                </div>
+              </div>}
           </div>
 
           {/* KYC Verification */}

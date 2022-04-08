@@ -24,7 +24,7 @@ const pendingads = () => {
   useEffect(() => {
     const getProduct = async () => {
 
-      const res = await axios.get(`${apiData}list/user/product/${test}/pending`)
+      const res = await axios.get(`${apiData}list/user/product/${userId}/pending`)
       setPend(res.data.data.data)
     }
 

@@ -9,7 +9,7 @@ import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
-import { isLoggedIn, setProfileDetails } from "../features/bellefuSlice";
+import { isLoggedIn, setProfileDetails, ifVerified } from "../features/bellefuSlice";
 
 const Login = () => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const Login = () => {
   }
   const handleLogin = (evt) => {
     evt.preventDefault();
-    
+
     setLoading(true);
     fetch(`${apiData}user/login`, {
       method: "POST",
@@ -50,7 +50,8 @@ const Login = () => {
         if (data.status) {
           const user = data.data.user
           localStorage.setItem("user", JSON.stringify(user));
-
+          localStorage.setItem('verify', JSON.stringify(data.data.verification))
+          dispatch(ifVerified(data.data.verification))
           dispatch(isLoggedIn(true));
           dispatch(setProfileDetails(user));
           router.replace("/");
