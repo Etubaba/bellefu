@@ -114,7 +114,8 @@ function Verifyaccount() {
       const OTP = firstNo + secondNo + thirdNo + fourthNo + fifthNo + sixthNo
       console.log(OTP)
       axios.post(`${apiData}verify/phone/code`, {
-        token: Number(OTP)
+        token: Number(OTP),
+        action: 'sms'
       }).then((res) => {
         if (res.data.status) {
           toast.success("Account verified successfully", {
@@ -157,8 +158,6 @@ function Verifyaccount() {
         //   // setPCongrats(true)
         // }
       });
-
-
   }
 
   const handleCall = (e) => {

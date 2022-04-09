@@ -97,9 +97,11 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
           ) : null}
         </p>
         {(fav2 || fav?.includes(product.productId) && getIsLoggedIn) ? (
-          <BsSuitHeartFill
-            onClick={(e) => {
-              // e.stopPropagation();
+          <span
+            onMouseEnter={(e) => {
+              // console.log('i de work')
+              e.stopPropagation();
+              e.preventDefault()
               const favId = fav.find((items) => items === product.productId);
               // console.log(favId);
               if (favId !== undefined) {
@@ -113,20 +115,24 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                       setFav2(false);
                       fav.filter((items) => items !== favId);
                       toast.error(`${product.title.substring(0, 20)} removed from favorite product`, {
-                        position: "top-center",
+                        position: "top-right",
                       });
-
                     }
                   });
               } else {
                 return;
               }
             }}
-            className="w-4 h-4 text-bellefuOrange"
-          />
+          >
+            <BsSuitHeartFill
+
+              className="w-4 h-4 text-bellefuOrange cursor-pointer"
+            />
+          </span>
+
         ) : (
           <BsHeart
-            onClick={(e) => {
+            onMouseEnter={(e) => {
               e.stopPropagation();
               if (getIsLoggedIn) {
                 axios
@@ -147,7 +153,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                 toast.error("Login to add favorite product");
               }
             }}
-            className="w-4 h-4 text-bellefuOrange"
+            className="w-4 h-4 text-bellefuOrange cursor-pointer"
           />
         )}
       </div>

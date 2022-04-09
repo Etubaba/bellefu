@@ -91,7 +91,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
             }
           })
           .map((product) => (
-            <div key={product.productId} className="cursor-pointer">
+            <div key={product.productId} >
               <ProductList
                 key={product.productId}
                 currency={currency}
