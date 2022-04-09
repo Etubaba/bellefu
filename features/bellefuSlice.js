@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  idApply: typeof window !== "undefined" ? localStorage.getItem("idapply") : false,
+  kycApply: typeof window !== "undefined" ? localStorage.getItem("kycapply") : false,
   subcatselected: undefined,
   verificationStatus: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("verify")) : null,
   userDetails:
@@ -68,6 +70,14 @@ export const bellefuSlice = createSlice({
     },
     isDisabled: (state, action) => {
       state.formDisabler = action.payload;
+    },
+    idpending: (state, action) => {
+      state.idApply = action.payload;
+      localStorage.setItem('idapply', state.IdApply)
+    },
+    kycpending: (state, action) => {
+      state.kycApply = action.payload;
+      localStorage.setItem('kycapply', state.kycApply)
     },
     ifVerified: (state, action) => {
       state.verificationStatus = action.payload;
@@ -215,9 +225,9 @@ export const {
   handlePlansUpdate,
   handleSymbolUpdate,
   handleUserDetails,
-  handleStates,
+  handleStates, idpending,
   handleLga, ifVerified,
-  handleLganame,
+  handleLganame, kycpending,
   handleStatesname
 } = bellefuSlice.actions;
 

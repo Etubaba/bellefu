@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { MdVerified } from "react-icons/md";
 import { BiCaretRight } from "react-icons/bi";
@@ -7,7 +7,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import { VscAdd } from "react-icons/vsc";
 import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
-import { profileDetails, verified } from "../../features/bellefuSlice";
+import { profileDetails, verified, idpending, kycpending } from "../../features/bellefuSlice";
 import { useRouter } from 'next/router'
 import axios from "axios";
 import { apiData } from "../../constant";
@@ -39,7 +39,9 @@ function Verifyaccount() {
   //id image file posting
   const [idImage, setIdImage] = useState();
   const [idImage2, setIdImage2] = useState();
-  const [idsubmitted, setIdsubmitted] = useState(false);
+  //submitted ?
+  // const [idsubmitted, setIdsubmitted] = useState(false);
+  // const [kycsubmitted, setKycsubmitted] = useState(false);
   //kYc file posting
   const [bizDoc, setBizDoc] = useState();
   const [picDoc, setPicDoc] = useState();
@@ -64,6 +66,7 @@ function Verifyaccount() {
 
   const router = useRouter()
   const isverified = useSelector(verified)
+  const dispatch = useDispatch();
 
   const IDstyle = {
     transform: idopen ? "rotate(90deg)" : "rotate(0)",
@@ -88,16 +91,8 @@ function Verifyaccount() {
   const userId = useSelector((state) => state.bellefu?.profileDetails);
 
 
-
-
-
-
-
-
-
-
-
-
+  const idsubmitted = useSelector((state) => state.bellefu.idApply)
+  const kycsubmitted = useSelector((state) => state.bellefu.kycApply)
 
 
   const handleVerification = (e) => {
@@ -173,10 +168,6 @@ function Verifyaccount() {
 
   }
 
-
-
-
-
   const onComplete = () => {
 
     setShowCount(false);
@@ -212,6 +203,7 @@ function Verifyaccount() {
     e.preventDefault();
 
     const formData = new FormData();
+
     formData.append("images1", idImage);
     formData.append("images", idImage2);
     formData.append("userid", userId?.id);
@@ -229,6 +221,8 @@ function Verifyaccount() {
             position: "top-center"
           })
           setIdsubmitted(true)
+          dispatch(idpending(true))
+
         }
       })
 
@@ -236,6 +230,7 @@ function Verifyaccount() {
 
   const handleKycSubmit = (e) => {
     e.preventDefault();
+
     if (account.accountType === '' ||
       account.accountNumber === '' ||
       account.bankName === '' ||
@@ -269,7 +264,8 @@ function Verifyaccount() {
             toast.success('Your KYC verification is under review', {
               position: "top-center"
             })
-            setIdsubmitted(true)
+            dispatch(kycpending(true))
+
           }
         })
     }
@@ -295,12 +291,13 @@ function Verifyaccount() {
 
               </div>
 
-
-              <p className="text-sm text-center text-gray-600 mb-20">
-                Proceed with your verification
-                <br />
-                Kindly click on the botton below to complete verification process
-              </p>
+              {isverified.kyc ? <p className='text-sm text-center text-gray-600 mb-12'> Congrat!! <br />
+                you have completed your verification process </p> :
+                <p className="text-sm text-center text-gray-600 mb-12">
+                  Proceed with your verification
+                  <br />
+                  Kindly click on the botton below to complete verification process
+                </p>}
               <button
                 disabled={isverified.kyc ? true : false}
                 onClick={() => setVerify(true)}
@@ -458,29 +455,6 @@ function Verifyaccount() {
             {idopen && <hr className="mt-7" />}
 
 
-
-
-            {/* {idopen && preview === undefined && idsubmitted && (
-
-              <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-                <MdVerified className="text-8xl  mb-5 text-bellefuOrange-600" />
-                <p className="mb-7 text-center">
-                  <strong> Congrats !!!</strong>
-                  <br /> Your ID is under review
-                </p>
-
-                <div className="flex space-x-5">
-
-                  <button
-                    onClick={() => router.push("/user")}
-                    className="px-16 py-2 bg-bellefuOrange text-white rounded">
-                    Go to Dashboard
-                  </button>
-                </div>
-              </div>
-
-            )} */}
-
             {idopen && preview === undefined && (
               <div className="h-80">
                 <Dropzone
@@ -522,7 +496,7 @@ function Verifyaccount() {
             )}
             {/* when first file is uploaded  */}
 
-            {preview !== undefined && idopen && !idsubmitted ?
+            {preview !== undefined && idopen && !idsubmitted &&
               <div className="h-80  ">
                 <div className="flex items-center my-10 justify-center">
                   <div className="h-40 w-[40%] mr-3 justify-center items-center  border-dashed border">
@@ -577,12 +551,14 @@ function Verifyaccount() {
                   </button>
                 </div>
               </div>
-              :
+            }
+
+            {preview !== undefined && idopen && idsubmitted &&
               <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-                <MdVerified className="text-8xl  mb-5 text-bellefuOrange-600" />
+                <MdVerified className="text-8xl  mb-5 text-bellefuOrange" />
                 <p className="mb-7 text-center">
                   <strong> Congrats !!!</strong>
-                  <br /> Your ID is under review
+                  <br />{isverified.id ? 'Your ID verification is completed' : ' Your ID verification is under review'}
                 </p>
 
                 <div className="flex space-x-5">
@@ -593,7 +569,8 @@ function Verifyaccount() {
                     Go back
                   </button>
                 </div>
-              </div>}
+              </div>
+            }
           </div>
 
           {/* KYC Verification */}
@@ -618,7 +595,7 @@ function Verifyaccount() {
             {/* When KYC is open */}
             {kycOpen && <hr className="mt-7" />}
 
-            {kycOpen && (
+            {kycOpen && !kycsubmitted && (
               <div className="h-auto">
                 {/* first upload */}
 
@@ -819,6 +796,29 @@ function Verifyaccount() {
                   </button>
                 </div>
               </div>
+            )}
+
+
+            {kycOpen && kycsubmitted && (
+              <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+                <MdVerified className="text-8xl  mb-5 text-bellefuGreen" />
+                <p className="mb-7 text-center">
+                  <strong> Congrats !!!</strong>
+                  <br /> {isverified.kyc ? 'Your KYC verification had been completed' : 'Your KYC verification is under review'}
+                </p>
+
+                <div className="flex space-x-5">
+
+                  <button
+                    onClick={() => setVerify(false)}
+                    className="px-16 py-2 bg-bellefuOrange text-white rounded">
+                    Go back
+                  </button>
+                </div>
+              </div>
+
+
+
             )}
           </div>
         </div>
