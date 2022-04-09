@@ -224,9 +224,6 @@ const Register = ({countries, countries1}) => {
                   ))}
                 </div>
               )}
-              {/* <select className="absolute  mt-8 left-[9%] md:left-[27%] w-[16%] md:w-[8%] hover:cursor-pointer outline-none" value={formFields.phoneCode} onChange={onPhoneCodeChange}>
-                { countries1.map((country, index) => <option key={index} value={`+${country.phone_code}`}>{`+${country.phone_code}`} {country.name}</option>)}
-              </select> */}
               <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
               { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
