@@ -176,7 +176,7 @@ const Register = ({countries, countries1}) => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-          <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
+          <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
               <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700 z-0">Phone Number</label></p>
               <div className="absolute mt-8 left-[5%] md:left-[24%] flex space-x-1 items-center justify-center ml-8 hover:cursor-pointer" onClick={() => setSelectCountry(!selectCountry)}>
                 <div className="flex">
@@ -227,12 +227,12 @@ const Register = ({countries, countries1}) => {
               {/* <select className="absolute  mt-8 left-[9%] md:left-[27%] w-[16%] md:w-[8%] hover:cursor-pointer outline-none" value={formFields.phoneCode} onChange={onPhoneCodeChange}>
                 { countries1.map((country, index) => <option key={index} value={`+${country.phone_code}`}>{`+${country.phone_code}`} {country.name}</option>)}
               </select> */}
-              <p><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-28 pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
+              <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
               { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
-            <div className="flex flex-col flex-auto mb-4 md:mb-0">
+            <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
               <p><label id="email" className="text-sm font-medium text-slate-700">Email (optional)</label></p>
-              <p><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
+              <p className="w-full"><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">

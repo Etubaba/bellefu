@@ -31,6 +31,7 @@ const VerifyPhone = () => {
   const [showCount, setShowCount] = useState(false);
   const [phone, setPhone] = useState(false);
   const [pCongrats, setPCongrats] = useState(false);
+  const [smsVerifiaction, setSmsVerification] = useState(true);
 
   const handleChange = (input) => (evt) => {
     if (isNaN(evt.target.value)) return;
@@ -50,21 +51,28 @@ const VerifyPhone = () => {
     if (data.status) setPCongrats(true);
   };
 
-  const requestPhoneVerificationCode = async (evt) => {
+  const requestVerificationCode = async (evt) => {
     const { phone, id } = user;
     const currentTarget = evt.currentTarget;
+
+    let fetchBody;
+
+    if (currentTarget.name === "sms") fetchBody = { phone, userid: id, action: "sms" };
+    if (currentTarget.name === "call") fetchBody = { phone, userid: id, action: "call" };
 
     const response = await fetch("https://bellefu.inmotionhub.xyz/api/general/send/phone/code", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ phone, userid: id, action: "sms" })
+      body: JSON.stringify(fetchBody)
     });
     const data = await response.json();
 
     if (data.status) {
       setShowCount(true);
+
+      if (currentTarget.name === "call") setSmsVerification(false);
 
       if (currentTarget.name !== "anothercode") {
         setVerify(true);
@@ -78,9 +86,9 @@ const VerifyPhone = () => {
       })
     }
   };
-  const requestCallVerification = () => {
-    return false;
-  };
+  // const requestCallVerification = () => {
+  //   return false;
+  // };
   const verificationCodeFieldsFilled = (verificationCode) => {
     let emptyField = false;
     for (const fieldCode in verificationCode) {
@@ -161,9 +169,9 @@ const VerifyPhone = () => {
               <div className="flex flex-col md:flex-row px-2"> 
                 <div className="flex-auto md:mr-3 mb-2 md:mb-0">
                   <button
-                    onClick={(evt) => requestPhoneVerificationCode(evt)}
+                    onClick={(evt) => requestVerificationCode(evt)}
                     className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 bg-bellefuOrange"
-                    name="code"
+                    name="sms"
                   >
                     <span className="mt-1 mr-1"><MdVerified className="text-xl" /></span>
                     <span>Code Verification</span>
@@ -171,8 +179,9 @@ const VerifyPhone = () => {
                 </div>
                 <div className="flex-auto">
                   <button
-                    onClick={requestCallVerification}
+                    onClick={(evt) => requestVerificationCode(evt)}
                     className="flex hover:bg-green-400 ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center bg-bellefuGreen"
+                    name="call"
                   >
                     <span className="mt-1 mr-1 "><MdCall className="text-xl" /></span>
                     <span>Call Verification</span>
@@ -203,7 +212,7 @@ const VerifyPhone = () => {
                 <div className="">
                   <div className="flex flex-col space-y-5 justify-center items-center mt-16 mb-1">
                     <p className="mb-5 px-9">
-                      A verification code has been sent to this number : <strong>{user.phone ? user.phone : "+2348133886084"}</strong>
+                      Enter the code {smsVerifiaction?"sent to":"your hear on"} this number : <strong>{ user.phone }</strong>
                     </p>
                     <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md">
                       <input
@@ -257,16 +266,16 @@ const VerifyPhone = () => {
                     </div>
 
                   <p className="mb-7">
-                    Request another code in: {showCount ? <Countdown date={Date.now() + 1000*60*2} renderer={renderer} onComplete={onComplete} />: <span>0s</span>}
+                    If you did not recieve {smsVerifiaction?"code":"call"}, request again in: {showCount ? <Countdown date={Date.now() + 1000*60*2} renderer={renderer} onComplete={onComplete} />: <span>0s</span>}
                   </p>
 
                     <button 
-                      onClick={(evt) => requestPhoneVerificationCode(evt)}
+                      onClick={(evt) => requestVerificationCode(evt)}
                       className={showCount?"flex rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange bg-opacity-50 hover:cursor-not-allowed":"flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-2 w-[65%] justify-center bg-bellefuOrange"} 
                       name="anothercode"
                       disabled={showCount?true:false}>
                       <MdVerified className="text-xl mr-2 mt-1" />
-                      <span>Request another code</span>
+                      <span>Request another { smsVerifiaction?"code":"call"}</span>
                     </button>
                   </div>
                 </div>
