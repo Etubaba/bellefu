@@ -29,7 +29,7 @@ const Index = () => {
   return (
     <>
     <Head>
-      <title>account overview</title>
+      <title>Account Overview</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <div className="w-auto mt-2" id="profile-overview">
