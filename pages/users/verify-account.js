@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { MdVerified } from "react-icons/md";
@@ -63,6 +63,16 @@ function Verifyaccount() {
   const [sixthNo, setSixthNo] = useState('')
 
 
+
+
+
+
+  const firstInput = useRef(false);
+  const secondInput = useRef(false);
+  const thirdInput = useRef(false);
+  const fourthInput = useRef(false);
+  const fifthInput = useRef(false);
+  const sixthInput = useRef(false)
 
   const router = useRouter()
   const isverified = useSelector(verified)
@@ -141,11 +151,14 @@ function Verifyaccount() {
 
 
 
-  const handleOTPRequest = () => {
+  const handleOTPRequest = (e) => {
+    e.preventDefault()
     setShowCount(true);
     axios.post(`${apiData}send/phone/code`, {
       userid: userId.id,
-      phone: userId.phone
+      phone: userId.phone,
+      action: 'sms'
+
     })
       .then((res) => {
         console.log(res.data);
@@ -158,20 +171,58 @@ function Verifyaccount() {
   const handleCall = (e) => {
     e.preventDefault()
     setShowCount(true)
-    // axios.post(`${apiData}send/phone/code`, {
-    //   userid: userId.id,
-    //   phone: userId.phone
-    // })
-    //   .then((res) => {
-    //    console.log(res.data)
-    //   });
+    axios.post(`${apiData}send/phone/code`, {
+      userid: userId.id,
+      phone: userId.phone,
+      action: 'call'
+    })
+      .then((res) => {
+        console.log(res.data)
+      });
 
   }
+
+
+  useEffect(() => {
+
+    if (firstNo && !secondNo) {
+      secondInput.current.focus();
+      secondInput.current = true;
+    }
+    if (firstNo && secondNo && !thirdNo) {
+      thirdInput.current.focus();
+      thirdInput.current = true;
+    }
+    if (firstNo && secondNo && thirdNo && !fourthNo) {
+      fourthInput.current.focus();
+      fourthInput.current = true;
+    }
+    if (firstNo && secondNo && thirdNo && fourthNo && !fifthNo) {
+      fifthInput.current.focus();
+      fifthInput.current = true;
+    }
+    if (firstNo && secondNo && thirdNo && fourthNo && fifthNo && !sixthNo) {
+      sixthInput.current.focus();
+      sixthInput.current = true;
+    }
+
+
+
+
+
+  }, [showCount, firstNo, secondNo, thirdNo, fourthNo, fifthNo])
+
+
+
+
+
+
+
 
   const onComplete = () => {
 
     setShowCount(false);
-    if (verificationCode.sixthNo === "") {
+    if (sixthNo === "") {
       toast.info("Try request OTP by call", {
         position: "top-center",
       })
@@ -346,6 +397,7 @@ function Verifyaccount() {
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
+                      ref={firstInput}
                     />
                     <input
                       value={secondNo}
@@ -353,6 +405,7 @@ function Verifyaccount() {
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
+                      ref={secondInput}
                     />
                     <input
                       value={thirdNo}
@@ -360,6 +413,7 @@ function Verifyaccount() {
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
+                      ref={thirdInput}
                     />
                     <input
                       value={fourthNo}
@@ -367,16 +421,19 @@ function Verifyaccount() {
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
+                      ref={fourthInput}
                     />
                     <input
                       value={fifthNo}
                       onChange={(e) => setFifthNo(e.target.value)}
+                      ref={fifthInput}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"
                       maxlength="1"
                     />
                     <input
                       value={sixthNo}
+                      ref={sixthInput}
                       onChange={(e) => setSixthNo(e.target.value)}
                       className="m-2 border h-12 w-12 text-center form-control rounded"
                       type="text"

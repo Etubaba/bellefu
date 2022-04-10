@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import Head from "next/head";
 import Image from "next/image";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { ImFacebook } from "react-icons/im";
+import { FcGoogle } from "react-icons/fc";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import google from "../public/bellefu-images/google.svg";
 import facebook from "../public/bellefu-images/facebook.svg";
@@ -110,21 +112,25 @@ const Login = () => {
           <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
+              className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
             >
-              <Image src={google} alt="google" width="14px" height="14px" />
-              <span className="pl-4">Login with Google</span>
+              {/* <Image src={google} alt="google" width="14px" height="14px" /> <span className="pl-4">Login with Google</span> */}
+              <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
+
             </button>
           </p>
           <p className="text-white w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
-            >
-              <span className="rounded-full bg-white">
-                <Image src={facebook} alt="google" width="14px" height="14px" />
-              </span>
-              <span className="pl-4">Login with Facebook</span>
+              className="flex border-2 rounded-lg py-3 justify-center items-center pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+            >  {/* <Image src={facebook} alt="google" width="14px" height="14px" /> */}
+
+              {/* <span className="rounded-full bg-white">
+              
+                <ImFacebook className='text-2xl text-white mr-5 ' />
+              </span> */}
+              <ImFacebook className='text-2xl text-white mr-2 ' />
+              <strong className="pl-2 text-xl"> Facebook</strong>
             </button>
           </p>
         </div>

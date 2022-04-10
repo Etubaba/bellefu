@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Modal, Typography, Divider, Box, Button } from '@mui/material'
 import Tooltip from "@mui/material/Tooltip";
-import { MdLocationOn } from "react-icons/md";
+import { MdLocationOn, MdOutlineCancel } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
+import { ImFacebook } from "react-icons/im";
 import { BsHeart, BsSuitHeartFill } from "react-icons/bs";
 import { CgArrowsExchange } from "react-icons/cg";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
@@ -19,6 +22,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [converter, setConverter] = useState(false);
   const [fav2, setFav2] = useState(false);
   const [productId, setProductId] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const router = useRouter();
   const getIsLoggedIn = useSelector(login);
@@ -27,14 +31,27 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
     if (getIsLoggedIn) {
       router.push("/messages");
     } else {
-      router.push("/login");
-      toast.info("Login to contact seller", { position: "top-center" });
+      // router.push("/login");
+      setOpen(true)
+      toast.info("Please login to contact seller", { position: "top-center" });
     }
   };
+
+
+  const handleCall = () => {
+    if (getIsLoggedIn) {
+      window.open(`tel:${product.phone}`);
+    } else {
+
+      setOpen(true)
+      toast.info("please login to contact seller", { position: "top-center" });
+    }
+  }
 
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   // console.log(productId)
+
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
@@ -157,6 +174,48 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
           />
         )}
       </div>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      // sx={{ opacity: 0.5 }}
+      >
+        <div className=' absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite '>
+
+          {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
+          <strong className='ml-4 mb-8'>  Sign in </strong>
+
+
+          <div className='flex space-x-3 justify-center items-center my-4'>
+            <button className=' flex py-3 px-14 border-2 hover:bg-gray-200  rounded-lg  '>
+              <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] text-xl'>Google</strong>
+            </button>
+            <button className='hover:bg-blue-700 flex py-3 px-14 bg-[#3B5998] rounded-lg '>
+              <ImFacebook className='text-3xl text-white mr-5 ' /><strong className='text-white text-xl'>Facebook</strong>
+            </button>
+          </div>
+
+          <button onClick={() => router.push('/login')} className='py-3 px-40 mb-4 ml-4 rounded-md text-white hover:bg-green-600 bg-bellefuGreen '>  Email or Phone Number    </button>
+
+          <p className='flex justify-center items-center'>Do not have an account? <stong onClick={() => router.push('/register')} className='text-bellefuGreen hover:text-green-700 text-lg ml-2'>Register</stong></p>
+
+
+
+
+        </div>
+      </Modal>
+
+
+
+
+
+
+
+
+
+
+
       <div className="flex items-center mt-2 space-x-3">
         <button
           onClick={handleMessage}
@@ -164,7 +223,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
         >
           <MdOutlineMessage className="!text-white" />
         </button>
-        <button className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
+        <button onClick={handleCall} className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
           <MdCall className="text-white " />
         </button>
       </div>
