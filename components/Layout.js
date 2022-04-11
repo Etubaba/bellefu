@@ -14,10 +14,10 @@ const Layout = ({ children }) => {
         <>
           {/* small header for popping mobile sidebar for user profile  */}
           <div className="lg:hidden flex items-center mt-1 bg-bellefuGreen justify-between rounded-md px-2 py-1">
-            <p className="text-white font-semibold">Dashboard </p>
-            <button className="" onClick={() => setOpen(!open)}>
+            <p className="text-white font-semibold"></p>
+            {/* <button className="" onClick={() => setOpen(!open)}>
               <FiMenu className="w-6 h-6 text-white" />
-            </button>
+            </button> */}
           </div>
           {/* end of small header for popping mobile sidebar for user profile  */}
           <div className="flex flex-col lg:flex-row">

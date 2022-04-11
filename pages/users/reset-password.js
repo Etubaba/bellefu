@@ -125,8 +125,12 @@ function resetpassword() {
                   autoComplete="given-name"
                   className=" bg-gray-200 p-[8px] mt-1 focus:ring-bellefuGreen focus:border-bellefuGreen block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
+                {oldPasswordExists && (
+                  <span className="text-red-600 text-xs ">
+                    password does not exist
+                  </span>
+                )}
               </div>
-              {oldPasswordExists && <span>password does not exist</span>}
 
               <div className="col-span-6 sm:col-span-3 mb-10">
                 <label
@@ -182,8 +186,13 @@ function resetpassword() {
                   onFocus={() => setPasswordMatch(false)}
                   className=" bg-gray-200 p-[8px] focus:outline-none mt-1  block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
+                {passwordMatch && (
+                  <span className="text-red-600 text-xs ">
+                    Passwords did not match
+                  </span>
+                )}
               </div>
-              {passwordMatch && <span>Passwords did not match</span>}
+
               <div className="flex justify-items-center ">
                 {/* <button class='border w-48 px-6 py-2 text-center mr-5  text-white bg-gray-400 rounded-md'>Cancel</button> */}
                 <button
