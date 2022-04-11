@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsHeart } from "react-icons/bs";
 import { AiFillEye } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
@@ -8,15 +8,16 @@ import { ImFacebook } from "react-icons/im";
 import { TiLocation } from "react-icons/ti";
 import { MdCall } from "react-icons/md";
 import { RiMessage2Fill, RiMessageFill, RiCloseFill } from "react-icons/ri";
-import { BsFillCheckSquareFill } from "react-icons/bs";
-import { BsFacebook, BsTwitter, BsFillFlagFill } from "react-icons/bs";
+import { BsFacebook, BsTwitter, BsFillFlagFill, BsSuitHeartFill, BsFillCheckSquareFill } from "react-icons/bs";
 
 import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector } from 'react-redux'
 import { useRouter } from "next/router";
 import { login } from '../../features/bellefuSlice'
-
+import axios from "axios";
+import { apiData } from "../../constant";
+import { toast } from "react-toastify";
 
 const SingleProductDescription = ({ productDetails }) => {
   const [open, setOpen] = useState(true);
@@ -24,6 +25,30 @@ const SingleProductDescription = ({ productDetails }) => {
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [fav, setFav] = useState([])
+  const [favStatus, setFavStatus] = useState(false)
+
+
+
+  // check if product is among favorite
+
+  console.log('details =>', productDetails)
+
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+
+  useEffect(() => {
+    const getFav = async () => {
+      await axios
+        .get(`${apiData}get/user/favorite/${userId}`)
+        .then((res) => setFav(res.data.data))
+        .catch((err) => console.log(err));
+    };
+    getFav();
+  }, []);
+
+  const favArr = fav?.map((item) => item.productId);
+
+
 
 
 
@@ -44,6 +69,57 @@ const SingleProductDescription = ({ productDetails }) => {
 
 
 
+  const addFav = () => {
+    if (isLoggedIn) {
+      axios
+        .post(`${apiData}add/favorite`, {
+          userId: userId,
+          productId: productDetails[0]?.productId,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status) {
+            setFavStatus(true);
+            toast.success(
+              `${productDetails[0]?.productTitle.substring(0, 20)} added to favourite`
+            );
+          }
+        });
+    } else {
+      toast.error("Login to add favorite product");
+      setOpen(true)
+    }
+
+
+  }
+  const removeFav = () => {
+
+    console.log('i de work')
+    const favId = favArr.find((items) => items === productDetails[0]?.productId);
+    // console.log(favId);
+    if (favId !== undefined) {
+      axios
+        .post(`${apiData}delete/favorite/webindex`, {
+          productId: favId,
+          userId: userId,
+        })
+        .then((res) => {
+          if (res.data.status) {
+            setFavStatus(true)
+            favArr.filter((items) => items !== favId);
+            toast.error(`${productDetails[0]?.productTitle.substring(0, 20)} removed from favorite product`, {
+              position: "top-right",
+            });
+          }
+        });
+    } else {
+      return;
+    }
+
+
+  }
+
+
   return (
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
@@ -51,7 +127,16 @@ const SingleProductDescription = ({ productDetails }) => {
         <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
           {productDetails[0]?.productTitle}
         </p>
-        <BsHeart className="lg:w-6 lg:h-6 text-bellefuOrange" />
+        {favStatus || favArr.includes(productDetails[0]?.productId) ? <BsSuitHeartFill
+          onClick={removeFav}
+          className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
+        /> :
+          <BsHeart className="lg:w-6 lg:h-6 text-bellefuOrange"
+            onClick={addFav}
+          />
+
+
+        }
       </div>
 
       {/* tag section */}

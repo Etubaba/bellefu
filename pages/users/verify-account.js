@@ -46,13 +46,13 @@ function Verifyaccount() {
   const [bizDoc, setBizDoc] = useState();
   const [picDoc, setPicDoc] = useState();
   const [billDoc, setBillDoc] = useState();
-  //kyc account
-  const [account, setAccount] = useState({
-    accountType: "",
-    accountNumber: "",
-    bankName: "",
-    accountName: "",
-  });
+  //kyc bank account details
+
+
+  const [accountName, setAccountName] = useState('')
+  const [accountType, setAccountType] = useState('')
+  const [accountNumber, setAccountNumber] = useState('')
+  const [bankName, setBankName] = useState('')
 
   // verification code 
   const [firstNo, setFirstNo] = useState('')
@@ -120,13 +120,13 @@ function Verifyaccount() {
       console.log(OTP)
       axios.post(`${apiData}verify/phone/code`, {
         token: Number(OTP),
-        action: 'sms'
+
       }).then((res) => {
         if (res.data.status) {
           toast.success("Account verified successfully", {
             position: "top-center",
           })
-          router.push("/dashboard")
+          setVerify(!verify)
         } else {
           toast.error("Verification code is incorrect", {
             position: "top-center",
@@ -240,8 +240,7 @@ function Verifyaccount() {
 
 
 
-
-
+  const arr = [accountName, accountNumber, bankName, accountType]
 
 
 
@@ -271,7 +270,7 @@ function Verifyaccount() {
           toast.success('Your ID verification is under review', {
             position: "top-center"
           })
-          setIdsubmitted(true)
+          // setIdsubmitted(true)
           dispatch(idpending(true))
 
         }
@@ -282,10 +281,10 @@ function Verifyaccount() {
   const handleKycSubmit = (e) => {
     e.preventDefault();
 
-    if (account.accountType === '' ||
-      account.accountNumber === '' ||
-      account.bankName === '' ||
-      account.accountName === '' ||
+    if (accountType === '' ||
+      accountNumber === '' ||
+      bankName === '' ||
+      accountName === '' ||
       bizDoc === undefined ||
       billDoc === undefined) {
       toast.error('Please all fields are required', {
@@ -297,11 +296,11 @@ function Verifyaccount() {
       formData.append("images1", bizDoc);
       formData.append("images", picDoc);
       formData.append("images2", billDoc);
-      formData.append("userid", userId);
-      formData.append("accountname", account.accountName);
-      formData.append("accountnumber", account.accountNumber);
-      formData.append("bankname", account.bankName);
-      formData.append("accounttype", account.accountType);
+      formData.append("userid", userId?.id);
+      formData.append("accountname", accountName);
+      formData.append("accountnumber", accountNumber);
+      formData.append("bankname", bankName);
+      formData.append("accounttype", accountType);
       axios({
         method: "post",
         url: `${apiData}verify/user/kyc`,
@@ -322,6 +321,7 @@ function Verifyaccount() {
     }
   }
 
+  console.log(accountName, accountNumber, bankName, accountType)
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
       <div className="text-xl ml-4 self p-2">Account Verification</div>
@@ -794,8 +794,8 @@ function Verifyaccount() {
                     Account Number
                   </label>
                   <input
-                    value={account.accountNumber}
-                    onChange={(e) => setAccount({ accountNumber: e.target.value })}
+                    value={accountNumber}
+                    onChange={(e) => setAccountNumber(e.target.value)}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -807,8 +807,8 @@ function Verifyaccount() {
                     Account Name
                   </label>
                   <input
-                    value={account.accountName}
-                    onChange={(e) => setAccount({ accountName: e.target.value })}
+                    value={accountName}
+                    onChange={(e) => setAccountName(e.target.value)}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -820,8 +820,8 @@ function Verifyaccount() {
                     Type of Account
                   </label>
                   <input
-                    value={account.accountType}
-                    onChange={(e) => setAccount({ accountType: e.target.value })}
+                    value={accountType}
+                    onChange={(e) => setAccountType(e.target.value)}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
@@ -833,8 +833,8 @@ function Verifyaccount() {
                     Bank Name
                   </label>
                   <input
-                    value={account.bankName}
-                    onChange={(e) => setAccount({ bankName: e.target.value })}
+                    value={bankName}
+                    onChange={(e) => setBankName(e.target.value)}
                     type="text"
                     autocomplete="family-name"
                     className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen mb-10 focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
