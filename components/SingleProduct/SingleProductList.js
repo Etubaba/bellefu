@@ -5,6 +5,10 @@ import { BsHeart } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 
 const SingleProductList = ({ similarProductDetail }) => {
+
+
+
+
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img

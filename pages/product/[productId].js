@@ -9,13 +9,13 @@ import { useSelector, useDispatch } from "react-redux";
 const Product = ({ details }) => {
   const newDetails = details.data;
   const similarProductDetails = details.similarProducts;
-  console.log("similarProductDetails => ", similarProductDetails);
+  // console.log("similarProductDetails => ", similarProductDetails);
   const dispatch = useDispatch();
 
   if (newDetails) {
     dispatch(handleUserDetails(newDetails));
   }
-  console.log("newDetails", newDetails);
+
   const index = useSelector(homeData);
 
   return (

@@ -8,7 +8,7 @@ const SingleProductSlider = ({ sliderDetails }) => {
   // getting the plan status to display either promoted or not
   const plan = sliderDetails[0]?.planName;
 
-  console.log("sliderDetails", sliderDetails);
+  // console.log("sliderDetails", sliderDetails);
 
   // getting the images to display in the carousel
   const images = sliderDetails[0]?.images;
