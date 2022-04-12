@@ -7,13 +7,17 @@ import { BsCloudUpload } from "react-icons/bs";
 import { VscAdd } from "react-icons/vsc";
 import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
-import { profileDetails, verified, idpending, kycpending } from "../../features/bellefuSlice";
-import { useRouter } from 'next/router'
+import {
+  profileDetails,
+  verified,
+  idpending,
+  kycpending,
+} from "../../features/bellefuSlice";
+import { useRouter } from "next/router";
 import axios from "axios";
 import { apiData } from "../../constant";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import Countdown from "react-countdown";
-
 
 function Verifyaccount() {
   //conditional rendering
@@ -48,34 +52,28 @@ function Verifyaccount() {
   const [billDoc, setBillDoc] = useState();
   //kyc bank account details
 
+  const [accountName, setAccountName] = useState("");
+  const [accountType, setAccountType] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [bankName, setBankName] = useState("");
 
-  const [accountName, setAccountName] = useState('')
-  const [accountType, setAccountType] = useState('')
-  const [accountNumber, setAccountNumber] = useState('')
-  const [bankName, setBankName] = useState('')
-
-  // verification code 
-  const [firstNo, setFirstNo] = useState('')
-  const [secondNo, setSecondNo] = useState('')
-  const [thirdNo, setThirdNo] = useState('')
-  const [fourthNo, setFouthNo] = useState('')
-  const [fifthNo, setFifthNo] = useState('')
-  const [sixthNo, setSixthNo] = useState('')
-
-
-
-
-
+  // verification code
+  const [firstNo, setFirstNo] = useState("");
+  const [secondNo, setSecondNo] = useState("");
+  const [thirdNo, setThirdNo] = useState("");
+  const [fourthNo, setFouthNo] = useState("");
+  const [fifthNo, setFifthNo] = useState("");
+  const [sixthNo, setSixthNo] = useState("");
 
   const firstInput = useRef(false);
   const secondInput = useRef(false);
   const thirdInput = useRef(false);
   const fourthInput = useRef(false);
   const fifthInput = useRef(false);
-  const sixthInput = useRef(false)
+  const sixthInput = useRef(false);
 
-  const router = useRouter()
-  const isverified = useSelector(verified)
+  const router = useRouter();
+  const isverified = useSelector(verified);
   const dispatch = useDispatch();
 
   const IDstyle = {
@@ -94,97 +92,83 @@ function Verifyaccount() {
     color: phone ? "#FFA500" : "rgb(116, 110, 110)",
   };
 
-
-
-
-
   const userId = useSelector((state) => state.bellefu?.profileDetails);
 
-
-  const idsubmitted = useSelector((state) => state.bellefu.idApply)
-  const kycsubmitted = useSelector((state) => state.bellefu.kycApply)
-
+  const idsubmitted = useSelector((state) => state.bellefu.idApply);
+  const kycsubmitted = useSelector((state) => state.bellefu.kycApply);
 
   const handleVerification = (e) => {
-
-    if (firstNo === "" ||
+    if (
+      firstNo === "" ||
       secondNo === "" ||
       thirdNo === "" ||
       fourthNo === "" ||
-      fifthNo === "") {
+      fifthNo === ""
+    ) {
       toast.error("Please enter all the code digits", {
         position: "top-center",
-      })
+      });
     } else {
-      const OTP = firstNo + secondNo + thirdNo + fourthNo + fifthNo + sixthNo
-      console.log(OTP)
-      axios.post(`${apiData}verify/phone/code`, {
-        token: Number(OTP),
-
-      }).then((res) => {
-        if (res.data.status) {
-          toast.success("Account verified successfully", {
-            position: "top-center",
-          })
-          setVerify(!verify)
-        } else {
-          toast.error("Verification code is incorrect", {
-            position: "top-center",
-          })
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
+      const OTP = firstNo + secondNo + thirdNo + fourthNo + fifthNo + sixthNo;
+      console.log(OTP);
+      axios
+        .post(`${apiData}verify/phone/code`, {
+          token: Number(OTP),
+        })
+        .then((res) => {
+          if (res.data.status) {
+            toast.success("Account verified successfully", {
+              position: "top-center",
+            });
+            setVerify(!verify);
+          } else {
+            toast.error("Verification code is incorrect", {
+              position: "top-center",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
+  };
 
+  if (sixthNo !== "" && showCount) {
+    handleVerification();
   }
-
-
-  if (sixthNo !== '' && showCount) {
-    handleVerification()
-  }
-
-
-
-
-
-
-
 
   const handleOTPRequest = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setShowCount(true);
-    axios.post(`${apiData}send/phone/code`, {
-      userid: userId.id,
-      phone: userId.phone,
-      action: 'sms'
-
-    })
+    axios
+      .post(`${apiData}send/phone/code`, {
+        userid: userId.id,
+        phone: userId.phone,
+        action: "sms",
+      })
       .then((res) => {
         console.log(res.data);
         // if (res.data.status) {
         //   // setPCongrats(true)
         // }
       });
-  }
+  };
 
   const handleCall = (e) => {
-    e.preventDefault()
-    setShowCount(true)
-    axios.post(`${apiData}send/phone/code`, {
-      userid: userId.id,
-      phone: userId.phone,
-      action: 'call'
-    })
+    e.preventDefault();
+    setShowCount(true);
+    axios
+      .post(`${apiData}send/phone/code`, {
+        userid: userId.id,
+        phone: userId.phone,
+        action: "call",
+      })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
       });
-
-  }
-
+  };
 
   useEffect(() => {
-
     if (firstNo && !secondNo) {
       secondInput.current.focus();
       secondInput.current = true;
@@ -205,49 +189,28 @@ function Verifyaccount() {
       sixthInput.current.focus();
       sixthInput.current = true;
     }
-
-
-
-
-
-  }, [showCount, firstNo, secondNo, thirdNo, fourthNo, fifthNo])
-
-
-
-
-
-
-
+  }, [showCount, firstNo, secondNo, thirdNo, fourthNo, fifthNo]);
 
   const onComplete = () => {
-
     setShowCount(false);
     if (sixthNo === "") {
       toast.info("Try request OTP by call", {
         position: "top-center",
-      })
+      });
     }
-
-
-  }
+  };
   const renderer = ({ minutes, seconds, completed }) => {
     if (completed) {
       return null;
-    }
-    else return <strong className="ml-3">{minutes}mins:{seconds}s</strong>;
-  }
+    } else
+      return (
+        <strong className="ml-3">
+          {minutes}mins:{seconds}s
+        </strong>
+      );
+  };
 
-
-
-
-  const arr = [accountName, accountNumber, bankName, accountType]
-
-
-
-
-
-
-
+  const arr = [accountName, accountNumber, bankName, accountType];
 
   const handleIdSubmit = (e) => {
     e.preventDefault();
@@ -263,34 +226,32 @@ function Verifyaccount() {
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
+      },
+    }).then((res) => {
+      if (res.data.status) {
+        toast.success("Your ID verification is under review", {
+          position: "top-center",
+        });
+        // setIdsubmitted(true)
+        dispatch(idpending(true));
       }
-    })
-      .then((res) => {
-        if (res.data.status) {
-          toast.success('Your ID verification is under review', {
-            position: "top-center"
-          })
-          // setIdsubmitted(true)
-          dispatch(idpending(true))
-
-        }
-      })
-
-  }
+    });
+  };
 
   const handleKycSubmit = (e) => {
     e.preventDefault();
 
-    if (accountType === '' ||
-      accountNumber === '' ||
-      bankName === '' ||
-      accountName === '' ||
+    if (
+      accountType === "" ||
+      accountNumber === "" ||
+      bankName === "" ||
+      accountName === "" ||
       bizDoc === undefined ||
-      billDoc === undefined) {
-      toast.error('Please all fields are required', {
-        position: "top-center"
-      })
-
+      billDoc === undefined
+    ) {
+      toast.error("Please all fields are required", {
+        position: "top-center",
+      });
     } else {
       const formData = new FormData();
       formData.append("images1", bizDoc);
@@ -307,26 +268,23 @@ function Verifyaccount() {
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => {
+        if (res.data.status) {
+          toast.success("Your KYC verification is under review", {
+            position: "top-center",
+          });
+          dispatch(kycpending(true));
         }
-      })
-        .then((res) => {
-          if (res.data.status) {
-            toast.success('Your KYC verification is under review', {
-              position: "top-center"
-            })
-            dispatch(kycpending(true))
-
-          }
-        })
+      });
     }
-  }
+  };
 
-  console.log(accountName, accountNumber, bankName, accountType)
+  // console.log(accountName, accountNumber, bankName, accountType)
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
       <div className="text-xl ml-4 self p-2">Account Verification</div>
       <hr />
-
 
       {!verify ? (
         <div className="h-auto ">
@@ -334,28 +292,72 @@ function Verifyaccount() {
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <MdVerified className="text-8xl mb-7 text-gray-600" />
 
-              <div className='flex mb-4'><MdVerified className={!isverified.phone ? 'text-[#A6A6A6] text-xl' : "text-black/70 text-xl"} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified.id ? 'text-bellefuOrange text-xl' : 'text-[#A6A6A6] text-xl'} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified.kyc ? 'text-bellefuGreen text-xl' : 'text-[#A6A6A6] text-xl'} /></div>
-              <div className='flex justify-between  space-x-32 text-xs mb-10'>
-                <p className={!isverified.phone ? 'text-[#A6A6A6]' : null}>phone verified</p>
-                <p className={!isverified.id ? 'text-[#A6A6A6]' : null}>ID verified</p>
-                <p className={!isverified.kyc ? 'text-[#A6A6A6]' : null}>KYC verified</p>
-
+              <div className="flex mb-4">
+                <MdVerified
+                  className={
+                    !isverified.phone
+                      ? "text-[#A6A6A6] text-xl"
+                      : "text-black/70 text-xl"
+                  }
+                />
+                <hr className="w-40 mt-2 m-1" />
+                <MdVerified
+                  className={
+                    isverified.id
+                      ? "text-bellefuOrange text-xl"
+                      : "text-[#A6A6A6] text-xl"
+                  }
+                />
+                <hr className="w-40 mt-2 m-1" />
+                <MdVerified
+                  className={
+                    isverified.kyc
+                      ? "text-bellefuGreen text-xl"
+                      : "text-[#A6A6A6] text-xl"
+                  }
+                />
+              </div>
+              <div className="flex justify-between  space-x-32 text-xs mb-10">
+                <p className={!isverified.phone ? "text-[#A6A6A6]" : null}>
+                  phone verified
+                </p>
+                <p className={!isverified.id ? "text-[#A6A6A6]" : null}>
+                  ID verified
+                </p>
+                <p className={!isverified.kyc ? "text-[#A6A6A6]" : null}>
+                  KYC verified
+                </p>
               </div>
 
-              {isverified.kyc ? <p className='text-sm text-center text-gray-600 mb-12'> Congrat!! <br />
-                you have completed your verification process </p> :
+              {isverified.kyc ? (
+                <p className="text-sm text-center text-gray-600 mb-12">
+                  {" "}
+                  Congrat!! <br />
+                  you have completed your verification process{" "}
+                </p>
+              ) : (
                 <p className="text-sm text-center text-gray-600 mb-12">
                   Proceed with your verification
                   <br />
-                  Kindly click on the botton below to complete verification process
-                </p>}
+                  Kindly click on the botton below to complete verification
+                  process
+                </p>
+              )}
               <button
                 disabled={isverified.kyc ? true : false}
                 onClick={() => setVerify(true)}
-                className={isverified.kyc ? 'bg-[#E0E0E0] rounded-md py-4 px-28 space-x-3' : "flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"}
+                className={
+                  isverified.kyc
+                    ? "bg-[#E0E0E0] rounded-md py-4 px-28 space-x-3"
+                    : "flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"
+                }
               >
                 <MdVerified className="text-xl" />{" "}
-                <span className={isverified.kyc ? 'text-[#A6A6A6]' : null} >{isverified.kyc ? ' You have completed verification ' : " Complete Verification"}</span>
+                <span className={isverified.kyc ? "text-[#A6A6A6]" : null}>
+                  {isverified.kyc
+                    ? " You have completed verification "
+                    : " Complete Verification"}
+                </span>
               </button>
             </div>
           </div>
@@ -442,26 +444,54 @@ function Verifyaccount() {
                   </div>
 
                   <p className="my-14 ">
-                    Request another code in:{showCount ? <Countdown date={Date.now() + 1000 * 60 * 2} renderer={renderer} onComplete={onComplete} /> : <span className='ml-3'>0s</span>}
+                    Request another code in:
+                    {showCount ? (
+                      <Countdown
+                        date={Date.now() + 1000 * 60 * 2}
+                        renderer={renderer}
+                        onComplete={onComplete}
+                      />
+                    ) : (
+                      <span className="ml-3">0s</span>
+                    )}
                   </p>
 
-
-                  <div className='flex space-x-3 pt-10 justify-center items-center'>
+                  <div className="flex space-x-3 pt-10 justify-center items-center">
                     <button
                       onClick={handleCall}
                       disabled={showCount ? true : false}
-                      className={!showCount ? "flex hover:bg-green-600  rounded-md text-white py-3 px-10 space-x-3 bg-bellefuGreen" : "flex   rounded-md text-white py-3 px-10 space-x-3 bg-[#E0E0E0] "}
+                      className={
+                        !showCount
+                          ? "flex hover:bg-green-600  rounded-md text-white py-3 px-10 space-x-3 bg-bellefuGreen"
+                          : "flex   rounded-md text-white py-3 px-10 space-x-3 bg-[#E0E0E0] "
+                      }
                     >
-                      <MdVerified className={showCount ? "text-xl text-[#A6A6A6]" : 'text-xl'} />
-                      <span className={showCount ? 'text-[#A6A6A6]' : null}>Request call verification</span>
+                      <MdVerified
+                        className={
+                          showCount ? "text-xl text-[#A6A6A6]" : "text-xl"
+                        }
+                      />
+                      <span className={showCount ? "text-[#A6A6A6]" : null}>
+                        Request call verification
+                      </span>
                     </button>
                     <button
                       disabled={showCount ? true : false}
                       onClick={handleOTPRequest}
-                      className={!showCount ? "flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-3 px-10 space-x-3 bg-bellefuOrange" : "flex rounded-md text-white py-3 px-10 space-x-3 bg-[#E0E0E0] "}
+                      className={
+                        !showCount
+                          ? "flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white py-3 px-10 space-x-3 bg-bellefuOrange"
+                          : "flex rounded-md text-white py-3 px-10 space-x-3 bg-[#E0E0E0] "
+                      }
                     >
-                      <MdVerified className={showCount ? "text-xl text-[#A6A6A6]" : 'text-xl'} />
-                      <span className={showCount ? 'text-[#A6A6A6]' : null}>Request OTP verification</span>
+                      <MdVerified
+                        className={
+                          showCount ? "text-xl text-[#A6A6A6]" : "text-xl"
+                        }
+                      />
+                      <span className={showCount ? "text-[#A6A6A6]" : null}>
+                        Request OTP verification
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -477,7 +507,6 @@ function Verifyaccount() {
                 </p>
 
                 <div className="flex space-x-5">
-
                   <button className="px-28 py-4 border  rounded"> skip</button>
                   <button className="px-16 py-4 bg-bellefuOrange text-white rounded">
                     {" "}
@@ -511,7 +540,6 @@ function Verifyaccount() {
 
             {idopen && <hr className="mt-7" />}
 
-
             {idopen && preview === undefined && (
               <div className="h-80">
                 <Dropzone
@@ -521,9 +549,8 @@ function Verifyaccount() {
                       setIdImage(loopedfile);
                     }
 
-                    setPreview(URL.createObjectURL(acceptedFiles[0]))
-                  }
-                  }
+                    setPreview(URL.createObjectURL(acceptedFiles[0]));
+                  }}
                 >
                   {({ getRootProps, getInputProps }) => (
                     <div
@@ -553,7 +580,7 @@ function Verifyaccount() {
             )}
             {/* when first file is uploaded  */}
 
-            {preview !== undefined && idopen && !idsubmitted &&
+            {preview !== undefined && idopen && !idsubmitted && (
               <div className="h-80  ">
                 <div className="flex items-center my-10 justify-center">
                   <div className="h-40 w-[40%] mr-3 justify-center items-center  border-dashed border">
@@ -567,15 +594,13 @@ function Verifyaccount() {
                     {preview2 === undefined ? (
                       <Dropzone
                         onDrop={(acceptedFiles) => {
-
                           for (let i = 0; i < acceptedFiles.length; i++) {
-                            let looped = acceptedFiles[i]
-                            setIdImage2(looped)
+                            let looped = acceptedFiles[i];
+                            setIdImage2(looped);
                           }
 
-                          setPreview2(URL.createObjectURL(acceptedFiles[0]))
-                        }
-                        }
+                          setPreview2(URL.createObjectURL(acceptedFiles[0]));
+                        }}
                       >
                         {({ getRootProps, getInputProps }) => (
                           <p {...getRootProps()}>
@@ -608,26 +633,29 @@ function Verifyaccount() {
                   </button>
                 </div>
               </div>
-            }
+            )}
 
-            {preview !== undefined && idopen && idsubmitted &&
+            {preview !== undefined && idopen && idsubmitted && (
               <div className="flex flex-col justify-center mt-24 mb-24 items-center">
                 <MdVerified className="text-8xl  mb-5 text-bellefuOrange" />
                 <p className="mb-7 text-center">
                   <strong> Congrats !!!</strong>
-                  <br />{isverified.id ? 'Your ID verification is completed' : ' Your ID verification is under review'}
+                  <br />
+                  {isverified.id
+                    ? "Your ID verification is completed"
+                    : " Your ID verification is under review"}
                 </p>
 
                 <div className="flex space-x-5">
-
                   <button
                     onClick={() => setVerify(false)}
-                    className="px-16 py-2 bg-bellefuOrange text-white rounded">
+                    className="px-16 py-2 bg-bellefuOrange text-white rounded"
+                  >
                     Go back
                   </button>
                 </div>
               </div>
-            }
+            )}
           </div>
 
           {/* KYC Verification */}
@@ -664,8 +692,8 @@ function Verifyaccount() {
                   onDrop={(acceptedFiles) => {
                     setBiz(acceptedFiles[0].name);
                     for (let i = 0; i < acceptedFiles.length; i++) {
-                      let looped = acceptedFiles[i]
-                      setBizDoc(looped)
+                      let looped = acceptedFiles[i];
+                      setBizDoc(looped);
                     }
                     // setBiz(URL.createObjectURL(acceptedFiles[0]))
                   }}
@@ -694,7 +722,6 @@ function Verifyaccount() {
                     </div>
                   )}
                 </Dropzone>
-
 
                 <hr className="mb-10" />
 
@@ -708,8 +735,8 @@ function Verifyaccount() {
                   onDrop={(acceptedFiles) => {
                     setBill(acceptedFiles[0].name);
                     for (let i = 0; i < acceptedFiles.length; i++) {
-                      let looped = acceptedFiles[i]
-                      setBillDoc(looped)
+                      let looped = acceptedFiles[i];
+                      setBillDoc(looped);
                     }
                     // setBiz(URL.createObjectURL(acceptedFiles[0]))
                   }}
@@ -738,8 +765,6 @@ function Verifyaccount() {
                     </div>
                   )}
                 </Dropzone>
-
-
 
                 {/* third upload  */}
 
@@ -753,8 +778,8 @@ function Verifyaccount() {
                   onDrop={(acceptedFiles) => {
                     setPics(acceptedFiles[0].name);
                     for (let i = 0; i < acceptedFiles.length; i++) {
-                      let looped = acceptedFiles[i]
-                      setPicDoc(looped)
+                      let looped = acceptedFiles[i];
+                      setPicDoc(looped);
                     }
                     // setBiz(URL.createObjectURL(acceptedFiles[0]))
                   }}
@@ -783,8 +808,6 @@ function Verifyaccount() {
                     </div>
                   )}
                 </Dropzone>
-
-
 
                 {/* company account details form  */}
                 <hr className="mb-10" />
@@ -841,12 +864,9 @@ function Verifyaccount() {
                   />
                 </div>
 
-
-
                 <div className="p-5 flex justify-center items-center ">
                   <button
                     onClick={handleKycSubmit}
-
                     className="  w-[50%] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                   >
                     submit
@@ -855,27 +875,26 @@ function Verifyaccount() {
               </div>
             )}
 
-
             {kycOpen && kycsubmitted && (
               <div className="flex flex-col justify-center mt-24 mb-24 items-center">
                 <MdVerified className="text-8xl  mb-5 text-bellefuGreen" />
                 <p className="mb-7 text-center">
                   <strong> Congrats !!!</strong>
-                  <br /> {isverified.kyc ? 'Your KYC verification had been completed' : 'Your KYC verification is under review'}
+                  <br />{" "}
+                  {isverified.kyc
+                    ? "Your KYC verification had been completed"
+                    : "Your KYC verification is under review"}
                 </p>
 
                 <div className="flex space-x-5">
-
                   <button
                     onClick={() => setVerify(false)}
-                    className="px-16 py-2 bg-bellefuOrange text-white rounded">
+                    className="px-16 py-2 bg-bellefuOrange text-white rounded"
+                  >
                     Go back
                   </button>
                 </div>
               </div>
-
-
-
             )}
           </div>
         </div>
