@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Modal, Typography, Divider, Box, Button } from '@mui/material'
+import { Modal, Typography, Divider, Box, Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { MdLocationOn, MdOutlineCancel } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
@@ -32,32 +32,28 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
       router.push("/messages");
     } else {
       // router.push("/login");
-      setOpen(true)
+      setOpen(true);
       toast.info("Please login to contact seller", { position: "top-center" });
     }
   };
-
 
   const handleCall = () => {
     if (getIsLoggedIn) {
       window.open(`tel:${product.phone}`);
     } else {
-
-      setOpen(true)
+      setOpen(true);
       toast.info("please login to contact seller", { position: "top-center" });
     }
-  }
+  };
 
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   // console.log(productId)
 
-
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
-      <div onClick={() => router.push(`/product/${product.productId}`)}  >
+      <div onClick={() => router.push(`/product/${product.productId}`)}>
         <img
-
           src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
           className="rounded-md w-full h-44 object-cover"
         />
@@ -74,7 +70,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
           </p>
         </div>
       </div>
-      <div className="flex items justify-between">
+      <div className="flex items items-center justify-between">
         <p className="text-bellefuGreen flex font-poppins font-semibold">
           {product.currency_code && !converter ? (
             <p
@@ -113,12 +109,12 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             </span>
           ) : null}
         </p>
-        {(fav2 || fav?.includes(product.productId) && getIsLoggedIn) ? (
+        {fav2 || (fav?.includes(product.productId) && getIsLoggedIn) ? (
           <span
             onMouseEnter={(e) => {
               // console.log('i de work')
               e.stopPropagation();
-              e.preventDefault()
+              e.preventDefault();
               const favId = fav.find((items) => items === product.productId);
               // console.log(favId);
               if (favId !== undefined) {
@@ -131,9 +127,15 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                     if (res.data.status) {
                       setFav2(false);
                       fav.filter((items) => items !== favId);
-                      toast.error(`${product.title.substring(0, 20)} removed from favorite product`, {
-                        position: "top-right",
-                      });
+                      toast.error(
+                        `${product.title.substring(
+                          0,
+                          20
+                        )} removed from favorite product`,
+                        {
+                          position: "top-right",
+                        }
+                      );
                     }
                   });
               } else {
@@ -141,12 +143,8 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
               }
             }}
           >
-            <BsSuitHeartFill
-
-              className="w-4 h-4 text-bellefuOrange cursor-pointer"
-            />
+            <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange cursor-pointer" />
           </span>
-
         ) : (
           <BsHeart
             onMouseEnter={(e) => {
@@ -179,42 +177,42 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      // sx={{ opacity: 0.5 }}
+        // sx={{ opacity: 0.5 }}
       >
-        <div className=' absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite '>
-
+        <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
           {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
-          <strong className='ml-4 mb-8'>  Sign in </strong>
+          <strong className="ml-4 mb-8"> Sign in </strong>
 
-
-          <div className='flex space-x-3 justify-center items-center my-4'>
-            <button className=' flex py-3 px-14 border-2 hover:bg-gray-200  rounded-lg  '>
-              <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] text-xl'>Google</strong>
+          <div className="flex space-x-3 justify-center items-center my-4">
+            <button className=" flex py-3 px-14 border-2 hover:bg-gray-200  rounded-lg  ">
+              <FcGoogle className="text-3xl mr-5" />{" "}
+              <strong className="text-[#303A4B] text-xl">Google</strong>
             </button>
-            <button className='hover:bg-blue-700 flex py-3 px-14 bg-[#3B5998] rounded-lg '>
-              <ImFacebook className='text-3xl text-white mr-5 ' /><strong className='text-white text-xl'>Facebook</strong>
+            <button className="hover:bg-blue-700 flex py-3 px-14 bg-[#3B5998] rounded-lg ">
+              <ImFacebook className="text-3xl text-white mr-5 " />
+              <strong className="text-white text-xl">Facebook</strong>
             </button>
           </div>
 
-          <button onClick={() => router.push('/login')} className='py-3 px-40 mb-4 ml-4 rounded-md text-white hover:bg-green-600 bg-bellefuGreen '>  Email or Phone Number    </button>
+          <button
+            onClick={() => router.push("/login")}
+            className="py-3 px-40 mb-4 ml-4 rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+          >
+            {" "}
+            Email or Phone Number{" "}
+          </button>
 
-          <p className='flex justify-center items-center'>Do not have an account? <stong onClick={() => router.push('/register')} className='text-bellefuGreen hover:text-green-700 text-lg ml-2'>Register</stong></p>
-
-
-
-
+          <p className="flex justify-center items-center">
+            Do not have an account?{" "}
+            <stong
+              onClick={() => router.push("/register")}
+              className="text-bellefuGreen hover:text-green-700 text-lg ml-2"
+            >
+              Register
+            </stong>
+          </p>
         </div>
       </Modal>
-
-
-
-
-
-
-
-
-
-
 
       <div className="flex items-center mt-2 space-x-3">
         <button
@@ -223,7 +221,10 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
         >
           <MdOutlineMessage className="!text-white" />
         </button>
-        <button onClick={handleCall} className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
+        <button
+          onClick={handleCall}
+          className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4"
+        >
           <MdCall className="text-white " />
         </button>
       </div>

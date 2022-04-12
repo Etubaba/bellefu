@@ -4,38 +4,24 @@ import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import AlternateComponent from "./alternateComponent/AlternateComponent";
+import { BiArrowBack } from "react-icons/bi";
 
 const Layout = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(true);
   const userId = useSelector((state) => state.bellefu?.profileDetails);
-  const [open, setOpen] = useState(false);
   return (
     <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
-      {userId ? (
-        <>
-          {/* small header for popping mobile sidebar for user profile  */}
-          <div className="lg:hidden flex items-center mt-1 bg-bellefuGreen justify-between rounded-md px-2 py-1">
-            <p className="text-white font-semibold"></p>
-            {/* <button className="" onClick={() => setOpen(!open)}>
-              <FiMenu className="w-6 h-6 text-white" />
-            </button> */}
-          </div>
-          {/* end of small header for popping mobile sidebar for user profile  */}
-          <div className="flex flex-col lg:flex-row">
-            <div className="hidden lg:inline">
-              <UserSideBar />
-            </div>
-            {open && (
-              <div className="lg:hidden">
-                {" "}
-                <MobileUserSidebar open={open} setOpen={setOpen} />
-              </div>
-            )}
-            <main className="flex-grow">{children}</main>{" "}
-          </div>
-        </>
-      ) : (
-        <AlternateComponent />
-      )}
+      <div className="flex flex-col lg:flex-row">
+        <UserSideBar />
+        {isOpen && <MobileUserSidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
+        <div
+          className="lg:hidden cursor-pointer bg-bellefuOrange w-8 h-8 rounded-full flex items-center justify-center ml-3 mt-2 "
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <BiArrowBack className="text-white font-bold" />
+        </div>
+        <main className="flex-grow">{children}</main>
+      </div>
     </div>
   );
 };
