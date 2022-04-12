@@ -277,7 +277,7 @@ const Register = ({countries, countries1}) => {
             </p>
           }
         </div>
-        <hr />
+        {/* <hr />
         <p className="text-center mt-11 mb-8">OR</p>
         <div className="flex flex-col md:flex-row items-center justify-center mb-12 px-6 py-4 md:px-12 md:py-4">
           <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
@@ -296,7 +296,7 @@ const Register = ({countries, countries1}) => {
               <ImFacebook className='text-2xl text-white mr-2 ' /> <strong className="pl-2 text-xl"> Facebook</strong>
             </button>
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );

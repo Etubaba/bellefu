@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { Provider } from "react-redux";
+import { SessionProvider } from "next-auth/react";
 import { store } from "../features/store";
 import NavBar from "../components/Navbar/NavBar";
 
@@ -8,15 +9,17 @@ import Mobilefooter from "../components/footer/Mobilefooter";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: {session, ...pageProps} }) {
   const Layout = Component.Layout || EmptyLayout;
 
   return (
     <Provider store={store}>
-      <NavBar />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <SessionProvider session={session}>
+        <NavBar />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SessionProvider>
       <Footer />
       <Mobilefooter />
       <ToastContainer />
