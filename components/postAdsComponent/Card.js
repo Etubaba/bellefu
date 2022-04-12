@@ -152,10 +152,11 @@ export default function UnstyledSelectSimpleCard({countryStuffs,states,checker2,
 
 
   return (
-    <CustomSelect  >
+    <CustomSelect className="w-full" >
        {/* <span  onClick={() => handleThings(counts)}> */}
        <StyledOption
         //  key={index}
+        className="w-full"
          value={"Paystack"}
        >
            Paystack
