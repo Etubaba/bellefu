@@ -2,15 +2,19 @@ import React from "react";
 import { MdLocationOn } from "react-icons/md";
 import { GiHearts } from "react-icons/gi";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const ShopComponent = ({ product }) => {
+  const router = useRouter();
+  console.log("product=>", product);
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
+        onClick={() => router.push(`/product/${product.productId}`)}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
       />
-      <p className="capitalize text-medium">{product.title}</p>
+      <p className="capitalize text-medium">{product.title.substring(0, 15)}</p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
         <div className="flex items-center space-x-1">

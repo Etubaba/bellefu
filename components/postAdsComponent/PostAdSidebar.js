@@ -5,7 +5,7 @@ import NavLink from "./NavLink";
 
 const PostAdSidebar = () => {
   const iconValues = [
-      { icon: RiAdvertisementFill, text: <strong>Post Ads</strong>, to: "#" },
+      { icon: RiAdvertisementFill, text: <strong >Post Ads</strong>, to: "#" },
       { icon: false, divider: <hr /> },
       {
         icon: IoMdCheckmarkCircle,
@@ -34,14 +34,13 @@ const PostAdSidebar = () => {
   // for mobile
 
   const iconValuesMobile = [
-      // { icon: RiAdvertisementFill, text: <strong>Post Ads</strong>, to: "#" },
       { icon: false, divider: <hr /> },
       {
         icon: IoMdCheckmarkCircle,
         text: (
           <div className="text-xs font-semibold flex flex-col items-center justify-center">
             <p>STEP 1</p>
-            <span>Category & location</span>
+            <span className="hidden sm:block">Category & location</span>
           </div>
         ),
         to: "/postAds",
@@ -51,7 +50,7 @@ const PostAdSidebar = () => {
         text: (
           <div className="text-xs font-semibold flex flex-col items-center justify-center">
             <p>STEP 2</p>
-            <span>Details</span>
+            <span className="hidden sm:block">Details</span>
           </div>
         ),
         to: "/postAds/Details",
@@ -61,7 +60,7 @@ const PostAdSidebar = () => {
         text: (
           <div className="text-xs font-semibold flex flex-col items-center justify-center">
             <p>STEP 3</p>
-            <span>Image</span>
+            <span className="hidden sm:block">Image</span>
           </div>
         ),
         to: "/postAds/Images",
@@ -71,7 +70,7 @@ const PostAdSidebar = () => {
         text: (
           <div className="text-xs font-semibold flex flex-col items-center justify-center">
             <p>STEP 4</p>
-            <span>Publish</span>
+            <span className="hidden sm:block">Publish</span>
           </div>
         ),
         to: "/postAds/Publish",
@@ -112,9 +111,9 @@ const PostAdSidebar = () => {
       </div>
 
       <div className="lg:hidden mt-2 bg-bellefuWhite rounded-md py-3 px-1">
-        <div className="flex items-center space-x-2 mb-3">
+        <div className="flex items-center space-x-2 mb-3 ml-[6vw]">
           <RiAdvertisementFill />
-          <p className="font-bold">Post Ads</p>
+          <p className="font-bold text-[13px]">Post Ads</p>
         </div>
         <div
           className="flex items-center justify-between w-full -ml-8"

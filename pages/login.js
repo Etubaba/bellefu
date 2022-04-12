@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { signIn, useSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import Head from "next/head";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -9,8 +10,10 @@ import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
 import { isLoggedIn, setProfileDetails, ifVerified } from "../features/bellefuSlice";
+//import { data } from "autoprefixer";
 
 const Login = () => {
+  const {data: session } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -77,6 +80,15 @@ const Login = () => {
     event.preventDefault();
   };
 
+  //console.log(process.env.GOOGLE_ID);
+
+  if (session) {
+    //signOut()
+    console.log(session)
+    router.replace("/");
+    return null;
+  }
+
   return (
     <>
       <Head>
@@ -110,8 +122,8 @@ const Login = () => {
             <button
               type="button"
               className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
+              onClick={() => signIn()}
             >
-              {/* <Image src={google} alt="google" width="14px" height="14px" /> <span className="pl-4">Login with Google</span> */}
               <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
 
             </button>
@@ -120,12 +132,7 @@ const Login = () => {
             <button
               type="button"
               className="flex border-2 rounded-lg py-3 justify-center items-center pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
-            >  {/* <Image src={facebook} alt="google" width="14px" height="14px" /> */}
-
-              {/* <span className="rounded-full bg-white">
-              
-                <ImFacebook className='text-2xl text-white mr-5 ' />
-              </span> */}
+            >  
               <ImFacebook className='text-2xl text-white mr-2 ' />
               <strong className="pl-2 text-xl"> Facebook</strong>
             </button>

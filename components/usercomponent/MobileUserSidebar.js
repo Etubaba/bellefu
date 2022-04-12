@@ -1,6 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { MdAccountBox, MdPending, MdNotifications } from "react-icons/md";
+import {
+  MdAccountBox,
+  MdPending,
+  MdNotifications,
+  MdPublishedWithChanges,
+} from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { ImKey, ImPushpin, ImClock } from "react-icons/im";
 import { HiUser } from "react-icons/hi";
@@ -8,8 +13,12 @@ import { FaWallet, FaHeart } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
 import NavLink from "./NavLink";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { isLoggedIn } from "../../features/bellefuSlice";
 
-const MobileUserSidebar = ({ open, setOpen }) => {
+const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
+  const dispatch = useDispatch();
   const router = useRouter(),
     iconValues = [
       { icon: MdAccountBox, text: "Account overview", to: "/users" },
@@ -23,6 +32,11 @@ const MobileUserSidebar = ({ open, setOpen }) => {
       { icon: RiMessage2Fill, text: "Messages", to: "/users/messages" },
       { icon: false },
       { icon: ImPushpin, text: "My Ads", to: "/users/myads" },
+      {
+        icon: MdPublishedWithChanges,
+        text: "Published Ads",
+        to: "/users/published",
+      },
       {
         icon: FaHeart,
         text: "My Favourite Items",
@@ -44,12 +58,17 @@ const MobileUserSidebar = ({ open, setOpen }) => {
     ],
     lastElem = iconValues.length - 1,
     handleLogout = () => {
+      dispatch(isLoggedIn(false));
+      localStorage.clear();
       router.push("/login");
+      toast.info("You have logged out successfully", {
+        position: "top-center",
+      });
     };
 
   return (
-    <div className="absolute top-[4.5rem] -left-1 bg-bellefuOrange w-72 mr-3 rounded-lg pt-4 animate-slide-in z-50">
-      <div className="" id="side-bar">
+    <div className="lg:hidden bg-bellefuWhite w-full absolute left-0 pt-4 z-40">
+      <div className="w-full" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
@@ -69,7 +88,7 @@ const MobileUserSidebar = ({ open, setOpen }) => {
           if (iconValue.icon) {
             return (
               <NavLink
-                onClick={() => setOpen(false)}
+                onClick={() => setIsOpen(false)}
                 to={iconValue.to}
                 className="flex m-4 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
                 icon={iconValue}
@@ -85,4 +104,4 @@ const MobileUserSidebar = ({ open, setOpen }) => {
   );
 };
 
-export default MobileUserSidebar;
+export default MobileUserSideBar;

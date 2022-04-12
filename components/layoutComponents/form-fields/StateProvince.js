@@ -165,7 +165,7 @@ export default function UnstyledSelectSimple3({countryStuffs,catchLgas}) {
 
   
   return (
-    <CustomSelect disabled={disable} defaultValue={userThing.state}>
+    <CustomSelect disabled={disable} defaultValue={userThing?.state}>
 
        {stateSelect?.map((counts,index)=>(
        <span  onClick={() => handleThings(counts)}>

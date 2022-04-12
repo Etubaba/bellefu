@@ -80,7 +80,7 @@ export default function Images(props) {
   const thumbs = files.map((file, index) => (
     <div style={thumb} key={index}>
       <div className="flex">
-        <img src={file} style={img} />
+        <img src={file} className="rounded object-fill w-[200px] lg:w-[20vw]" />
         <MdClose
           onClick={() => handleRemovetag(file)}
           className="text-[28px] z-10 cursor-pointer bg-gray-100  hover:bg-gray-300 p-[2px] rounded-md m-[3px] absolute "
@@ -124,24 +124,24 @@ export default function Images(props) {
           </p>
 
           <div className="space-y-3 flex flex-col items-center justify-center">
-            <p>Click here or Drag & drop images here </p>
+            <p className=" text-[12px] lg:text-base text-center">Click here or Drag & drop images here </p>
 
             <div>
-              <p>
-                Max file size : <strong className="ml-4">5mb</strong>
+              <p className=" text-[12px] lg:text-base">
+                Max file size : <strong className="ml-[10px">5mb</strong>
               </p>
-              <p className="mb-10">Accept : jpeg/png</p>
+              <p  className="mb-10 text-[12px] lg:text-base">Accept : jpeg/png</p>
             </div>
           </div>
         </div>
       ) : (
         <>
-          <div className="border-dashed  space-y-4 border-4 mx-10 my-16 flex  border-gray-300 p-10   hover:border-blue-400 flex-wrap ">
+          <div className="border-dashed   space-y-4 border-4 lg:mx-10 lg:my-16 flex  border-gray-300 p-10   hover:border-blue-400 flex-wrap ">
             <div className="m-5  flex">
               <aside>{thumbs}</aside>
             </div>
             <div
-              className="border-gray-300 p-6 relative top-[13px] h-[7vw] rounded-md m-5 border-dashed border-4 hover:border-blue-400 "
+              className="border-gray-300 p-6 relative top-[13px] sm:h-[20vh] lg:h-[7vh] rounded-md m-5 border-dashed border-4 hover:border-blue-400 "
               {...getRootProps()}
             >
               <input {...getInputProps()} />
@@ -162,7 +162,7 @@ export default function Images(props) {
               disabled={files2?.length === 0 ? true : false}
               onClick={handleSubmit}
               type="submit"
-              class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+              class="flex justify-center items-centerw-[19vw]  lg:w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
             >
               Continue
             </button>
