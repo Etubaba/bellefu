@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { apiData } from "../constant";
 import {BsEye, BsEyeSlash} from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
@@ -11,6 +12,7 @@ import { useSelector } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
 import { ImFacebook } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
+import classNames from "classnames";
 
 export const getStaticProps = async () => {
   const response = await fetch(`${apiData}get/countries`);
@@ -27,6 +29,7 @@ export const getStaticProps = async () => {
 const Register = ({countries, countries1}) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const {data: session} = useSession();
   const defaultCountry = useSelector(homeData)?.defaultCountry;
   const [formFields, setFormFields] = useState({
     fname: "",
@@ -51,11 +54,17 @@ const Register = ({countries, countries1}) => {
   const onChange = (input) => (evt) => {
     evt.stopPropagation();
 
-    setFormFields({ ...formFields, [input]: evt.target.value });
     if (input === "password") {
       if (evt.target.value) setShowIcon(true);
       else setShowIcon(false);
     }
+
+    if (input === "fname" || input === "lname") {
+      setFormFields({ ...formFields, [input]: `${evt.target.value.charAt(0).toUpperCase()}${evt.target.value.substring(1)}` });
+      return;
+    }
+
+    setFormFields({ ...formFields, [input]: evt.target.value});
   };
   const handleClickShowPassword = () => {
     setShowPassword((prevState) => !prevState);
@@ -146,6 +155,15 @@ const Register = ({countries, countries1}) => {
   };
 
   useEffect(() => {
+    if (!session) return;
+    const { user } = session;
+    console.log(user);
+    signOut();
+
+    setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email})
+  }, [session])
+
+  useEffect(() => {
     if (!countryPhoneCode) {
       const country = countries1.find(country => country.iso2 === defaultCountry)
       setCountryPhoneCode(`+${country.phone_code}`);
@@ -158,19 +176,20 @@ const Register = ({countries, countries1}) => {
         <title>Register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <RegisterHeader />
-      <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2">
-        <h1 className="text-center font-bold py-4">Create Your Account With Bellefu!</h1>
+      {!session && <RegisterHeader />}
+      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2",{"mt-9": session})}>
+        <h1 className="text-center font-bold py-4">{!session ? "Create Your Account With Bellefu!" : "Thanks for Your Interest in Bellefu App"}</h1>
+        {session && <h2 className="text-center font-semibold pb-4">To Serve You Better and Complete Your Registration, We Need More Information from You.</h2>}
         <hr />
         <div className="py-4 md:py-8 px-3 sm:px-6 md:px-12">
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">First Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.fname} onChange={onChange("fname")} /></p>
+              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.fname} onChange={onChange("fname")} disabled={session?true:false} /></p>
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Last Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lname} onChange={onChange("lname")} /></p>
+              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lname} onChange={onChange("lname")} disabled={session?true:false} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
@@ -226,8 +245,8 @@ const Register = ({countries, countries1}) => {
               { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
             <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
-              <p><label id="email" className="text-sm font-medium text-slate-700">Email (optional)</label></p>
-              <p className="w-full"><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} /></p>
+              <p><label id="email" className="text-sm font-medium text-slate-700">Email {!session && "(optional)"}</label></p>
+              <p className="w-full"><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} disabled={session?true:false} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
@@ -268,7 +287,7 @@ const Register = ({countries, countries1}) => {
             </div>
           </div>
           { !isLoading ? 
-            <p className="hover:bg-[#FFA500] bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer" onClick={handleRegister}>Register</p> : 
+            <p className="hover:bg-bellefuOrange bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer font-bold" onClick={handleRegister}>{!session?"Register":"Continue"}</p> : 
             <p className="bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 ..." disabled>
               <svg className="animate-spin h-1 w-5 mr-3 ..." viewBox="0 0 24 24">
                  
@@ -277,26 +296,31 @@ const Register = ({countries, countries1}) => {
             </p>
           }
         </div>
-        {/* <hr />
-        <p className="text-center mt-11 mb-8">OR</p>
-        <div className="flex flex-col md:flex-row items-center justify-center mb-12 px-6 py-4 md:px-12 md:py-4">
-          <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
-            <button
-              type="button"
-              className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
-            >
-              <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
-            </button>
-          </p>
-          <p className="text-white w-[100%] md:w-[75%]">
-            <button
-              type="button"
-              className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
-            >
-              <ImFacebook className='text-2xl text-white mr-2 ' /> <strong className="pl-2 text-xl"> Facebook</strong>
-            </button>
-          </p>
-        </div> */}
+        { !session &&
+          <>
+            <hr />
+            <p className="text-center mt-11 mb-8">OR</p>
+            <div className="flex flex-col md:flex-row items-center justify-center mb-12 px-6 py-4 md:px-12 md:py-4">
+              <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
+                <button
+                  type="button"
+                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
+                  onClick={() => signIn()}
+                >
+                  <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
+                </button>
+              </p>
+              <p className="text-white w-[100%] md:w-[75%]">
+                <button
+                  type="button"
+                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+                >
+                  <ImFacebook className='text-2xl text-white mr-2 ' /> <strong className="pl-2 text-xl"> Facebook</strong>
+                </button>
+              </p>
+            </div>
+          </>
+        }
       </div>
     </>
   );
