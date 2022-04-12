@@ -21,7 +21,6 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
   const [fav2, setFav2] = useState(false);
-  const [productId, setProductId] = useState([]);
   const [open, setOpen] = useState(false);
 
   const router = useRouter();

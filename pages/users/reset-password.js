@@ -17,7 +17,7 @@ function resetpassword() {
   //   fetching from redux
   const userid = useSelector((state) => state.bellefu?.profileDetails).id;
 
-  //   console.log("user id => ", userId);
+  console.log("user id => ", userid);
   //   states for the passwords
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -26,6 +26,7 @@ function resetpassword() {
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   //   method to handle the password check
+  // jdjjdjdjjdjdjdj
   const checkExists = (evt) => {
     const target = evt.target;
 
