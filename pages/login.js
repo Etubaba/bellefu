@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import Head from "next/head";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -80,9 +80,11 @@ const Login = () => {
     event.preventDefault();
   };
 
-  console.log(process.env.GOOGLE_ID);
+  //console.log(process.env.GOOGLE_ID);
 
   if (session) {
+    //signOut()
+    console.log(session)
     router.replace("/");
     return null;
   }
