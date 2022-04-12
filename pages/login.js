@@ -15,12 +15,6 @@ import { isLoggedIn, setProfileDetails, ifVerified } from "../features/bellefuSl
 const Login = () => {
   const {data: session } = useSession();
   const router = useRouter();
-
-  if (session) {
-    router.replace("/");
-    return;
-  }
-
   const dispatch = useDispatch();
 
   const [formFields, setFormFields] = useState({
@@ -87,6 +81,11 @@ const Login = () => {
   };
 
   console.log(process.env.GOOGLE_ID);
+
+  if (session) {
+    router.replace("/");
+    return null;
+  }
 
   return (
     <>
