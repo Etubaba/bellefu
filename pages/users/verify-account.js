@@ -321,7 +321,7 @@ function Verifyaccount() {
     }
   }
 
-  console.log(accountName, accountNumber, bankName, accountType)
+  console.log('i wan check something')
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
       <div className="text-xl ml-4 self p-2">Account Verification</div>
