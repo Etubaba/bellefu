@@ -14,12 +14,12 @@ function MainProductHeader() {
               <BiSortAlt2 className="text-bellefuOrange mr-2 text-[1.2rem]" />
               <p className="relative bottom-[5px] lg:bottom-[7px]">sort:</p>
             </div>
-            <div class="col-span-6 sm:col-span-3">
+            <div className="col-span-6 sm:col-span-3">
               <select
                 id="country"
                 name="country"
-                autocomplete="country-name"
-                class=" block w-full py-1 px-3 border-0  bg-white rounded-md shadow-sm focus:outline-none focus:ring-bellefuGreen focus:border-bellefuGreen sm:text-sm"
+                autoComplete="country-name"
+                className=" block w-full py-1 px-3 border-0  bg-white rounded-md shadow-sm focus:outline-none focus:ring-bellefuGreen focus:border-bellefuGreen sm:text-sm"
               >
                 <option>United States</option>
                 <option>Canada</option>

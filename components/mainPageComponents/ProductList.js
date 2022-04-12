@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Modal, Typography, Divider, Box, Button } from "@mui/material";
+import { Modal } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { MdLocationOn, MdOutlineCancel } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
@@ -125,7 +125,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                   })
                   .then((res) => {
                     if (res.data.status) {
-                      setFav2(false);
+                      setFav2(!fav2);
                       fav.filter((items) => items !== favId);
                       toast.error(
                         `${product.title.substring(
@@ -147,7 +147,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
           </span>
         ) : (
           <BsHeart
-            onMouseEnter={(e) => {
+            onClick={(e) => {
               e.stopPropagation();
               if (getIsLoggedIn) {
                 axios
@@ -166,6 +166,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                   });
               } else {
                 toast.error("Login to add favorite product");
+                setOpen(true);
               }
             }}
             className="w-4 h-4 text-bellefuOrange cursor-pointer"
