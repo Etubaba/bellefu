@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { FaEye } from 'react-icons/fa'
 import { IoMdCall } from 'react-icons/io'
@@ -7,6 +7,12 @@ import { MdDeleteForever, MdSend } from 'react-icons/md'
 import { FcVideoCall } from 'react-icons/fc'
 import { MdOutlineCancel } from 'react-icons/md'
 import { AiOutlinePaperClip } from 'react-icons/ai'
+import { useSelector } from "react-redux";
+import { apiData } from "../../constant";
+import { toast } from "react-toastify";
+import axios from "axios";
+import Dropzone from "react-dropzone";
+import moment from "moment";
 
 
 
@@ -16,6 +22,70 @@ import { AiOutlinePaperClip } from 'react-icons/ai'
 
 const messages = () => {
   const [read, setRead] = useState(false)
+  const [message, setMessage] = useState('')
+  const [file, setFile] = useState()
+  const [preview, setPreview] = useState()
+  const [contact, setContact] = useState([])
+  const [chat, setChat] = useState([])
+
+
+
+  const senderId = useSelector(state => state.bellefu?.profileDetails?.id)
+  const receiverId = 639
+  const test = 639
+
+
+  const handleMessage = () => {
+
+
+    const formData = new FormData();
+    formData.append('messageTo', receiverId)
+    formData.append('messageFrom', senderId)
+    formData.append('image', file !== undefined ? file : '')
+    formData.append('message', message)
+    axios({
+      method: 'POST',
+      url: `${apiData}send/messages`,
+      data: formData,
+      headers: {
+        'Content-Type': "multipart/form-data",
+      }
+
+    })
+      .then(res => {
+        console.log(res.data)
+        // if (res.data.status) {
+        //   toast.success('Your message has been sent successfully.', { position: 'top-right' })
+
+
+
+      }
+      )
+
+  }
+
+
+  useEffect(() => {
+    const getMessages = async () => {
+
+      await axios.get(`${apiData}get/user/messages/${test}`)
+        .then(res => setContact(res.data.data))
+    }
+
+    // const getChat = async () => {
+
+    //   await axios.get(`${apiData}single/contact/${senderId}/${receiverId}`)
+    //     .then(res => setChat(res.data.data))
+    // }
+
+
+    // getChat()
+
+    getMessages()
+
+  }, [])
+
+  console.log(contact)
   return (
     // the message header
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2 ">
@@ -37,43 +107,47 @@ const messages = () => {
       {/* message contents 1 */}
       {!read && (
         <div>
-          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-            <div className="flex">
-              <img
-                src="https://www.linkpicture.com/q/gk.jpeg"
-                className="w-24 h-24 mt-4 mr-4 rounded-full"
-                alt="Bellefu"
-              />
-              <div>
-                <span className='flex mb-1 justify-between space-x-6'><strong>Egi Godknows</strong> <span className='bg-bellefuGreen text-center h-6 w-6 rounded-full text-white '>2</span></span>
+          {contact?.map((item, index) => {
 
-                <p className="text-[#3F3F3F] mb-3 text-base">
-                  {" "}
-                  New notifications from Bellefu, Aliquet odio mattis. Class
-                  aptent taciti sociosqu ad litora torquent
-                  per conubia nostra, per inceptos himenaeos...
-                </p>
+            <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+              <div className="flex">
+                <img
+                  src="https://www.linkpicture.com/q/gk.jpeg"
+                  className="w-24 h-24 mt-4 mr-4 rounded-full"
+                  alt="Bellefu"
+                />
+                <div>
+                  <span className='flex mb-1 justify-between space-x-6'><strong>{item.first_name} &nbsp; {item.last_name}</strong> <span className='bg-bellefuGreen text-center h-6 w-6 rounded-full text-white '>2</span></span>
 
-                <p className="text-[#9799AB] text-sm">2 days ago</p>
+                  <p className="text-[#3F3F3F] mb-3 text-base">
+                    {" "}
+                    New notifications from Bellefu, Aliquet odio mattis. Class
+                    aptent taciti sociosqu ad litora torquent
+                    per conubia nostra, per inceptos himenaeos...
+                  </p>
+
+                  <p className="text-[#9799AB] text-sm">2 days ago</p>
+                </div>
               </div>
+              <span className="flex justify-end">
+
+                <button
+                  onClick={() => setRead(true)}
+                  className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1"
+                >
+                  <FaEye className="mr-2 text-xl" /> Reply
+                </button>
+
+
+                <button className="flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1">
+                  {" "}
+                  <MdDeleteForever className="mr-2 text-xl" />
+                  Delete
+                </button>
+              </span>
             </div>
-            <span className="flex justify-end">
+          })}
 
-              <button
-                onClick={() => setRead(true)}
-                className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1"
-              >
-                <FaEye className="mr-2 text-xl" /> Reply
-              </button>
-
-
-              <button className="flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1">
-                {" "}
-                <MdDeleteForever className="mr-2 text-xl" />
-                Delete
-              </button>
-            </span>
-          </div>
         </div>)}
 
       {/* Open message to reply */}
@@ -141,13 +215,37 @@ const messages = () => {
 
           <div className="flex items-center justify-between p-3 border-t border-gray-300">
 
-            <botton ><AiOutlinePaperClip className='w-6 h-6 text-3xl text-gray-500 hover:bg-bellefuBackground' /></botton>
+            <Dropzone
+              onDrop={(acceptedFiles) => {
+                for (let i = 0; i < acceptedFiles.length; i++) {
+                  let loopedfile = acceptedFiles[i];
+                  setFile(loopedfile);
+                }
+                setPreview(URL.createObjectURL(acceptedFiles[0]))
+              }
+              }
 
+            >
+              {({ getRootProps, getInputProps }) => (
+                <botton
+                  // onClick={handleFile}
+                  {...getRootProps()}
+                >
+                  <input {...getInputProps()} />
+                  <AiOutlinePaperClip className='w-6 h-6 text-3xl text-gray-500 hover:text-gray-300' />
+                </botton>
+              )}
+            </Dropzone>
             <input type="text" placeholder="Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               className="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700"
               name="message" required />
-            <button className='justify-center flex hover:bg-gray-200 items-center px-3 py-3 h-12 w-12 bg-bellefuBackground rounded-full'>
-              <MdSend className=' w-5 h-5 text-3xl  text-gray-500' />
+            <button
+              disabled={message.length === 0 ? true : false}
+              onClick={handleMessage}
+              className={message.length === 0 ? 'justify-center flex  items-center px-3 py-3 h-10 w-10 bg-[#E0E0E0] rounded-full' : 'justify-center flex hover:bg-gray-200 items-center px-3 py-3 h-10 w-10 bg-bellefuBackground rounded-full'}>
+              <MdSend className={message.length === 0 ? 'text-[#A6A6A6] w-5 h-5 text-3xl ' : ' w-5 h-5 text-3xl  text-gray-500'} />
             </button>
 
           </div>
