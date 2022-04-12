@@ -167,7 +167,7 @@ function Index({ data1, data2 }) {
               <div className="p-5 flex justify-between">
                 <button
                   type="submit"
-                  class="flex justify-center items-center w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  class="flex justify-center items-center w-[19vw] lg:w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                 >
                   Cancel
                 </button>
@@ -176,7 +176,7 @@ function Index({ data1, data2 }) {
                   // disabled={address===""?true:false}
                     type="submit"
                     onClick={handleSubmit}
-                    class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                    class="flex justify-center items-center w-[19vw] lg:w-[15vw] py-2 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                   >
                     Continue
                   </button>
