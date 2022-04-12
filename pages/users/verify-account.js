@@ -143,7 +143,7 @@ function Verifyaccount() {
     axios
       .post(`${apiData}send/phone/code`, {
         userid: userId.id,
-        phone: userId.phone,
+        phone: userId?.phone,
         action: "sms",
       })
       .then((res) => {
@@ -160,7 +160,7 @@ function Verifyaccount() {
     axios
       .post(`${apiData}send/phone/code`, {
         userid: userId.id,
-        phone: userId.phone,
+        phone: userId?.phone,
         action: "call",
       })
       .then((res) => {
