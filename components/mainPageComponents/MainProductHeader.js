@@ -18,7 +18,7 @@ function MainProductHeader() {
               <select
                 id="country"
                 name="country"
-                autocomplete="country-name"
+                autoComplete="country-name"
                 className=" block w-full py-1 px-3 border-0  bg-white rounded-md shadow-sm focus:outline-none focus:ring-bellefuGreen focus:border-bellefuGreen sm:text-sm"
               >
                 <option>United States</option>
