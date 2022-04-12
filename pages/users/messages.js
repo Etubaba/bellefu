@@ -32,6 +32,7 @@ const messages = () => {
 
   const senderId = useSelector(state => state.bellefu?.profileDetails?.id)
   const receiverId = 639
+  const test = 639
 
 
   const handleMessage = () => {
@@ -64,25 +65,25 @@ const messages = () => {
   }
 
 
-  // useEffect(() => {
-  //   const getMessages = async () => {
+  useEffect(() => {
+    const getMessages = async () => {
 
-  //     await axios.get(`${apiData}get/user/messages/${senderId}`)
-  //       .then(res => setContact(res.data.data))
-  //   }
+      await axios.get(`${apiData}get/user/messages/${test}`)
+        .then(res => setContact(res.data.data))
+    }
 
-  //   const getChat = async () => {
+    // const getChat = async () => {
 
-  //     await axios.get(`${apiData}single/contact/${senderId}/${receiverId}`)
-  //       .then(res => setChat(res.data.data))
-  //   }
+    //   await axios.get(`${apiData}single/contact/${senderId}/${receiverId}`)
+    //     .then(res => setChat(res.data.data))
+    // }
 
 
-  //   getChat()
+    // getChat()
 
-  //   getMessages()
+    getMessages()
 
-  // }, [])
+  }, [])
 
   console.log(contact)
   return (
@@ -106,43 +107,47 @@ const messages = () => {
       {/* message contents 1 */}
       {!read && (
         <div>
-          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-            <div className="flex">
-              <img
-                src="https://www.linkpicture.com/q/gk.jpeg"
-                className="w-24 h-24 mt-4 mr-4 rounded-full"
-                alt="Bellefu"
-              />
-              <div>
-                <span className='flex mb-1 justify-between space-x-6'><strong>Egi Godknows</strong> <span className='bg-bellefuGreen text-center h-6 w-6 rounded-full text-white '>2</span></span>
+          {contact?.map((item, index) => {
 
-                <p className="text-[#3F3F3F] mb-3 text-base">
-                  {" "}
-                  New notifications from Bellefu, Aliquet odio mattis. Class
-                  aptent taciti sociosqu ad litora torquent
-                  per conubia nostra, per inceptos himenaeos...
-                </p>
+            <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+              <div className="flex">
+                <img
+                  src="https://www.linkpicture.com/q/gk.jpeg"
+                  className="w-24 h-24 mt-4 mr-4 rounded-full"
+                  alt="Bellefu"
+                />
+                <div>
+                  <span className='flex mb-1 justify-between space-x-6'><strong>{item.first_name} &nbsp; {item.last_name}</strong> <span className='bg-bellefuGreen text-center h-6 w-6 rounded-full text-white '>2</span></span>
 
-                <p className="text-[#9799AB] text-sm">2 days ago</p>
+                  <p className="text-[#3F3F3F] mb-3 text-base">
+                    {" "}
+                    New notifications from Bellefu, Aliquet odio mattis. Class
+                    aptent taciti sociosqu ad litora torquent
+                    per conubia nostra, per inceptos himenaeos...
+                  </p>
+
+                  <p className="text-[#9799AB] text-sm">2 days ago</p>
+                </div>
               </div>
+              <span className="flex justify-end">
+
+                <button
+                  onClick={() => setRead(true)}
+                  className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1"
+                >
+                  <FaEye className="mr-2 text-xl" /> Reply
+                </button>
+
+
+                <button className="flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1">
+                  {" "}
+                  <MdDeleteForever className="mr-2 text-xl" />
+                  Delete
+                </button>
+              </span>
             </div>
-            <span className="flex justify-end">
+          })}
 
-              <button
-                onClick={() => setRead(true)}
-                className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1"
-              >
-                <FaEye className="mr-2 text-xl" /> Reply
-              </button>
-
-
-              <button className="flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1">
-                {" "}
-                <MdDeleteForever className="mr-2 text-xl" />
-                Delete
-              </button>
-            </span>
-          </div>
         </div>)}
 
       {/* Open message to reply */}

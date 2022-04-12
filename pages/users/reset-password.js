@@ -15,7 +15,7 @@ function resetpassword() {
   const router = useRouter();
 
   //   fetching from redux
-  const userid = useSelector((state) => state.bellefu?.profileDetails).id;
+  const userid = useSelector((state) => state.bellefu?.profileDetails?.id)
 
   //   console.log("user id => ", userId);
   //   states for the passwords
