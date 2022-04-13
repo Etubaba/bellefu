@@ -84,7 +84,7 @@ function resetpassword() {
       <hr />
       {feedback ? (
         <div>
-          <div className="border mx-auto mt-10 mb-10  rounded-xl    w-7/12 h-11/12 ">
+          <div className="border mx-auto mt-10 mb-10  rounded-xl w-auto   lg:w-7/12 lg:h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <IoIosCheckmarkCircle className="text-6xl mb-5 text-bellefuGreen" />
               <p className="text-lg text-center text-gray-600">
@@ -124,7 +124,7 @@ function resetpassword() {
                   onBlur={checkExists}
                   onFocus={() => setOldPasswordExits(false)}
                   autoComplete="given-name"
-                  className=" bg-gray-200 p-[8px] mt-1 focus:ring-bellefuGreen focus:border-bellefuGreen block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
+                  className=" bg-gray-200 p-[8px] mt-1 focus:ring-bellefuGreen focus:border-bellefuGreen w-72 block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
                 {oldPasswordExists && (
                   <span className="text-red-600 text-xs ">
@@ -157,7 +157,7 @@ function resetpassword() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   autoComplete="given-name"
-                  className=" bg-gray-200 p-[8px] mt-1 focus:outline-none  block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
+                  className=" bg-gray-200 w-72 p-[8px] mt-1 focus:outline-none  block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
               </div>
               <div className="col-span-6 sm:col-span-3 mb-10">
@@ -185,7 +185,7 @@ function resetpassword() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   autocomplete="given-name"
                   onFocus={() => setPasswordMatch(false)}
-                  className=" bg-gray-200 p-[8px] focus:outline-none mt-1  block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
+                  className=" bg-gray-200 p-[8px] focus:outline-none mt-1 w-72  block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
                 {passwordMatch && (
                   <span className="text-red-600 text-xs ">
