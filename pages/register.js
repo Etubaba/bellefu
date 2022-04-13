@@ -158,7 +158,7 @@ const Register = ({countries, countries1}) => {
     if (!session) return;
     const { user } = session;
     console.log(user);
-    signOut();
+    //signOut();
 
     setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email})
   }, [session])
