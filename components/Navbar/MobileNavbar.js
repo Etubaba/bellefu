@@ -19,7 +19,7 @@ const MobileNavbar = ({ isOpen, setIsOpen }) => {
     }
   };
   return (
-    <div className="absolute bg-[#333333] w-80 space-y-3 px-2 py-5 top-0 -left-1 h-[80vh] text-white lg:hidden shadow-md animate-slide-in">
+    <div className="absolute bg-[#333333] w-72 space-y-3 px-2 py-5 top-0 -left-1 h-[100vh] text-white lg:hidden shadow-md animate-slide-in">
       <div
         className="-mb-2 flex items-center justify-end"
         onClick={() => setIsOpen(false)}
