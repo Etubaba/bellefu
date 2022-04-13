@@ -256,14 +256,14 @@ const profile = ({ data1 }) => {
                         type="text"
                         disabled
                         autocomplete="your password"
-                        className=" bg-[white] p-[8px] mt-1 mr-[4px] focus:ring-bellefuGreen focus:outline-0 block w-[17%] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        className=" bg-[white] p-[8px] mt-1 mr-[4px] focus:ring-bellefuGreen focus:outline-0 block w-[19%] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                       />
                       <input
                         value={userThings?.phone}
                         type="phone"
                         disabled
                         autocomplete="your password"
-                        className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-[90%] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                       />
                     </div>
                   </div>
@@ -291,7 +291,7 @@ const profile = ({ data1 }) => {
       </div>
 
       <div className="border-b mt-10 flex items-center justify-center">
-        <p>Fill in the below fields to become a seller on Bellefu</p>
+        <p className="text-center">Fill in the below fields to become a seller on Bellefu</p>
       </div>
       <div className="border  p-5 mt-7  ">
         <div className=" flex justify-right items-right">
