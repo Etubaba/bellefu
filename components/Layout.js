@@ -7,18 +7,23 @@ import AlternateComponent from "./alternateComponent/AlternateComponent";
 import { BiArrowBack } from "react-icons/bi";
 
 const Layout = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const userId = useSelector((state) => state.bellefu?.profileDetails);
   return (
     <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
       <div className="flex flex-col lg:flex-row">
         <UserSideBar />
         {isOpen && <MobileUserSidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
-        <div
-          className="lg:hidden cursor-pointer bg-bellefuOrange w-8 h-8 rounded-full flex items-center justify-center ml-3 mt-2 "
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <BiArrowBack className="text-white font-bold" />
+        <div className="lg:hidden flex items-center space-x-6 mt-2">
+          <div
+            className=" cursor-pointer bg-bellefuOrange w-8 h-8 rounded-full flex items-center justify-center ml-3 "
+            onClick={() => setIsOpen(true)}
+          >
+            <BiArrowBack className="text-white font-bold" />
+          </div>
+          <p className="text-sm text-gray-400 capitalize font-semibold">
+            Go to user Navigation
+          </p>
         </div>
         <main className="flex-grow">{children}</main>
       </div>

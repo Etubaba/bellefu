@@ -278,7 +278,7 @@ export default function Publish() {
           <button
             onClick={handleHome}
             type="submit"
-            class="flex justify-center items-center w-[15vw] py-2 px-4 mt-[30px]  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+            class="flex justify-center items-center lg:w-[15vw] py-2 px-4 mt-[30px]  border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
           >
             Back to Home
           </button>
