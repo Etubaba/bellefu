@@ -80,7 +80,7 @@ function resetpassword() {
 
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
-      <div className="text-xl ml-4 self p-2">Reset Password</div>
+      <div className="text-xl ml-4 self p-2 text-center lg:text-left">Reset Password</div>
       <hr />
       {feedback ? (
         <div>
@@ -96,7 +96,7 @@ function resetpassword() {
         </div>
       ) : (
         <div>
-          <div className="flex flex-col border rounded-lg  justify-center my-16 mx-20 items-center">
+          <div className="flex flex-col border rounded-lg  justify-center my-16 mx:[25px] lg:mx-20 items-center">
             <form className="m-6">
               <div className="col-span-6 sm:col-span-3 mb-10">
                 <label
@@ -108,12 +108,12 @@ function resetpassword() {
                 {view1 ? (
                   <FaEyeSlash
                     onClick={() => setView1(false)}
-                    className="absolute  mt-4  right-[26%]"
+                    className="absolute  mt-4  right-[28%]"
                   />
                 ) : (
                   <FaEye
                     onClick={() => setView1(true)}
-                    className="absolute  mt-4  right-[26%]"
+                    className="absolute  mt-4  right-[28%]"
                   />
                 )}
                 <input
@@ -124,7 +124,7 @@ function resetpassword() {
                   onBlur={checkExists}
                   onFocus={() => setOldPasswordExits(false)}
                   autoComplete="given-name"
-                  className=" bg-gray-200 p-[8px] mt-1 focus:ring-bellefuGreen focus:border-bellefuGreen block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
+                  className=" bg-gray-200 p-[8px] mt-1 focus:ring-bellefuGreen focus:border-bellefuGreen block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
                 {oldPasswordExists && (
                   <span className="text-red-600 text-xs ">
@@ -143,12 +143,12 @@ function resetpassword() {
                 {view ? (
                   <FaEyeSlash
                     onClick={() => setView(false)}
-                    className="absolute  mt-4  right-[26%]"
+                    className="absolute  mt-4  right-[28%]"
                   />
                 ) : (
                   <FaEye
                     onClick={() => setView(true)}
-                    className="absolute  mt-4  right-[26%]"
+                    className="absolute  mt-4  right-[28%]"
                   />
                 )}
                 <input
@@ -157,7 +157,7 @@ function resetpassword() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   autoComplete="given-name"
-                  className=" bg-gray-200 p-[8px] mt-1 focus:outline-none  block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
+                  className=" bg-gray-200 p-[8px] mt-1 focus:outline-none  block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
               </div>
               <div className="col-span-6 sm:col-span-3 mb-10">
@@ -170,12 +170,12 @@ function resetpassword() {
                 {view2 ? (
                   <FaEyeSlash
                     onClick={() => setView2(false)}
-                    className="absolute  mt-4  right-[26%]"
+                    className="absolute  mt-4  right-[28%]"
                   />
                 ) : (
                   <FaEye
                     onClick={() => setView2(true)}
-                    className="absolute  mt-4  right-[26%]"
+                    className="absolute  mt-4  right-[28%]"
                   />
                 )}
                 <input
@@ -185,7 +185,7 @@ function resetpassword() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   autocomplete="given-name"
                   onFocus={() => setPasswordMatch(false)}
-                  className=" bg-gray-200 p-[8px] focus:outline-none mt-1  block w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
+                  className=" bg-gray-200 p-[8px] focus:outline-none mt-1  block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
                 />
                 {passwordMatch && (
                   <span className="text-red-600 text-xs ">
