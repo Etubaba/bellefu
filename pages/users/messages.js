@@ -150,7 +150,7 @@ const messages = () => {
 
   return (
     // the message header
-    <div className="w-full    md:ml-4  md:mt-3 lg:ml-6 rounded-lg lg:mt-5 bg-bellefuWhite h-auto md:w-auto lg:w-auto pb-2 ">
+    <div className="w-full  md:ml-4  md:mt-3 lg:ml-6 rounded-lg lg:mt-5 bg-bellefuWhite h-auto md:w-auto lg:w-auto pb-2 ">
       <div className="flex items-center justify-between space-x-96 text-center p-2">
         <div className="text-xl ">Messages</div>
 

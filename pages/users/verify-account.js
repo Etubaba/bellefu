@@ -5,7 +5,7 @@ import { MdVerified } from "react-icons/md";
 import { BiCaretRight } from "react-icons/bi";
 import { BsCloudUpload } from "react-icons/bs";
 import { VscAdd } from "react-icons/vsc";
-// import { useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
 import {
   profileDetails,
