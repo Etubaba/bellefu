@@ -84,7 +84,7 @@ function resetpassword() {
       <hr />
       {feedback ? (
         <div>
-          <div className="border mx-auto mt-10 mb-10  rounded-xl    w-7/12 h-11/12 ">
+          <div className="border mx-auto mt-10 mb-10  rounded-xl w-auto   lg:w-7/12 lg:h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <IoIosCheckmarkCircle className="text-6xl mb-5 text-bellefuGreen" />
               <p className="text-lg text-center text-gray-600">
