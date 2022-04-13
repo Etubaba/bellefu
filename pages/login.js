@@ -80,12 +80,11 @@ const Login = () => {
     event.preventDefault();
   };
 
-  //console.log(process.env.GOOGLE_ID);
 
   if (session) {
-    //signOut()
     console.log(session)
     router.replace("/");
+    //signOut()
     return null;
   }
 
@@ -122,7 +121,7 @@ const Login = () => {
             <button
               type="button"
               className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
-              onClick={() => signIn()}
+              onClick={() => signIn("google")}
             >
               <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
 

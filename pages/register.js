@@ -39,7 +39,10 @@ const Register = ({countries, countries1}) => {
     gender: "",
     phone: "",
     username: "",
-    password: ""
+    password: "",
+    socialSignup: false,
+    providerId: "",
+    providerName: "",
   });
   const [countryPhoneCode, setCountryPhoneCode] = useState("");
   const [usernameExists, setUsernameExists] = useState(false);
@@ -61,6 +64,17 @@ const Register = ({countries, countries1}) => {
 
     if (input === "fname" || input === "lname") {
       setFormFields({ ...formFields, [input]: `${evt.target.value.charAt(0).toUpperCase()}${evt.target.value.substring(1)}` });
+      return;
+    }
+
+    if (input === "phone") {
+      let target = evt.target;
+      let phone;
+
+      if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
+      else phone = target.value;
+
+      setFormFields({ ...formFields, [input]: phone });
       return;
     }
 
@@ -120,9 +134,15 @@ const Register = ({countries, countries1}) => {
 
     let url, data;
     if (target.name === "phone") {
+      let phone;
+
+      if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
+      else phone = target.value;
+
       url = `${apiData}userphone/exist`;
-      data = {phone: target.value} 
+      data = {phone: countryPhoneCode.concat(phone)} 
     }
+
     if (target.name === "username") {
       url = `${apiData}username/exist`;
       data = {username: target.value}
@@ -156,11 +176,11 @@ const Register = ({countries, countries1}) => {
 
   useEffect(() => {
     if (!session) return;
-    const { user } = session;
+    const { user, providerId, providerName } = session;
     console.log(user);
     //signOut();
 
-    setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email})
+    setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email, socialSignup: true, providerId, providerName,})
   }, [session])
 
   useEffect(() => {
@@ -241,7 +261,7 @@ const Register = ({countries, countries1}) => {
                   ))}
                 </div>
               )}
-              <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
+              <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[114px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
               { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
             <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
@@ -305,9 +325,9 @@ const Register = ({countries, countries1}) => {
                 <button
                   type="button"
                   className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
-                  onClick={() => signIn()}
+                  onClick={() => signIn("google")}
                 >
-                  <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
+                  <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Sign up with Google</strong>
                 </button>
               </p>
               <p className="text-white w-[100%] md:w-[75%]">
@@ -315,7 +335,7 @@ const Register = ({countries, countries1}) => {
                   type="button"
                   className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
                 >
-                  <ImFacebook className='text-2xl text-white mr-2 ' /> <strong className="pl-2 text-xl"> Facebook</strong>
+                  <ImFacebook className='text-2xl text-white mr-2 ' /> <strong className="pl-2 text-xl">Sign up with Facebook</strong>
                 </button>
               </p>
             </div>
