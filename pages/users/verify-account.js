@@ -142,7 +142,7 @@ function Verifyaccount() {
     setShowCount(true);
     axios
       .post(`${apiData}send/phone/code`, {
-        userid: userId.id,
+        userid: userId?.id,
         phone: userId?.phone,
         action: "sms",
       })
@@ -280,7 +280,7 @@ function Verifyaccount() {
     }
   };
 
-  // console.log(accountName, accountNumber, bankName, accountType)
+  console.log('i wan check ')
   return (
     <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
       <div className="text-xl ml-4 self p-2">Account Verification</div>
@@ -292,72 +292,30 @@ function Verifyaccount() {
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <MdVerified className="text-8xl mb-7 text-gray-600" />
 
-              <div className="flex mb-4">
-                <MdVerified
-                  className={
-                    !isverified.phone
-                      ? "text-[#A6A6A6] text-xl"
-                      : "text-black/70 text-xl"
-                  }
-                />
-                <hr className="w-40 mt-2 m-1" />
-                <MdVerified
-                  className={
-                    isverified.id
-                      ? "text-bellefuOrange text-xl"
-                      : "text-[#A6A6A6] text-xl"
-                  }
-                />
-                <hr className="w-40 mt-2 m-1" />
-                <MdVerified
-                  className={
-                    isverified.kyc
-                      ? "text-bellefuGreen text-xl"
-                      : "text-[#A6A6A6] text-xl"
-                  }
-                />
-              </div>
-              <div className="flex justify-between  space-x-32 text-xs mb-10">
-                <p className={!isverified.phone ? "text-[#A6A6A6]" : null}>
-                  phone verified
-                </p>
-                <p className={!isverified.id ? "text-[#A6A6A6]" : null}>
-                  ID verified
-                </p>
-                <p className={!isverified.kyc ? "text-[#A6A6A6]" : null}>
-                  KYC verified
-                </p>
+              <div className='flex mb-4'><MdVerified className={!isverified.phone ? 'text-[#A6A6A6] text-xl' : "text-black/70 text-xl"} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified.id ? 'text-bellefuOrange text-xl' : 'text-[#A6A6A6] text-xl'} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified.kyc ? 'text-bellefuGreen text-xl' : 'text-[#A6A6A6] text-xl'} /></div>
+              <div className='flex justify-between  space-x-32 text-xs mb-10'>
+                <p className={!isverified?.phone ? 'text-[#A6A6A6]' : null}>phone verified</p>
+                <p className={!isverified?.id ? 'text-[#A6A6A6]' : null}>ID verified</p>
+                <p className={!isverified?.kyc ? 'text-[#A6A6A6]' : null}>KYC verified</p>
+
               </div>
 
-              {isverified.kyc ? (
-                <p className="text-sm text-center text-gray-600 mb-12">
-                  {" "}
-                  Congrat!! <br />
-                  you have completed your verification process{" "}
-                </p>
-              ) : (
+              {isverified?.kyc ? <p className='text-sm text-center text-gray-600 mb-12'> Congrat!! <br />
+                you have completed your verification process </p> :
                 <p className="text-sm text-center text-gray-600 mb-12">
                   Proceed with your verification
                   <br />
                   Kindly click on the botton below to complete verification
                   process
                 </p>
-              )}
+              }
               <button
-                disabled={isverified.kyc ? true : false}
+                disabled={isverified?.kyc ? true : false}
                 onClick={() => setVerify(true)}
-                className={
-                  isverified.kyc
-                    ? "bg-[#E0E0E0] rounded-md py-4 px-28 space-x-3"
-                    : "flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"
-                }
+                className={isverified?.kyc ? 'bg-[#E0E0E0] rounded-md py-4 px-28 space-x-3' : "flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"}
               >
                 <MdVerified className="text-xl" />{" "}
-                <span className={isverified.kyc ? "text-[#A6A6A6]" : null}>
-                  {isverified.kyc
-                    ? " You have completed verification "
-                    : " Complete Verification"}
-                </span>
+                <span className={isverified?.kyc ? 'text-[#A6A6A6]' : null} >{isverified.kyc ? ' You have completed verification ' : " Complete Verification"}</span>
               </button>
             </div>
           </div>
@@ -880,10 +838,7 @@ function Verifyaccount() {
                 <MdVerified className="text-8xl  mb-5 text-bellefuGreen" />
                 <p className="mb-7 text-center">
                   <strong> Congrats !!!</strong>
-                  <br />{" "}
-                  {isverified.kyc
-                    ? "Your KYC verification had been completed"
-                    : "Your KYC verification is under review"}
+                  <br /> {isverified?.kyc ? 'Your KYC verification had been completed' : 'Your KYC verification is under review'}
                 </p>
 
                 <div className="flex space-x-5">
