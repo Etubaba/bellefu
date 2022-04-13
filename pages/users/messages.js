@@ -27,6 +27,8 @@ const messages = () => {
   const [preview, setPreview] = useState()
   const [contact, setContact] = useState([])
   const [chat, setChat] = useState([])
+  const [name, setName] = useState(null)
+  const [dp, setDp] = useState(null)
 
 
 
@@ -92,7 +94,7 @@ const messages = () => {
       <div className="flex items-center justify-between space-x-96 text-center p-2">
         <div className="text-xl ">Messages</div>
 
-        <div className="flex justify-evenly">
+        {/* <div className="flex justify-evenly">
           <div className="bg-bellefuBackground text-bellefuOrange rounded m-2 px-2 p-1">
             All
           </div>
@@ -100,63 +102,72 @@ const messages = () => {
           <div className="bg-bellefuBackground rounded px-2 m-2 p-1">
             Mark as read
           </div>
-        </div>
+        </div> */}
       </div>
       <hr />
 
       {/* message contents 1 */}
       {!read && (
         <div>
-          {contact?.map((item, index) => {
+          {contact?.map((item, index) => (
+            <div>
+              <div key={index} className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+                <div className="flex">
+                  <img
+                    src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
+                    // src={`https://bellefu.inmotionhub.xyz/get/user/images/${item.avatar}`}
+                    className="w-20 h-20 mt-2 mr-10 rounded-full"
+                    alt="Bellefu"
+                  />
+                  <div className='w-full mt-3'>
+                    <span className='flex w-full  mb-1 justify-between space-x-30'>
+                      <strong className='flex-1'>{item.first_name} {item.last_name}</strong>
+                      {item.unread > 0 ? <span className='bg-bellefuGreen  text-center h-6 w-6 rounded-full justify-end text-white '>{item.unread}</span> : null}
+                    </span>
 
-            <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-              <div className="flex">
-                <img
-                  src="https://www.linkpicture.com/q/gk.jpeg"
-                  className="w-24 h-24 mt-4 mr-4 rounded-full"
-                  alt="Bellefu"
-                />
-                <div>
-                  <span className='flex mb-1 justify-between space-x-6'><strong>{item.first_name} &nbsp; {item.last_name}</strong> <span className='bg-bellefuGreen text-center h-6 w-6 rounded-full text-white '>2</span></span>
+                    <p className="text-[#3F3F3F] mb-3 text-base">
+                      {item.message.body}
+                    </p>
 
-                  <p className="text-[#3F3F3F] mb-3 text-base">
-                    {" "}
-                    New notifications from Bellefu, Aliquet odio mattis. Class
-                    aptent taciti sociosqu ad litora torquent
-                    per conubia nostra, per inceptos himenaeos...
-                  </p>
-
-                  <p className="text-[#9799AB] text-sm">2 days ago</p>
+                    <p className="text-[#9799AB] text-sm">{moment(item.message.chattime).startOf('day').fromNow()}</p>
+                  </div>
                 </div>
+                {/* <span className="flex justify-end">
+
+                  <button
+                    onClick={() => {
+
+                      setName(item.first_name + ' ' + item.last_name)
+                      setDp(item.avatar)
+
+
+
+                      setRead(true)
+                    }}
+                    className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1"
+                  >
+                    <FaEye className="mr-2 text-xl" /> Reply
+                  </button>
+
+
+                  <button className="flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1">
+                    {" "}
+                    <MdDeleteForever className="mr-2 text-xl" />
+                    Delete
+                  </button>
+                </span> */}
               </div>
-              <span className="flex justify-end">
-
-                <button
-                  onClick={() => setRead(true)}
-                  className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1"
-                >
-                  <FaEye className="mr-2 text-xl" /> Reply
-                </button>
-
-
-                <button className="flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1">
-                  {" "}
-                  <MdDeleteForever className="mr-2 text-xl" />
-                  Delete
-                </button>
-              </span>
             </div>
-          })}
+          ))}
 
-        </div>)}
+        </div>
+
+      )}
 
       {/* Open message to reply */}
 
       {read && (
         <div className='w-[93%] rounded-lg m-10 border h-auto '>
-
-
-
           <div className='flex justify-between space-x-40 items-center bg-[#F9FDF5] px-2 p-1'>
             <div className='flex m-5 items-center'>
               <img
@@ -259,46 +270,7 @@ const messages = () => {
 
 
 
-      <div>
-        <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-          <div className="flex">
-            <img
-              src="https://www.linkpicture.com/q/WhatsApp-Image-2022-03-24-at-10.46.33-AM.jpeg"
-              className="w-24 h-24 mt-4 mr-4 rounded-full"
-              alt="Bellefu"
-            />
-            <div>
-              <span className='flex mb-1 justify-between space-x-6'><strong>Miles Ryker</strong> <span className='bg-bellefuGreen text-center h-6 w-6 rounded-full text-white '>3</span></span>
 
-              <p className="text-[#3F3F3F] mb-3 text-base">
-                {" "}
-                New notifications from Bellefu, Aliquet odio mattis. Class
-                aptent taciti sociosqu ad litora torquent
-                per conubia nostra, per inceptos himenaeos...
-              </p>
-
-              <p className="text-[#9799AB] text-sm">2 days ago</p>
-            </div>
-          </div>
-          <span className="flex justify-end">
-
-            <button
-              onClick={() => setRead(true)}
-              className="flex bg-bellefuBackground border rounded-md hover:bg-slate-200 px-3 mr-4 p-1"
-            >
-              <FaEye className="mr-2 text-xl" /> Reply
-            </button>
-
-
-
-            <button className="flex bg-bellefuBackground hover:bg-slate-200 border rounded-md px-3 p-1">
-              {" "}
-              <MdDeleteForever className="mr-2 text-xl" />
-              Delete
-            </button>
-          </span>
-        </div>
-      </div>
 
     </div>
 

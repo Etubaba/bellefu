@@ -8,6 +8,7 @@ import {
 } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { ImKey, ImPushpin, ImClock } from "react-icons/im";
+import { MdClose } from "react-icons/md";
 import { HiUser } from "react-icons/hi";
 import { FaWallet, FaHeart } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
@@ -67,8 +68,14 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
     };
 
   return (
-    <div className="lg:hidden bg-bellefuWhite w-full absolute left-0 pt-4 z-40">
-      <div className="w-full" id="side-bar">
+    <div className="lg:hidden bg-bellefuWhite w-full absolute left-0 pt-4 z-40 ">
+      <div className="w-full h-[100vh] overflow-auto" id="side-bar">
+        <p
+          className="absolute flex justify-end pr-3 mt-3 right-0"
+          onClick={() => setIsOpen(false)}
+        >
+          <MdClose className="w-5 h-5" />
+        </p>
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
