@@ -14,9 +14,9 @@ const Layout = ({ children }) => {
       <div className="flex flex-col lg:flex-row">
         <UserSideBar />
         {isOpen && <MobileUserSidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
-        <div className="lg:hidden flex items-center space-x-6">
+        <div className="lg:hidden flex items-center space-x-6 mt-2">
           <div
-            className=" cursor-pointer bg-bellefuOrange w-8 h-8 rounded-full flex items-center justify-center ml-3 mt-2 "
+            className=" cursor-pointer bg-bellefuOrange w-8 h-8 rounded-full flex items-center justify-center ml-3 "
             onClick={() => setIsOpen(true)}
           >
             <BiArrowBack className="text-white font-bold" />
