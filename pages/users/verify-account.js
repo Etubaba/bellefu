@@ -142,7 +142,7 @@ function Verifyaccount() {
     setShowCount(true);
     axios
       .post(`${apiData}send/phone/code`, {
-        userid: userId.id,
+        userid: userId?.id,
         phone: userId?.phone,
         action: "sms",
       })
