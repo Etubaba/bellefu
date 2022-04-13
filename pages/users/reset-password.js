@@ -108,12 +108,12 @@ function resetpassword() {
                 {view1 ? (
                   <FaEyeSlash
                     onClick={() => setView1(false)}
-                    className="absolute  mt-4  right-[28%]"
+                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
                   />
                 ) : (
                   <FaEye
                     onClick={() => setView1(true)}
-                    className="absolute  mt-4  right-[28%]"
+                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
                   />
                 )}
                 <input
@@ -143,12 +143,12 @@ function resetpassword() {
                 {view ? (
                   <FaEyeSlash
                     onClick={() => setView(false)}
-                    className="absolute  mt-4  right-[28%]"
+                    className="absolute  mt-4 right-[23%] lg:right-[28%]"
                   />
                 ) : (
                   <FaEye
                     onClick={() => setView(true)}
-                    className="absolute  mt-4  right-[28%]"
+                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
                   />
                 )}
                 <input
@@ -170,12 +170,12 @@ function resetpassword() {
                 {view2 ? (
                   <FaEyeSlash
                     onClick={() => setView2(false)}
-                    className="absolute  mt-4  right-[28%]"
+                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
                   />
                 ) : (
                   <FaEye
                     onClick={() => setView2(true)}
-                    className="absolute  mt-4  right-[28%]"
+                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
                   />
                 )}
                 <input
@@ -194,7 +194,7 @@ function resetpassword() {
                 )}
               </div>
 
-              <div className="flex justify-items-center ">
+              <div className="flex justify-center items-center ">
                 {/* <button class='border w-48 px-6 py-2 text-center mr-5  text-white bg-gray-400 rounded-md'>Cancel</button> */}
                 <button
                   onClick={handleReset}
