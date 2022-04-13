@@ -31,6 +31,7 @@ const messages = () => {
   const [lname, setLname] = useState(null)
   const [dp, setDp] = useState(null)
   const [receiverId, setReceiverId] = useState(null)
+  const [sent, setSent] = useState(false)
 
 
 
@@ -47,7 +48,7 @@ const messages = () => {
 
 
   const handleMessage = () => {
-
+    setSent(!sent)
 
     const formData = new FormData();
     formData.append('messageTo', receiverId)
@@ -96,14 +97,13 @@ const messages = () => {
     }
 
     getChat()
-  }, [message, receiverId])
+  }, [sent, receiverId])
 
 
 
 
+  useEffect(() => {
 
-
-  const handleToBottom = () => {
     theRef.current?.scrollIntoView(
       {
         behavior: 'smooth',
@@ -111,27 +111,10 @@ const messages = () => {
         inline: 'nearest'
       })
 
-  }
+  }, [read, chat])
 
 
 
-
-  if (read) {
-    handleToBottom()
-  }
-
-  // useEffect(() => {
-
-  //   // window.scrollTo({
-  //   //   top: document.body.scrollHeight,
-  //   //   left: 0,
-  //   //   behavior: 'smooth'
-  //   // });
-
-  // }, [read])
-
-
-  console.log('wetin de the ref', theRef)
 
   function isToday(dateParameter) {
     const today = new Date();
@@ -224,7 +207,7 @@ const messages = () => {
             <hr />
           </div>
 
-          <div ref={theRef} className='h-80 p-5 overflow-y-scroll    bg-[#F9FDF5] '>
+          <div className='h-80 p-5 overflow-y-scroll    bg-[#F9FDF5] '>
 
             <ul className='space-y-2'>
               {chat?.map((item, index) => (
@@ -257,6 +240,7 @@ const messages = () => {
               ))}
 
             </ul>
+            <div ref={theRef} />
 
           </div>
 
