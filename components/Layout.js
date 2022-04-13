@@ -14,11 +14,16 @@ const Layout = ({ children }) => {
       <div className="flex flex-col lg:flex-row">
         <UserSideBar />
         {isOpen && <MobileUserSidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
-        <div
-          className="lg:hidden cursor-pointer bg-bellefuOrange w-8 h-8 rounded-full flex items-center justify-center ml-3 mt-2 "
-          onClick={() => setIsOpen(true)}
-        >
-          <BiArrowBack className="text-white font-bold" />
+        <div className="lg:hidden flex items-center space-x-6">
+          <div
+            className=" cursor-pointer bg-bellefuOrange w-8 h-8 rounded-full flex items-center justify-center ml-3 mt-2 "
+            onClick={() => setIsOpen(true)}
+          >
+            <BiArrowBack className="text-white font-bold" />
+          </div>
+          <p className="text-sm text-gray-400 capitalize font-semibold">
+            Go to user Navigation
+          </p>
         </div>
         <main className="flex-grow">{children}</main>
       </div>
