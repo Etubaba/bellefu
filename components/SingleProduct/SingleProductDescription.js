@@ -34,6 +34,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
 
+
   // check if product is among favorite
 
   console.log("details =>", productDetails);
@@ -51,6 +52,8 @@ const SingleProductDescription = ({ productDetails }) => {
   }, []);
 
   const favArr = fav?.map((item) => item.productId);
+
+  const [clean, setClean] = useState(favArr)
 
   // console.log('product details checker', productDetails)
 
@@ -76,7 +79,7 @@ const SingleProductDescription = ({ productDetails }) => {
         .then((res) => {
           console.log(res.data);
           if (res.data.status) {
-            setFavStatus(true);
+            setFavStatus(!favStatus);
             toast.success(
               `${productDetails[0]?.productTitle.substring(
                 0,
@@ -90,8 +93,11 @@ const SingleProductDescription = ({ productDetails }) => {
       setOpen(true);
     }
   };
+
+
+
   const removeFav = () => {
-    console.log("i de work");
+    console.log('i am working')
     const favId = favArr.find(
       (items) => items === productDetails[0]?.productId
     );
@@ -104,8 +110,10 @@ const SingleProductDescription = ({ productDetails }) => {
         })
         .then((res) => {
           if (res.data.status) {
-            setFavStatus(true);
-            favArr.filter((items) => items !== favId);
+            setFavStatus(!favStatus);
+
+            const cleanArr = favArr.filter((items) => items !== favId);
+            setClean(cleanArr)
             toast.error(
               `${productDetails[0]?.productTitle.substring(
                 0,
@@ -129,7 +137,7 @@ const SingleProductDescription = ({ productDetails }) => {
         <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
           {productDetails[0]?.productTitle}
         </p>
-        {favStatus || favArr?.includes(productDetails[0]?.productId) ? (
+        {favStatus || clean?.includes(productDetails[0]?.productId) && favArr?.includes(productDetails[0]?.productId) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -221,7 +229,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 onClose={() => setModalOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                // sx={{ opacity: 0.5 }}
+              // sx={{ opacity: 0.5 }}
               >
                 <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}

@@ -117,15 +117,10 @@ const messages = () => {
 
 
   if (read) {
-
-
     handleToBottom()
   }
 
   // useEffect(() => {
-
-
-
 
   //   // window.scrollTo({
   //   //   top: document.body.scrollHeight,

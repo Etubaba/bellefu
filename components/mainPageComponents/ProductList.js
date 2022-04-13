@@ -23,6 +23,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [fav2, setFav2] = useState(false);
   const [productId, setProductId] = useState([]);
   const [open, setOpen] = useState(false);
+  const [clean, setClean] = useState(fav);
 
   const router = useRouter();
   const getIsLoggedIn = useSelector(login);
@@ -111,12 +112,11 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
         </p>
         {fav2 || (fav?.includes(product.productId) && getIsLoggedIn) ? (
           <span
-            onMouseEnter={(e) => {
-              // console.log('i de work')
-              e.stopPropagation();
-              e.preventDefault();
+            onClick={(e) => {
+              console.log('i de work')
+
               const favId = fav.find((items) => items === product.productId);
-              // console.log(favId);
+              console.log(favId);
               if (favId !== undefined) {
                 axios
                   .post(`${apiData}delete/favorite/webindex`, {
@@ -126,7 +126,8 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                   .then((res) => {
                     if (res.data.status) {
                       setFav2(!fav2);
-                      fav.filter((items) => items !== favId);
+                      const cleanArr = fav.filter((items) => items !== favId);
+                      setClean(cleanArr);
                       toast.error(
                         `${product.title.substring(
                           0,
@@ -158,7 +159,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                   .then((res) => {
                     console.log(res.data);
                     if (res.data.status) {
-                      setFav2(true);
+                      setFav2(!fav2);
                       toast.success(
                         `${product.title.substring(0, 20)} added to favourite`
                       );
@@ -178,7 +179,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        // sx={{ opacity: 0.5 }}
+      // sx={{ opacity: 0.5 }}
       >
         <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
           {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
