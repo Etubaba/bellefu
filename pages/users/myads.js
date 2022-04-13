@@ -57,12 +57,12 @@ const Ads = () => {
   const all = [...published, ...pend, ...expired];
 
   return (
-    <div className="mt-5">
+    <div className="lg:mt-5 mt-2">
       <MyAdsHeader />
-      <div className=" bg-bellefuWhite divide-y space-y-2 mt-1 rounded-b-md">
+      <div className=" bg-bellefuWhite divide-y space-y-1 lg:space-y-2 mt-1 rounded-b-md">
         <div className="">
-          <div className="flex items-center px-4 justify-between pt-2">
-            <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
+          <div className="flex items-center px-2 lg:px-4 justify-between pt-3">
+            <p className="text-sm lg:text-xl text-bellefuTitleBlack font-semibold tracking-wider">
               All Ads
             </p>
             <p className="text-bellefuOrange text-xs font-medium tracking-wider">
@@ -72,8 +72,8 @@ const Ads = () => {
           <ExpiredAds product={all} />
         </div>
         <div className="">
-          <div className="flex items-center px-4 justify-between pt-2">
-            <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
+          <div className="flex items-center px-2 lg:px-4 justify-between pt-3">
+            <p className="text-sm lg:text-xl text-bellefuTitleBlack font-semibold tracking-wider">
               Published Ads
             </p>
             <p
@@ -86,8 +86,8 @@ const Ads = () => {
           <PublishedAds product={published} />
         </div>
         <div className="">
-          <div className="flex items-center px-4 justify-between pt-2">
-            <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
+          <div className="flex items-center px-2 lg:px-4 justify-between pt-3">
+            <p className="text-sm lg:text-xl text-bellefuTitleBlack font-semibold tracking-wider">
               Pending Ads
             </p>
             <p
@@ -100,8 +100,8 @@ const Ads = () => {
           <MyAds products={pend} />
         </div>
         <div className="">
-          <div className="flex items-center px-4 justify-between pt-2">
-            <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
+          <div className="flex items-center px-2 lg:px-4 justify-between pt-3">
+            <p className="text-sm lg:text-xl text-bellefuTitleBlack font-semibold tracking-wider">
               Expired Ads
             </p>
             <p

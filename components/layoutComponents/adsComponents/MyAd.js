@@ -8,9 +8,9 @@ import { useSelector } from "react-redux";
 
 const MyAd = ({ product }) => {
   const [open, setOpen] = useState(false);
-  const details = useSelector(state => state.bellefu?.indexData)
+  const details = useSelector((state) => state.bellefu?.indexData);
   return (
-    <div>
+    <div className="">
       <div className="bg-bellefuWhite p-3 rounded-md border border-[#dfdfdf]">
         <img
           src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
@@ -30,7 +30,6 @@ const MyAd = ({ product }) => {
         </div>
         <div className="flex items justify-between">
           <p className="text-bellefuGreen flex font-poppins font-semibold">
-
             <p
               className="mr-1"
               dangerouslySetInnerHTML={{ __html: details?.defaultCurrency }}
@@ -51,10 +50,9 @@ const MyAd = ({ product }) => {
           </div>
         </div>
       </div>
-
       {/* drop down beginning */}
       {open === true ? (
-        <div className="absolute w-64 bg-bellefuWhite rounded border transition duration-300 ease-in z-40 shadow-lg">
+        <div className="w-full mt-1 bg-bellefuWhite rounded border transition duration-300 ease-in z-40 shadow-lg">
           <ul className="rounded px-2 py-3 space-y-2">
             <div className="flex items-center space-x-4 mb-2 bg-bellefuBackground px-2 rounded-md py-1">
               <BsFillEyeFill className="w-4 h-4 text-bellefuOrange" />

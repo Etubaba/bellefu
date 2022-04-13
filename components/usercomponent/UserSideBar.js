@@ -67,8 +67,8 @@ const UserSideBar = () => {
     };
 
   return (
-    <div className="hidden lg:inline bg-bellefuWhite w-80 mr-3 mt-6 pt-4">
-      <div className="h-screen w-80 overflow-auto" id="side-bar">
+    <div className="hidden lg:inline h-[90vh] overflow-auto bg-bellefuWhite w-80 mr-3 mt-6 pt-4">
+      <div className="" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
