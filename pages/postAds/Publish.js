@@ -150,14 +150,14 @@ export default function Publish() {
     <div className="rounded-lg  bg-bellefuWhite h-auto w-auto p-10 ">
       {showSuccess ? (
         <>
-          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-            <div className="flex ">
+          <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            <div className="sm:flex lg:flex">
               <input
                 onClick={handleFeatured}
                 id="ads_plan"
                 name="plans"
                 type="radio"
-                className="focus:ring-bellefuGreen h-10 w-10 text-bellefuGreen border-gray-300"
+                className="focus:ring-bellefuGreen h-4 w-4 text-bellefuGreen border-gray-300"
               />
               <div className="ml-[4%]">
                 <h3 className="font-semibold">FEATURED:</h3>
@@ -176,14 +176,14 @@ export default function Publish() {
               </div>
             </div>
           </div>
-          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-            <div className="flex">
+          <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            <div className="sm:flex lg:flex ">
               <input
                 onClick={handleUrgent}
                 id="ads_plan"
                 name="plans"
                 type="radio"
-                className="focus:ring-bellefuGreen h-7 w-7 text-bellefuGreen border-gray-300"
+                className="focus:ring-bellefuGreen h-4 w-4  text-bellefuGreen border-gray-300"
               />
               <div className="ml-[4%]">
                 <h3 className="font-semibold">URGENT:</h3>
@@ -202,14 +202,14 @@ export default function Publish() {
               </div>
             </div>
           </div>
-          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-            <div className="flex ">
+          <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            <div className="sm:flex lg:flex">
               <input
                 onClick={handleHighlighted}
                 id="ads_plan"
                 name="plans"
                 type="radio"
-                className="focus:ring-bellefuGreen h-7 w-7 text-bellefuGreen border-gray-300"
+                className="focus:ring-bellefuGreen h-4 w-4  text-bellefuGreen border-gray-300"
               />
               <div className="ml-[4%]">
                 <h3 className="font-semibold">HIGHLIGHTED:</h3>
@@ -228,14 +228,14 @@ export default function Publish() {
               </div>
             </div>
           </div>
-          <div className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
-            <div className="flex ">
+          <div className="w-[93%] p-5 my-2 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            <div className="sm:flex lg:flex">
               <input
                 id="ads_plan"
                 onClick={handleFree}
                 name="plans"
                 type="radio"
-                className="focus:ring-indigo-500 h-7 w-7 text-indigo-600 border-gray-300"
+                className="focus:ring-indigo-500 h-4 w-4  text-indigo-600 border-gray-300"
               />
               <div className="ml-[4%]">
                 <h3 className="font-semibold">POST FREE AD:</h3>
