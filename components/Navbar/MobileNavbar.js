@@ -13,9 +13,11 @@ const MobileNavbar = ({ isOpen, setIsOpen }) => {
   const toPostAds = () => {
     if (getIsLoggedIn) {
       router.push("/postAds");
+      setIsOpen(false);
     } else {
       toast.info("Login to make post", { position: "top-right" });
       router.push("/login");
+      setIsOpen(false);
     }
   };
   return (
