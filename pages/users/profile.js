@@ -140,11 +140,11 @@ const profile = ({ data1 }) => {
   return (
     <div className=" shadow bg-bellefuWhite rounded-md mt-5 p-5">
       <div className="flex justify-between mt-2  border-b pb-4">
-        <h3 className="font-bold text-[1.2rem]">Profile Details</h3>
+        <h3 className="text-[0.9rem] mt-3 sm:mt-0 lg:mt-0 sm:text-[1rem] font-bold lg:text-[1.2rem]">Profile Details</h3>
         <button
           onClick={handleDisable}
           type="button"
-          class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bellefuOrange sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+          class="lg:mt-3  lg:w- inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bellefuOrange sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
         >
           Edit Profile
         </button>
@@ -220,7 +220,6 @@ const profile = ({ data1 }) => {
                       type="email"
                       name="email"
                       id="email"
-                      // Value={userThings.email}
                       disabled
                       className="  bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                     />
