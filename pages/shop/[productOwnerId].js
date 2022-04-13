@@ -6,6 +6,8 @@ import { userDId } from "../../features/bellefuSlice";
 
 const Shop = ({ userProducts }) => {
   const details = useSelector(userDId);
+
+  console.log("details", details);
   console.log("userProducts", userProducts);
 
   const products = userProducts.data.data;

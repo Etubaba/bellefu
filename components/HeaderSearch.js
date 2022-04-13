@@ -66,7 +66,12 @@ const HeaderSearch = ({
               </div>
 
               <AiFillCaretDown
-                onClick={() => setSelectCountry(!selectCountry)}
+                onClick={() => {
+
+                  setSelectlang(false);
+                  setOpen(false);
+                  setSelectCountry(!selectCountry)
+                }}
                 className={
                   selectCountry ? "text-bellefuOrange" : "text-gray-600"
                 }
@@ -80,6 +85,7 @@ const HeaderSearch = ({
                     onClick={() => {
                       setFlag(list.iso2);
                       setSelectCountry(false);
+                      setSelectlang(false);
                       setCountryName(list.name);
                       dispatch(chooseCountry(list.iso2));
                     }}
@@ -109,6 +115,8 @@ const HeaderSearch = ({
                     onClick={() => {
                       setNative(lang.code);
                       setSelectlang(false);
+
+
                     }}
                     key={lang.id}
                     className="py-1 hover:bg-bellefuBackground"
@@ -122,7 +130,11 @@ const HeaderSearch = ({
             )}
 
             <div
-              onClick={() => setSelectlang(!selectlang)}
+              onClick={() => {
+                setSelectCountry(false);
+                setOpen(false);
+                setSelectlang(!selectlang)
+              }}
               className=" bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex"
             >
               <p className="text-white">
@@ -162,7 +174,11 @@ const HeaderSearch = ({
             <div className="px-3 text-black opacity-20 text-2xl -mt-2">|</div>
 
             <span
-              onClick={() => setOpen(!open)}
+              onClick={() => {
+                setSelectCountry(false)
+                setSelectlang(false)
+                setOpen(!open)
+              }}
               list="brow"
               className="relative w-9/12 flex cursor-pointer text-gray-500"
             >
@@ -172,8 +188,9 @@ const HeaderSearch = ({
               </span>{" "}
             </span>
 
+
             {open && (
-              <div className="z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="transition ease-in-out delay-150 duration-700  z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {province?.map((state) => (
                   <div
                     onClick={() => {
@@ -208,7 +225,7 @@ const HeaderSearch = ({
         />
       </div> */}
       <div className=" lg:hidden">
-        {/* search by filter */}
+        {/*  filter by search */}
         <div className="mt-3 relative">
           <BiSearch className="w-6 h-6 absolute top-4 text-bellefuOrange ml-2" />
           <input

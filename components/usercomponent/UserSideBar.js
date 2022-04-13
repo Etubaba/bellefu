@@ -13,8 +13,12 @@ import { FaWallet, FaHeart } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
 import NavLink from "./NavLink";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { isLoggedIn } from "../../features/bellefuSlice";
 
 const UserSideBar = () => {
+  const dispatch = useDispatch();
   const router = useRouter(),
     iconValues = [
       { icon: MdAccountBox, text: "Account overview", to: "/users" },
@@ -54,11 +58,16 @@ const UserSideBar = () => {
     ],
     lastElem = iconValues.length - 1,
     handleLogout = () => {
+      dispatch(isLoggedIn(false));
+      localStorage.clear();
       router.push("/login");
+      toast.info("You have logged out successfully", {
+        position: "top-center",
+      });
     };
 
   return (
-    <div className="bg-bellefuWhite w-80 mr-3 mt-6 pt-4">
+    <div className="hidden lg:inline bg-bellefuWhite w-80 mr-3 mt-6 pt-4">
       <div className="h-screen w-80 overflow-auto" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {

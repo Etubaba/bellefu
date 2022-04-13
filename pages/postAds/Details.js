@@ -132,10 +132,10 @@ export default function Details() {
                     </label>
                   </div>
                   <div className="border-gray-300 border-2 rounded-md">
-                    <div className=" p-3 flex">
+                    <div className=" p-3 flex flex-wrap">
                       {inputtxtarr.length <= 7
                         ? inputtxtarr.map((tags, index) => (
-                            <span className="flex bg-gray-300 p-[3px] justify-around w-[6vw] rounded-md m-[2px]">
+                            <span className="flex bg-gray-300 p-[3px] justify-around lg:w-[6vw] rounded-md m-[2px]">
                               <p>{tags}</p>
                               <MdClose
                                 onClick={() => handleRemovetag(tags)}
@@ -155,7 +155,7 @@ export default function Details() {
                       />
                       <button
                         onClick={(e) => handleArrUpdate(e)}
-                        class="flex justify-center items-center w-[4vw] m-[5px] py-[3px] px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                        class="flex justify-center items-center lg:w-[4vw] m-[5px] py-[3px] px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                       >
                         Enter
                       </button>
@@ -193,7 +193,7 @@ export default function Details() {
               onClick={handleSubmit}
               // disabled={inpt===""?true:false}
                 type="submit"
-                class="flex justify-center items-center w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                class="flex justify-center items-center w-[19vw] lg:w-[15vw] py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
               >
                 Continue
               </button>
