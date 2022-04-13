@@ -170,7 +170,7 @@ const messages = () => {
                 setRead(true)
                 setReceiverId(item.id)
               }}
-              key={index} className="w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+              key={index} className=" w-full lg:w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
               <div className="flex">
                 <img
                   src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
