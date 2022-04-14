@@ -65,6 +65,7 @@ const VerifyPhone = () => {
   const requestVerificationCode = async (evt) => {
     const { phone, id } = user;
     const currentTarget = evt.currentTarget;
+    console.log(phone, id)
 
     let fetchBody;
 
