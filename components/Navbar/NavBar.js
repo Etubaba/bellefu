@@ -46,8 +46,6 @@ const NavBar = () => {
 
 
 
-  console.log('unseen=>', unseen)
-
 
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
@@ -94,7 +92,7 @@ const NavBar = () => {
                   height={30}
                   className="rounded-full object-cover"
                 />
-                {unseen !== 0 ? <p className='bg-bellefuOrange -top-2 left-5 h-5 w-5 absolute flex items-center justify-center rounded-full'>
+                {unseen !== 0 ? <p onClick={() => router.push('users/messages')} className='bg-bellefuOrange -top-2 left-5 h-5 w-5 absolute flex items-center justify-center rounded-full'>
 
                   <span className='text-white text-[10px] text-center '>{unseen}</span>
                 </p> : null}
