@@ -67,16 +67,16 @@ const Register = ({countries, countries1}) => {
       return;
     }
 
-    if (input === "phone") {
-      let target = evt.target;
-      let phone;
+    // if (input === "phone") {
+    //   let target = evt.target;
+    //   let phone;
 
-      if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
-      else phone = target.value;
+    //   if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
+    //   else phone = target.value;
 
-      setFormFields({ ...formFields, [input]: phone });
-      return;
-    }
+    //   setFormFields({ ...formFields, [input]: phone });
+    //   return;
+    // }
 
     setFormFields({ ...formFields, [input]: evt.target.value});
   };
@@ -90,6 +90,13 @@ const Register = ({countries, countries1}) => {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
     }
 
+    //Check for phone number that starts with zero
+    for (const field in formValues) {
+      if (Object.hasOwnProperty.call(formValues, field) && field === "phone") {
+        if (Number(formValues[field].charAt(0)) === 0) formValues[field] = formValues[field].substring(1);
+        break;
+      }
+    }
     formValues = {...formValues, phone: countryPhoneCode.concat(formValues.phone)};
     console.log(formValues);
     setIsLoading(true);
@@ -108,9 +115,14 @@ const Register = ({countries, countries1}) => {
         localStorage.setItem("user", JSON.stringify(data.data));
         dispatch(setProfileDetails(data.data));
       
-        signOut();
-        router.push("/verify-phone");
+        //Sign out the user after authentication, for bellefu to take control of login and logout
+        return signOut({redirect: false, callbackUrl: "/verify-phone"});
+        //router.push("/verify-phone");
       }
+    })
+    .then(resSignOut => {
+      console.log("!!")
+      router.replace(resSignOut.url);
     })
     .catch(error => {
       console.log(`Error for user registration ${error}`);
@@ -178,8 +190,7 @@ const Register = ({countries, countries1}) => {
   useEffect(() => {
     if (!session) return;
     const { user, providerId, providerName } = session;
-    //console.log(user);
-    signOut();
+    //signOut();
 
     setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email, socialSignup: true, providerId, providerName,})
   }, [session])
@@ -335,6 +346,7 @@ const Register = ({countries, countries1}) => {
                 <button
                   type="button"
                   className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+                  onClick={() => signIn("facebook")}
                 >
                   <ImFacebook className='text-3xl text-white' /> <strong className="pl-4 text-md">Sign up with Facebook</strong>
                 </button>

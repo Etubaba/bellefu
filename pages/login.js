@@ -146,7 +146,7 @@ const Login = () => {
     dispatch(isLoggedIn(true));
     dispatch(setProfileDetails(user));
 
-    //Sign out user from the social media network to make bellefu handle logout.
+    //Sign out user after authentication from the social media network to make bellefu handle logout.
     const signOutData = await signOut({redirect: false, callbackUrl: "/"});
     router.replace(signOutData.url);
   }
