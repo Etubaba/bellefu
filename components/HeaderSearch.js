@@ -67,10 +67,9 @@ const HeaderSearch = ({
 
               <AiFillCaretDown
                 onClick={() => {
-
                   setSelectlang(false);
                   setOpen(false);
-                  setSelectCountry(!selectCountry)
+                  setSelectCountry(!selectCountry);
                 }}
                 className={
                   selectCountry ? "text-bellefuOrange" : "text-gray-600"
@@ -115,8 +114,6 @@ const HeaderSearch = ({
                     onClick={() => {
                       setNative(lang.code);
                       setSelectlang(false);
-
-
                     }}
                     key={lang.id}
                     className="py-1 hover:bg-bellefuBackground"
@@ -133,7 +130,7 @@ const HeaderSearch = ({
               onClick={() => {
                 setSelectCountry(false);
                 setOpen(false);
-                setSelectlang(!selectlang)
+                setSelectlang(!selectlang);
               }}
               className=" bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex"
             >
@@ -175,9 +172,9 @@ const HeaderSearch = ({
 
             <span
               onClick={() => {
-                setSelectCountry(false)
-                setSelectlang(false)
-                setOpen(!open)
+                setSelectCountry(false);
+                setSelectlang(false);
+                setOpen(!open);
               }}
               list="brow"
               className="relative w-9/12 flex cursor-pointer text-gray-500"
@@ -187,7 +184,6 @@ const HeaderSearch = ({
                 Where? {countryName !== null ? countryName : defaultCountry}
               </span>{" "}
             </span>
-
 
             {open && (
               <div className="transition ease-in-out delay-150 duration-700  z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -231,6 +227,11 @@ const HeaderSearch = ({
           <input
             list="brow"
             type="text"
+            value={search}
+            onChange={(e) => {
+              dispatch(handleSearch(e.target.value));
+              setSearch(e.target.value);
+            }}
             className="pl-9 py-3 outline-none w-full rounded-md text-bellefuBlack1"
             placeholder="What are you looking for?"
           />
