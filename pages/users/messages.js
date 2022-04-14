@@ -47,7 +47,8 @@ const messages = () => {
   const test = 639
 
 
-  const handleMessage = () => {
+  const handleMessage = (e) => {
+    e.preventDefault();
     setSent(!sent)
 
     const formData = new FormData();
@@ -97,7 +98,7 @@ const messages = () => {
     }
 
     getChat()
-  }, [sent, receiverId])
+  }, [message, receiverId])
 
 
 
@@ -128,8 +129,8 @@ const messages = () => {
 
   return (
     // the message header
-    <div className="w-full  md:ml-4  md:mt-3 lg:ml-6 rounded-lg lg:mt-5 bg-bellefuWhite h-auto md:w-auto lg:w-auto pb-2 ">
-      <div className="flex items-center justify-between space-x-96 text-center p-2">
+    <div className="w-full    md:mt-3  rounded-lg lg:mt-5 bg-bellefuWhite h-auto md:w-auto  pb-2 ">
+      <div className="flex items-center  text-center p-3">
         <div className="text-xl ">Messages</div>
 
       </div>
@@ -145,28 +146,35 @@ const messages = () => {
                 setFname(item.first_name)
                 setLname(item.last_name)
                 setDp(item.avatar)
-                setRead(true)
+                setRead(!read)
                 setReceiverId(item.id)
               }}
-              key={index} className=" w-full lg:w-[93%] p-5 m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+              key={index} className="p-2  mx-auto w-full  lg:w-[93%] lg:p-5 my-3 md:my-5 border-b md:border md:rounded-lg hover:bg-[#F9FDF5]  h-auto">
               <div className="flex">
                 <img
                   src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
                   // src={`https://bellefu.inmotionhub.xyz/get/user/images/${item.avatar}`}
-                  className="w-20 h-20 mt-2 mr-10 rounded-full"
+                  className="lg:w-20 lg:h-20 mt-2 mr-3 lg:mr-10 rounded-full w-10 h-10"
                   alt="Bellefu"
                 />
-                <div className='w-full mt-3'>
-                  <span className='flex w-full  mb-1 justify-between space-x-30'>
-                    <strong className='flex-1'>{item.first_name} {item.last_name}</strong>
-                    {item.unread > 0 ? <span className='bg-bellefuGreen  text-center h-6 w-6 rounded-full justify-end text-white '>{item.unread}</span> : null}
+                <div className='w-full m-1 lg:mt-3'>
+                  <span className='flex w-full   mb-1 justify-between'>
+                    <strong className='flex-1 text-sm md:text-lg'>{item.first_name} {item.last_name}</strong>
+                    {item.unread > 0 ? <div className='flex h-5 w-5  md:h-6 md:w-6 items-center lg:mr-0 mr-2 rounded-full justify-center bg-bellefuGreen'><span className=' text-xs lg:text-sm   justify-end text-white '>{item.unread}</span></div> : null}
                   </span>
 
-                  <p className="text-[#3F3F3F] mb-3 text-base">
+                  <p className="text-[#3F3F3F] mb:1 md:mb-3 text-xs md:text-base truncate">
                     {item.message.body}
                   </p>
 
-                  <p className="text-[#9799AB] text-sm">{moment(item.message.chattime).startOf('day').fromNow()}</p>
+                  <p className="text-[#9799AB] text-xs md:text-sm">
+                    {/* {moment(item.message.chattime).startOf('day').fromNow()} */}
+                    {
+
+                      isToday(new Date(item.message.chattime))
+
+                        ? moment(item.message.chattime).format('LT') : moment(item.message.chattime).format('ll')}
+                  </p>
                 </div>
               </div>
 
@@ -181,42 +189,50 @@ const messages = () => {
       {/* Open message to reply */}
 
       {read && (
-        <div className='w-[93%] rounded-lg m-10 border h-auto '>
+        <div className='lg:w-[93%] w-full md:px-0  my-3  md:my-5 px-2  rounded-lg mx-auto md:border h-auto '>
           <div className='sticky z-30 top-0'>
-            <div className='flex justify-between space-x-40 items-center bg-[#F9FDF5] px-2 p-1'>
-              <div className='flex m-5 items-center'>
-                <img
-                  src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
-                  // src={`https://bellefu.inmotionhub.xyz/get/user/images/${dp}`}
-                  alt='error'
-                  className="w-12 h-12 rounded-full mr-4 "
-                />
-                <span className='flex space-x-2'>
-                  <strong>{fname}</strong>
-                  <strong>{lname}</strong>
-                </span>
+            <div className='flex md:flex-row   flex-col md:justify-between md:space-x-40 md:items-center bg-[#F9FDF5] px-2 p-1'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center'>
+                  <img
+                    src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
+                    // src={`https://bellefu.inmotionhub.xyz/get/user/images/${dp}`}
+                    alt='error'
+                    className="md:w-12 md:h-12 object-fill w-8 h-8 rounded-full mr-4 "
+                  />
+                  <span className='flex text-sm  md:text-xl space-x-2'>
+                    <strong>{fname}</strong>
+                    <strong>{lname}</strong>
+                  </span>
+                </div>
+                <div className=' md:hidden flex items-center space-x-5 '>
+                  <div><IoMdCall className='text-xl text-bellefuGreen ' /> </div>
+                  <div onClick={() => setRead(false)}><MdOutlineCancel className='text-xl  text-bellefuOrange ' /></div>
+                </div>
               </div>
-              <div className='flex justify-around m-5 '>
-                <div className='rounded-lg flex border px-3 mr-3 p-1'><IoMdCall className='text-xl mr-2' /> Call</div>
-                <div className='rounded-lg flex border space-x-2 px-4 p-1 mr-10'><FcVideoCall className='text-2xl mr-2' /> Video <span>call</span></div>
-                <div onClick={() => setRead(false)}><MdOutlineCancel className='text-3xl text-bellefuOrange ' /></div>
+              <div className="md:inline-block hidden">
+                <div className='flex  items-center justify-around m-5 '>
+                  <div className='rounded-lg flex border px-3 mr-3 p-1'><IoMdCall className='text-xl mr-2' /> Call</div>
+                  <div className='rounded-lg flex border space-x-2 px-4 p-1 mr-10'><FcVideoCall className='text-2xl mr-2' /> Video <span>call</span></div>
+                  <div onClick={() => setRead(false)}><MdOutlineCancel className='text-3xl  text-bellefuOrange ' /></div>
 
+                </div>
               </div>
 
             </div>
             <hr />
           </div>
 
-          <div className='h-80 p-5 overflow-y-scroll    bg-[#F9FDF5] '>
+          <div className='md:h-80 h-72 p-5 overflow-y-scroll    bg-[#F9FDF5] '>
 
             <ul className='space-y-2'>
               {chat?.map((item, index) => (
-                <div key={index} className='block'>
+                <div key={index} className='block '>
                   <li className={item.from_id !== test ? 'flex justify-start' : "flex justify-end"} >
-                    <div className={item.from_id !== test ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-8 py-4 text-gray-700 bg-gray-100 rounded shadow"
-                      : "relative max-w-xl mb-4 px-8 py-4 text-gray-100 bg-bellefuGreen rounded shadow"}>
+                    <div className={item.from_id !== test ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-700 bg-gray-100 rounded shadow"
+                      : "relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-100 bg-bellefuGreen rounded shadow"}>
                       <div className='block'>
-                        <span className="block">
+                        <span className="block text-sm md:text-lg">
                           {item.body}
                         </span>
 
@@ -275,7 +291,7 @@ const messages = () => {
             <button
               disabled={message.length === 0 ? true : false}
               onClick={handleMessage}
-              className={message.length === 0 ? 'justify-center flex  items-center px-3 py-3 h-10 w-10 bg-[#E0E0E0] rounded-full' : 'justify-center flex hover:bg-gray-200 items-center px-3 py-3 h-10 w-10 bg-bellefuBackground rounded-full'}>
+              className={message.length === 0 ? 'justify-center flex  items-center px-3 py-3  h-10 w-10 bg-[#E0E0E0] rounded-full' : 'justify-center flex hover:bg-gray-200 items-center px-3 py-3 h-10 w-10 bg-bellefuBackground rounded-full'}>
               <MdSend className={message.length === 0 ? 'text-[#A6A6A6] w-5 h-5 text-3xl ' : ' w-5 h-5 text-3xl  text-gray-500'} />
             </button>
 
