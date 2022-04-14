@@ -108,6 +108,7 @@ const Register = ({countries, countries1}) => {
         localStorage.setItem("user", JSON.stringify(data.data));
         dispatch(setProfileDetails(data.data));
       
+        signOut();
         router.push("/verify-phone");
       }
     })
@@ -177,8 +178,8 @@ const Register = ({countries, countries1}) => {
   useEffect(() => {
     if (!session) return;
     const { user, providerId, providerName } = session;
-    console.log(user);
-    //signOut();
+    //console.log(user);
+    signOut();
 
     setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email, socialSignup: true, providerId, providerName,})
   }, [session])
@@ -261,7 +262,7 @@ const Register = ({countries, countries1}) => {
                   ))}
                 </div>
               )}
-              <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[114px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
+              <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
               { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
             </div>
             <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
@@ -324,18 +325,18 @@ const Register = ({countries, countries1}) => {
               <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
                 <button
                   type="button"
-                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
+                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 bg-white hover:bg-[#F2F2F2] w-full"
                   onClick={() => signIn("google")}
                 >
-                  <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Sign up with Google</strong>
+                  <FcGoogle className='text-3xl' /> <strong className='text-[#303A4B] pl-4 text-md'>Sign up with Google</strong>
                 </button>
               </p>
               <p className="text-white w-[100%] md:w-[75%]">
                 <button
                   type="button"
-                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
                 >
-                  <ImFacebook className='text-2xl text-white mr-2 ' /> <strong className="pl-2 text-xl">Sign up with Facebook</strong>
+                  <ImFacebook className='text-3xl text-white' /> <strong className="pl-4 text-md">Sign up with Facebook</strong>
                 </button>
               </p>
             </div>

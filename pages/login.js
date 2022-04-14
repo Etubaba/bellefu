@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { signIn, useSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
@@ -10,6 +10,7 @@ import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
 import { isLoggedIn, setProfileDetails, ifVerified } from "../features/bellefuSlice";
+import axios from "axios";
 //import { data } from "autoprefixer";
 
 const Login = () => {
@@ -20,6 +21,7 @@ const Login = () => {
   const [formFields, setFormFields] = useState({
     phone: "",
     password: "",
+    socalSignin: false,
   });
   const [isLoading, setLoading] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
@@ -81,12 +83,80 @@ const Login = () => {
   };
 
 
-  if (session) {
-    console.log(session)
-    router.replace("/");
-    //signOut()
-    return null;
+  // const handleSocialLogin = async () => {
+  //   console.log(session)
+  //   console.log("!")
+
+  //   const signInData = await signIn("google");
+  //   console.log(session);
+  //   console.log(signInData);
+  //   console.log("!!")
+
+  //   if (signInData.ok) {
+  //     const {providerId, providerName} = session;
+
+  //     console.log("!!!")
+
+  //     const res = await axios.post(`${apiData}user/login`, {providerId, providerName, socialSignin: true});
+  //     const data = res.data;
+  //       console.log(data);
+
+  //       if (!data.status) {
+  //         console.log(data.data);
+
+  //         toast.error(data.msg, {
+  //           position: toast.POSITION.TOP_CENTER
+  //         })
+  //         router.push("/login");
+  //         return null;
+  //       }
+
+  //       const user = data.data.user
+  //         localStorage.setItem("user", JSON.stringify(user));
+  //         localStorage.setItem('verify', JSON.stringify(data.data.verification))
+  //         dispatch(ifVerified(data.data.verification))
+  //         dispatch(isLoggedIn(true));
+  //         dispatch(setProfileDetails(user));
+
+  //         const signOutData = await signOut({redirect: false, callbackUrl: "/"});
+  //         router.replace(signOutData.url);
+  //   }
+  // }
+  const socialLoginCallback = async (sessionData) => {
+    const {providerId, providerName} = sessionData;
+
+    const res = await axios.post(`${apiData}user/login`, {providerId, providerName, socialSignin: true});
+    const data = res.data;
+    //console.log(data);
+
+    if (!data.status) {
+      console.log(data.data);
+
+      toast.error(data.msg, {
+        position: toast.POSITION.TOP_CENTER
+      })
+      router.push("/login");
+      return null;
+    }
+
+    const user = data.data.user
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem('verify', JSON.stringify(data.data.verification))
+    dispatch(ifVerified(data.data.verification))
+    dispatch(isLoggedIn(true));
+    dispatch(setProfileDetails(user));
+
+    //Sign out user from the social media network to make bellefu handle logout.
+    const signOutData = await signOut({redirect: false, callbackUrl: "/"});
+    router.replace(signOutData.url);
   }
+
+  useEffect(() => {
+    if (session?.providerId) {
+      socialLoginCallback(session);
+    }
+  }, [session])
+
 
   return (
     <>
@@ -120,20 +190,20 @@ const Login = () => {
           <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
+              className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-6 bg-white hover:bg-[#F2F2F2] w-full"
               onClick={() => signIn("google")}
             >
-              <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
+              <FcGoogle className='text-3xl' /> <strong className='text-[#303A4B] pl-4 text-lg'>Sign in with Google</strong>
 
             </button>
           </p>
           <p className="text-white w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="flex border-2 rounded-lg py-3 justify-center items-center pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+              className="flex border-2 rounded-lg py-3 justify-center items-center pl-4 pr-6 bg-blue-500 hover:bg-blue-600 w-full"
             >  
-              <ImFacebook className='text-2xl text-white mr-2 ' />
-              <strong className="pl-2 text-xl"> Facebook</strong>
+              <ImFacebook className='text-3xl text-white' />
+              <strong className="pl-4 text-lg">Sign in with Facebook</strong>
             </button>
           </p>
         </div>
