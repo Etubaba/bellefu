@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BellefuLogo from "../../public/bellefulogo.png";
 import { IoMdNotifications, IoMdAddCircleOutline } from "react-icons/io";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
@@ -16,10 +16,12 @@ import { useRouter } from 'next/router'
 import { toast } from "react-toastify";
 
 import MobileNavbar from "./MobileNavbar";
+import axios from "axios";
+import { apiData } from "../../constant";
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [mobileNavbar, setMobileNavbar] = useState(false);
+  const [unseen, setUnseen] = useState(0);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -35,10 +37,20 @@ const NavBar = () => {
     }
   }
 
+  const test = 4
+  useEffect(() => {
+    axios.get(`${apiData}unseen/messages/count/${test}`)
+      .then(res => setUnseen(res.data.unseen))
+
+  }, [])
+
+
+
+
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
       {/* left side */}
-      <div onClick={() => router.push('/')} className="bg-white p-2 rounded-md w-24 md:w-24 h-10 md:h-12 flex items-center justify-center">
+      <div onClick={() => router.push('/')} className="bg-white relative p-2 rounded-md w-24 md:w-24 h-10 md:h-12 flex items-center justify-center">
         {" "}
         <Image
           src={BellefuLogo}
@@ -46,6 +58,7 @@ const NavBar = () => {
           object-fit="cover"
           className="rounded-lg p-2 "
         />
+
       </div>
       {/* right side */}
 
@@ -72,12 +85,18 @@ const NavBar = () => {
 
           {getIsLoggedIn && <div className="hidden md:inline-block">
             <div className="flex items-center space-x-2 relative">
-              <Image
-                src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
-                width={30}
-                height={30}
-                className="rounded-full object-cover"
-              />
+              <div className='relative'>
+                <Image
+                  src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
+                  width={30}
+                  height={30}
+                  className="rounded-full object-cover"
+                />
+                {unseen !== 0 ? <p onClick={() => router.push('users/messages')} className='bg-bellefuOrange -top-2 left-5 h-5 w-5 absolute flex items-center justify-center rounded-full'>
+
+                  <span className='text-white text-[10px] text-center '>{unseen}</span>
+                </p> : null}
+              </div>
               <p onClick={() => router.push('/users')} className="text-white hover:text-gray-200' font-semibold">
                 Hi <span>{username?.username}</span>
               </p>
