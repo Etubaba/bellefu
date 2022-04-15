@@ -1,14 +1,19 @@
 import React from "react";
 import Slider from "./mainPageComponents/slider/Slider";
 import ProductComponent from "./mainPageComponents/ProductComponent";
+import { useSelector } from "react-redux";
 
 const Body = ({ products, slider, currency, location, currencyCode }) => {
-  // console.log("The products here :", products);
+
+  const search = useSelector(state => state.bellefu?.searchFilter);
+
+
   return (
     <div className="">
-      <div className="mb-2">
-        <Slider slider={slider} />
-      </div>
+      {search === '' ?
+        <div className="mb-2">
+          <Slider slider={slider} />
+        </div> : null}
       {/* product component session */}
       <ProductComponent currency={currency} currencyCode={currencyCode} location={location} products={products} />
     </div>

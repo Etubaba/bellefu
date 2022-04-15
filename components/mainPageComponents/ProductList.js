@@ -14,6 +14,7 @@ import { apiData } from "../../constant";
 import { login } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [from, setFrom] = useState(null);
@@ -25,7 +26,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [open, setOpen] = useState(false);
   const [clean, setClean] = useState(fav);
 
-  console.log("products from index => ", product);
+
 
   const router = useRouter();
   const getIsLoggedIn = useSelector(login);
@@ -91,7 +92,11 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                 />
               )}
 
-              {!converter ? product.price : newPrice?.toFixed(2)}
+              {!converter ? product.price : newPrice === null ?
+                <div className='p-[2px]'>
+                  <CircularProgress size='1rem' color="success" />
+                </div>
+                : newPrice.toFixed(2)}
               {product.currency_code ? (
                 <span
                   onClick={(e) => {
@@ -192,7 +197,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-            // sx={{ opacity: 0.5 }}
+          // sx={{ opacity: 0.5 }}
           >
             <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
               {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}

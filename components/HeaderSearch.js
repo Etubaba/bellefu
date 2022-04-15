@@ -28,6 +28,8 @@ const HeaderSearch = ({
   const [countryName, setCountryName] = useState(null);
   const [stateList, setStateList] = useState([]);
   const [search, setSearch] = useState("");
+  const [findCountry, setFindCountry] = useState('');
+  const [findState, setFindState] = useState('');
 
   const dispatch = useDispatch();
 
@@ -77,8 +79,26 @@ const HeaderSearch = ({
               />
             </div>
             {selectCountry && (
-              <div className="z-50 absolute top-32 right-[67rem] h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                {countries?.map((list) => (
+              <div className="z-10 absolute top-36 left-[6%] top-3 h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className='flex items-center justify-center mx-auto my-3 '>
+
+                  <input type="text" placeholder="Search country"
+                    className="w-full border mx-4 h-10 px-4 py-2 rounded-md text-sm text-gray-600 focus:border-bellefuOrange focus:outline-none focus:ring-1 focus:ring-black focus:ring-opacity-5"
+                    onChange={(e) => setFindCountry(e.target.value)}
+                    value={findCountry} />
+
+                </div>
+                {countries?.filter(item => {
+                  if (findCountry === '') {
+
+                    return item
+
+
+                  } else if (item.name.toLowerCase().includes(findCountry.toLowerCase())) {
+                    return item
+                  }
+
+                }).map((list) => (
                   <div
                     key={list.id}
                     onClick={() => {
@@ -186,8 +206,22 @@ const HeaderSearch = ({
             </span>
 
             {open && (
-              <div className="transition ease-in-out delay-150 duration-700  z-10 absolute h-80 overflow-y-scroll top-32 right-64 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                {province?.map((state) => (
+              <div className="transition ease-in-out delay-150 duration-700  z-10 absolute h-80 overflow-y-scroll top-36 right-60 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className='flex items-center justify-center mx-auto my-3 '>
+
+                  <input type="text" placeholder="Search state"
+                    className="w-full border mx-4 h-10 px-4 py-2 rounded-md text-sm text-gray-600 focus:border-bellefuOrange focus:outline-none focus:ring-1 focus:ring-black focus:ring-opacity-5"
+                    onChange={(e) => setFindState(e.target.value)}
+                    value={findState} />
+
+                </div>
+                {province?.filter(item => {
+                  if (findState === '') {
+                    return item
+                  } else if (item.name.toLowerCase().includes(findState.toLowerCase())) {
+                    return item
+                  }
+                }).map((state) => (
                   <div
                     onClick={() => {
                       setOpen(!open);
