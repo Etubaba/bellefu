@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import { handleIndexApi } from "../features/bellefuSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 import HeaderSearch from "../components/HeaderSearch";
 import CategorySideBar from "../components/CategorySideBar";
@@ -10,10 +11,10 @@ import CategorySideBar from "../components/CategorySideBar";
 import Body from "../components/Body";
 import MobileCategoryBar from "../components/MobileCategorybar/MobileCategoryBar";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
-
 import { fetchData } from "../features/bellefuSlice";
 
 export default function Home({ data }) {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   // if (data) {
@@ -23,7 +24,12 @@ export default function Home({ data }) {
   useEffect(() => {
     dispatch(fetchData(data));
   }, []);
-
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div>
       <Head>
@@ -38,15 +44,24 @@ export default function Home({ data }) {
       <main className="bg-bellefuBackground ">
         <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
           {/* second nav bar */}
-
-          <HeaderSearch
-            dialet={data.defaultLanguage}
-            state={data.countryStates}
-            defaultCountry={data.defaultCountryName}
-            languages={data.languages}
-            countries={data.countries}
-            location={data.defaultCountry}
-          />
+          {loading ? (
+            <HeaderSearch
+              dialet={data.defaultLanguage}
+              state={data.countryStates}
+              defaultCountry={data.defaultCountryName}
+              languages={data.languages}
+              countries={data.countries}
+              location={data.defaultCountry}
+            />
+          ) : (
+            <Skeleton
+              className="rounded my-3"
+              variant="rectangular"
+              animation="wave"
+              width={"100%"}
+              height={80}
+            />
+          )}
 
           {/* mobile header search */}
           {/* <div className="md:hidden">
@@ -57,11 +72,31 @@ export default function Home({ data }) {
           <div className="flex flex-col lg:flex-row">
             {/* category side bar */}
             <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
-              <CategorySideBar categories={data.categories} />
+              {loading ? (
+                <CategorySideBar categories={data.categories} />
+              ) : (
+                <Skeleton
+                  className="rounded  "
+                  variant="rectangular"
+                  animation="wave"
+                  width={300}
+                  height={900}
+                />
+              )}
             </div>
 
             <div className=" h-auto lg:hidden my-4 rounded-sm">
-              <MobileCategoryBar categories={data.categories} />
+              {loading ? (
+                <MobileCategoryBar categories={data.categories} />
+              ) : (
+                <Skeleton
+                  className="rounded  "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={600}
+                />
+              )}{" "}
             </div>
             {/* list of products & slider */}
             <div className="flex-1">

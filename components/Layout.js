@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
             Go to user Navigation
           </p>
         </div>
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow w-full">{children}</main>
       </div>
     </div>
   );
