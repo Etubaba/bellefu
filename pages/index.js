@@ -86,8 +86,14 @@ export default function Home({ data }) {
             </div>
 
             <div className=" h-auto lg:hidden my-4 rounded-sm">
-              <MobileCategoryBar categories={data.categories} />
-            </div>
+{          loading?  <MobileCategoryBar categories={data.categories} />:<Skeleton
+                  className="rounded  "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={600}
+                />
+}            </div>
             {/* list of products & slider */}
             <div className="flex-1">
               <Body
