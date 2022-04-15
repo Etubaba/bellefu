@@ -15,14 +15,15 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({token, account, user, profile}) {
+    async jwt({token, account, user}) {
 
       if (account) {
         token.providerName = account.provider;
+        token.providerId = user.id;
       }
 
-      if (account?.provider === "google") token.providerId = profile.sub;
-      if (account?.provider === "facebook")  token.providerId = profile?.id
+      // if (account?.provider === "google") token.providerId = profile.sub;
+      // if (account?.provider === "facebook")  token.providerId = profile?.id
 
       return token;
     },
@@ -32,5 +33,6 @@ export default NextAuth({
 
       return session;
     }
-  }
+  },
+  secret: "bellefu_etumunu",
 })
