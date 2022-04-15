@@ -124,7 +124,7 @@ const PostAdSidebar = () => {
         </div>
       ) : (
         <Skeleton
-          className="rounded mr-3 mt-5 "
+          className="rounded mr-3 mt-5 hidden lg:block "
           variant="rectangular"
           animation="wave"
           width={400}
@@ -171,7 +171,7 @@ const PostAdSidebar = () => {
         </div>
       ) : (
         <Skeleton
-          className="rounded mr-3 mt-5 lg:hidden"
+          className="rounded mr-3 mt-5  lg:hidden"
           variant="rectangular"
           animation="wave"
           width={"100%"}

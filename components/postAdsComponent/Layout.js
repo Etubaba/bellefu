@@ -6,10 +6,7 @@ import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 const Layout = ({ children }) => {
-
   const [loading, setLoading] = useState(false);
-
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -23,23 +20,21 @@ const Layout = ({ children }) => {
       {userId ? (
         <>
           <div className="">
-          {loading ? (
-                        <Smallhead />
-
-          ) : (
-            <Skeleton
-              className="rounded my-3"
-              variant="rectangular"
-              animation="wave"
-              width={"100%"}
-              height={80}
-            />
-          )}
+            {loading ? (
+              <Smallhead />
+            ) : (
+              <Skeleton
+                className="rounded my-3"
+                variant="rectangular"
+                animation="wave"
+                width={"90%"}
+                height={80}
+              />
+            )}
           </div>
           <div className="flex flex-col lg:flex-row">
             <PostAdSidebar />
-               
-              
+
             <main className="w-full lg:flex-grow mt-5 rounded-md">
               {children}
             </main>
