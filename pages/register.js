@@ -39,7 +39,10 @@ const Register = ({countries, countries1}) => {
     gender: "",
     phone: "",
     username: "",
-    password: ""
+    password: "",
+    socialSignup: false,
+    providerId: "",
+    providerName: "",
   });
   const [countryPhoneCode, setCountryPhoneCode] = useState("");
   const [usernameExists, setUsernameExists] = useState(false);
@@ -64,6 +67,17 @@ const Register = ({countries, countries1}) => {
       return;
     }
 
+    // if (input === "phone") {
+    //   let target = evt.target;
+    //   let phone;
+
+    //   if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
+    //   else phone = target.value;
+
+    //   setFormFields({ ...formFields, [input]: phone });
+    //   return;
+    // }
+
     setFormFields({ ...formFields, [input]: evt.target.value});
   };
   const handleClickShowPassword = () => {
@@ -76,6 +90,13 @@ const Register = ({countries, countries1}) => {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
     }
 
+    //Check for phone number that starts with zero
+    for (const field in formValues) {
+      if (Object.hasOwnProperty.call(formValues, field) && field === "phone") {
+        if (Number(formValues[field].charAt(0)) === 0) formValues[field] = formValues[field].substring(1);
+        break;
+      }
+    }
     formValues = {...formValues, phone: countryPhoneCode.concat(formValues.phone)};
     console.log(formValues);
     setIsLoading(true);
@@ -94,8 +115,14 @@ const Register = ({countries, countries1}) => {
         localStorage.setItem("user", JSON.stringify(data.data));
         dispatch(setProfileDetails(data.data));
       
-        router.push("/verify-phone");
+        //Sign out the user after authentication, for bellefu to take control of login and logout
+        return signOut({redirect: false, callbackUrl: "/verify-phone"});
+        //router.push("/verify-phone");
       }
+    })
+    .then(resSignOut => {
+      console.log("!!")
+      router.replace(resSignOut.url);
     })
     .catch(error => {
       console.log(`Error for user registration ${error}`);
@@ -120,9 +147,15 @@ const Register = ({countries, countries1}) => {
 
     let url, data;
     if (target.name === "phone") {
+      let phone;
+
+      if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
+      else phone = target.value;
+
       url = `${apiData}userphone/exist`;
-      data = {phone: target.value} 
+      data = {phone: countryPhoneCode.concat(phone)} 
     }
+
     if (target.name === "username") {
       url = `${apiData}username/exist`;
       data = {username: target.value}
@@ -156,11 +189,10 @@ const Register = ({countries, countries1}) => {
 
   useEffect(() => {
     if (!session) return;
-    const { user } = session;
-    console.log(user);
+    const { user, providerId, providerName } = session;
     //signOut();
 
-    setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email})
+    setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email, socialSignup: true, providerId, providerName,})
   }, [session])
 
   useEffect(() => {
@@ -304,18 +336,19 @@ const Register = ({countries, countries1}) => {
               <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
                 <button
                   type="button"
-                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-14 bg-white hover:bg-[#F2F2F2] w-full"
-                  onClick={() => signIn()}
+                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 bg-white hover:bg-[#F2F2F2] w-full"
+                  onClick={() => signIn("google")}
                 >
-                  <FcGoogle className='text-3xl mr-5' /> <strong className='text-[#303A4B] pl-2 text-xl'>Google</strong>
+                  <FcGoogle className='text-3xl' /> <strong className='text-[#303A4B] pl-4 text-md'>Sign up with Google</strong>
                 </button>
               </p>
               <p className="text-white w-[100%] md:w-[75%]">
                 <button
                   type="button"
-                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-11 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+                  onClick={() => signIn("facebook")}
                 >
-                  <ImFacebook className='text-2xl text-white mr-2 ' /> <strong className="pl-2 text-xl"> Facebook</strong>
+                  <ImFacebook className='text-3xl text-white' /> <strong className="pl-4 text-md">Sign up with Facebook</strong>
                 </button>
               </p>
             </div>

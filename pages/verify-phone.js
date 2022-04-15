@@ -36,6 +36,18 @@ const VerifyPhone = () => {
 
     setVerificationCode({ ...verificationCode, [input]: evt.target.value });
   };
+  const handleSmsVerification = (evt) => {
+    requestVerificationCode(evt)
+    .then(() => {
+      setSmsVerification(true);
+    })
+  };
+  const handleCallVerification = (evt) => {
+    requestVerificationCode(evt)
+    .then(() => {
+      setSmsVerification(false);
+    })
+  };
   const submitVerificationCode = async () => {
     const response = await fetch(
       "https://bellefu.inmotionhub.xyz/api/general/verify/phone/code",
@@ -65,13 +77,12 @@ const VerifyPhone = () => {
   const requestVerificationCode = async (evt) => {
     const { phone, id } = user;
     const currentTarget = evt.currentTarget;
+    console.log(phone, id)
 
     let fetchBody;
 
-    if (currentTarget.name === "sms")
-      fetchBody = { phone, userid: id, action: "sms" };
-    if (currentTarget.name === "call")
-      fetchBody = { phone, userid: id, action: "call" };
+    if (smsVerifiaction) fetchBody = { phone, userid: id, action: "sms" };
+    else fetchBody = { phone, userid: id, action: "call" };
 
     const response = await fetch(
       "https://bellefu.inmotionhub.xyz/api/general/send/phone/code",
@@ -88,7 +99,7 @@ const VerifyPhone = () => {
     if (data.status) {
       setShowCount(true);
 
-      if (currentTarget.name === "call") setSmsVerification(false);
+      //if (!smsVerifiaction) setSmsVerification(false);
 
       if (currentTarget.name !== "anothercode") {
         setVerify(true);
@@ -119,7 +130,7 @@ const VerifyPhone = () => {
     if (!emptyField) return true;
     else return false;
   };
-  const onComplete = () => {
+  const onCountComplete = () => {
     setShowCount(false);
   };
   const renderer = ({ minutes, seconds, completed }) => {
@@ -210,19 +221,19 @@ const VerifyPhone = () => {
                 <div className="flex flex-col md:flex-row px-2">
                   <div className="flex-auto md:mr-3 mb-2 md:mb-0">
                     <button
-                      onClick={(evt) => requestVerificationCode(evt)}
+                      onClick={handleSmsVerification}
                       className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 bg-bellefuOrange"
                       name="sms"
                     >
                       <span className="mt-1 mr-1">
                         <MdVerified className="text-xl" />
                       </span>
-                      <span>Code Verification</span>
+                      <span>sms Verification</span>
                     </button>
                   </div>
                   <div className="flex-auto">
                     <button
-                      onClick={(evt) => requestVerificationCode(evt)}
+                      onClick={handleCallVerification}
                       className="flex hover:bg-green-400 ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center bg-bellefuGreen"
                       name="call"
                     >
@@ -325,7 +336,7 @@ const VerifyPhone = () => {
                         <Countdown
                           date={Date.now() + 1000 * 60 * 2}
                           renderer={renderer}
-                          onComplete={onComplete}
+                          onComplete={onCountComplete}
                         />
                       ) : (
                         <span>0s</span>

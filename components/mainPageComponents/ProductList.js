@@ -14,6 +14,7 @@ import { apiData } from "../../constant";
 import { login } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [from, setFrom] = useState(null);
@@ -23,6 +24,9 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [fav2, setFav2] = useState(false);
   const [productId, setProductId] = useState([]);
   const [open, setOpen] = useState(false);
+  const [clean, setClean] = useState(fav);
+
+
 
   const router = useRouter();
   const getIsLoggedIn = useSelector(login);
@@ -52,183 +56,286 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
-      <div onClick={() => router.push(`/product/${product.productId}`)}>
-        <img
-          src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
-          className="rounded-md w-full h-44 object-cover"
-        />
-      </div>
-      <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
-      <div className="flex items-center space-x-2">
-        <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
-        <div className="flex items-center space-x-1">
-          <p className="text-bellefuBlack1 text-sm capitalize">
-            {product.stateName},
-          </p>
-          <p className="text-bellefuBlack1 text-sm capitalize">
-            {product.countryName}
-          </p>
-        </div>
-      </div>
-      <div className="flex items items-center justify-between">
-        <p className="text-bellefuGreen flex font-poppins font-semibold">
-          {product.currency_code && !converter ? (
-            <p
-              className="mr-1"
-              dangerouslySetInnerHTML={{ __html: product.currencySymbol }}
+      {product?.inStock ? (
+        <>
+          <div onClick={() => router.push(`/product/${product.productId}`)}>
+            <img
+              src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+              className="rounded-md w-full h-44 object-cover"
             />
-          ) : (
-            <p
-              className="mr-1"
-              dangerouslySetInnerHTML={{ __html: currency }}
-            />
-          )}
+          </div>
+          <p className="capitalize text-medium">
+            {product.title.substring(0, 20)}
+          </p>
+          <div className="flex items-center space-x-2">
+            <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
+            <div className="flex items-center space-x-1">
+              <p className="text-bellefuBlack1 text-sm capitalize">
+                {product.stateName},
+              </p>
+              <p className="text-bellefuBlack1 text-sm capitalize">
+                {product.countryName}
+              </p>
+            </div>
+          </div>
+          <div className="flex items items-center justify-between">
+            <p className="text-bellefuGreen flex font-poppins font-semibold">
+              {product.currency_code && !converter ? (
+                <p
+                  className="mr-1"
+                  dangerouslySetInnerHTML={{ __html: product.currencySymbol }}
+                />
+              ) : (
+                <p
+                  className="mr-1"
+                  dangerouslySetInnerHTML={{ __html: currency }}
+                />
+              )}
 
-          {!converter ? product.price : newPrice?.toFixed(2)}
-          {product.currency_code ? (
-            <span
-              onClick={(e) => {
-                e.stopPropagation();
-                axios
-                  .post(`${apiData}convert/currency`, {
-                    amount: product.price,
-                    to: currencyCode,
-                    from: product.currency_code,
-                  })
-                  .then((res) => {
-                    setNewPrice(res.data.data.result);
-                  });
+              {!converter ? product.price : newPrice === null ?
+                <div className='p-[2px]'>
+                  <CircularProgress size='1rem' color="success" />
+                </div>
+                : newPrice.toFixed(2)}
+              {product.currency_code ? (
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    axios
+                      .post(`${apiData}convert/currency`, {
+                        amount: product.price,
+                        to: currencyCode,
+                        from: product.currency_code,
+                      })
+                      .then((res) => {
+                        setNewPrice(res.data.data.result);
+                      });
 
-                setConverter(true);
-              }}
-              className="ml-5"
-            >
-              <Tooltip title="Convert">
-                <CgArrowsExchange className="text-2xl" />
-              </Tooltip>
-            </span>
-          ) : null}
-        </p>
-        {fav2 || (fav?.includes(product.productId) && getIsLoggedIn) ? (
-          <span
-            onMouseEnter={(e) => {
-              // console.log('i de work')
-              e.stopPropagation();
-              e.preventDefault();
-              const favId = fav.find((items) => items === product.productId);
-              // console.log(favId);
-              if (favId !== undefined) {
-                axios
-                  .post(`${apiData}delete/favorite/webindex`, {
-                    productId: favId,
-                    userId: userId,
-                  })
-                  .then((res) => {
-                    if (res.data.status) {
-                      setFav2(!fav2);
-                      fav.filter((items) => items !== favId);
-                      toast.error(
-                        `${product.title.substring(
-                          0,
-                          20
-                        )} removed from favorite product`,
-                        {
-                          position: "top-right",
+                    setConverter(true);
+                  }}
+                  className="ml-5"
+                >
+                  <Tooltip title="Convert">
+                    <CgArrowsExchange className="text-2xl" />
+                  </Tooltip>
+                </span>
+              ) : null}
+            </p>
+            {fav2 || (fav?.includes(product.productId) && getIsLoggedIn) ? (
+              <span
+                onClick={(e) => {
+                  console.log("i de work");
+
+                  const favId = fav.find(
+                    (items) => items === product.productId
+                  );
+                  console.log(favId);
+                  if (favId !== undefined) {
+                    axios
+                      .post(`${apiData}delete/favorite/webindex`, {
+                        productId: favId,
+                        userId: userId,
+                      })
+                      .then((res) => {
+                        if (res.data.status) {
+                          setFav2(!fav2);
+                          const cleanArr = fav.filter(
+                            (items) => items !== favId
+                          );
+                          setClean(cleanArr);
+                          toast.error(
+                            `${product.title.substring(
+                              0,
+                              20
+                            )} removed from favorite product`,
+                            {
+                              position: "top-right",
+                            }
+                          );
                         }
-                      );
-                    }
-                  });
-              } else {
-                return;
-              }
-            }}
+                      });
+                  } else {
+                    return;
+                  }
+                }}
+              >
+                <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange cursor-pointer" />
+              </span>
+            ) : (
+              <BsHeart
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (getIsLoggedIn) {
+                    axios
+                      .post(`${apiData}add/favorite`, {
+                        userId: userId,
+                        productId: product.productId,
+                      })
+                      .then((res) => {
+                        console.log(res.data);
+                        if (res.data.status) {
+                          setFav2(!fav2);
+                          toast.success(
+                            `${product.title.substring(
+                              0,
+                              20
+                            )} added to favourite`
+                          );
+                        }
+                      });
+                  } else {
+                    toast.error("Login to add favorite product");
+                    setOpen(true);
+                  }
+                }}
+                className="w-4 h-4 text-bellefuOrange cursor-pointer"
+              />
+            )}
+          </div>
+          <Modal
+            open={open}
+            onClose={() => setOpen(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          // sx={{ opacity: 0.5 }}
           >
-            <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange cursor-pointer" />
-          </span>
-        ) : (
-          <BsHeart
-            onClick={(e) => {
-              e.stopPropagation();
-              if (getIsLoggedIn) {
-                axios
-                  .post(`${apiData}add/favorite`, {
-                    userId: userId,
-                    productId: product.productId,
-                  })
-                  .then((res) => {
-                    console.log(res.data);
-                    if (res.data.status) {
-                      setFav2(true);
-                      toast.success(
-                        `${product.title.substring(0, 20)} added to favourite`
-                      );
-                    }
-                  });
-              } else {
-                toast.error("Login to add favorite product");
-                setOpen(true);
-              }
-            }}
-            className="w-4 h-4 text-bellefuOrange cursor-pointer"
-          />
-        )}
-      </div>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        // sx={{ opacity: 0.5 }}
-      >
-        <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
-          {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
-          <strong className="ml-4 mb-8"> Sign in </strong>
+            <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
+              {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
+              <strong className="ml-4 mb-8"> Sign in </strong>
 
-          <div className="flex space-x-3 justify-center items-center my-4">
-            <button className=" flex py-3 px-14 border-2 hover:bg-gray-200  rounded-lg  ">
-              <FcGoogle className="text-3xl mr-5" />{" "}
-              <strong className="text-[#303A4B] text-xl">Google</strong>
+              <div className="flex space-x-3 justify-center items-center my-4">
+                <button className=" flex py-3 px-14 border-2 hover:bg-gray-200  rounded-lg  ">
+                  <FcGoogle className="text-3xl mr-5" />{" "}
+                  <strong className="text-[#303A4B] text-xl">Google</strong>
+                </button>
+                <button className="hover:bg-blue-700 flex py-3 px-14 bg-[#3B5998] rounded-lg ">
+                  <ImFacebook className="text-3xl text-white mr-5 " />
+                  <strong className="text-white text-xl">Facebook</strong>
+                </button>
+              </div>
+
+              <button
+                onClick={() => router.push("/login")}
+                className="py-3 px-40 mb-4 ml-4 rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+              >
+                {" "}
+                Email or Phone Number{" "}
+              </button>
+
+              <p className="flex justify-center items-center">
+                Do not have an account?{" "}
+                <stong
+                  onClick={() => router.push("/register")}
+                  className="text-bellefuGreen hover:text-green-700 text-lg ml-2"
+                >
+                  Register
+                </stong>
+              </p>
+            </div>
+          </Modal>
+
+          <div className="flex items-center mt-2 space-x-3">
+            <button
+              onClick={handleMessage}
+              className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4"
+            >
+              <MdOutlineMessage className="!text-white" />
             </button>
-            <button className="hover:bg-blue-700 flex py-3 px-14 bg-[#3B5998] rounded-lg ">
-              <ImFacebook className="text-3xl text-white mr-5 " />
-              <strong className="text-white text-xl">Facebook</strong>
+            <button
+              onClick={handleCall}
+              className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4"
+            >
+              <MdCall className="text-white " />
             </button>
           </div>
+        </>
+      ) : (
+        <>
+          <div className="opacity-60 relative">
+            <div className="absolute bg-bellefuGreen/90 px-3 py-1 rounded-br-md">
+              <p className="uppercase text-sm   tracking-wider opacity-100 font-bold text-white">
+                Product not in stock
+              </p>
+            </div>
+            <div>
+              <img
+                src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+                className="rounded-md w-full h-44 object-cover "
+              />
+            </div>
+            <p className="capitalize text-medium">
+              {product.title.substring(0, 20)}
+            </p>
+            <div className="flex items-center space-x-2">
+              <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
+              <div className="flex items-center space-x-1">
+                <p className="text-bellefuBlack1 text-sm capitalize">
+                  {product.stateName},
+                </p>
+                <p className="text-bellefuBlack1 text-sm capitalize">
+                  {product.countryName}
+                </p>
+              </div>
+            </div>
+            <div className="flex items items-center justify-between">
+              <p className="text-bellefuGreen flex font-poppins font-semibold">
+                {product.currency_code && !converter ? (
+                  <p
+                    className="mr-1"
+                    dangerouslySetInnerHTML={{ __html: product.currencySymbol }}
+                  />
+                ) : (
+                  <p
+                    className="mr-1"
+                    dangerouslySetInnerHTML={{ __html: currency }}
+                  />
+                )}
 
-          <button
-            onClick={() => router.push("/login")}
-            className="py-3 px-40 mb-4 ml-4 rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
-          >
-            {" "}
-            Email or Phone Number{" "}
-          </button>
+                {!converter ? product.price : newPrice?.toFixed(2)}
+                {product.currency_code ? (
+                  <span
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      axios
+                        .post(`${apiData}convert/currency`, {
+                          amount: product.price,
+                          to: currencyCode,
+                          from: product.currency_code,
+                        })
+                        .then((res) => {
+                          setNewPrice(res.data.data.result);
+                        });
 
-          <p className="flex justify-center items-center">
-            Do not have an account?{" "}
-            <stong
-              onClick={() => router.push("/register")}
-              className="text-bellefuGreen hover:text-green-700 text-lg ml-2"
-            >
-              Register
-            </stong>
-          </p>
-        </div>
-      </Modal>
+                      setConverter(true);
+                    }}
+                    className="ml-5"
+                  >
+                    <Tooltip title="Convert">
+                      <CgArrowsExchange className="text-2xl" />
+                    </Tooltip>
+                  </span>
+                ) : null}
+              </p>
+              {fav2 || (fav?.includes(product.productId) && getIsLoggedIn) ? (
+                <span>
+                  <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange cursor-pointer" />
+                </span>
+              ) : (
+                <BsHeart className="w-4 h-4 text-bellefuOrange cursor-pointer" />
+              )}
+            </div>
 
-      <div className="flex items-center mt-2 space-x-3">
-        <button
-          onClick={handleMessage}
-          className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4"
-        >
-          <MdOutlineMessage className="!text-white" />
-        </button>
-        <button
-          onClick={handleCall}
-          className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4"
-        >
-          <MdCall className="text-white " />
-        </button>
-      </div>
+            <div className="flex items-center mt-2 space-x-3">
+              <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
+                <MdOutlineMessage className="!text-white" />
+              </button>
+              <button className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
+                <MdCall className="text-white " />
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
