@@ -9,7 +9,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 function Footer() {
   return (
-    <div className="bg-[#3F3F3F] hidden lg:block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
+    <div className="bg-[#191A19] hidden lg:block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
       <div className="flex justify-evenly space-x-10 mb-12">
         <div className="flex flex-col space-y-3 w-80">
           <img
