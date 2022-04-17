@@ -7,7 +7,7 @@ const Body = ({ products, slider, currency, location, currencyCode }) => {
 
   const search = useSelector(state => state.bellefu?.searchFilter);
 
-
+  console.log('how far ')
   return (
     <div className="">
       {search === '' ?

@@ -15,6 +15,9 @@ import { fetchData } from "../features/bellefuSlice";
 
 export default function Home({ data }) {
   const dispatch = useDispatch();
+  const search = useSelector(state => state.bellefu?.searchFilter)
+
+
 
   // if (data) {
   //   dispatch(fetchData(data));
@@ -59,10 +62,10 @@ export default function Home({ data }) {
             <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
               <CategorySideBar categories={data.categories} />
             </div>
-
-            <div className=" h-auto lg:hidden my-4 rounded-sm">
-              <MobileCategoryBar categories={data.categories} />
-            </div>
+            {search === '' ?
+              <div className=" h-auto lg:hidden my-4 rounded-sm">
+                <MobileCategoryBar categories={data.categories} />
+              </div> : null}
             {/* list of products & slider */}
             <div className="flex-1">
               <Body
