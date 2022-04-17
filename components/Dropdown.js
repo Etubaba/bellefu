@@ -33,7 +33,7 @@ const Dropdown = ({ category }) => {
             <img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category?.image}`}
               alt="icons"
-              className="w-7 h-7"
+              className="w-8 h-8"
             />
             <h5 className="text-bellefuBlack1 font-medium text-normal whitespace-nowrap">
               {category?.name}
@@ -83,7 +83,7 @@ const Dropdown = ({ category }) => {
             <img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category?.image}`}
               alt="icons"
-              className="w-4 h-4"
+              className="w-8 h-8"
             />
             <h5
               className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"

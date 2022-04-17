@@ -1,21 +1,57 @@
 import React from "react";
 import Slider from "./mainPageComponents/slider/Slider";
 import ProductComponent from "./mainPageComponents/ProductComponent";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 const Body = ({ products, slider, currency, location, currencyCode }) => {
+  const [loading, setLoading] = useState(false);
 
+<<<<<<< HEAD
   const search = useSelector(state => state.bellefu?.searchFilter);
 
   console.log('how far ')
+=======
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+  // console.log("The products here :", products);
+>>>>>>> 793d8ad6e718c5c1b2cb9dbbbd991db96f801914
   return (
     <div className="">
-      {search === '' ?
-        <div className="mb-2">
+      <div className="mb-2">
+        {loading ? (
           <Slider slider={slider} />
-        </div> : null}
+        ) : (
+          <Skeleton
+            className="rounded my-3"
+            variant="rectangular"
+            animation="wave"
+            width={"100%"}
+            height={320}
+          />
+        )}
+      </div>
       {/* product component session */}
-      <ProductComponent currency={currency} currencyCode={currencyCode} location={location} products={products} />
+      {loading ? (
+        <ProductComponent
+          currency={currency}
+          currencyCode={currencyCode}
+          location={location}
+          products={products}
+        />
+      ) : (
+        <Skeleton
+          className="rounded my-3"
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={1000}
+        />
+      )}{" "}
     </div>
   );
 };

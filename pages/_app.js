@@ -1,26 +1,57 @@
 import "../styles/globals.css";
 import { Provider } from "react-redux";
-import {  SessionProvider } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { store } from "../features/store";
 import NavBar from "../components/Navbar/NavBar";
+import Skeleton from "@mui/material/Skeleton";
+import { useEffect, useState } from "react";
 
 import Footer from "../components/footer/Footer";
 import Mobilefooter from "../components/footer/Mobilefooter";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function MyApp({ Component, pageProps: {session, ...pageProps} }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const Layout = Component.Layout || EmptyLayout;
 
   return (
     <Provider store={store}>
       <SessionProvider session={session}>
-        <NavBar />
+        {loading ? (
+          <NavBar />
+        ) : (
+          <Skeleton
+            className="rounded my-3"
+            variant="rectangular"
+            animation="wave"
+            width={"100%"}
+            height={80}
+          />
+        )}{" "}
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </SessionProvider>
-      <Footer />
+      {loading ? (
+        <Footer />
+      ) : (
+        <Skeleton
+          className="rounded my-3"
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={500}
+        />
+      )}{" "}
       <Mobilefooter />
       <ToastContainer />
     </Provider>

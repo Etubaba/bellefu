@@ -7,14 +7,10 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { toast } from "react-toastify";
 import Countdown from "react-countdown";
+import classNames from "classnames";
 
 const VerifyPhone = () => {
-  const firstInput = useRef(false);
-  const secondInput = useRef(false);
-  const thirdInput = useRef(false);
-  const fourthInput = useRef(false);
-  const fivethInput = useRef(false);
-  const sixthInput = useRef(false);
+  const firstInput = useRef();
   const router = useRouter();
   const [isVerified, setVerify] = useState(false);
   const user = useSelector(profileDetails);
@@ -29,12 +25,26 @@ const VerifyPhone = () => {
   const [showCount, setShowCount] = useState(false);
   const [phone, setPhone] = useState(false);
   const [pCongrats, setPCongrats] = useState(false);
-  const [smsVerifiaction, setSmsVerification] = useState(true);
+  const [smsVerification, setSmsVerification] = useState(false);
+  const [callVerification, setCallVerification] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [event, setEvent] = useState(null); //The current event that occured
+  const [target, setTarget] = useState(null); //The target element that recieved the onChange event
 
   const handleChange = (input) => (evt) => {
+    
     if (isNaN(evt.target.value)) return;
+    if (evt.target.value) setTarget(evt.target); //Save the target element to get next element focused
 
     setVerificationCode({ ...verificationCode, [input]: evt.target.value });
+  };
+  const handleSmsVerification = (evt) => {
+    setSmsVerification(true);
+    setEvent(evt) //Save the evt in a state to be used in the useEffect call
+  };
+  const handleCallVerification = (evt) => {
+    setCallVerification(true);
+    setEvent(evt) //Save the evt in a state to be used in the useEffect call
   };
   const submitVerificationCode = async () => {
     const response = await fetch(
@@ -65,15 +75,13 @@ const VerifyPhone = () => {
   const requestVerificationCode = async (evt) => {
     const { phone, id } = user;
     const currentTarget = evt.currentTarget;
-    console.log(phone, id)
 
     let fetchBody;
 
-    if (currentTarget.name === "sms")
-      fetchBody = { phone, userid: id, action: "sms" };
-    if (currentTarget.name === "call")
-      fetchBody = { phone, userid: id, action: "call" };
+    if (smsVerification) fetchBody = { phone, userid: id, action: "sms" };
+    else if (callVerification) fetchBody = { phone, userid: id, action: "call" };
 
+    setLoading(true);
     const response = await fetch(
       "https://bellefu.inmotionhub.xyz/api/general/send/phone/code",
       {
@@ -89,23 +97,21 @@ const VerifyPhone = () => {
     if (data.status) {
       setShowCount(true);
 
-      if (currentTarget.name === "call") setSmsVerification(false);
-
-      if (currentTarget.name !== "anothercode") {
+      if (currentTarget?.name !== "anothercode") {
         setVerify(true);
         setPhone((prev) => !prev);
       }
+      setLoading(false);
 
-      if (!verificationCode.firstNo) firstInput.current.focus();
+      if (!verificationCode.firstNo)  firstInput.current?.focus();
     } else {
       toast.info(data.msg, {
         position: toast.POSITION.TOP_CENTER,
       });
+
+      setLoading(false);
     }
   };
-  // const requestCallVerification = () => {
-  //   return false;
-  // };
   const verificationCodeFieldsFilled = (verificationCode) => {
     let emptyField = false;
     for (const fieldCode in verificationCode) {
@@ -120,7 +126,7 @@ const VerifyPhone = () => {
     if (!emptyField) return true;
     else return false;
   };
-  const onComplete = () => {
+  const onCountComplete = () => {
     setShowCount(false);
   };
   const renderer = ({ minutes, seconds, completed }) => {
@@ -133,54 +139,39 @@ const VerifyPhone = () => {
         </strong>
       );
   };
+
+  useEffect(() => {
+    if (smsVerification) requestVerificationCode(event);
+    if (callVerification) requestVerificationCode(event);
+  }, [smsVerification, callVerification])
+
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
 
-    if (verificationCode.firstNo && !verificationCode.secondNo) {
-      secondInput.current.focus();
-      secondInput.current = true;
-    }
+    if (target?.value) {
 
-    if (
-      verificationCode.firstNo &&
-      verificationCode.secondNo &&
-      !verificationCode.thirdNo
-    ) {
-      thirdInput.current.focus();
-      thirdInput.current = true;
-    }
-
-    if (
-      verificationCode.firstNo &&
-      verificationCode.secondNo &&
-      verificationCode.thirdNo &&
-      !verificationCode.fourthNo
-    ) {
-      fourthInput.current.focus();
-      fourthInput.current = true;
-    }
-
-    if (
-      verificationCode.firstNo &&
-      verificationCode.secondNo &&
-      verificationCode.thirdNo &&
-      verificationCode.fourthNo &&
-      !verificationCode.fivethNo
-    ) {
-      fivethInput.current.focus();
-      fivethInput.current = true;
-    }
-
-    if (
-      verificationCode.firstNo &&
-      verificationCode.secondNo &&
-      verificationCode.thirdNo &&
-      verificationCode.fourthNo &&
-      verificationCode.fivethNo &&
-      !verificationCode.sixthNo
-    ) {
-      sixthInput.current.focus();
-      sixthInput.current = true;
+      if (verificationCode.firstNo && !verificationCode.secondNo && target.value) {
+        target.nextSibling.focus();
+      }
+  
+      if (verificationCode.firstNo && verificationCode.secondNo && !verificationCode.thirdNo) {
+        target.nextSibling.focus();
+      }
+  
+      if (verificationCode.firstNo && verificationCode.secondNo && 
+        verificationCode.thirdNo && !verificationCode.fourthNo) {
+          target.nextSibling.focus();
+      }
+  
+      if (verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo && 
+        verificationCode.fourthNo && !verificationCode.fivethNo) {
+          target.nextSibling.focus();
+      }
+  
+      if ( verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo &&
+        verificationCode.fourthNo && verificationCode.fivethNo && !verificationCode.sixthNo ) {
+        target.nextSibling.focus();
+      }  
     }
 
     if (isFilled) {
@@ -210,31 +201,30 @@ const VerifyPhone = () => {
                 </p>
                 <div className="flex flex-col md:flex-row px-2">
                   <div className="flex-auto md:mr-3 mb-2 md:mb-0">
-                    <button
-                      onClick={(evt) => requestVerificationCode(evt)}
-                      className="flex hover:bg-orange-400 ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 bg-bellefuOrange"
+                  { !callVerification && <button
+                      onClick={handleSmsVerification}
+                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 ", {"hover:cursor-not-allowed": isLoading, "bg-orange-200": isLoading,"hover:bg-orange-400": !isLoading, "bg-bellefuOrange": !isLoading, "cursor-pointer": !isLoading})}
                       name="sms"
+                      disabled={isLoading?true:false}
                     >
-                      <span className="mt-1 mr-1">
-                        <MdVerified className="text-xl" />
-                      </span>
-                      <span>Code Verification</span>
+                      <span className="mt-1 mr-1">{!smsVerification && <MdVerified className="text-xl" />}</span>
+                      <span>{!smsVerification?"SMS Verification":"Requesting..."}</span>
                     </button>
+                  }
                   </div>
                   <div className="flex-auto">
-                    <button
-                      onClick={(evt) => requestVerificationCode(evt)}
-                      className="flex hover:bg-green-400 ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center bg-bellefuGreen"
+                  { !smsVerification && <button
+                      onClick={handleCallVerification}
+                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center",{"hover:cursor-not-allowed": isLoading, "bg-green-200": isLoading, "bg-bellefuGreen": !isLoading, "hover:bg-green-400": !isLoading, "cursor-pointer": !isLoading})}
                       name="call"
+                      disabled={isLoading?true:false}
                     >
-                      <span className="mt-1 mr-1 ">
-                        <MdCall className="text-xl" />
-                      </span>
-                      <span>Call Verification</span>
+                      <span className="mt-1 mr-1 ">{!callVerification && <MdCall className="text-xl" />}</span>
+                      <span>{!callVerification?"Call Verification":"Requesting..."}</span>
                     </button>
+                  }
                   </div>
                 </div>
-                {/* <p className="px-3 mt-4 text-center text-md hover:text-bellefuBlack1 hover:cursor-pointer" onClick={() => router.push("/login")}>SKIP VERIFICATION</p> */}
               </div>
             </div>
           </div>
@@ -265,8 +255,8 @@ const VerifyPhone = () => {
                   <div className="flex flex-col space-y-5 justify-center items-center mt-16 mb-1">
                     <p className="mb-5 px-9">
                       Enter the code{" "}
-                      {smsVerifiaction ? "sent to" : "your hear on"} this number
-                      : <strong>{user.phone}</strong>
+                      {smsVerification ? "sent to" : "your hear on"} this number
+                      : <strong>{user?.phone}</strong>
                     </p>
                     <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md">
                       <input
@@ -283,7 +273,6 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.secondNo}
                         onChange={handleChange("secondNo")}
-                        ref={secondInput}
                       />
                       <input
                         className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
@@ -291,7 +280,6 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.thirdNo}
                         onChange={handleChange("thirdNo")}
-                        ref={thirdInput}
                       />
                       <input
                         className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
@@ -299,7 +287,6 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.fourthNo}
                         onChange={handleChange("fourthNo")}
-                        ref={fourthInput}
                       />
                       <input
                         className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
@@ -307,7 +294,6 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.fivethNo}
                         onChange={handleChange("fivethNo")}
-                        ref={fivethInput}
                       />
                       <input
                         className="m-2 border focus:border-0 focus:outline focus:outline-bellefuOrange h-12 w-12 text-center form-control rounded"
@@ -315,18 +301,16 @@ const VerifyPhone = () => {
                         maxLength="1"
                         value={verificationCode.sixthNo}
                         onChange={handleChange("sixthNo")}
-                        ref={sixthInput}
                       />
                     </div>
 
                     <p className="mb-7">
-                      If you did not recieve {smsVerifiaction ? "code" : "call"}
-                      , request again in:{" "}
+                      If you did not recieve {smsVerification ? "code" : "call"}, request again in:{" "}
                       {showCount ? (
                         <Countdown
                           date={Date.now() + 1000 * 60 * 2}
                           renderer={renderer}
-                          onComplete={onComplete}
+                          onComplete={onCountComplete}
                         />
                       ) : (
                         <span>0s</span>
@@ -345,7 +329,7 @@ const VerifyPhone = () => {
                     >
                       <MdVerified className="text-xl mr-2 mt-1" />
                       <span>
-                        Request another {smsVerifiaction ? "code" : "call"}
+                        {!isLoading?`Request another ${smsVerification ? "SMS" : "Call"}`:"Requesting..."}
                       </span>
                     </button>
                   </div>

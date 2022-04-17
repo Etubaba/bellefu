@@ -8,13 +8,16 @@ import UnstyledSelectSimple2 from "../../components/postAdsComponent/SubCatInput
 import UnstyledSelectSimple3 from "../../components/postAdsComponent/CountrySelect";
 import UnstyledSelectSimple4 from "../../components/postAdsComponent/State";
 import UnstyledSelectSimple5 from "../../components/postAdsComponent/City";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {handleLocationUpdate} from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 
 function Index({ data1, data2 }) {
+  const [loading, setLoading] = useState(false);
+
 
   const router = useRouter();
 
@@ -67,8 +70,14 @@ function Index({ data1, data2 }) {
     toast.error("All fields are required", {
       position: 'top-center'    })   }
  }
-  //  console.log(data1);
-  //  console.log(data2);
+
+
+ useEffect(() => {
+  const timer = setTimeout(() => {
+    setLoading(true);
+  }, 3000);
+  return () => clearTimeout(timer);
+}, []);
 
   return (
     <div>
@@ -78,7 +87,7 @@ function Index({ data1, data2 }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-      <div className=" shadow bg-bellefuWhite rounded-md  p-5">
+     {loading? <div className=" shadow bg-bellefuWhite rounded-md  p-5">
         <div className="border  p-5 mt-7 ">
           <div>
             <form action="#" method="POST">
@@ -185,7 +194,13 @@ function Index({ data1, data2 }) {
             </form>
           </div>
         </div>
-      </div>
+      </div>:<Skeleton
+          className="rounded "
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={1000}
+        />}
     </div>
   );
 }

@@ -3,9 +3,21 @@ import { IoMdCheckmarkCircle } from "react-icons/io";
 import { RiAdvertisementFill } from "react-icons/ri";
 import NavLink from "./NavLink";
 
+import { useEffect, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
+
 const PostAdSidebar = () => {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const iconValues = [
-      { icon: RiAdvertisementFill, text: <strong >Post Ads</strong>, to: "#" },
+      { icon: RiAdvertisementFill, text: <strong>Post Ads</strong>, to: "#" },
       { icon: false, divider: <hr /> },
       {
         icon: IoMdCheckmarkCircle,
@@ -80,72 +92,92 @@ const PostAdSidebar = () => {
 
   return (
     <>
-      <div className="mt-5 h-[60vh] bg-bellefuWhite  mr-3 rounded-lg pt-4 hidden lg:inline ">
-        <div className="h-[60vh] w-80 overflow-auto" id="side-bar">
-          {iconValues.map((iconValue, index) => {
-            if (index === lastElem) {
-              return (
-                <NavLink
-                  to={iconValue.to}
-                  className="flex m-4 mb-24  cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
-                  icon={iconValue}
-                  key={index}
-                />
-              );
-            }
+      {loading ? (
+        <div className="mt-5 h-[60vh] bg-bellefuWhite  mr-3 rounded-lg pt-4 hidden lg:inline ">
+          <div className="h-[60vh] w-80 overflow-auto" id="side-bar">
+            {iconValues.map((iconValue, index) => {
+              if (index === lastElem) {
+                return (
+                  <NavLink
+                    to={iconValue.to}
+                    className="flex m-4 mb-24  cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
+                    icon={iconValue}
+                    key={index}
+                  />
+                );
+              }
 
-            if (iconValue.icon) {
-              return (
-                <NavLink
-                  to={iconValue.to}
-                  className="flex m-4 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
-                  icon={iconValue}
-                  key={index}
-                />
-              );
-            } else {
-              return iconValue.divider;
-            }
-          })}
+              if (iconValue.icon) {
+                return (
+                  <NavLink
+                    to={iconValue.to}
+                    className="flex m-4 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
+                    icon={iconValue}
+                    key={index}
+                  />
+                );
+              } else {
+                return iconValue.divider;
+              }
+            })}
+          </div>
         </div>
-      </div>
+      ) : (
+        <Skeleton
+          className="rounded mr-3 mt-5 hidden lg:block "
+          variant="rectangular"
+          animation="wave"
+          width={400}
+          height={550}
+        />
+      )}
+      {/* mobile */}
+      {loading ? (
+        <div className="lg:hidden mt-2 bg-bellefuWhite rounded-md py-3 px-1">
+          <div className="flex items-center space-x-2 mb-3 ml-[6vw]">
+            <RiAdvertisementFill />
+            <p className="font-bold text-[13px]">Post Ads</p>
+          </div>
+          <div
+            className="flex items-center justify-between w-full -ml-8"
+            id="side-bar"
+          >
+            {iconValuesMobile.map((iconValue, index) => {
+              if (index === lastElemMobile) {
+                return (
+                  <NavLink
+                    to={iconValue.to}
+                    className="flex mb-1 flex-col cursor-pointer "
+                    icon={iconValue}
+                    key={index}
+                  />
+                );
+              }
 
-      <div className="lg:hidden mt-2 bg-bellefuWhite rounded-md py-3 px-1">
-        <div className="flex items-center space-x-2 mb-3 ml-[6vw]">
-          <RiAdvertisementFill />
-          <p className="font-bold text-[13px]">Post Ads</p>
+              if (iconValue.icon) {
+                return (
+                  <NavLink
+                    to={iconValue.to}
+                    className="flex flex-col items-center justify-center cursor-pointer  "
+                    icon={iconValue}
+                    key={index}
+                  />
+                );
+              } else {
+                return iconValue.divider;
+              }
+            })}
+          </div>
         </div>
-        <div
-          className="flex items-center justify-between w-full -ml-8"
-          id="side-bar"
-        >
-          {iconValuesMobile.map((iconValue, index) => {
-            if (index === lastElemMobile) {
-              return (
-                <NavLink
-                  to={iconValue.to}
-                  className="flex mb-1 flex-col cursor-pointer "
-                  icon={iconValue}
-                  key={index}
-                />
-              );
-            }
-
-            if (iconValue.icon) {
-              return (
-                <NavLink
-                  to={iconValue.to}
-                  className="flex flex-col items-center justify-center cursor-pointer  "
-                  icon={iconValue}
-                  key={index}
-                />
-              );
-            } else {
-              return iconValue.divider;
-            }
-          })}
-        </div>
-      </div>
+      ) : (
+        <Skeleton
+          className="rounded mr-3 mt-5  lg:hidden"
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={100}
+        />
+      )}
     </>
   );
 };
