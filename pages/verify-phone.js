@@ -28,22 +28,23 @@ const VerifyPhone = () => {
   const [smsVerification, setSmsVerification] = useState(false);
   const [callVerification, setCallVerification] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [target, setTarget] = useState(null); //Save the active element in a state to target next element
+  const [event, setEvent] = useState(null); //The current event that occured
+  const [target, setTarget] = useState(null); //The target element that recieved the onChange event
 
   const handleChange = (input) => (evt) => {
     
     if (isNaN(evt.target.value)) return;
-    if (evt.target.value) setTarget(evt.target);
+    if (evt.target.value) setTarget(evt.target); //Save the target element to get next element focused
 
     setVerificationCode({ ...verificationCode, [input]: evt.target.value });
   };
   const handleSmsVerification = (evt) => {
     setSmsVerification(true);
-    requestVerificationCode(evt);
+    setEvent(evt) //Save the evt in a state to be used in the useEffect call
   };
   const handleCallVerification = (evt) => {
     setCallVerification(true);
-    requestVerificationCode(evt);
+    setEvent(evt) //Save the evt in a state to be used in the useEffect call
   };
   const submitVerificationCode = async () => {
     const response = await fetch(
@@ -77,8 +78,8 @@ const VerifyPhone = () => {
 
     let fetchBody;
 
-    if (currentTarget.name === "sms") fetchBody = { phone, userid: id, action: "sms" };
-    else if (currentTarget.name === "call") fetchBody = { phone, userid: id, action: "call" };
+    if (smsVerification) fetchBody = { phone, userid: id, action: "sms" };
+    else if (callVerification) fetchBody = { phone, userid: id, action: "call" };
 
     setLoading(true);
     const response = await fetch(
@@ -96,15 +97,13 @@ const VerifyPhone = () => {
     if (data.status) {
       setShowCount(true);
 
-      //if (!smsVerifiaction) setSmsVerification(false);
-
-      if (currentTarget.name !== "anothercode") {
+      if (currentTarget?.name !== "anothercode") {
         setVerify(true);
         setPhone((prev) => !prev);
       }
       setLoading(false);
 
-      if (!verificationCode.firstNo)  firstInput.current.focus();
+      if (!verificationCode.firstNo)  firstInput.current?.focus();
     } else {
       toast.info(data.msg, {
         position: toast.POSITION.TOP_CENTER,
@@ -140,9 +139,14 @@ const VerifyPhone = () => {
         </strong>
       );
   };
+
+  useEffect(() => {
+    if (smsVerification) requestVerificationCode(event);
+    if (callVerification) requestVerificationCode(event);
+  }, [smsVerification, callVerification])
+
   useEffect(() => {
     const isFilled = verificationCodeFieldsFilled(verificationCode);
-    console.log(isLoading);
 
     if (target?.value) {
 
@@ -197,26 +201,28 @@ const VerifyPhone = () => {
                 </p>
                 <div className="flex flex-col md:flex-row px-2">
                   <div className="flex-auto md:mr-3 mb-2 md:mb-0">
-                    <button
+                  { !callVerification && <button
                       onClick={handleSmsVerification}
-                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 bg-bellefuOrange", {"hover:cursor-not-allowed": isLoading, "bg-orange-200": isLoading,"hover:bg-orange-400": !isLoading, "cursor-pointer": !isLoading})}
+                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 ", {"hover:cursor-not-allowed": isLoading, "bg-orange-200": isLoading,"hover:bg-orange-400": !isLoading, "bg-bellefuOrange": !isLoading, "cursor-pointer": !isLoading})}
                       name="sms"
                       disabled={isLoading?true:false}
                     >
-                      { !smsVerification && <span className="mt-1 mr-1"><MdVerified className="text-xl" /></span> }
+                      <span className="mt-1 mr-1">{!smsVerification && <MdVerified className="text-xl" />}</span>
                       <span>{!smsVerification?"SMS Verification":"Requesting..."}</span>
                     </button>
+                  }
                   </div>
                   <div className="flex-auto">
-                    <button
+                  { !smsVerification && <button
                       onClick={handleCallVerification}
-                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center bg-bellefuGreen",{"hover:cursor-not-allowed": isLoading, "bg-green-200": isLoading, "hover:bg-green-400": !isLoading, "cursor-pointer": !isLoading})}
+                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center",{"hover:cursor-not-allowed": isLoading, "bg-green-200": isLoading, "bg-bellefuGreen": !isLoading, "hover:bg-green-400": !isLoading, "cursor-pointer": !isLoading})}
                       name="call"
                       disabled={isLoading?true:false}
                     >
-                      { !callVerification && <span className="mt-1 mr-1 "><MdCall className="text-xl" /></span> }
+                      <span className="mt-1 mr-1 ">{!callVerification && <MdCall className="text-xl" />}</span>
                       <span>{!callVerification?"Call Verification":"Requesting..."}</span>
                     </button>
+                  }
                   </div>
                 </div>
               </div>
@@ -323,7 +329,7 @@ const VerifyPhone = () => {
                     >
                       <MdVerified className="text-xl mr-2 mt-1" />
                       <span>
-                        Request another {smsVerification ? "code" : "call"}
+                        {!isLoading?`Request another ${smsVerification ? "SMS" : "Call"}`:"Requesting..."}
                       </span>
                     </button>
                   </div>
