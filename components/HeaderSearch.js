@@ -106,6 +106,7 @@ const HeaderSearch = ({
                       setSelectCountry(false);
                       setSelectlang(false);
                       setCountryName(list.name);
+                      dispatch(chooseState(null));
                       dispatch(chooseCountry(list.iso2));
                     }}
                     className="py-1 flex space-x-3 hover:bg-bellefuBackground"
