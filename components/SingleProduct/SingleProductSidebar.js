@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { Modal } from "@mui/material";
+import { Modal, Rating } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook } from "react-icons/im";
+import { GrStar } from "react-icons/gr";
 import { GoVerified } from "react-icons/go";
 import { BsFillPersonFill } from "react-icons/bs";
 import { RiMessage2Fill, RiCloseFill } from "react-icons/ri";
@@ -17,20 +18,22 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { apiData } from "../../constant";
 
-const SingleProductSidebar = ({ userDetails }) => {
-  console.log("userDetails from sidebar", userDetails);
+const SingleProductSidebar = ({ userDetails, verified }) => {
+
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [message, setMessage] = useState("");
+  const [review, setReview] = useState(false)
+  const [rating, setRating] = useState(1)
 
   const receiverId = userDetails[0]?.productOwnerId;
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   const isLoggedIn = useSelector(login);
 
-  const isverified = useSelector(verified);
+  console.log('veri matters', verified);
 
   const handleMessage = () => {
     if (isLoggedIn) {
@@ -106,16 +109,17 @@ const SingleProductSidebar = ({ userDetails }) => {
           <span className='flex'>
             <GoVerified
               className={
-                isverified?.phone
+                verified?.phone && !verified?.id && !verified?.kyc
                   ? "text-black/70 w-3 h-3"
-                  : isverified?.kyc
-                    ? "w-3 h-3 text-bellefuGreen"
-                    : isverified?.id
-                      ? "w-3 h-3 text-bellefuOrange"
+                  : !verified?.kyc && verified?.id && verified?.phone
+                    ? "w-3 h-3 text-bellefuOrange"
+                    : verified?.id && verified?.phone && verified?.kyc
+                      ? "w-3 h-3 text-bellefuGreen"
                       : "w-3 h-3 text-[#A6A6A6]"
               }
             />
-            <i className='text-[10px] ml-2'>Phone verified</i>
+            <i className='text-[10px] ml-2'>{verified?.phone && !verified?.id && !verified?.kyc ? 'Phone verified' :
+              verified?.phone && verified?.id && !verified?.kyc ? 'ID verified' : 'KYC verified'}</i>
           </span>
         </div>
         <div className="flex items-center mt-2 space-x-2">
@@ -132,7 +136,7 @@ const SingleProductSidebar = ({ userDetails }) => {
         <div className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center">
           {" "}
           <BsFillPersonFill className="w-5 h-5 text-gray-500" />
-          <p className="text-gray-400 font-medium">View Profile</p>
+          <p className="text-gray-400 font-medium cursor-pointer">View Profile</p>
         </div>
         {/* message */}
         <div
@@ -140,7 +144,7 @@ const SingleProductSidebar = ({ userDetails }) => {
           onClick={handleMessage}
         >
           <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
-          <p className="text-white font-medium text-sm">Messages</p>
+          <p className="text-white font-medium text-sm cursor-pointer">Messages</p>
         </div>
         {/* message box */}
         {open && (
@@ -148,7 +152,7 @@ const SingleProductSidebar = ({ userDetails }) => {
             <div className="flex items-center py-1">
               <div className="flex items-center w-full space-x-3 rounded-md justify-end">
                 <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
-                <p className="text-gray-400 font-normal text-sm">Messages</p>
+                <p className="text-gray-400 font-normal text-sm cursor-pointer">Messages</p>
               </div>
               <RiCloseFill
                 className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
@@ -222,7 +226,7 @@ const SingleProductSidebar = ({ userDetails }) => {
         {/* call */}
         <div
           onClick={handleCall}
-          className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center"
+          className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center cursor-pointer"
         >
           <IoIosCall className="w-4 h-4 text-white" />
           <p className="text-white font-medium text-sm">Call</p>
@@ -230,10 +234,10 @@ const SingleProductSidebar = ({ userDetails }) => {
         {/* my shop */}
         <div
           onClick={() => router.push(`/shop/${userDetails[0]?.productOwnerId}`)}
-          className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-gradient-to-r from-bellefuGreen to-bellefuOrange justify-center"
+          className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-gradient-to-r from-bellefuGreen to-bellefuOrange justify-center cursor-pointer"
         >
           <RiShoppingCart2Fill className="w-4 h-4 text-white" />
-          <p className="text-white font-medium text-sm">My Shop</p>
+          <p className="text-white font-medium text-sm">Shop</p>
         </div>
       </div>
 
@@ -245,8 +249,53 @@ const SingleProductSidebar = ({ userDetails }) => {
         <div className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center">
           {" "}
           <BsFillPersonFill className="w-5 h-5 text-bellefuOrange" />
-          <p className="text-gray-400 font-normal text-xs">View Reviews</p>
+          <p onClick={() => setReview(true)} className="text-gray-400 font-normal text-xs">Give Reviews</p>
         </div>
+
+        {review && (
+          <div className="border mt-2 bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
+            <div className="flex items-center py-1">
+              <div className="flex items-center w-full space-x-3 rounded-md justify-end">
+                <GrStar className="w-4 h-4 text-yellow-300 text-4xl" />{" "}
+                <p className="text-gray-400 font-normal text-sm">Review</p>
+              </div>
+              <div onClick={() => setReview(false)}>
+                <RiCloseFill
+                  className="ml-12 w-7 h-7 text-red-500 pr-1 cursor-pointer"
+
+                /></div>
+            </div>
+
+            <textarea
+              rows="5"
+              className="w-full bg-transparent px-3 outline-none text-xs"
+            ></textarea>
+
+            <div className=' flex justify-center items-center py-2'>
+              <Rating
+                name="simple-controlled"
+                value={rating}
+                onChange={(event, newValue) => {
+                  setRating(newValue);
+                }}
+              />
+            </div>
+
+
+            <div className="flex items-center justify-center py-2">
+              <button
+
+                className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-4 rounded-md capitalize"
+              >
+                send
+              </button>
+            </div>
+          </div>
+
+        )}
+
+
+
       </div>
 
       {/* report seller */}
@@ -266,7 +315,7 @@ const SingleProductSidebar = ({ userDetails }) => {
             </p>
           </div>
           {/* report box */}
-          {open1 === true && (
+          {open1 && (
             <div className="border -mt-10 bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
               <div className="flex items-center py-1">
                 <div className="flex items-center w-full space-x-3 rounded-md justify-end">
@@ -283,9 +332,18 @@ const SingleProductSidebar = ({ userDetails }) => {
                 rows="5"
                 className="w-full bg-transparent px-3 outline-none text-xs"
               ></textarea>
+
+
+              <div className="flex items-center justify-center py-2">
+                <button
+
+                  className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-4 rounded-md capitalize"
+                >
+                  send
+                </button>
+              </div>
             </div>
           )}
-
           {/* end of report box */}
         </div>
       </div>

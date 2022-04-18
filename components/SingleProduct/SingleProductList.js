@@ -15,7 +15,7 @@ const SingleProductList = ({ similarProductDetail }) => {
           router.push(`/product/${similarProductDetail.productId}`)
         }
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${similarProductDetail?.images[0]}`}
-        className="rounded-md w-full h-44 object-cover"
+        className="rounded-md w-full h-44 object-cover cursor-pointer"
       />
       <p className="capitalize text-medium">
         {similarProductDetail.title.substring(0, 20)}
@@ -39,10 +39,10 @@ const SingleProductList = ({ similarProductDetail }) => {
         <BsHeart className="w-4 h-4 text-bellefuOrange" />
       </div>
       <div className="flex items-center mt-2 space-x-3">
-        <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
+        <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4 cursor-pointer">
           <MdOutlineMessage className="!text-white" />
         </button>
-        <button className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4">
+        <button className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4 cursor-pointer">
           <MdCall className="text-white " />
         </button>
       </div>

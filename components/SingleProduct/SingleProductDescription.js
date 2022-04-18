@@ -225,14 +225,14 @@ const SingleProductDescription = ({ productDetails }) => {
             <div className="flex items-center mt-2 w-full space-x-10 justify-center">
               <div
                 // onClick={message}
-                className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2"
+                className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
               >
                 <RiMessage2Fill className="text-white" />
                 <p className="text-white">Message</p>
               </div>
               <div
                 onClick={handleCall}
-                className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center space-x-2"
+                className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
               >
                 <MdCall className="text-white" />
                 <p className="text-white">Call</p>
@@ -354,21 +354,21 @@ const SingleProductDescription = ({ productDetails }) => {
         )}
 
         {/* report product => details */}
-        {open2 === true && (
+        {open2 && (
           <div className="lg:px-7 px-3 lg:mt-5 mt-2 lg:pb-4 pb-2">
             <div className="flex flex-col lg:items-center lg:py-4 py-2 lg:space-x-16 space-y-2">
               <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
                 Did you think this product is not original/scam?
               </p>
               <div
-                className="flex items-center border px-14 border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground "
+                className="flex items-center border px-14 cursor-pointer border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground "
                 onClick={() => setOpen3(!open3)}
               >
                 <BsFillFlagFill className="lg:w-7 lg:h-7 w-4 h-4 text-orange-600" />
                 <p className="text-md lg:text-lg">Flag this product</p>
               </div>
               {/* report box */}
-              {open3 === true && (
+              {open3 && (
                 <div className="border -mt-10 bg-bellefuBackground divide-y lg:w-72 border-orange-200 rounded-md">
                   <div className="flex items-center py-1">
                     <div className="flex items-center w-full space-x-3 rounded-md justify-end">
@@ -387,6 +387,14 @@ const SingleProductDescription = ({ productDetails }) => {
                     rows="5"
                     className="w-full bg-transparent px-3 outline-none text-xs"
                   ></textarea>
+                  <div className="flex items-center justify-center py-2">
+                    <button
+
+                      className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in py-1 px-6 rounded-md capitalize"
+                    >
+                      send
+                    </button>
+                  </div>
                 </div>
               )}
 

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
+import { useRouter } from 'next/router'
 
 export default function Smallhead() {
   const [hide, setHide] = useState(true);
+
+  const router = useRouter();
   const handleHide = () => {
     setHide(!hide);
   };
@@ -15,7 +18,7 @@ export default function Smallhead() {
             <div className="flex justify-around  lg:flex-row lg:items-center lg:justify-around px-2 py-2 space-x-6">
               <span className="font-bold text-[1rem]  text-[red]">Note:</span>
               <p className=" text-xs lg:text-base">
-                You are required to complete your profile before you can post
+                You are required to complete your <strong onClick={() => router.push('users/profile')} className='text-bellefuGreen cursor-pointer'>profile</strong> before you can post
                 products ignore if you have already
               </p>
               <MdClose
