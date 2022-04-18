@@ -79,7 +79,7 @@ export default function Home({ data }) {
                   className="rounded  "
                   variant="rectangular"
                   animation="wave"
-                  width={300}
+                  width={250}
                   height={900}
                 />
               )}
@@ -94,7 +94,7 @@ export default function Home({ data }) {
                   variant="rectangular"
                   animation="wave"
                   width={"100%"}
-                  height={600}
+                  height={300}
                 />
               )}{" "}
             </div>

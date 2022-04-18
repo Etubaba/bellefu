@@ -45,15 +45,23 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <Footer />
       ) : (
         <Skeleton
-          className="rounded my-3"
+          className="rounded my-3 hidden sm:block lg:block"
           variant="rectangular"
           animation="wave"
           width={"100%"}
           height={500}
         />
       )}{" "}
-      <Mobilefooter />
-      <ToastContainer />
+{     loading? <Mobilefooter />:(
+        <Skeleton
+          className="rounded my-3 block sm:hidden lg:hidden"
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={400}
+        />
+      )
+}      <ToastContainer />
     </Provider>
   );
 }

@@ -2,13 +2,32 @@ import React, { useEffect, useState } from "react";
 import { productData } from "../../productData";
 import MainProductHeader from "./MainProductHeader";
 import ProductList from "./ProductList";
-
+import Skeleto from "./Skeleton";
 // import { countryChoice } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { apiData } from "../../constant";
+import Skeleton from "@mui/material/Skeleton";
+
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
+  const [loading, setLoading] = useState(false);
+
+  const skeleMapper = [
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+  ];
+
   const [countryData, setCountryData] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [fav, setFav] = useState([]);
@@ -73,35 +92,54 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     }
   }, [search]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const main =
     getCountry !== null ? countryData : search !== "" ? searchResult : products;
 
   return (
     <div>
-      <MainProductHeader />
+      {loading ? (
+        <MainProductHeader />
+      ) : (
+        <Skeleton
+          className="rounded my-3"
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={70}
+        />
+      )}
       <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
-        {main
-          .filter((item) => {
-            if (getState === null && subCatClicked === undefined) {
-              return item;
-            } else if (item.stateCode === getState) {
-              return item;
-            } else if (item.subcatid === subCatClicked) {
-              return item;
-            }
-          })
-          .map((product) => (
-            <div key={product.productId} >
-              <ProductList
-                key={product.productId}
-                currency={currency}
-                product={product}
-                fav={favId}
-                favdata={fav}
-                currencyCode={currencyCode}
-              />
-            </div>
-          ))}
+        {loading
+          ? main
+              .filter((item) => {
+                if (getState === null && subCatClicked === undefined) {
+                  return item;
+                } else if (item.stateCode === getState) {
+                  return item;
+                } else if (item.subcatid === subCatClicked) {
+                  return item;
+                }
+              })
+              .map((product) => (
+                <div key={product.productId}>
+                  <ProductList
+                    key={product.productId}
+                    currency={currency}
+                    product={product}
+                    fav={favId}
+                    favdata={fav}
+                    currencyCode={currencyCode}
+                  />
+                </div>
+              ))
+          : skeleMapper.map((skele, index) => <div key={index}>{skele}</div>)}
       </div>
     </div>
   );

@@ -69,7 +69,7 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
 
   return (
     <div className="lg:hidden bg-bellefuWhite w-full absolute left-0 pt-4 z-40 ">
-      <div className="w-full h-[100vh] overflow-auto" id="side-bar">
+      {loading?<div className="w-full h-[100vh] overflow-auto" id="side-bar">
         <p
           className="absolute flex justify-end pr-3 mt-3 right-0"
           onClick={() => setIsOpen(false)}
@@ -106,7 +106,13 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
             return <hr key={index} />;
           }
         })}
-      </div>
+      </div>:<Skeleton
+                  className="rounded block sm:hidden lg:hidden "
+                  variant="rectangular"
+                  animation="wave"
+                  width={250}
+                  height={600}
+                />}
     </div>
   );
 };

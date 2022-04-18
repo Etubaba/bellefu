@@ -16,8 +16,23 @@ import NavLink from "./NavLink";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { isLoggedIn } from "../../features/bellefuSlice";
+import { useEffect, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 const UserSideBar = () => {
+
+  const [loading, setLoading] = useState(false);
+
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
   const dispatch = useDispatch();
   const router = useRouter(),
     iconValues = [
@@ -68,7 +83,7 @@ const UserSideBar = () => {
 
   return (
     <div className="hidden lg:inline h-[90vh]  overflow-auto bg-bellefuWhite w-[25vw] mr-3 mt-6 pt-4">
-      <div className="" id="side-bar">
+     {loading? <div className="" id="side-bar">
         {iconValues.map((iconValue, index) => {
           if (index === lastElem) {
             return (
@@ -98,7 +113,13 @@ const UserSideBar = () => {
             return <hr key={index} />;
           }
         })}
-      </div>
+      </div>: <Skeleton
+                  className="rounded hidden sm:block lg:block "
+                  variant="rectangular"
+                  animation="wave"
+                  width={330}
+                  height={900}
+                />}
     </div>
   );
 };
