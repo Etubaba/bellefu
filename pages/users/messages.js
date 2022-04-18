@@ -14,7 +14,7 @@ import axios from "axios";
 import Dropzone from "react-dropzone";
 import moment from "moment";
 
-const messages = ({data1}) => {
+const messages = ({ data1 }) => {
   const [read, setRead] = useState(false);
   const [message, setMessage] = useState("");
   const [file, setFile] = useState();
@@ -312,16 +312,3 @@ const messages = ({data1}) => {
 
 messages.Layout = Layout;
 export default messages;
-export async function getServerSideProps() {
-  const res1 = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/web30/get/web/user/notification/${senderId}`
-  );
- 
-  const data1 = await res1.json();
-
-  return {
-    props: {
-      data1,
-    },
-  };
-}

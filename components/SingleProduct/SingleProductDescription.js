@@ -101,7 +101,7 @@ const SingleProductDescription = ({ productDetails }) => {
     const favId = favArr.find(
       (items) => items === productDetails[0]?.productId
     );
-    // console.log(favId);
+
     if (favId !== undefined) {
       axios
         .post(`${apiData}delete/favorite/webindex`, {
