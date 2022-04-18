@@ -17,6 +17,8 @@ module.exports = {
         poppins: ["Poppins", "system-ui"],
       },
 
+
+
       keyframes: {
         "slide-in": {
           "0%": {
@@ -27,6 +29,12 @@ module.exports = {
             "-webkit-transform": "translateX(0px)",
             transform: "translateX(0px)",
           },
+        },
+        'shake': {
+          "10%": { transform: "rotate(15deg)" },
+          "20%": { transform: "rotate(-15deg)" },
+          "30%": { transform: "rotate(15deg)" },
+          "50%": { transform: "rotate(0deg)" },
         },
 
         "slide-fwd": {
@@ -44,10 +52,29 @@ module.exports = {
         "slide-in": "slide-in 0.5s ease-out",
         "slide-fwd":
           " slide-fwd 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
+        'shake': "shake 1s ease-in-out infinite",
       },
       transitionProperty: {
         height: "height",
       },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     },
   },
   variants: {

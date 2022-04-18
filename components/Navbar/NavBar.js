@@ -52,12 +52,12 @@ const NavBar = () => {
 
   //new notification
   useEffect(() => {
-    axios.get(`${apiData}notification/count/${test}`)
+    axios.get(`${apiData}notification/count/${username?.id}`)
       .then(res => setUnread(res.data.unread))
 
   }, [])
 
-  console.log('new =>', unread)
+
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
       {/* left side */}
@@ -176,9 +176,9 @@ const NavBar = () => {
           </div>}
           <div className='relative cursor-pointer'>
 
-            <IoMdNotifications className="text-white w-6 h-6" />
+            <IoMdNotifications className={unread !== 0 ? "text-white w-6 h-6 animate-shake" : 'text-white w-6 h-6'} />
 
-            {unread !== 0 ? <p onClick={() => router.push('users/notification')} className='bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full'>
+            {unread !== 0 ? <p onClick={() => router.push('users/notification')} className=' bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full'>
 
               <span className='text-white text-[10px] text-center '>{unread}</span>
             </p> : null}
