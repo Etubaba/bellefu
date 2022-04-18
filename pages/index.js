@@ -16,9 +16,7 @@ import { fetchData } from "../features/bellefuSlice";
 export default function Home({ data }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const search = useSelector(state => state.bellefu?.searchFilter)
-
-
+  const search = useSelector((state) => state.bellefu?.searchFilter);
 
   // if (data) {
   //   dispatch(fetchData(data));
@@ -82,15 +80,26 @@ export default function Home({ data }) {
                   className="rounded  "
                   variant="rectangular"
                   animation="wave"
-                  width={300}
+                  width={250}
                   height={900}
                 />
               )}
             </div>
-            {search === '' ?
+            {search === "" ? (
               <div className=" h-auto lg:hidden my-4 rounded-sm">
-                <MobileCategoryBar categories={data.categories} />
-              </div> : null}
+                {loading ? (
+                  <MobileCategoryBar categories={data.categories} />
+                ) : (
+                  <Skeleton
+                    className="rounded  "
+                    variant="rectangular"
+                    animation="wave"
+                    width={"100%"}
+                    height={300}
+                  />
+                )}
+              </div>
+            ) : null}
             {/* list of products & slider */}
             <div className="flex-1">
               <Body

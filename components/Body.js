@@ -35,22 +35,14 @@ const Body = ({ products, slider, currency, location, currencyCode }) => {
           )}
         </div> : null}
       {/* product component session */}
-      {loading ? (
+    
         <ProductComponent
           currency={currency}
           currencyCode={currencyCode}
           location={location}
           products={products}
         />
-      ) : (
-        <Skeleton
-          className="rounded my-3"
-          variant="rectangular"
-          animation="wave"
-          width={"100%"}
-          height={1000}
-        />
-      )}{" "}
+      
     </div>
   );
 };

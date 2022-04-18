@@ -11,9 +11,14 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { apiData } from "../../constant";
 import CountUp from "react-countup";
+import Skeleton from "@mui/material/Skeleton";
 
 
 const Index = () => {
+
+  const [loading, setLoading] = useState(false);
+
+  
   const user = useSelector(profileDetails) || null;
   const [productStat, setProductStat] = useState({});
 
@@ -26,6 +31,14 @@ const Index = () => {
     getuserProductStat();
   }, [user, setProductStat])
 
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+  
   return (
     <>
     <Head>
@@ -36,7 +49,7 @@ const Index = () => {
       {user &&  
       <div className="">
         <div className="flex flex-col">
-          <div className="bg-bellefuWhite rounded-[20px] my-4 ">
+          {loading?<div className="bg-bellefuWhite rounded-[20px] my-4 ">
             <div className="flex justify-between px-8 py-6">
               <h1 className="font-semibold">My Profile Details</h1>
               <button className="text-bellefuOrange hover:underline"><Link href="/users/profile">View Profile</Link></button>
@@ -81,8 +94,14 @@ const Index = () => {
                 </table>
               </div>
             </div>
-          </div>
-          <div className="bg-bellefuWhite rounded-[20px] mb-4">
+          </div>:<Skeleton
+                  className="rounded m-2 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={400}
+                />}
+          {loading?<div className="bg-bellefuWhite rounded-[20px] mb-4">
             <div className="flex justify-between px-8 py-6">
               <h3 className="font-semibold">Ads Details</h3>
               <button className="text-bellefuOrange hover:underline"><Link href='/users/myads'>View Ads</Link></button>
@@ -138,8 +157,14 @@ const Index = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="bg-bellefuWhite rounded-[20px] mb-5">
+          </div>:<Skeleton
+                  className="rounded m-2 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={400}
+                />}
+          {loading?<div className="bg-bellefuWhite rounded-[20px] mb-5">
             <div className="flex justify-between px-8 py-6">
               <h1 className="font-semibold">Wallet</h1>
               <button className="text-bellefuOrange hover:underline"><Link href="/users/my-wallet">View Wallet</Link></button>
@@ -154,7 +179,13 @@ const Index = () => {
                 <button className="bg-bellefuOrange text-bellefuWhite py-2 px-4 rounded-md"><Link href="/users/add-money">Add Money</Link></button>
               </p>
             </div>
-          </div>
+          </div>:<Skeleton
+                  className="rounded m-2 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={400}
+                />}
         </div>
       </div>
     }
