@@ -22,6 +22,7 @@ const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [unseen, setUnseen] = useState(0);
+  const [unread, setUnread] = useState(0);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -39,7 +40,9 @@ const NavBar = () => {
     }
   }
 
-  const test = 4
+  const test = 1447
+
+  // new message
   useEffect(() => {
     axios.get(`${apiData}unseen/messages/count/${username?.id}`)
       .then(res => setUnseen(res.data.unseen))
@@ -47,6 +50,14 @@ const NavBar = () => {
   }, [msgRead])
 
 
+  //new notification
+  useEffect(() => {
+    axios.get(`${apiData}notification/count/${test}`)
+      .then(res => setUnread(res.data.unread))
+
+  }, [])
+
+  console.log('new =>', unread)
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
       {/* left side */}
@@ -163,8 +174,16 @@ const NavBar = () => {
             <p className='hover:text-gray-200' onClick={() => router.push('/register')}>Register</p>
             <p className='hover:text-gray-200' onClick={() => router.push('/login')}>Login</p>
           </div>}
+          <div className='relative cursor-pointer'>
 
-          <IoMdNotifications className="text-white w-5 h-5" />
+            <IoMdNotifications className="text-white w-6 h-6" />
+
+            {unread !== 0 ? <p onClick={() => router.push('users/notification')} className='bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full'>
+
+              <span className='text-white text-[10px] text-center '>{unread}</span>
+            </p> : null}
+          </div>
+
           <div onClick={toPostAds} className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1">
             <IoMdAddCircleOutline className="text-white w-4 h-4 text-md font-semibold" />
             <p className="text-white hover:text-gray-200 capitalize text-md font-semibold">

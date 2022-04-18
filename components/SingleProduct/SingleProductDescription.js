@@ -33,11 +33,40 @@ const SingleProductDescription = ({ productDetails }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
+  const [report, setReport] = useState('')
+
 
 
   // check if product is among favorite
 
-  console.log("details =>", productDetails);
+  // console.log("details =>", productDetails);
+
+  const handleReport = () => {
+
+    if (report === '') {
+      toast.error("Please all fields are required", { position: "top-right" });
+    } else {
+      axios.post(`${apiData}create/report`, {
+        productId: productDetails[0]?.productId,
+        userId: userId,
+        message: report,
+        title: 'Report Product'
+      })
+        .then(res => {
+          if (res.data.status) {
+            toast.success('Your report is under review.', {
+              position: 'top-right'
+            })
+            setReport('')
+            setOpen3(false)
+          }
+        })
+    }
+
+  }
+
+
+
 
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
@@ -312,7 +341,7 @@ const SingleProductDescription = ({ productDetails }) => {
         {/* divider */}
         <div className="border-b lg:mt-6 mt-3" />
         {/* safety tips => details */}
-        {open === true && (
+        {open && (
           <div className=" px-3 lg:px-7 mt-4 pb-4 space-y-2">
             <div className="flex items-center space-x-4">
               <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
@@ -339,7 +368,7 @@ const SingleProductDescription = ({ productDetails }) => {
         )}
 
         {/* share product => details */}
-        {open1 === true && (
+        {open1 && (
           <div className="px-3 lg:px-7 lg:pb-4 pb-2">
             <div className="flex flex-col lg:items-center py-4 space-y-2 lg:space-x-16">
               <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
@@ -384,12 +413,14 @@ const SingleProductDescription = ({ productDetails }) => {
                   </div>
 
                   <textarea
+                    onChange={(e) => setReport(e.target.value)}
+                    value={report}
                     rows="5"
                     className="w-full bg-transparent px-3 outline-none text-xs"
                   ></textarea>
                   <div className="flex items-center justify-center py-2">
                     <button
-
+                      onClick={handleReport}
                       className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in py-1 px-6 rounded-md capitalize"
                     >
                       send

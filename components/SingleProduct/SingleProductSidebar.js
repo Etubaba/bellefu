@@ -25,19 +25,35 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [message, setMessage] = useState("");
+  const [reviewmsg, setReviewmsg] = useState("");
+  const [reportmsg, setReportmsg] = useState("");
   const [review, setReview] = useState(false)
-  const [rating, setRating] = useState(1)
+  const [rating, setRating] = useState(0)
 
   const receiverId = userDetails[0]?.productOwnerId;
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   const isLoggedIn = useSelector(login);
 
-  console.log('veri matters', verified);
+
 
   const handleMessage = () => {
     if (isLoggedIn) {
       setOpen(!open);
+    } else {
+      setModalOpen(true);
+    }
+  };
+  const reviewOpen = () => {
+    if (isLoggedIn) {
+      setReview(true)
+    } else {
+      setModalOpen(true);
+    }
+  };
+  const reportOpen = () => {
+    if (isLoggedIn) {
+      setOpen1(!open1)
     } else {
       setModalOpen(true);
     }
@@ -77,6 +93,63 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
       toast.info("please login to contact seller", { position: "top-center" });
     }
   };
+
+  const handleReview = () => {
+
+    if (rating === 0 || reviewmsg === '') {
+      toast.error("Please all fields are required", { position: "top-right" });
+    } else {
+
+      axios.post(`${apiData}create/review`, {
+        productId: userDetails[0]?.productId,
+        userId: senderId,
+        rating: rating,
+        message: reviewmsg
+      })
+        .then(res => {
+          if (res.data.status) {
+            toast.success('Your review has been sent. ', {
+              position: 'top-right'
+            })
+            setRating(0)
+            setReviewmsg('')
+            setReview(false)
+          }
+        })
+
+
+
+
+
+    }
+
+  }
+
+  const handleReport = () => {
+
+    if (reportmsg === '') {
+      toast.error("Please all fields are required", { position: "top-right" });
+    } else {
+      axios.post(`${apiData}create/report`, {
+        productId: userDetails[0]?.productId,
+        userId: senderId,
+        message: reportmsg,
+        title: 'Report Product'
+      })
+        .then(res => {
+          if (res.data.status) {
+            toast.success('Your report is under review. Thank you', {
+              position: 'top-right'
+            })
+            setReportmsg('')
+            setOpen1(false)
+          }
+        })
+    }
+
+  }
+
+
 
   return (
     <div className="bg-bellefuWhite rounded-md flex flex-col pb-10 ">
@@ -249,7 +322,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
         <div className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center">
           {" "}
           <BsFillPersonFill className="w-5 h-5 text-bellefuOrange" />
-          <p onClick={() => setReview(true)} className="text-gray-400 font-normal text-xs">Give Reviews</p>
+          <p onClick={reviewOpen} className="text-gray-400 font-normal text-xs">Give Reviews</p>
         </div>
 
         {review && (
@@ -267,6 +340,8 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
             </div>
 
             <textarea
+              value={reviewmsg}
+              onChange={(e) => setReviewmsg(e.target.value)}
               rows="5"
               className="w-full bg-transparent px-3 outline-none text-xs"
             ></textarea>
@@ -284,7 +359,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
 
             <div className="flex items-center justify-center py-2">
               <button
-
+                onClick={handleReview}
                 className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-4 rounded-md capitalize"
               >
                 send
@@ -306,7 +381,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           </p>
           <div
             className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center"
-            onClick={() => setOpen1(!open1)}
+            onClick={reportOpen}
           >
             {" "}
             <RiMessageFill className="w-5 h-5 text-red-500" />
@@ -329,6 +404,8 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
               </div>
 
               <textarea
+                value={reportmsg}
+                onChange={(e) => setReportmsg(e.target.value)}
                 rows="5"
                 className="w-full bg-transparent px-3 outline-none text-xs"
               ></textarea>
@@ -336,7 +413,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
 
               <div className="flex items-center justify-center py-2">
                 <button
-
+                  onClick={handleReport}
                   className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-4 rounded-md capitalize"
                 >
                   send
