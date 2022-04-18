@@ -7,12 +7,14 @@ import { MdDeleteForever, MdSend } from "react-icons/md";
 import { FcVideoCall, FcSms } from "react-icons/fc";
 import { MdOutlineCancel } from "react-icons/md";
 import { AiOutlinePaperClip } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Dropzone from "react-dropzone";
 import moment from "moment";
+import { msgRead } from "../../features/bellefuSlice";
+
 
 const messages = ({ data1 }) => {
   const [read, setRead] = useState(false);
@@ -31,6 +33,9 @@ const messages = ({ data1 }) => {
   const theRef = useRef();
 
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
+
+
+  const checkRead = useDispatch()
 
   const test = 639;
   // handle message sent 
@@ -68,7 +73,9 @@ const messages = ({ data1 }) => {
     };
 
     getMessages();
-  }, []);
+  }, [read]);
+
+
 
 
   // get chat between two people
@@ -106,6 +113,12 @@ const messages = ({ data1 }) => {
       axios.post(`${apiData}update/seen/status`, {
         receiverId: receiverId, userId: senderId
       }).then((res) => console.log(res.data))
+        .catch((err) => console.log('wahala =>', err))
+
+      checkRead(msgRead(1))
+
+
+
     } else {
       return;
     }
@@ -289,6 +302,7 @@ const messages = ({ data1 }) => {
                         : "text-gray-400 flex mt-[-16px] justify-end text-xs"
                     }
                   >
+
                     <span>
                       {" "}
                       {isToday(new Date(item.created_at))

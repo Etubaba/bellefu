@@ -27,12 +27,14 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const getIsLoggedIn = useSelector(login)
   const username = useSelector(profileDetails)
+  const msgRead = useSelector(state => state.bellefu?.messageRead)
+  const verify = useSelector(state => state.bellefu?.verificationStatus)
 
   const toPostAds = () => {
-    if (getIsLoggedIn) {
+    if (getIsLoggedIn && verify.phone) {
       router.push('/postAds')
     } else {
-      toast.info('Login to make post', { position: 'top-right' })
+      toast.info('Login or verify phone to make post', { position: 'top-right' })
       router.push('/login')
     }
   }
@@ -42,7 +44,7 @@ const NavBar = () => {
     axios.get(`${apiData}unseen/messages/count/${username?.id}`)
       .then(res => setUnseen(res.data.unseen))
 
-  }, [])
+  }, [msgRead])
 
 
   return (
@@ -79,13 +81,12 @@ const NavBar = () => {
 
           <div className="px-3 text-white text-2xl -mt-2">|</div>
           {/* the user profile */}
-
-
           {getIsLoggedIn && <div className="hidden md:inline-block">
             <div className="flex items-center space-x-2 relative">
               <div onClick={() => router.push('users/messages')} className='relative cursor-pointer '>
                 <Image
-                  src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
+                  // src={username?.avatar ? `https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}` : "https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"}
+                  src={`https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}`}
                   width={30}
                   height={30}
                   className="rounded-full object-cover"
