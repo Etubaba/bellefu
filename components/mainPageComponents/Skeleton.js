@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 export default function Skeleto() {
   return (
       <>
+      <div className="hidden sm:block lg:block">
         <Stack spacing={1} className="hidden sm:block lg:block">      
         <Skeleton variant="rectangular" width={260} height={170} />
         <Skeleton variant="text" width={260} height={20} />
@@ -14,7 +15,10 @@ export default function Skeleto() {
         <Skeleton variant="rectangular" width={80} height={50} />
         </div>
         </Stack>
-        <Stack spacing={1} className='block sm:hiden lg:hidden'>      
+      </div>
+        
+        <div className='block sm:hidden lg:hidden'>
+            <Stack spacing={1} className='block sm:hidden lg:hidden'>      
         <Skeleton variant="rectangular" width={"100%"} height={170} />
         <Skeleton variant="text" width={"100%"} height={20} />
         <Skeleton variant="text" width={"100%"} height={20}/>
@@ -23,6 +27,8 @@ export default function Skeleto() {
         <Skeleton variant="rectangular" width={100} height={60} />
         </div>
         </Stack>
+        </div>
+        
       </>
     
   );
