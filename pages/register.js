@@ -48,7 +48,6 @@ const Register = ({countries, countries1}) => {
   const [usernameExists, setUsernameExists] = useState(false);
   const [phoneExists, setPhoneExists] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formFieldError, setFormFieldError] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [selectCountry, setSelectCountry] = useState(false);
@@ -66,17 +65,6 @@ const Register = ({countries, countries1}) => {
       setFormFields({ ...formFields, [input]: `${evt.target.value.charAt(0).toUpperCase()}${evt.target.value.substring(1)}` });
       return;
     }
-
-    // if (input === "phone") {
-    //   let target = evt.target;
-    //   let phone;
-
-    //   if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
-    //   else phone = target.value;
-
-    //   setFormFields({ ...formFields, [input]: phone });
-    //   return;
-    // }
 
     setFormFields({ ...formFields, [input]: evt.target.value});
   };
@@ -130,14 +118,15 @@ const Register = ({countries, countries1}) => {
     })
   };
   const validateInput = (formValues) => {
+    const emptyFieldExists = false
     for (const key in formValues) {
       if (Object.hasOwnProperty.call(formValues, key) && !formValues[key]) {
-        setFormFieldError(true);
+        emptyFieldExists = true;
         break;
       }
     }
 
-    if (formFieldError) return false;
+    if (emptyFieldExists) return false;
     else return true;
   };
   const checkExists = (evt) => {
