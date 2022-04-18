@@ -41,7 +41,7 @@ const messages = ({ data1 }) => {
 
     const formData = new FormData();
     formData.append("messageTo", receiverId);
-    formData.append("messageFrom", test);
+    formData.append("messageFrom", senderId);
     formData.append("image", file !== undefined ? file : "");
     formData.append("message", message);
     axios({
@@ -263,14 +263,14 @@ const messages = ({ data1 }) => {
                 <div key={index} className="block ">
                   <li
                     className={
-                      item.from_id !== test
+                      item.from_id !== senderId
                         ? "flex justify-start"
                         : "flex justify-end"
                     }
                   >
                     <div
                       className={
-                        item.from_id !== test
+                        item.from_id !== senderId
                           ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-700 bg-gray-100 rounded shadow"
                           : "relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-100 bg-bellefuGreen rounded shadow"
                       }
@@ -284,7 +284,7 @@ const messages = ({ data1 }) => {
                   </li>
                   <span
                     className={
-                      item.from_id !== test
+                      item.from_id !== senderId
                         ? "flex justify-start text-xs text-gray-400 mt-[-16px]"
                         : "text-gray-400 flex mt-[-16px] justify-end text-xs"
                     }
@@ -297,7 +297,7 @@ const messages = ({ data1 }) => {
                     </span>
                     <span>
                       {" "}
-                      {item.from_id === test && item.seen ? (
+                      {item.from_id === senderId && item.seen ? (
                         <div className=" text-[#9799AB] text-xs ">
                           <FaEye className=" text-xm mt-1 ml-1" />
                         </div>

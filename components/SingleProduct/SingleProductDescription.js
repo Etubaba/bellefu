@@ -60,6 +60,20 @@ const SingleProductDescription = ({ productDetails }) => {
   const isLoggedIn = useSelector(login);
   const router = useRouter();
 
+
+  useEffect(() => {
+    const productViewed = async () => {
+      await axios.post(`${apiData}add/product/view`, {
+        productId: productDetails[0]?.productId,
+      })
+        .then(res => console.log(res))
+    }
+    productViewed()
+  }, [])
+
+
+
+
   const handleCall = () => {
     if (isLoggedIn) {
       window.open(`tel:${productDetails[0]?.advertiserNumber}`);
