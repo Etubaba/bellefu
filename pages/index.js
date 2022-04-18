@@ -16,6 +16,7 @@ import { fetchData } from "../features/bellefuSlice";
 export default function Home({ data }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const search = useSelector((state) => state.bellefu?.searchFilter);
 
   // if (data) {
   //   dispatch(fetchData(data));
@@ -27,7 +28,7 @@ export default function Home({ data }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(true);
-    }, 3000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
   return (
@@ -84,20 +85,21 @@ export default function Home({ data }) {
                 />
               )}
             </div>
-
-            <div className=" h-auto lg:hidden my-4 rounded-sm">
-              {loading ? (
-                <MobileCategoryBar categories={data.categories} />
-              ) : (
-                <Skeleton
-                  className="rounded  "
-                  variant="rectangular"
-                  animation="wave"
-                  width={"100%"}
-                  height={300}
-                />
-              )}{" "}
-            </div>
+            {search === "" ? (
+              <div className=" h-auto lg:hidden my-4 rounded-sm">
+                {loading ? (
+                  <MobileCategoryBar categories={data.categories} />
+                ) : (
+                  <Skeleton
+                    className="rounded  "
+                    variant="rectangular"
+                    animation="wave"
+                    width={"100%"}
+                    height={300}
+                  />
+                )}
+              </div>
+            ) : null}
             {/* list of products & slider */}
             <div className="flex-1">
               <Body

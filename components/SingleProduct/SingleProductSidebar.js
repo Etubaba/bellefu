@@ -103,17 +103,20 @@ const SingleProductSidebar = ({ userDetails }) => {
           <p className="text-bellefuTitleBlack font-semibold">
             {userDetails[0]?.productOwner}
           </p>
-          <GoVerified
-            className={
-              isverified?.phone
-                ? "text-black/70 w-3 h-3"
-                : isverified?.kyc
-                ? "w-3 h-3 text-bellefuGreen"
-                : isverified?.id
-                ? "w-3 h-3 text-bellefuOrange"
-                : "w-3 h-3 text-[#A6A6A6]"
-            }
-          />
+          <span className='flex'>
+            <GoVerified
+              className={
+                isverified?.phone
+                  ? "text-black/70 w-3 h-3"
+                  : isverified?.kyc
+                    ? "w-3 h-3 text-bellefuGreen"
+                    : isverified?.id
+                      ? "w-3 h-3 text-bellefuOrange"
+                      : "w-3 h-3 text-[#A6A6A6]"
+              }
+            />
+            <i className='text-[10px] ml-2'>Phone verified</i>
+          </span>
         </div>
         <div className="flex items-center mt-2 space-x-2">
           <p className="text-sm text-gray-400 font-medium">Registered :</p>
@@ -177,7 +180,7 @@ const SingleProductSidebar = ({ userDetails }) => {
           onClose={() => setModalOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          // sx={{ opacity: 0.5 }}
+        // sx={{ opacity: 0.5 }}
         >
           <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
             {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}

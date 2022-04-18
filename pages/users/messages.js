@@ -4,7 +4,7 @@ import { FaEye } from "react-icons/fa";
 import { IoMdCall } from "react-icons/io";
 import { BsCheck2All } from "react-icons/bs";
 import { MdDeleteForever, MdSend } from "react-icons/md";
-import { FcVideoCall } from "react-icons/fc";
+import { FcVideoCall, FcSms } from "react-icons/fc";
 import { MdOutlineCancel } from "react-icons/md";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import axios from "axios";
 import Dropzone from "react-dropzone";
 import moment from "moment";
 
-const messages = ({data1}) => {
+const messages = ({ data1 }) => {
   const [read, setRead] = useState(false);
   const [message, setMessage] = useState("");
   const [file, setFile] = useState();
@@ -26,12 +26,14 @@ const messages = ({data1}) => {
   const [dp, setDp] = useState(null);
   const [receiverId, setReceiverId] = useState(null);
   const [sent, setSent] = useState(false);
+  const [unread, setUnread] = useState(0);
 
   const theRef = useRef();
 
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   const test = 639;
+  // handle message sent 
 
   const handleMessage = (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const messages = ({data1}) => {
 
     const formData = new FormData();
     formData.append("messageTo", receiverId);
-    formData.append("messageFrom", test);
+    formData.append("messageFrom", senderId);
     formData.append("image", file !== undefined ? file : "");
     formData.append("message", message);
     axios({
@@ -57,26 +59,33 @@ const messages = ({data1}) => {
     });
   };
 
+  // get contact list
   useEffect(() => {
     const getMessages = async () => {
       await axios
-        .get(`${apiData}get/user/messages/${test}`)
+        .get(`${apiData}get/user/messages/${senderId}`)
         .then((res) => setContact(res.data.data));
     };
 
     getMessages();
   }, []);
 
+
+  // get chat between two people
+
   useEffect(() => {
     const getChat = async () => {
       // senderId/receiverId
       await axios
-        .get(`${apiData}single/contact/${test}/${receiverId}`)
+        .get(`${apiData}single/contact/${senderId}/${receiverId}`)
         .then((res) => setChat(res.data.data));
     };
 
     getChat();
   }, [message, receiverId]);
+
+
+  //automatic scroll to the bottom in chat
 
   useEffect(() => {
     theRef.current?.scrollIntoView({
@@ -85,6 +94,30 @@ const messages = ({data1}) => {
       inline: "nearest",
     });
   }, [read, chat]);
+
+
+
+
+  // change from unread to seen message 
+
+  const seenMessage = () => {
+
+    if (unread > 0) {
+      axios.post(`${apiData}update/seen/status`, {
+        receiverId: receiverId, userId: senderId
+      }).then((res) => console.log(res.data))
+    } else {
+      return;
+    }
+
+  }
+
+
+
+
+  // check if message sent or received is today
+
+
 
   function isToday(dateParameter) {
     const today = new Date();
@@ -104,17 +137,38 @@ const messages = ({data1}) => {
       </div>
       <hr />
 
+
+      {!read && contact.length === 0 && (
+
+        <div className="h-full px-2 ">
+          <div className=" md:border mx-auto my-10 rounded-xl w-full lg:w-7/12 h-11/12 ">
+            <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+              <FcSms className="text-5xl lg:text-6xl mb-5 text-gray-600" />
+              <p className="text-sm capitalize lg:text-lg text-gray-600 text-center px-2">
+                You do not have any messages yet
+              </p>
+            </div>
+          </div>
+        </div>
+
+      )}
+
+
       {/* message contents 1 */}
-      {!read && (
+      {!read && contact.length > 0 && (
+
+
         <div>
           {contact?.map((item, index) => (
             <div
               onClick={() => {
                 setFname(item.first_name);
+                setReceiverId(item.id);
+                setUnread(item.unread)
                 setLname(item.last_name);
                 setDp(item.avatar);
                 setRead(!read);
-                setReceiverId(item.id);
+                seenMessage()
               }}
               key={index}
               className="p-2  mx-auto w-full  lg:w-[93%] lg:p-5 my-3 md:my-5 border-b md:border md:rounded-lg hover:bg-[#F9FDF5]  h-auto"
@@ -209,14 +263,14 @@ const messages = ({data1}) => {
                 <div key={index} className="block ">
                   <li
                     className={
-                      item.from_id !== test
+                      item.from_id !== senderId
                         ? "flex justify-start"
                         : "flex justify-end"
                     }
                   >
                     <div
                       className={
-                        item.from_id !== test
+                        item.from_id !== senderId
                           ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-700 bg-gray-100 rounded shadow"
                           : "relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-100 bg-bellefuGreen rounded shadow"
                       }
@@ -230,7 +284,7 @@ const messages = ({data1}) => {
                   </li>
                   <span
                     className={
-                      item.from_id !== test
+                      item.from_id !== senderId
                         ? "flex justify-start text-xs text-gray-400 mt-[-16px]"
                         : "text-gray-400 flex mt-[-16px] justify-end text-xs"
                     }
@@ -243,7 +297,7 @@ const messages = ({data1}) => {
                     </span>
                     <span>
                       {" "}
-                      {item.from_id === test && item.seen ? (
+                      {item.from_id === senderId && item.seen ? (
                         <div className=" text-[#9799AB] text-xs ">
                           <FaEye className=" text-xm mt-1 ml-1" />
                         </div>
@@ -312,16 +366,3 @@ const messages = ({data1}) => {
 
 messages.Layout = Layout;
 export default messages;
-export async function getServerSideProps() {
-  const res1 = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/web30/get/web/user/notification/${senderId}`
-  );
- 
-  const data1 = await res1.json();
-
-  return {
-    props: {
-      data1,
-    },
-  };
-}

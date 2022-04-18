@@ -79,7 +79,7 @@ const HeaderSearch = ({
               />
             </div>
             {selectCountry && (
-              <div className="z-10 absolute top-36 left-[6%] top-3 h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="z-10 absolute top-36 left-[6%]  h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className='flex items-center justify-center mx-auto my-3 '>
 
                   <input type="text" placeholder="Search country"
