@@ -39,12 +39,10 @@ const NavBar = () => {
 
   const test = 4
   useEffect(() => {
-    axios.get(`${apiData}unseen/messages/count/${test}`)
+    axios.get(`${apiData}unseen/messages/count/${username?.id}`)
       .then(res => setUnseen(res.data.unseen))
 
   }, [])
-
-
 
 
   return (
@@ -85,7 +83,7 @@ const NavBar = () => {
 
           {getIsLoggedIn && <div className="hidden md:inline-block">
             <div className="flex items-center space-x-2 relative">
-              <div className='relative'>
+              <div onClick={() => router.push('users/messages')} className='relative cursor-pointer '>
                 <Image
                   src="https://i.pinimg.com/236x/46/93/92/46939219a632dff85f48387b3ea4afb4.jpg"
                   width={30}
