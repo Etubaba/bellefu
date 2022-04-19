@@ -33,10 +33,12 @@ function Footer() {
           </p>
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
-            <li>Bellefu Radio</li>
-            <li>Training Group</li>
-            <li>Webinar</li>
-            <li>Blog</li>
+            <li>
+              <a href='www.radio.bellefu.com ' className='link '>Bellefu Radio</a>
+            </li>
+            <li><a href='' className='link'>Training Group</a></li>
+            <li> <a href='www.webinar.bellefu.com' className='link'>Webinar</a>   </li>
+            <li ><a href='www.blog.bellefu.com ' className='link'>Blog</a></li>
           </ul>
         </div>
 
@@ -46,10 +48,14 @@ function Footer() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li>Feedback</li>
-            <li>Contact</li>
-            <li>Submit CV</li>
-            <li>Documentary</li>
+            <li className='link'>Feedback</li>
+
+            <li >
+              <a className='link'
+                href='mailto:hr@bellefu.com?subject=Application'>Submit CV</a>
+            </li>
+            <li className='link'>Contact</li>
+            <li><a href='' className='link'>Documentary</a></li>
           </ul>
         </div>
 
@@ -59,8 +65,8 @@ function Footer() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li>About us</li>
-            <li>Legal</li>
+            <li><a className='link'>About us</a></li>
+            <li className='link'>Legal</li>
           </ul>
         </div>
         <div className="space-y-2">
@@ -94,9 +100,10 @@ function Footer() {
         </p>
         <div className="flex">
           <input
-            className="w-96 rounded-sm bg-[#2C2C2C] mr-2 p-4 outline-none "
+            className="w-96 text-white rounded-sm bg-[#2C2C2C] mr-2 p-4 outline-none "
             type="email"
-            placeholder="Enter email here"
+
+            placeholder="Enter your email here"
           />
           <button className="bg-bellefuOrange rounded-sm py-4  px-8 text-white">
             Send

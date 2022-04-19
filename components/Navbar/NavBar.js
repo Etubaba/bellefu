@@ -40,7 +40,7 @@ const NavBar = () => {
     }
   }
 
-  const test = 1447
+
 
   // new message
   useEffect(() => {
