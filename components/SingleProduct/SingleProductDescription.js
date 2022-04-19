@@ -30,45 +30,79 @@ const SingleProductDescription = ({ productDetails }) => {
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
-  const [report, setReport] = useState('')
+  const [report, setReport] = useState("");
+  const [message, setMessage] = useState("");
 
-
+  const receiverId = productDetails[0]?.productOwnerId;
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+  const isLoggedIn = useSelector(login);
 
   // check if product is among favorite
 
   // console.log("details =>", productDetails);
 
-  const handleReport = () => {
+  // handle message open
+  const handleMessage = () => {
+    if (isLoggedIn) {
+      setOpen(!open);
+    } else {
+      setModalOpen(true);
+    }
+  };
 
-    if (report === '') {
+  //handle sending messages
+  const sendMessage = () => {
+    if (message === "") {
+      toast.error("You can not send an empty field", { position: "top-right" });
+    } else {
+      const formData = new FormData();
+      formData.append("messageTo", receiverId);
+      formData.append("messageFrom", senderId);
+      formData.append("image", "");
+      formData.append("message", message);
+      axios({
+        method: "POST",
+        url: `${apiData}send/messages`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => {
+        if (res.data.status) {
+          toast.success("Your message has been sent successfully.", {
+            position: "top-right",
+          });
+        }
+      });
+    }
+  };
+
+  const handleReport = () => {
+    if (report === "") {
       toast.error("Please all fields are required", { position: "top-right" });
     } else {
-      axios.post(`${apiData}create/report`, {
-        productId: productDetails[0]?.productId,
-        userId: userId,
-        message: report,
-        title: 'Report Product'
-      })
-        .then(res => {
-          if (res.data.status) {
-            toast.success('Your report is under review.', {
-              position: 'top-right'
-            })
-            setReport('')
-            setOpen3(false)
-          }
+      axios
+        .post(`${apiData}create/report`, {
+          productId: productDetails[0]?.productId,
+          userId: userId,
+          message: report,
+          title: "Report Product",
         })
+        .then((res) => {
+          if (res.data.status) {
+            toast.success("Your report is under review.", {
+              position: "top-right",
+            });
+            setReport("");
+            setOpen3(false);
+          }
+        });
     }
-
-  }
-
-
-
-
-  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+  };
 
   useEffect(() => {
     const getFav = async () => {
@@ -82,26 +116,22 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const favArr = fav?.map((item) => item.productId);
 
-  const [clean, setClean] = useState(favArr)
+  const [clean, setClean] = useState(favArr);
 
   // console.log('product details checker', productDetails)
 
-  const isLoggedIn = useSelector(login);
   const router = useRouter();
-
 
   useEffect(() => {
     const productViewed = async () => {
-      await axios.post(`${apiData}add/product/view`, {
-        productId: productDetails[0]?.productId,
-      })
-        .then(res => console.log(res))
-    }
-    productViewed()
-  }, [])
-
-
-
+      await axios
+        .post(`${apiData}add/product/view`, {
+          productId: productDetails[0]?.productId,
+        })
+        .then((res) => console.log(res));
+    };
+    productViewed();
+  }, []);
 
   const handleCall = () => {
     if (isLoggedIn) {
@@ -137,10 +167,8 @@ const SingleProductDescription = ({ productDetails }) => {
     }
   };
 
-
-
   const removeFav = () => {
-    console.log('i am working')
+    console.log("i am working");
     const favId = favArr.find(
       (items) => items === productDetails[0]?.productId
     );
@@ -156,7 +184,7 @@ const SingleProductDescription = ({ productDetails }) => {
             setFavStatus(!favStatus);
 
             const cleanArr = favArr.filter((items) => items !== favId);
-            setClean(cleanArr)
+            setClean(cleanArr);
             toast.error(
               `${productDetails[0]?.productTitle.substring(
                 0,
@@ -180,7 +208,9 @@ const SingleProductDescription = ({ productDetails }) => {
         <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
           {productDetails[0]?.productTitle}
         </p>
-        {favStatus || clean?.includes(productDetails[0]?.productId) && favArr?.includes(productDetails[0]?.productId) ? (
+        {favStatus ||
+        (clean?.includes(productDetails[0]?.productId) &&
+          favArr?.includes(productDetails[0]?.productId)) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -272,7 +302,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 onClose={() => setModalOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-              // sx={{ opacity: 0.5 }}
+                // sx={{ opacity: 0.5 }}
               >
                 <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}

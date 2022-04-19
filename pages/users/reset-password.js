@@ -79,8 +79,10 @@ function resetpassword() {
   };
 
   return (
-    <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
-      <div className="text-xl ml-4 self p-2 text-center lg:text-left">Reset Password</div>
+    <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite h-auto w-full md:w-auto pb-2">
+      <div className="text-xl md:ml-4 self p-2 text-center lg:text-left">
+        Reset Password
+      </div>
       <hr />
       {feedback ? (
         <div>
@@ -96,8 +98,8 @@ function resetpassword() {
         </div>
       ) : (
         <div>
-          <div className="flex flex-col border rounded-lg  justify-center my-16 mx:[25px] lg:mx-20 items-center">
-            <form className="m-6">
+          <div className="flex flex-col border rounded-lg w-full my-16 mx-2 lg:mx-20 lg:items-center lg:justify-center">
+            <form className="m-2 lg:m-6">
               <div className="col-span-6 sm:col-span-3 mb-10">
                 <label
                   for="password"
@@ -105,27 +107,27 @@ function resetpassword() {
                 >
                   Password
                 </label>
-                {view1 ? (
-                  <FaEyeSlash
-                    onClick={() => setView1(false)}
-                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
+                <div className="flex items-center">
+                  <input
+                    type={view1 ? "text" : "password"}
+                    placeholder=" Old Password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    onBlur={checkExists}
+                    onFocus={() => setOldPasswordExits(false)}
+                    autoComplete="given-name"
+                    className=" bg-gray-200 pl-3 py-4 pr-7 mt-1 text-base focus:ring-bellefuGreen focus:border-bellefuGreen block w-full lg:w-96 shadow-sm sm:text-sm border-gray-500 rounded-md"
                   />
-                ) : (
-                  <FaEye
-                    onClick={() => setView1(true)}
-                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
-                  />
-                )}
-                <input
-                  type={view1 ? "text" : "password"}
-                  placeholder=" Old Password"
-                  value={oldPassword}
-                  onChange={(e) => setOldPassword(e.target.value)}
-                  onBlur={checkExists}
-                  onFocus={() => setOldPasswordExits(false)}
-                  autoComplete="given-name"
-                  className=" bg-gray-200 p-[8px] mt-1 focus:ring-bellefuGreen focus:border-bellefuGreen block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
-                />
+                  {view1 ? (
+                    <FaEyeSlash
+                      onClick={() => setView1(false)}
+                      className="-ml-6"
+                    />
+                  ) : (
+                    <FaEye onClick={() => setView1(true)} className="-ml-6" />
+                  )}
+                </div>
+
                 {oldPasswordExists && (
                   <span className="text-red-600 text-xs ">
                     password does not exist
@@ -140,25 +142,24 @@ function resetpassword() {
                 >
                   New Password
                 </label>
-                {view ? (
-                  <FaEyeSlash
-                    onClick={() => setView(false)}
-                    className="absolute  mt-4 right-[23%] lg:right-[28%]"
+                <div className="flex items-center">
+                  <input
+                    type={view ? "text" : "password"}
+                    placeholder="New password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    autoComplete="given-name"
+                    className=" bg-gray-200 pl-3 py-4 pr-7 mt-1 focus:outline-none  block w-full lg:w-96 shadow-sm sm:text-sm border-gray-500 rounded-md"
                   />
-                ) : (
-                  <FaEye
-                    onClick={() => setView(true)}
-                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
-                  />
-                )}
-                <input
-                  type={view ? "text" : "password"}
-                  placeholder="New password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  autoComplete="given-name"
-                  className=" bg-gray-200 p-[8px] mt-1 focus:outline-none  block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
-                />
+                  {view ? (
+                    <FaEyeSlash
+                      onClick={() => setView(false)}
+                      className="-ml-6"
+                    />
+                  ) : (
+                    <FaEye onClick={() => setView(true)} className="-ml-6" />
+                  )}
+                </div>
               </div>
               <div className="col-span-6 sm:col-span-3 mb-10">
                 <label
@@ -167,26 +168,27 @@ function resetpassword() {
                 >
                   Confirm Password
                 </label>
-                {view2 ? (
-                  <FaEyeSlash
-                    onClick={() => setView2(false)}
-                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
+
+                <div className="flex items-center">
+                  <input
+                    type={view2 ? "text" : "password"}
+                    placeholder="Confirm New password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    autocomplete="given-name"
+                    onFocus={() => setPasswordMatch(false)}
+                    className=" bg-gray-200 pl-3 py-4 pr-7 focus:outline-none mt-1  block w-full lg:w-96 shadow-sm sm:text-sm border-gray-500 rounded-md"
                   />
-                ) : (
-                  <FaEye
-                    onClick={() => setView2(true)}
-                    className="absolute  mt-4  right-[23%] lg:right-[28%]"
-                  />
-                )}
-                <input
-                  type={view2 ? "text" : "password"}
-                  placeholder="Confirm New password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  autocomplete="given-name"
-                  onFocus={() => setPasswordMatch(false)}
-                  className=" bg-gray-200 p-[8px] focus:outline-none mt-1  block lg:w-80 shadow-sm sm:text-sm border-gray-500 rounded-md"
-                />
+                  {view2 ? (
+                    <FaEyeSlash
+                      onClick={() => setView2(false)}
+                      className="-ml-6"
+                    />
+                  ) : (
+                    <FaEye onClick={() => setView2(true)} className="-ml-6" />
+                  )}
+                </div>
+
                 {passwordMatch && (
                   <span className="text-red-600 text-xs ">
                     Passwords did not match
