@@ -3,7 +3,7 @@ import Layout from "../../components/Layout";
 import { FaEye } from "react-icons/fa";
 import { IoMdCall } from "react-icons/io";
 import { BsCheck2All } from "react-icons/bs";
-import { MdDeleteForever, MdSend } from "react-icons/md";
+import { MdDeleteForever, MdSend, MdClose } from "react-icons/md";
 import { FcVideoCall, FcSms } from "react-icons/fc";
 import { MdOutlineCancel } from "react-icons/md";
 import { AiOutlinePaperClip } from "react-icons/ai";
@@ -321,6 +321,24 @@ const messages = ({ data1 }) => {
                   {/* <div ref={theRef} ></div> */}
                 </div>
               ))}
+
+              {file !== undefined && read && (
+
+                <div className='flex rounded-t-lg justify-center top-[61%] left-96  items-center absolute bg-white w-[64%] h-40'>
+                  <img
+                    className='w-24  h-32 object-contain'
+                    src={preview}
+                    alt='???'
+                  />
+                  <span
+                    onClick={() => setFile(undefined)}
+                    className='bg-red-600 px- top-5 left-[55.5%] h-6 w-6 absolute flex items-center justify-center rounded-full' > <MdClose className='text-white text-xl' /></span>
+                </div>
+              )}
+
+
+
+
             </ul>
             <div ref={theRef} />
           </div>
@@ -355,17 +373,17 @@ const messages = ({ data1 }) => {
               required
             />
             <button
-              disabled={message.length === 0 ? true : false}
+              disabled={message.length === 0 && file === undefined ? true : false}
               onClick={handleMessage}
               className={
-                message.length === 0
+                message.length === 0 && file === undefined
                   ? "justify-center flex  items-center px-3 py-3  h-10 w-10 bg-[#E0E0E0] rounded-full"
                   : "justify-center flex hover:bg-gray-200 items-center px-3 py-3 h-10 w-10 bg-bellefuBackground rounded-full"
               }
             >
               <MdSend
                 className={
-                  message.length === 0
+                  message.length === 0 && file === undefined
                     ? "text-[#A6A6A6] w-5 h-5 text-3xl "
                     : " w-5 h-5 text-3xl  text-gray-500"
                 }
