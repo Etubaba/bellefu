@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 
 const notification = () => {
-  const [open, setOpen] = useState(false);
   const [notifyList, setNotifyList] = useState([]);
 
 
@@ -80,7 +79,7 @@ const notification = () => {
                     <div className="flex">
                       <img
                         src="https://www.linkpicture.com/q/bellefulogo.png"
-                        className="w-11 h-8 lg:w-20 lg:h-10 mr-3 mt-4 lg:mr-4 rounded-full"
+                        className="w-11 h-8 lg:w-20 lg:h-10 mr-3 mt-1 lg:mr-4 rounded-full"
                         alt="Bellefu"
                       />
                       <div className="">

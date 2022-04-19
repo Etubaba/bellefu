@@ -42,6 +42,23 @@ const NavBar = () => {
     }
   };
 
+  const handleNotify = () => {
+    if (getIsLoggedIn) {
+      router.push("/users/notification")
+      axios.post(`${apiData}change/notification/read`, { userId: username?.id })
+        .then((res) => {
+          if (res.data.status) {
+            console.log('na lie ')
+          }
+        })
+
+    } else {
+      toast.info("Login to view notification", { position: "top-right" })
+    }
+  }
+
+
+
   // new message
   useEffect(() => {
     axios
@@ -225,7 +242,9 @@ const NavBar = () => {
               </p>
             </div>
           )}
-          <div className="relative cursor-pointer">
+          <div className="relative cursor-pointer"
+            onClick={handleNotify}
+          >
             <IoMdNotifications
               className={
                 unread !== 0
@@ -236,7 +255,7 @@ const NavBar = () => {
 
             {unread !== 0 ? (
               <p
-                onClick={() => router.push("users/notification")}
+
                 className=" bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full"
               >
                 <span className="text-white text-[10px] text-center ">
