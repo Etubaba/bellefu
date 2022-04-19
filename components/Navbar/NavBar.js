@@ -89,7 +89,7 @@ const NavBar = () => {
               className="hover:text-gray-200"
               href="https://webinar.bellefu.com/"
             >
-              Webinar for cheking
+              Webinar
             </a>
             <a
               className="hover:text-gray-200"
