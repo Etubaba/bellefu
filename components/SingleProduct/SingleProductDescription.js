@@ -31,6 +31,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
@@ -48,7 +49,7 @@ const SingleProductDescription = ({ productDetails }) => {
   // handle message open
   const handleMessage = () => {
     if (isLoggedIn) {
-      setOpen(!open);
+      setOpen4(!open);
     } else {
       setModalOpen(true);
     }
@@ -265,7 +266,10 @@ const SingleProductDescription = ({ productDetails }) => {
       {/* product owner profile details */}
 
       <div className="py-3 px-3 lg:hidden">
-        <SingleProductMobileSidebar mobileDetails={productDetails} />
+        <SingleProductMobileSidebar
+          mobileDetails={productDetails}
+          sendMessage={sendMessage}
+        />
       </div>
 
       {/* end of product owner details */}
@@ -283,7 +287,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
             <div className="flex items-center mt-2 w-full space-x-10 justify-center">
               <div
-                // onClick={message}
+                onClick={handleMessage}
                 className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
               >
                 <RiMessage2Fill className="text-white" />
@@ -339,6 +343,38 @@ const SingleProductDescription = ({ productDetails }) => {
                 </div>
               </Modal>
             </div>
+            {/* message box */}
+            {open4 && (
+              <div className="border bg-bellefuBackground divide-y w-1/2 border-orange-200 rounded-md">
+                <div className="flex items-center py-1">
+                  <div className="flex items-center w-full space-x-3 rounded-md justify-end">
+                    <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
+                    <p className="text-gray-400 font-normal text-sm cursor-pointer">
+                      Messages
+                    </p>
+                  </div>
+                  <RiCloseFill
+                    className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
+                    onClick={() => setOpen4(!open4)}
+                  />
+                </div>
+
+                <textarea
+                  rows="5"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full bg-transparent px-3 outline-none text-xs pt-1"
+                />
+                <div className="flex items-center justify-center py-2">
+                  <button
+                    onClick={sendMessage}
+                    className="text-white text-sm lg:text-lg bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-6 py-1 rounded-md capitalize"
+                  >
+                    send
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {/* safety tips, share product, report product */}

@@ -19,7 +19,6 @@ import axios from "axios";
 import { apiData } from "../../constant";
 
 const SingleProductSidebar = ({ userDetails, verified }) => {
-
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,15 +26,13 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
   const [message, setMessage] = useState("");
   const [reviewmsg, setReviewmsg] = useState("");
   const [reportmsg, setReportmsg] = useState("");
-  const [review, setReview] = useState(false)
-  const [rating, setRating] = useState(0)
+  const [review, setReview] = useState(false);
+  const [rating, setRating] = useState(0);
 
   const receiverId = userDetails[0]?.productOwnerId;
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   const isLoggedIn = useSelector(login);
-
-
 
   const handleMessage = () => {
     if (isLoggedIn) {
@@ -46,14 +43,14 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
   };
   const reviewOpen = () => {
     if (isLoggedIn) {
-      setReview(true)
+      setReview(true);
     } else {
       setModalOpen(true);
     }
   };
   const reportOpen = () => {
     if (isLoggedIn) {
-      setOpen1(!open1)
+      setOpen1(!open1);
     } else {
       setModalOpen(true);
     }
@@ -95,61 +92,51 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
   };
 
   const handleReview = () => {
-
-    if (rating === 0 || reviewmsg === '') {
+    if (rating === 0 || reviewmsg === "") {
       toast.error("Please all fields are required", { position: "top-right" });
     } else {
-
-      axios.post(`${apiData}create/review`, {
-        productId: userDetails[0]?.productId,
-        userId: senderId,
-        rating: rating,
-        message: reviewmsg
-      })
-        .then(res => {
-          if (res.data.status) {
-            toast.success('Your review has been sent. ', {
-              position: 'top-right'
-            })
-            setRating(0)
-            setReviewmsg('')
-            setReview(false)
-          }
+      axios
+        .post(`${apiData}create/review`, {
+          productId: userDetails[0]?.productId,
+          userId: senderId,
+          rating: rating,
+          message: reviewmsg,
         })
-
-
-
-
-
+        .then((res) => {
+          if (res.data.status) {
+            toast.success("Your review has been sent. ", {
+              position: "top-right",
+            });
+            setRating(0);
+            setReviewmsg("");
+            setReview(false);
+          }
+        });
     }
-
-  }
+  };
 
   const handleReport = () => {
-
-    if (reportmsg === '') {
+    if (reportmsg === "") {
       toast.error("Please all fields are required", { position: "top-right" });
     } else {
-      axios.post(`${apiData}create/report`, {
-        productId: userDetails[0]?.productId,
-        userId: senderId,
-        message: reportmsg,
-        title: 'Report Product'
-      })
-        .then(res => {
-          if (res.data.status) {
-            toast.success('Your report is under review. Thank you', {
-              position: 'top-right'
-            })
-            setReportmsg('')
-            setOpen1(false)
-          }
+      axios
+        .post(`${apiData}create/report`, {
+          productId: userDetails[0]?.productId,
+          userId: senderId,
+          message: reportmsg,
+          title: "Report Product",
         })
+        .then((res) => {
+          if (res.data.status) {
+            toast.success("Your report is under review. Thank you", {
+              position: "top-right",
+            });
+            setReportmsg("");
+            setOpen1(false);
+          }
+        });
     }
-
-  }
-
-
+  };
 
   return (
     <div className="bg-bellefuWhite rounded-md flex flex-col pb-10 ">
@@ -179,20 +166,25 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           <p className="text-bellefuTitleBlack font-semibold">
             {userDetails[0]?.productOwner}
           </p>
-          <span className='flex'>
+          <span className="flex">
             <GoVerified
               className={
                 verified?.phone && !verified?.id && !verified?.kyc
                   ? "text-black/70 w-3 h-3"
                   : !verified?.kyc && verified?.id && verified?.phone
-                    ? "w-3 h-3 text-bellefuOrange"
-                    : verified?.id && verified?.phone && verified?.kyc
-                      ? "w-3 h-3 text-bellefuGreen"
-                      : "w-3 h-3 text-[#A6A6A6]"
+                  ? "w-3 h-3 text-bellefuOrange"
+                  : verified?.id && verified?.phone && verified?.kyc
+                  ? "w-3 h-3 text-bellefuGreen"
+                  : "w-3 h-3 text-[#A6A6A6]"
               }
             />
-            <i className='text-[10px] ml-2'>{verified?.phone && !verified?.id && !verified?.kyc ? 'Phone verified' :
-              verified?.phone && verified?.id && !verified?.kyc ? 'ID verified' : 'KYC verified'}</i>
+            <i className="text-[10px] ml-2">
+              {verified?.phone && !verified?.id && !verified?.kyc
+                ? "Phone verified"
+                : verified?.phone && verified?.id && !verified?.kyc
+                ? "ID verified"
+                : "KYC verified"}
+            </i>
           </span>
         </div>
         <div className="flex items-center mt-2 space-x-2">
@@ -209,7 +201,9 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
         <div className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center">
           {" "}
           <BsFillPersonFill className="w-5 h-5 text-gray-500" />
-          <p className="text-gray-400 font-medium cursor-pointer">View Profile</p>
+          <p className="text-gray-400 font-medium cursor-pointer">
+            View Profile
+          </p>
         </div>
         {/* message */}
         <div
@@ -217,7 +211,9 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           onClick={handleMessage}
         >
           <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
-          <p className="text-white font-medium text-sm cursor-pointer">Messages</p>
+          <p className="text-white font-medium text-sm cursor-pointer">
+            Messages
+          </p>
         </div>
         {/* message box */}
         {open && (
@@ -225,7 +221,9 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
             <div className="flex items-center py-1">
               <div className="flex items-center w-full space-x-3 rounded-md justify-end">
                 <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
-                <p className="text-gray-400 font-normal text-sm cursor-pointer">Messages</p>
+                <p className="text-gray-400 font-normal text-sm cursor-pointer">
+                  Messages
+                </p>
               </div>
               <RiCloseFill
                 className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
@@ -257,7 +255,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           onClose={() => setModalOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-        // sx={{ opacity: 0.5 }}
+          // sx={{ opacity: 0.5 }}
         >
           <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
             {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
@@ -322,7 +320,9 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
         <div className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center">
           {" "}
           <BsFillPersonFill className="w-5 h-5 text-bellefuOrange" />
-          <p onClick={reviewOpen} className="text-gray-400 font-normal text-xs">Give Reviews</p>
+          <p onClick={reviewOpen} className="text-gray-400 font-normal text-xs">
+            Give Reviews
+          </p>
         </div>
 
         {review && (
@@ -333,10 +333,8 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 <p className="text-gray-400 font-normal text-sm">Review</p>
               </div>
               <div onClick={() => setReview(false)}>
-                <RiCloseFill
-                  className="ml-12 w-7 h-7 text-red-500 pr-1 cursor-pointer"
-
-                /></div>
+                <RiCloseFill className="ml-12 w-7 h-7 text-red-500 pr-1 cursor-pointer" />
+              </div>
             </div>
 
             <textarea
@@ -346,7 +344,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
               className="w-full bg-transparent px-3 outline-none text-xs"
             ></textarea>
 
-            <div className=' flex justify-center items-center py-2'>
+            <div className=" flex justify-center items-center py-2">
               <Rating
                 name="simple-controlled"
                 value={rating}
@@ -355,7 +353,6 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 }}
               />
             </div>
-
 
             <div className="flex items-center justify-center py-2">
               <button
@@ -366,11 +363,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
               </button>
             </div>
           </div>
-
         )}
-
-
-
       </div>
 
       {/* report seller */}
@@ -409,7 +402,6 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 rows="5"
                 className="w-full bg-transparent px-3 outline-none text-xs"
               ></textarea>
-
 
               <div className="flex items-center justify-center py-2">
                 <button
