@@ -5,10 +5,9 @@ import { AiFillCaretDown } from "react-icons/ai";
 import axios from "axios";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
-import { chooseCountry, handleSearch } from "../features/bellefuSlice";
+import { chooseCountry, handleSearch, selectCat } from "../features/bellefuSlice";
 import { chooseState } from "../features/bellefuSlice";
 import { BiSearch } from "react-icons/bi";
-
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import MobileHeaderSearch from "./MobileHeaderSearch";
 
@@ -107,6 +106,8 @@ const HeaderSearch = ({
                       setSelectlang(false);
                       setCountryName(list.name);
                       dispatch(chooseState(null));
+                      dispatch(handleSearch(''));
+                      dispatch(selectCat(null))
                       dispatch(chooseCountry(list.iso2));
                     }}
                     className="py-1 flex space-x-3 hover:bg-bellefuBackground"
@@ -177,6 +178,8 @@ const HeaderSearch = ({
               value={search}
               onChange={(e) => {
                 dispatch(handleSearch(e.target.value));
+                dispatch(chooseState(null));
+                dispatch(selectCat(null));
                 setSearch(e.target.value);
               }}
               placeholder="What are you looking for?"

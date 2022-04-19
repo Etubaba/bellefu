@@ -94,7 +94,7 @@ const NavBar = () => {
           {/* the user profile */}
           {getIsLoggedIn && <div className="hidden md:inline-block">
             <div className="flex items-center space-x-2 relative">
-              <div onClick={() => router.push('users/messages')} className='relative cursor-pointer '>
+              <div onClick={() => router.push('/users/messages')} className='relative cursor-pointer '>
                 <Image
                   // src={username?.avatar ? `https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}` : "https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"}
                   src={`https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}`}
@@ -178,7 +178,7 @@ const NavBar = () => {
 
             <IoMdNotifications className={unread !== 0 ? "text-white w-6 h-6 animate-shake" : 'text-white w-6 h-6'} />
 
-            {unread !== 0 ? <p onClick={() => router.push('users/notification')} className=' bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full'>
+            {unread !== 0 ? <p onClick={() => router.push('/users/notification')} className=' bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full'>
 
               <span className='text-white text-[10px] text-center '>{unread}</span>
             </p> : null}

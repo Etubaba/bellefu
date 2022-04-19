@@ -14,7 +14,7 @@ import axios from "axios";
 import classNames from "classnames";
 
 const Login = () => {
-  const {data: session } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const Login = () => {
     password: "",
     socalSignin: false,
   });
-  const [fieldsEmpty, setFieldsEmpty] = useState({phone: false, password: false});
+  const [fieldsEmpty, setFieldsEmpty] = useState({ phone: false, password: false });
   const [isLoading, setLoading] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -45,8 +45,8 @@ const Login = () => {
 
     if (emptyFieldExists) {
       console.log("!")
-      if (!formFields.phone) {setFieldsEmpty({...fieldsEmpty, phone: true}); console.log("!!")};
-      if (!formFields.password) setFieldsEmpty({...fieldsEmpty, password: true});
+      if (!formFields.phone) { setFieldsEmpty({ ...fieldsEmpty, phone: true }); console.log("!!") };
+      if (!formFields.password) setFieldsEmpty({ ...fieldsEmpty, password: true });
       return;
     }
 
@@ -97,7 +97,7 @@ const Login = () => {
     else return false;
   };
   const clearErrorMsg = (input) => (evt) => {
-    setFieldsEmpty({...fieldsEmpty, [input]: false})
+    setFieldsEmpty({ ...fieldsEmpty, [input]: false })
   }
 
   const handleClickShowPassword = () => {
@@ -110,9 +110,9 @@ const Login = () => {
 
 
   const socialLoginCallback = async (sessionData) => {
-    const {providerId, providerName} = sessionData;
+    const { providerId, providerName } = sessionData;
 
-    const res = await axios.post(`${apiData}user/login`, {providerId, providerName, socialSignin: true});
+    const res = await axios.post(`${apiData}user/login`, { providerId, providerName, socialSignin: true });
     const data = res.data;
     //console.log(data);
 
@@ -134,7 +134,7 @@ const Login = () => {
     dispatch(setProfileDetails(user));
 
     //Sign out user after authentication from the social media network to make bellefu handle logout.
-    const signOutData = await signOut({redirect: false, callbackUrl: "/"});
+    const signOutData = await signOut({ redirect: false, callbackUrl: "/" });
     router.replace(signOutData.url);
   }
 
@@ -174,7 +174,7 @@ const Login = () => {
               <p className="text-right mt-2"><button type="button" onClick={() => router.push("/forgot-password")} className="hover:text-bellefuGreen hover:underline hover:cursor-pointer">forgot password</button></p>
             </div>
           </div>
-          <p className="w-[100%] md:w-[50%] mx-auto"><button className={classNames("text-center text-white py-2 w-full rounded-md mb-4", {"bg-[#FFA500] hover:bg-[#fabe50]": !isLoading, "bg-[#fabe50]": isLoading, "cursor-not-allowed": isLoading, "bg-[#fabe50]": isLoading})} type="submit" disabled={isLoading ? true : false}>{!isLoading ? "Login" : "Processing..."}</button></p>
+          <p className="w-[100%] md:w-[50%] mx-auto"><button onClick={handleLogin} className={classNames("text-center text-white py-2 w-full rounded-md mb-4", { "bg-[#FFA500] hover:bg-[#fabe50]": !isLoading, "bg-[#fabe50]": isLoading, "cursor-not-allowed": isLoading, "bg-[#fabe50]": isLoading })} type="submit" disabled={isLoading ? true : false}>{!isLoading ? "Login" : "Processing..."}</button></p>
         </form>
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
@@ -193,7 +193,7 @@ const Login = () => {
             <button
               type="button"
               className="flex border-2 rounded-lg py-3 justify-center items-center pl-4 pr-6 bg-blue-500 hover:bg-blue-600 w-full"
-            >  
+            >
               <ImFacebook className='text-3xl text-white' />
               <strong className="pl-4 text-lg">Sign in with Facebook</strong>
             </button>
