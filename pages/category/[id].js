@@ -102,7 +102,7 @@ const Product = () => {
           {/* <h4 className="sticky top-0 bg-bellefuWhite p-5" /> */}
 
           {/* select category */}
-          <div>
+          <div className="w-full">
             <p className="text-bellefuBlack1 font-semibold ">
               Select Category:
             </p>
@@ -129,7 +129,7 @@ const Product = () => {
               )}
             </div>
             {open === true ? (
-              <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
+              <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in">
                 <ul className="rounded px-5 py-4">
                   {index?.categories.map((cat) => (
                     <li
@@ -157,7 +157,7 @@ const Product = () => {
           {/* end of select category */}
 
           {/* select sub category */}
-          <div>
+          <div className="w-full">
             <p className="text-bellefuBlack1 font-semibold ">Sub Category:</p>
             <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
               <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
@@ -176,7 +176,7 @@ const Product = () => {
               )}
             </div>
             {open1 === true ? (
-              <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
+              <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in">
                 <ul className="rounded px-5 py-4">
                   {subcat?.map((item) => (
                     <li
@@ -197,7 +197,7 @@ const Product = () => {
           {/* end of sub category */}
 
           {/* select country */}
-          <div>
+          <div className="w-full">
             <p className="text-bellefuBlack1 font-semibold ">Select State:</p>
             <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
               <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
@@ -216,7 +216,7 @@ const Product = () => {
               )}
             </div>
             {open2 === true ? (
-              <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border transition duration-300 ease-in z-40">
+              <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in">
                 <ul className="rounded h-80 overflow-y-scroll px-5 py-4">
                   {province.map((state) => (
                     <li
@@ -251,9 +251,9 @@ const Product = () => {
                 </div>
               )}
             </div>
-            <div className="absolute w-72 mx-auto bg-transparent -mt-4 z-40">
+            <div className="w-full bg-transparent -mt-1">
               {open3 === true ? (
-                <div className=" w-44 bg-bellefuWhite rounded border transition duration-300 ease-in z-40 ml-28 shadow-md">
+                <div className=" w-full bg-bellefuWhite rounded border transition duration-300 ease-in shadow-md">
                   <ul className="rounded px-2 py-3">
                     <div className="flex items-center space-x-4 mb-2 bg-bellefuBackground px-2 rounded-md py-1">
                       <img
@@ -383,12 +383,12 @@ const Product = () => {
         </div>
 
         {/* mobile view sidebar section */}
-        <div className="lg:hidden mt-3">
-          <div className="flex space-x-3 items-center">
+        <div className="lg:hidden mt-3 w-full px-2">
+          <div className="flex flex-col">
             {/* category and sub category container */}
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full space-y-2">
               {/* select category */}
-              <div>
+              <div className="w-full">
                 <p className="text-bellefuBlack1 font-bold ">
                   Select Category:
                 </p>
@@ -415,8 +415,8 @@ const Product = () => {
                   )}
                 </div>
                 {open === true ? (
-                  <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border -mt-2 transition duration-300 ease-in z-40">
-                    <ul className="rounded px-5 py-4">
+                  <div className="w-full bg-bellefuWhite rounded border -mt-2 transition duration-300 ease-in">
+                    <ul className="rounded px-2 py-4">
                       {index?.categories.map((cat) => (
                         <li
                           key={cat?.id}
@@ -442,7 +442,7 @@ const Product = () => {
               {/* end of select category */}
 
               {/* select sub category */}
-              <div>
+              <div className="w-full">
                 <p className="text-bellefuBlack1 font-bold ">Sub Category:</p>
                 <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
                   <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
@@ -461,8 +461,8 @@ const Product = () => {
                   )}
                 </div>
                 {open1 === true ? (
-                  <div className="absolute w-72 bg-bellefuWhite rounded mx-auto border -mt-2 transition duration-300 ease-in z-40">
-                    <ul className="rounded px-5 py-4">
+                  <div className="w-full bg-bellefuWhite rounded mx-auto border -mt-2 transition duration-300 ease-in">
+                    <ul className="rounded px-2 py-4">
                       {subcat?.map((item) => (
                         <li
                           onClick={() => {
@@ -483,9 +483,9 @@ const Product = () => {
             </div>
             {/* end of category and sub category container */}
             {/* container for state and popular products */}
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full space-y-2">
               {/* select country */}
-              <div>
+              <div className="w-full">
                 <p className="text-bellefuBlack1 font-bold ">Select State:</p>
                 <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
                   <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
@@ -504,12 +504,12 @@ const Product = () => {
                   )}
                 </div>
                 {open2 === true ? (
-                  <div className="absolute w-60 bg-bellefuWhite rounded mx-auto border -mt-2 transition duration-300 ease-in z-40">
+                  <div className="w-full bg-bellefuWhite rounded mx-auto border -mt-2 transition duration-300 ease-in">
                     <ul className="rounded h-80 overflow-y-scroll px-5 py-4">
                       {province.map((state) => (
                         <li
                           key={state?.id}
-                          className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
+                          className="px-2 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                         >
                           <span>{state?.name}</span>
                         </li>
