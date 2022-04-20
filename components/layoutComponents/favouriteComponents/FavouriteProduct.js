@@ -37,8 +37,6 @@ const FavouriteProduct = ({ product }) => {
         }
       })
 
-
-
   }
 
   const edit = {

@@ -169,37 +169,28 @@ const SingleProductDescription = ({ productDetails }) => {
   };
 
   const removeFav = () => {
-    console.log("i am working");
-    const favId = favArr.find(
-      (items) => items === productDetails[0]?.productId
-    );
+    axios
+      .post(`${apiData}delete/favorite/webindex`, {
+        productId: productDetails[0]?.productId,
+        userId: userId,
+      })
+      .then((res) => {
+        if (res.data.status) {
+          setFavStatus(!favStatus);
 
-    if (favId !== undefined) {
-      axios
-        .post(`${apiData}delete/favorite/webindex`, {
-          productId: favId,
-          userId: userId,
-        })
-        .then((res) => {
-          if (res.data.status) {
-            setFavStatus(!favStatus);
-
-            const cleanArr = favArr.filter((items) => items !== favId);
-            setClean(cleanArr);
-            toast.error(
-              `${productDetails[0]?.productTitle.substring(
-                0,
-                20
-              )} removed from favorite product`,
-              {
-                position: "top-right",
-              }
-            );
-          }
-        });
-    } else {
-      return;
-    }
+          const cleanArr = favArr.filter((items) => items !== productDetails[0]?.productId);
+          setClean(cleanArr);
+          toast.error(
+            `${productDetails[0]?.productTitle.substring(
+              0,
+              20
+            )} removed from favorite product`,
+            {
+              position: "top-right",
+            }
+          );
+        }
+      });
   };
 
   return (
@@ -210,8 +201,8 @@ const SingleProductDescription = ({ productDetails }) => {
           {productDetails[0]?.productTitle}
         </p>
         {favStatus ||
-        (clean?.includes(productDetails[0]?.productId) &&
-          favArr?.includes(productDetails[0]?.productId)) ? (
+          (clean?.includes(productDetails[0]?.productId) &&
+            favArr?.includes(productDetails[0]?.productId)) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -306,7 +297,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 onClose={() => setModalOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                // sx={{ opacity: 0.5 }}
+              // sx={{ opacity: 0.5 }}
               >
                 <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}

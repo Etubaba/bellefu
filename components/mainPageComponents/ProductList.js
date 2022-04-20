@@ -124,39 +124,63 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             {fav2 || (fav?.includes(product.productId) && getIsLoggedIn) ? (
               <span
                 onClick={(e) => {
-                  console.log("i de work");
 
-                  const favId = fav.find(
-                    (items) => items === product.productId
-                  );
-                  console.log(favId);
-                  if (favId !== undefined) {
-                    axios
-                      .post(`${apiData}delete/favorite/webindex`, {
-                        productId: favId,
-                        userId: userId,
-                      })
-                      .then((res) => {
-                        if (res.data.status) {
-                          setFav2(!fav2);
-                          const cleanArr = fav.filter(
-                            (items) => items !== favId
-                          );
-                          setClean(cleanArr);
-                          toast.error(
-                            `${product.title.substring(
-                              0,
-                              20
-                            )} removed from favorite product`,
-                            {
-                              position: "top-right",
-                            }
-                          );
-                        }
-                      });
-                  } else {
-                    return;
-                  }
+                  axios
+                    .post(`${apiData}delete/favorite/webindex`, {
+                      productId: product.productId,
+                      userId: userId,
+                    })
+                    .then((res) => {
+                      if (res.data.status) {
+                        setFav2(!fav2);
+                        const cleanArr = fav.filter(
+                          (items) => items !== product.productId
+                        );
+                        setClean(cleanArr);
+                        toast.error(
+                          `${product.title.substring(
+                            0,
+                            20
+                          )} removed from favorite product`,
+                          {
+                            position: "top-right",
+                          }
+                        );
+                      }
+                    });
+
+
+                  // const favId = fav.find(
+                  //   (items) => items === product.productId
+                  // );
+                  // console.log(favId);
+                  // if (favId !== undefined) {
+                  //   axios
+                  //     .post(`${apiData}delete/favorite/webindex`, {
+                  //       productId: favId,
+                  //       userId: userId,
+                  //     })
+                  //     .then((res) => {
+                  //       if (res.data.status) {
+                  //         setFav2(!fav2);
+                  //         const cleanArr = fav.filter(
+                  //           (items) => items !== favId
+                  //         );
+                  //         setClean(cleanArr);
+                  //         toast.error(
+                  //           `${product.title.substring(
+                  //             0,
+                  //             20
+                  //           )} removed from favorite product`,
+                  //           {
+                  //             position: "top-right",
+                  //           }
+                  //         );
+                  //       }
+                  //     });
+                  // } else {
+                  //   return;
+                  // }
                 }}
               >
                 <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange cursor-pointer" />
