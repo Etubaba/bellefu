@@ -165,19 +165,20 @@ const AddMoney = () => {
                     >
                       {/* <p className="italic pl-1">No Card</p> */}
                       <div
-                        className="flex mt-1 px-4 py-1 hover:bg-bellefuOrange hover:text-bellefuWhite hover:cursor-pointer hover:rounded-md"
+                        className="flex mt-1 px-1 lg:px-4 py-1 hover:bg-bellefuOrange hover:text-bellefuWhite hover:cursor-pointer hover:rounded-md"
                         onClick={addCard}
                       >
                         {/*<p className="pt-1 pr-3"><BsFillCreditCard2BackFill /></p> <p>Add Card</p> */}
                         <p
-                          className="flex mt-1 px-2 md:px-4 py-1 hover:bg-bellefuOrange hover:text-bellefuWhite hover:cursor-pointer hover:rounded-md"
+                          className="flex mr-2 mt-1 px-1 lg:px-4 py-1 hover:bg-bellefuOrange hover:text-bellefuWhite hover:cursor-pointer hover:rounded-md"
                           onClick={addCard}
                         >
                           <Image
                             src={paystack}
                             alt="paystack"
                             width="100px"
-                            height="20px"
+                            height="10px"
+                            className="object-cover"
                           />
                         </p>
                       </div>
