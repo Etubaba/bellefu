@@ -21,9 +21,10 @@ const Login = () => {
   const [formFields, setFormFields] = useState({
     phone: "",
     password: "",
-    socalSignin: false,
+    socialSignin: false,
   });
-  const [fieldsEmpty, setFieldsEmpty] = useState({ phone: false, password: false });
+  const [phoneEmpty, setPhoneEmpty] = useState(false);
+  const [passwordEmpty, setPasswordEmpty] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -45,8 +46,9 @@ const Login = () => {
 
     if (emptyFieldExists) {
       console.log("!")
-      if (!formFields.phone) { setFieldsEmpty({ ...fieldsEmpty, phone: true }); console.log("!!") };
-      if (!formFields.password) setFieldsEmpty({ ...fieldsEmpty, password: true });
+      //if (!formFields.socialSignin) setFieldsEmpty({...fieldsEmpty, socialMedia: true});
+      if (!formFields.password) setPasswordEmpty(true);
+      if (!formFields.phone) { setPhoneEmpty(true); console.log("!!") };
       return;
     }
 
@@ -85,11 +87,15 @@ const Login = () => {
       })
   };
   const validateInput = (formValues) => {
-    const emptyFieldExists = false
+    const emptyFieldExists = false;
+
     for (const key in formValues) {
-      if (Object.hasOwnProperty.call(formValues, key) && !formValues[key]) {
-        emptyFieldExists = true;
-        break;
+      if (Object.hasOwnProperty.call(formValues, key)) {
+        if (key === "socialSignin") {console.log("social"); continue;}
+        if (!formValues[key]) {
+          emptyFieldExists = true;
+          break; 
+        }
       }
     }
 
@@ -97,7 +103,9 @@ const Login = () => {
     else return false;
   };
   const clearErrorMsg = (input) => (evt) => {
-    setFieldsEmpty({ ...fieldsEmpty, [input]: false })
+    const target = evt.target;
+    if (input === "phone") setPhoneEmpty(false);
+    if (input === "password") setPasswordEmpty(false);
   }
 
   const handleClickShowPassword = () => {
@@ -139,8 +147,9 @@ const Login = () => {
   }
 
   useEffect(() => {
-    console.log(fieldsEmpty)
-  }, [fieldsEmpty])
+    console.log(phoneEmpty);
+    console.log(passwordEmpty)
+  }, [phoneEmpty, passwordEmpty])
 
   useEffect(() => {
     if (session?.providerId) {
@@ -164,13 +173,14 @@ const Login = () => {
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name or Phone Number</label></p>
               <p><input type="text" htmlFor="phone" value={formFields.phone} className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={handleChange("phone")} onFocus={clearErrorMsg("phone")} /></p>
-              {fieldsEmpty.phone && <p className="text-red-500 text-sm font-medium">Username or Phone must not be empty!</p>}
+              {phoneEmpty && <p className="text-red-500 text-sm font-medium">Username or Phone must not be empty!</p>}
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
               {showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9  right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} />
               }
-              <p className=""><input type={showPassword ? "text" : "password"} htmlFor="password" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={handleChange("password")} /></p>
+              <p className=""><input type={showPassword ? "text" : "password"} htmlFor="password" className="w-full rounded-lg py-2 pl-3 pr-30 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={handleChange("password")} onFocus={clearErrorMsg("password")} /></p>
+              {passwordEmpty && <p className="text-red-500 text-sm font-medium">Password must not be empty!</p>}
               <p className="text-right mt-2"><button type="button" onClick={() => router.push("/forgot-password")} className="hover:text-bellefuGreen hover:underline hover:cursor-pointer">forgot password</button></p>
             </div>
           </div>
