@@ -8,6 +8,7 @@ import axios from "axios";
 import { apiData } from "../../constant";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const notification = () => {
   const [notifyList, setNotifyList] = useState([]);
@@ -29,6 +30,19 @@ const notification = () => {
 
   }, [])
 
+  const deleteAll = () => {
+    if (notifyList.length !== 0) {
+      axios.post(`${apiData}notification/clear`, { userId: userId })
+        .then((res) => {
+          if (res.data.status) {
+            toast.success('All notifications had been cleared', { position: 'top-right' })
+          }
+        })
+    } else {
+      toast.error('You do not have notification to clear', { position: 'top-right' })
+    }
+  }
+
 
   function isToday(dateParameter) {
     const today = new Date();
@@ -48,7 +62,7 @@ const notification = () => {
         <div className="text-lg ml-3 font-bold ">Notifications</div>
 
 
-        <div className="bg-bellefuBackground hover:text-orange-200 text-bellefuOrange rounded   p-1">
+        <div onClick={deleteAll} className="bg-bellefuBackground hover:text-orange-200 text-bellefuOrange rounded px-2  p-1">
           Clear
         </div>
 
