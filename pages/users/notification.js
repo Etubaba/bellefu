@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Layout from "../../components/Layout";
 import { BsBellFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import Skeleton from "@mui/material/Skeleton";
+import { useSelector, useDispatch } from "react-redux";
 
-const notification = () => {
+
+
+const notification = ({data,userid}) => {
+ 
+
+   console.log(userid);
+
+  const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [])
+
   const [open, setOpen] = useState(false);
   const [read, setRead] = useState(null);
   return (
     <div className="  rounded-lg mt-5 bg-bellefuWhite h-auto  w-full lg:w-auto pb-2 ">
-      <div className="flex items-center justify-between lg:space-x-96 text-center p-2">
+      {loading?<div className="flex items-center justify-between lg:space-x-96 text-center p-2">
         <div className="text-sm font-bold ">Notifications</div>
 
         <div className="flex justify-evenly">
@@ -22,7 +40,13 @@ const notification = () => {
             Mark as read
           </pre>
         </div>
-      </div>
+      </div>:<Skeleton
+                  className="rounded mt-6 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={50}
+                />}
       <hr />
 
       {open ? (
@@ -44,7 +68,7 @@ const notification = () => {
         <div>
           {/* message mapping  */}
           <div>
-            <div className="lg:w-[93%] p-5 m-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
+            {loading?<div className="lg:w-[93%] p-5 m-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
               <div className="flex">
                 <img
                   src="https://www.linkpicture.com/q/bellefulogo.png"
@@ -84,7 +108,13 @@ const notification = () => {
                   Delete
                 </button>
               </span>
-            </div>
+            </div>:<Skeleton
+                  className="rounded mt-2 mx-10 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"94%"}
+                  height={150}
+                />}
 
             {read===1? (
               <div className="lg:w-[93%] lg:m-10 relative mt-[-44px] m-5  h-auto p-5 border-x border-b">
@@ -178,3 +208,22 @@ const notification = () => {
 
 notification.Layout = Layout;
 export default notification;
+
+
+export async function getServerSideProps(context) {
+  // console.log(userid)
+  // const userid = useSelector((state) => state.bellefu?.profileDetails.id);
+
+  const res = await fetch(
+    `https://bellefu.inmotionhub.xyz/api/general/user/notification/${userid}`
+  );
+  // const data = await res.json();
+  // const userid=context.query;
+
+  return {
+    props: {
+      data,
+      userid,
+    },
+  };
+}
