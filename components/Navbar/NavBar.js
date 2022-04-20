@@ -66,6 +66,7 @@ const NavBar = () => {
       .then((res) => setUnseen(res.data.unseen));
   }, [msgRead]);
 
+  console.log('read message', msgRead)
   //new notification
   useEffect(() => {
     axios
@@ -125,7 +126,7 @@ const NavBar = () => {
             <div className="hidden md:inline-block">
               <div className="flex items-center space-x-2 relative">
                 <div
-                  onClick={() => router.push("users/messages")}
+                  onClick={() => router.push("/users/messages")}
                   className="relative cursor-pointer "
                 >
                   <Image
@@ -137,7 +138,7 @@ const NavBar = () => {
                   />
                   {unseen !== 0 ? (
                     <p
-                      onClick={() => router.push("users/messages")}
+
                       className="bg-bellefuOrange -top-2 left-5 h-5 w-5 absolute flex items-center justify-center rounded-full"
                     >
                       <span className="text-white text-[10px] text-center ">
