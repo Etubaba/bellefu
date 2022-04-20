@@ -4,7 +4,9 @@ const initialState = {
   idApply: typeof window !== "undefined" ? localStorage.getItem("idapply") : false,
   kycApply: typeof window !== "undefined" ? localStorage.getItem("kycapply") : false,
   subcatselected: undefined,
-  messageRead: typeof window !== "undefined" ? localStorage.getItem("msg") : 0,
+  favLoad: 0,
+  messageRead: 0,
+  // messageRead: typeof window !== "undefined" ? localStorage.getItem("msg") : 0,
   verificationStatus: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("verify")) : null,
   userDetails:
     typeof window !== "undefined"
@@ -76,13 +78,16 @@ export const bellefuSlice = createSlice({
       state.idApply = action.payload;
       localStorage.setItem('idapply', state.idApply)
     },
-    msgRead: (state, action) => {
-      state.messageRead = action.payload;
-      localStorage.setItem('msg', state.messageRead)
+    msgRead: (state) => {
+      state.messageRead += 1;
+      // localStorage.setItem('msg', state.messageRead)
     },
     kycpending: (state, action) => {
       state.kycApply = action.payload;
       localStorage.setItem('kycapply', state.kycApply)
+    },
+    favUpdated: (state) => {
+      state.favLoad += 1;
     },
     ifVerified: (state, action) => {
       state.verificationStatus = action.payload;
@@ -210,7 +215,7 @@ export const {
   updateIdpath,
   fetchData,
   Subcat, msgRead,
-  selectCat,
+  selectCat, favUpdated,
   chooseState,
   setProfileDetails,
   handleUseridUpdate,

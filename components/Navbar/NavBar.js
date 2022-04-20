@@ -66,13 +66,17 @@ const NavBar = () => {
       .then((res) => setUnseen(res.data.unseen));
   }, [msgRead]);
 
-  console.log('read message', msgRead)
+
+
   //new notification
   useEffect(() => {
     axios
       .get(`${apiData}notification/count/${username?.id}`)
       .then((res) => setUnread(res.data.unread));
   }, []);
+
+
+
 
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
