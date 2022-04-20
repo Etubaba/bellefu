@@ -30,16 +30,80 @@ const SingleProductDescription = ({ productDetails }) => {
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
+  const [report, setReport] = useState("");
+  const [message, setMessage] = useState("");
 
+  const receiverId = productDetails[0]?.productOwnerId;
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+  const isLoggedIn = useSelector(login);
 
   // check if product is among favorite
 
-  console.log("details =>", productDetails);
+  // console.log("details =>", productDetails);
 
-  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+  // handle message open
+  const handleMessage = () => {
+    if (isLoggedIn) {
+      setOpen4(!open);
+    } else {
+      setModalOpen(true);
+    }
+  };
+
+  //handle sending messages
+  const sendMessage = () => {
+    if (message === "") {
+      toast.error("You can not send an empty field", { position: "top-right" });
+    } else {
+      const formData = new FormData();
+      formData.append("messageTo", receiverId);
+      formData.append("messageFrom", senderId);
+      formData.append("image", "");
+      formData.append("message", message);
+      axios({
+        method: "POST",
+        url: `${apiData}send/messages`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => {
+        if (res.data.status) {
+          toast.success("Your message has been sent successfully.", {
+            position: "top-right",
+          });
+        }
+      });
+    }
+  };
+
+  const handleReport = () => {
+    if (report === "") {
+      toast.error("Please all fields are required", { position: "top-right" });
+    } else {
+      axios
+        .post(`${apiData}create/report`, {
+          productId: productDetails[0]?.productId,
+          userId: userId,
+          message: report,
+          title: "Report Product",
+        })
+        .then((res) => {
+          if (res.data.status) {
+            toast.success("Your report is under review.", {
+              position: "top-right",
+            });
+            setReport("");
+            setOpen3(false);
+          }
+        });
+    }
+  };
 
   useEffect(() => {
     const getFav = async () => {
@@ -53,26 +117,22 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const favArr = fav?.map((item) => item.productId);
 
-  const [clean, setClean] = useState(favArr)
+  const [clean, setClean] = useState(favArr);
 
   // console.log('product details checker', productDetails)
 
-  const isLoggedIn = useSelector(login);
   const router = useRouter();
-
 
   useEffect(() => {
     const productViewed = async () => {
-      await axios.post(`${apiData}add/product/view`, {
-        productId: productDetails[0]?.productId,
-      })
-        .then(res => console.log(res))
-    }
-    productViewed()
-  }, [])
-
-
-
+      await axios
+        .post(`${apiData}add/product/view`, {
+          productId: productDetails[0]?.productId,
+        })
+        .then((res) => console.log(res));
+    };
+    productViewed();
+  }, []);
 
   const handleCall = () => {
     if (isLoggedIn) {
@@ -108,10 +168,8 @@ const SingleProductDescription = ({ productDetails }) => {
     }
   };
 
-
-
   const removeFav = () => {
-    console.log('i am working')
+    console.log("i am working");
     const favId = favArr.find(
       (items) => items === productDetails[0]?.productId
     );
@@ -127,7 +185,7 @@ const SingleProductDescription = ({ productDetails }) => {
             setFavStatus(!favStatus);
 
             const cleanArr = favArr.filter((items) => items !== favId);
-            setClean(cleanArr)
+            setClean(cleanArr);
             toast.error(
               `${productDetails[0]?.productTitle.substring(
                 0,
@@ -151,7 +209,9 @@ const SingleProductDescription = ({ productDetails }) => {
         <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
           {productDetails[0]?.productTitle}
         </p>
-        {favStatus || clean?.includes(productDetails[0]?.productId) && favArr?.includes(productDetails[0]?.productId) ? (
+        {favStatus ||
+        (clean?.includes(productDetails[0]?.productId) &&
+          favArr?.includes(productDetails[0]?.productId)) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -206,7 +266,10 @@ const SingleProductDescription = ({ productDetails }) => {
       {/* product owner profile details */}
 
       <div className="py-3 px-3 lg:hidden">
-        <SingleProductMobileSidebar mobileDetails={productDetails} />
+        <SingleProductMobileSidebar
+          mobileDetails={productDetails}
+          sendMessage={sendMessage}
+        />
       </div>
 
       {/* end of product owner details */}
@@ -224,15 +287,15 @@ const SingleProductDescription = ({ productDetails }) => {
 
             <div className="flex items-center mt-2 w-full space-x-10 justify-center">
               <div
-                // onClick={message}
-                className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2"
+                onClick={handleMessage}
+                className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
               >
                 <RiMessage2Fill className="text-white" />
                 <p className="text-white">Message</p>
               </div>
               <div
                 onClick={handleCall}
-                className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center space-x-2"
+                className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
               >
                 <MdCall className="text-white" />
                 <p className="text-white">Call</p>
@@ -243,7 +306,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 onClose={() => setModalOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-              // sx={{ opacity: 0.5 }}
+                // sx={{ opacity: 0.5 }}
               >
                 <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
@@ -280,6 +343,38 @@ const SingleProductDescription = ({ productDetails }) => {
                 </div>
               </Modal>
             </div>
+            {/* message box */}
+            {open4 && (
+              <div className="border bg-bellefuBackground divide-y w-1/2 border-orange-200 rounded-md">
+                <div className="flex items-center py-1">
+                  <div className="flex items-center w-full space-x-3 rounded-md justify-end">
+                    <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
+                    <p className="text-gray-400 font-normal text-sm cursor-pointer">
+                      Messages
+                    </p>
+                  </div>
+                  <RiCloseFill
+                    className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
+                    onClick={() => setOpen4(!open4)}
+                  />
+                </div>
+
+                <textarea
+                  rows="5"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full bg-transparent px-3 outline-none text-xs pt-1"
+                />
+                <div className="flex items-center justify-center py-2">
+                  <button
+                    onClick={sendMessage}
+                    className="text-white text-sm lg:text-lg bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-6 py-1 rounded-md capitalize"
+                  >
+                    send
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {/* safety tips, share product, report product */}
@@ -312,7 +407,7 @@ const SingleProductDescription = ({ productDetails }) => {
         {/* divider */}
         <div className="border-b lg:mt-6 mt-3" />
         {/* safety tips => details */}
-        {open === true && (
+        {open && (
           <div className=" px-3 lg:px-7 mt-4 pb-4 space-y-2">
             <div className="flex items-center space-x-4">
               <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
@@ -339,7 +434,7 @@ const SingleProductDescription = ({ productDetails }) => {
         )}
 
         {/* share product => details */}
-        {open1 === true && (
+        {open1 && (
           <div className="px-3 lg:px-7 lg:pb-4 pb-2">
             <div className="flex flex-col lg:items-center py-4 space-y-2 lg:space-x-16">
               <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
@@ -354,21 +449,21 @@ const SingleProductDescription = ({ productDetails }) => {
         )}
 
         {/* report product => details */}
-        {open2 === true && (
+        {open2 && (
           <div className="lg:px-7 px-3 lg:mt-5 mt-2 lg:pb-4 pb-2">
             <div className="flex flex-col lg:items-center lg:py-4 py-2 lg:space-x-16 space-y-2">
               <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
                 Did you think this product is not original/scam?
               </p>
               <div
-                className="flex items-center border px-14 border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground "
+                className="flex items-center border px-14 cursor-pointer border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground "
                 onClick={() => setOpen3(!open3)}
               >
                 <BsFillFlagFill className="lg:w-7 lg:h-7 w-4 h-4 text-orange-600" />
                 <p className="text-md lg:text-lg">Flag this product</p>
               </div>
               {/* report box */}
-              {open3 === true && (
+              {open3 && (
                 <div className="border -mt-10 bg-bellefuBackground divide-y lg:w-72 border-orange-200 rounded-md">
                   <div className="flex items-center py-1">
                     <div className="flex items-center w-full space-x-3 rounded-md justify-end">
@@ -384,9 +479,19 @@ const SingleProductDescription = ({ productDetails }) => {
                   </div>
 
                   <textarea
+                    onChange={(e) => setReport(e.target.value)}
+                    value={report}
                     rows="5"
                     className="w-full bg-transparent px-3 outline-none text-xs"
                   ></textarea>
+                  <div className="flex items-center justify-center py-2">
+                    <button
+                      onClick={handleReport}
+                      className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in py-1 px-6 rounded-md capitalize"
+                    >
+                      send
+                    </button>
+                  </div>
                 </div>
               )}
 

@@ -15,7 +15,7 @@ const Product = ({ details }) => {
 
   const newDetails = details.data;
   const similarProductDetails = details.similarProducts;
-  // console.log("similarProductDetails => ", similarProductDetails);
+
   const dispatch = useDispatch();
 
   if (newDetails) {
@@ -66,7 +66,9 @@ const Product = ({ details }) => {
 
         <div className=" mr-2 w-[20%] rounded-md hidden lg:inline">
           {loading ? (
-            <SingleProductSidebar userDetails={newDetails} />
+            <SingleProductSidebar
+              verified={details.verification}
+              userDetails={newDetails} />
           ) : (
             <Skeleton
               className="rounded  "
