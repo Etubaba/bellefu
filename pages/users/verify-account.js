@@ -314,7 +314,7 @@ function Verifyaccount() {
                 className={isverified?.kyc ? 'bg-[#E0E0E0] rounded-md py-4 px-28 space-x-3' : "flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"}
               >
                 <MdVerified className="text-xl" />{" "}
-                <span className={isverified?.kyc ? 'text-[#A6A6A6]' : null} >{isverified.kyc ? ' You have completed verification ' : " Complete Verification"}</span>
+                <span className={isverified?.kyc ? 'text-[#A6A6A6]' : null} >{isverified?.kyc ? ' You have completed verification ' : " Complete Verification"}</span>
               </button>
             </div>
           </div>
@@ -525,7 +525,7 @@ function Verifyaccount() {
                         <div>
                           <p>
                             Max file size :{" "}
-                            <strong className="ml-4">5mb</strong>
+                            <strong className="ml-4">2mb</strong>
                           </p>
                           <p className="mb-10">Accept : jpeg/png</p>
                         </div>
@@ -671,7 +671,7 @@ function Verifyaccount() {
                         <div>
                           <p>
                             Max file size :{" "}
-                            <strong className="ml-4">5mb</strong>
+                            <strong className="ml-4">2mb</strong>
                           </p>
                           <p className="mb-10">Accept : jpeg/png</p>
                         </div>
@@ -714,7 +714,7 @@ function Verifyaccount() {
                         <div>
                           <p>
                             Max file size :{" "}
-                            <strong className="ml-4">5mb</strong>
+                            <strong className="ml-4">2mb</strong>
                           </p>
                           <p className="mb-10">Accept : jpeg/png</p>
                         </div>
@@ -757,7 +757,7 @@ function Verifyaccount() {
                         <div>
                           <p>
                             Max file size :{" "}
-                            <strong className="ml-4">5mb</strong>
+                            <strong className="ml-4">2mb</strong>
                           </p>
                           <p className="mb-10">Accept : jpeg/png</p>
                         </div>
