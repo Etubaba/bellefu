@@ -43,7 +43,7 @@ const Product = () => {
     };
 
     getProduct();
-  }, [productId, catUpdate]);
+  }, [newId]);
 
   // getting subcategory
   useEffect(() => {
