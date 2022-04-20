@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import  { useState, useEffect } from "react";
 import { isDisabled } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -20,8 +20,14 @@ import UnstyledSelectSimple5 from "../../components/layoutComponents/form-fields
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Skeleton from "@mui/material/Skeleton";
+
 
 const profile = ({ data1 }) => {
+
+
+  const [loading, setLoading] = useState(false);
+
   const userThings = useSelector(profileDetails) || null;
   const userCountrythings = useSelector(userUpdate) || null;
 
@@ -137,8 +143,17 @@ const profile = ({ data1 }) => {
       );
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  
   return (
-    <div className=" shadow bg-bellefuWhite rounded-md mt-5 p-5">
+    <>
+     {loading?<div className=" shadow bg-bellefuWhite rounded-md mt-5 p-5">
       <div className="flex justify-between mt-2  border-b pb-4">
         <h3 className="text-[0.9rem] mt-3 sm:mt-0 lg:mt-0 sm:text-[1rem] font-bold lg:text-[1.2rem]">Profile Details</h3>
         <button
@@ -177,7 +192,7 @@ const profile = ({ data1 }) => {
         <div>
           <form action="#" method="POST">
             <div className=" overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 sm:p-6">
+              <div className=" sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <label
@@ -296,14 +311,14 @@ const profile = ({ data1 }) => {
       <div className="border  p-5 mt-7  ">
         <div className=" flex justify-right items-right">
           {disable ? (
-            <div className="flex relative left-[50vw] ">
+            <div className="flex relative left-[45vw] ">
               <div className="flex bg-[orangered] p-1 rounded-md">
                 <strong className="text-white">Disabled</strong>
                 <GiPadlock className="text-lg" />
               </div>
             </div>
           ) : (
-            <div className="flex relative left-[50vw] ">
+            <div className="flex relative left-[45vw] ">
               <div className="flex bg-bellefuGreen p-1 rounded-md">
                 <strong className="text-white">Enabled</strong>
                 <GiPadlockOpen className="text-lg" />
@@ -314,7 +329,7 @@ const profile = ({ data1 }) => {
         <div>
           <form action="#" method="POST">
             <div className=" overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 sm:p-6">
+              <div className=" sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   {/* first field */}
 
@@ -383,7 +398,7 @@ const profile = ({ data1 }) => {
                 </div>
               </div>
             </div>
-            <div className="p-5">
+            <div>
               <label
                 htmlFor="about"
                 className="block text-sm font-medium text-gray-700"
@@ -413,7 +428,15 @@ const profile = ({ data1 }) => {
           </form>
         </div>
       </div>
-    </div>
+    </div>:<Skeleton
+                  className="rounded mt-6 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={900}
+                />}
+    </>
+   
   );
 };
 

@@ -20,6 +20,9 @@ import { isLoggedIn } from "../../features/bellefuSlice";
 import Skeleton from "@mui/material/Skeleton";
 
 const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
+
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   const router = useRouter(),
@@ -69,6 +72,14 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
       });
     };
 
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setLoading(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }, []);
+    
   return (
     <div className="lg:hidden bg-bellefuWhite w-full absolute left-0 pt-4 z-40 ">
       <div className="w-full h-[100vh] overflow-auto" id="side-bar">

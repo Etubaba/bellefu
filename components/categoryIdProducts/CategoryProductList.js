@@ -5,20 +5,20 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 
 const CategoryProductList = ({ product }) => {
-
-
   const router = useRouter();
 
   // console.log(product)
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
-        onClick={() => router.push(`/product/${product.productId}`)}
+        onClick={() => router.push(`/product/${product?.productId}`)}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
         alt={product.title}
       />
-      <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
+      <p className="capitalize text-medium">
+        {product?.title.substring(0, 20)}
+      </p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
         <div className="flex items-center space-x-1">
@@ -26,13 +26,13 @@ const CategoryProductList = ({ product }) => {
             {product.state},
           </p> */}
           <p className="text-bellefuBlack1 text-sm capitalize">
-            {product.countryName}
+            {product?.countryName}
           </p>
         </div>
       </div>
       <div className="flex items-center justify-between">
         <p className="text-bellefuGreen font-poppins font-semibold">
-          ₦ {product.price}
+          ₦ {product?.price}
         </p>
         <BsHeart className="w-5 h-5 text-bellefuOrange" />
       </div>

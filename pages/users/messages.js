@@ -14,6 +14,8 @@ import axios from "axios";
 import Dropzone from "react-dropzone";
 import moment from "moment";
 import { msgRead } from "../../features/bellefuSlice";
+import Skeleton from "@mui/material/Skeleton";
+
 
 
 const messages = ({ data1 }) => {
@@ -29,6 +31,8 @@ const messages = ({ data1 }) => {
   const [receiverId, setReceiverId] = useState(null);
   const [sent, setSent] = useState(false);
   const [unread, setUnread] = useState(0);
+  const [loading, setLoading] = useState(false);
+
 
   const theRef = useRef();
 
@@ -96,6 +100,12 @@ const messages = ({ data1 }) => {
   }, [message, receiverId]);
 
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
 
   // const getChat = async () => {
@@ -148,13 +158,19 @@ const messages = ({ data1 }) => {
   return (
     // the message header
     <div className="w-full    md:mt-3  rounded-lg lg:mt-5 bg-bellefuWhite h-auto md:w-auto  pb-2 ">
-      <div className="flex items-center  text-center p-3">
+     { loading?<div className="flex items-center  text-center p-3">
         <div className="text-xl ">Messages</div>
-      </div>
+      </div>:<Skeleton
+          className="rounded mt-6 "
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={30}
+        />}
       <hr />
 
 
-      {!read && contact.length === 0 && (
+      {loading?!read && contact.length === 0 && (
 
         <div className="h-full px-2 ">
           <div className=" md:border mx-auto my-10 rounded-xl w-full lg:w-7/12 h-11/12 ">
@@ -167,7 +183,13 @@ const messages = ({ data1 }) => {
           </div>
         </div>
 
-      )}
+      ):<Skeleton
+      className="rounded mt-6 "
+      variant="rectangular"
+      animation="wave"
+      width={"100%"}
+      height={500}
+    />}
 
 
       {/* message contents 1 */}
