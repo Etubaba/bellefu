@@ -24,6 +24,7 @@ const FavouriteProducts = () => {
     getFav();
   }, []);
 
+
   return (
     <div>
       {favProduct !== undefined ? (
