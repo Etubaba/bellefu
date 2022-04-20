@@ -279,29 +279,29 @@ function Verifyaccount() {
     }
   };
 
-
+  console.log(isverified?.phone)
   return (
-    <div className="ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
-      <div className="text-xl ml-4 self p-2">Account Verification</div>
+    <div className="md:ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
+      <div className="md:text-xl text-sm md:ml-3  p-2">Account Verification</div>
       <hr />
 
       {!verify ? (
         <div className="h-auto ">
-          <div className="border mx-auto my-3  rounded-xl    w-7/12 h-11/12 ">
-            <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-              <MdVerified className="text-8xl mb-7 text-gray-600" />
+          <div className="md:border mx-auto my-3  rounded-xl w-[90%]   md:w-7/12 h-auto ">
+            <div className="flex flex-col justify-center mt-14 mb-14 items-center">
+              <MdVerified className="md:text-8xl text-6xl mb-7 text-gray-600" />
 
-              <div className='flex mb-4'><MdVerified className={!isverified?.phone ? 'text-[#A6A6A6] text-xl' : "text-black/70 text-xl"} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified?.id ? 'text-bellefuOrange text-xl' : 'text-[#A6A6A6] text-xl'} /><hr className='w-40 mt-2 m-1' /><MdVerified className={isverified?.kyc ? 'text-bellefuGreen text-xl' : 'text-[#A6A6A6] text-xl'} /></div>
-              <div className='flex justify-between  space-x-32 text-xs mb-10'>
+              <div className='flex mb-4'><MdVerified className={isverified?.phone ? "text-black/70 text-xl" : 'text-[#A6A6A6] text-xl'} /><hr className='lg:w-40 w-20 mt-2 m-1' /><MdVerified className={isverified?.id ? 'text-bellefuOrange text-xl' : 'text-[#A6A6A6] text-xl'} /><hr className='lg:w-40 w-20 mt-2 m-1' /><MdVerified className={isverified?.kyc ? 'text-bellefuGreen text-xl' : 'text-[#A6A6A6] text-xl'} /></div>
+              <div className='flex md:justify-between justify-around space-x-20 text-[8px]  lg:space-x-32 md:text-xs mb-10'>
                 <p className={!isverified?.phone ? 'text-[#A6A6A6]' : null}>phone verified</p>
                 <p className={!isverified?.id ? 'text-[#A6A6A6]' : null}>ID verified</p>
                 <p className={!isverified?.kyc ? 'text-[#A6A6A6]' : null}>KYC verified</p>
 
               </div>
 
-              {isverified?.kyc ? <p className='text-sm text-center text-gray-600 mb-12'> Congrat!! <br />
+              {isverified?.kyc ? <p className='md:text-sm text-xs text-center text-gray-600 mb-12'> Congrat!! <br />
                 you have completed your verification process </p> :
-                <p className="text-sm text-center text-gray-600 mb-12">
+                <p className="md:text-sm text-xs  text-center text-gray-600 mb-12">
                   Proceed with your verification
                   <br />
                   Kindly click on the botton below to complete verification
@@ -311,9 +311,9 @@ function Verifyaccount() {
               <button
                 disabled={isverified?.kyc ? true : false}
                 onClick={() => setVerify(true)}
-                className={isverified?.kyc ? 'bg-[#E0E0E0] rounded-md py-4 px-28 space-x-3' : "flex hover:bg-orange-400 rounded-md text-white py-4 px-28 space-x-3 bg-bellefuOrange"}
+                className={isverified?.kyc ? 'bg-[#E0E0E0] rounded-md py-2 md:py-4 px-16 md:px-28 space-x-3' : "flex hover:bg-orange-400 rounded-md text-white px-5 py-2 md:py-4 md:px-28 space-x-3 bg-bellefuOrange"}
               >
-                <MdVerified className="text-xl" />{" "}
+                <MdVerified className="md:text-xl mt-1 text-md" />{" "}
                 <span className={isverified?.kyc ? 'text-[#A6A6A6]' : null} >{isverified?.kyc ? ' You have completed verification ' : " Complete Verification"}</span>
               </button>
             </div>
@@ -322,20 +322,20 @@ function Verifyaccount() {
       ) : (
         // verification options
         <div className="flex flex-col flex-auto mb-8">
-          <div className="hover:bg-[#F8FDF2] mt-10 mb-5  mx-10 py-8 rounded-lg border">
+          <div className="hover:bg-[#F8FDF2] mt-10 mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
             <div className="flex justify-between items-center">
               <div className="flex px-8">
-                <p className="mr-5 pt-1">
-                  <MdVerified className="text-3xl text-gray-600" />
+                <p className="md:mr-5 mr-3 pt-1">
+                  <MdVerified className="md:text-3xl text-2xl text-gray-600" />
                 </p>
-                <p className="mt-2">Phone Verification</p>
+                <p className="mt-2 text-xs md:text-lg">Phone Verification</p>
               </div>
               <p
                 style={phonestyle}
                 onClick={() => setPhone(!phone)}
-                className="mr-8"
+                className="md:mr-8 mr-3"
               >
-                <BiCaretRight className="text-xl " />
+                <BiCaretRight className="md:text-xl text-md " />
               </p>
             </div>
             {phone && <hr className="mt-7" />}
@@ -476,20 +476,20 @@ function Verifyaccount() {
 
           {/* ID verification */}
 
-          <div className="hover:bg-[#F8FDF2]  mx-10 my-5 py-8 rounded-lg border">
+          <div className="hover:bg-[#F8FDF2] mt-10 mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
             <div className="flex justify-between items-center">
               <div className="flex px-8">
-                <p className="mr-5 pt-1">
-                  <MdVerified className="text-3xl text-bellefuOrange" />
+                <p className="md:mr-5 mr-3 pt-1">
+                  <MdVerified className="md:text-3xl text-2xl text-bellefuOrange" />
                 </p>
-                <p className="mt-2">ID Verification</p>
+                <p className="mt-2 md:text-lg text-xs">ID Verification</p>
               </div>
               <p
                 onClick={() => setIdopen(!idopen)}
                 style={IDstyle}
-                className="mr-8"
+                className="md:mr-8 mr-3"
               >
-                <BiCaretRight className="text-xl " />
+                <BiCaretRight className="md:text-xl text-md " />
               </p>
             </div>
 
@@ -617,20 +617,20 @@ function Verifyaccount() {
 
           {/* KYC Verification */}
 
-          <div className="hover:bg-[#F8FDF2] my-5 mx-10 py-8 rounded-lg border">
+          <div className="hover:bg-[#F8FDF2] mt-10 mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
             <div className="flex justify-between items-center">
               <div className="flex px-8">
-                <p className="mr-5 pt-1">
-                  <MdVerified className="text-3xl text-bellefuGreen" />
+                <p className="md:mr-5 mr-3 pt-1">
+                  <MdVerified className="md:text-3xl text-2xl text-bellefuGreen" />
                 </p>
-                <p className="mt-2">KYC Verification</p>
+                <p className="mt-2 md:text-lg text-xs">KYC Verification</p>
               </div>
               <p
                 onClick={() => setKycOpen(!kycOpen)}
                 style={KYCstyle}
-                className="mr-8"
+                className="md:mr-8 mr-3"
               >
-                <BiCaretRight className="text-xl" />
+                <BiCaretRight className="md:text-xl text-md" />
               </p>
             </div>
 
