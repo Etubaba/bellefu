@@ -30,8 +30,14 @@ const notification = () => {
 
   }, [])
 
+
+
+  console.log('notify=>', notifyList)
+
+
+
   const deleteAll = () => {
-    if (notifyList.length !== 0) {
+    if (notifyList?.length !== 0) {
       axios.post(`${apiData}notification/clear`, { userId: userId })
         .then((res) => {
           if (res.data.status) {
@@ -69,7 +75,7 @@ const notification = () => {
       </div>
       <hr />
 
-      {notifyList.length === 0 ? (
+      {notifyList?.length === 0 ? (
         <div className="h-full">
           <div className="border mx-auto mt-10  rounded-xl    w-7/12 h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">

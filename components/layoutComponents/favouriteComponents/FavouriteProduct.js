@@ -3,22 +3,29 @@ import { MdLocationOn, MdOutlineWarningAmber } from "react-icons/md";
 import { GiHearts } from "react-icons/gi";
 import { IoWarningOutline } from "react-icons/io";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Modal, Typography, Divider, Box, Button } from '@mui/material'
 import { apiData } from '../../../constant'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { favUpdated } from "../../../features/bellefuSlice";
+
 
 
 const FavouriteProduct = ({ product }) => {
   const [open, setOpen] = useState(false)
   const [favId, setFavId] = useState(null)
+  const [favUpdate, setFavUpdate] = useState(false)
 
+
+  const dispatch = useDispatch();
   const router = useRouter()
   const details = useSelector(state => state.bellefu.indexData)
 
   const remove = () => {
+    // setFavUpdate(!favUpdate)
+
     axios.post(`${apiData}delete/favorite`, {
       favoriteId: favId,
     })
@@ -26,6 +33,7 @@ const FavouriteProduct = ({ product }) => {
         if (res.data.status) {
           toast.info('Product removed from favourite')
           setOpen(false)
+          dispatch(favUpdated(!favUpdate))
         }
       })
 
