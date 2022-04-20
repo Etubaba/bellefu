@@ -19,7 +19,7 @@ import { msgRead } from "../../features/bellefuSlice";
 const messages = ({ data1 }) => {
   const [read, setRead] = useState(false);
   const [message, setMessage] = useState("");
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(undefined);
   const [preview, setPreview] = useState();
   const [contact, setContact] = useState([]);
   const [chat, setChat] = useState([]);
@@ -43,6 +43,10 @@ const messages = ({ data1 }) => {
   const handleMessage = (e) => {
     e.preventDefault();
     setSent(!sent);
+    if (message || file === undefined) {
+
+
+    }
 
     const formData = new FormData();
     formData.append("messageTo", receiverId);
@@ -80,31 +84,31 @@ const messages = ({ data1 }) => {
 
   // get chat between two people
 
-  // useEffect(() => {
-  //   const getChat = async () => {
-  //     // senderId/receiverId
-  //     await axios
-  //       .get(`${apiData}single/contact/${senderId}/${receiverId}`)
-  //       .then((res) => setChat(res.data.data));
-  //   };
+  useEffect(() => {
+    const getChat = async () => {
+      // senderId/receiverId
+      await axios
+        .get(`${apiData}single/contact/${senderId}/${receiverId}`)
+        .then((res) => setChat(res.data.data));
+    };
 
-  //   getChat();
-  // }, [message, receiverId]);
-
-
-
-
-  const getChat = async () => {
-    // senderId/receiverId
-    await axios
-      .get(`${apiData}single/contact/${senderId}/${receiverId}`)
-      .then((res) => setChat(res.data.data));
-  };
-
-
-  setTimeout(() => {
     getChat();
-  }, 5000)
+  }, [message, receiverId]);
+
+
+
+
+  // const getChat = async () => {
+  //   // senderId/receiverId
+  //   await axios
+  //     .get(`${apiData}single/contact/${senderId}/${receiverId}`)
+  //     .then((res) => setChat(res.data.data));
+  // };
+
+
+  // setTimeout(() => {
+  //   getChat();
+  // }, 5000)
 
 
   //automatic scroll to the bottom in chat
@@ -317,7 +321,6 @@ const messages = ({ data1 }) => {
                         : "text-gray-400 flex mt-[-16px] justify-end text-xs"
                     }
                   >
-
                     <span>
                       {" "}
                       {isToday(new Date(item.created_at))
