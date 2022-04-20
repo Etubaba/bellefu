@@ -45,10 +45,8 @@ const Login = () => {
     const emptyFieldExists = validateInput(formFields);
 
     if (emptyFieldExists) {
-      console.log("!")
-      //if (!formFields.socialSignin) setFieldsEmpty({...fieldsEmpty, socialMedia: true});
       if (!formFields.password) setPasswordEmpty(true);
-      if (!formFields.phone) { setPhoneEmpty(true); console.log("!!") };
+      if (!formFields.phone) setPhoneEmpty(true);
       return;
     }
 
@@ -122,10 +120,8 @@ const Login = () => {
 
     const res = await axios.post(`${apiData}user/login`, { providerId, providerName, socialSignin: true });
     const data = res.data;
-    //console.log(data);
 
     if (!data.status) {
-      console.log(data.data);
 
       toast.error(data.msg, {
         position: toast.POSITION.TOP_CENTER
