@@ -33,7 +33,7 @@ const FavouriteProduct = ({ product }) => {
         if (res.data.status) {
           toast.info('Product removed from favourite')
           setOpen(false)
-          dispatch(favUpdated(!favUpdate))
+          dispatch(favUpdated())
         }
       })
 
