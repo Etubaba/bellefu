@@ -192,7 +192,7 @@ const profile = ({ data1 }) => {
         <div>
           <form action="#" method="POST">
             <div className=" overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 sm:p-6">
+              <div className=" sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <label
@@ -311,14 +311,14 @@ const profile = ({ data1 }) => {
       <div className="border  p-5 mt-7  ">
         <div className=" flex justify-right items-right">
           {disable ? (
-            <div className="flex relative left-[50vw] ">
+            <div className="flex relative left-[45vw] ">
               <div className="flex bg-[orangered] p-1 rounded-md">
                 <strong className="text-white">Disabled</strong>
                 <GiPadlock className="text-lg" />
               </div>
             </div>
           ) : (
-            <div className="flex relative left-[50vw] ">
+            <div className="flex relative left-[45vw] ">
               <div className="flex bg-bellefuGreen p-1 rounded-md">
                 <strong className="text-white">Enabled</strong>
                 <GiPadlockOpen className="text-lg" />
@@ -329,7 +329,7 @@ const profile = ({ data1 }) => {
         <div>
           <form action="#" method="POST">
             <div className=" overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 sm:p-6">
+              <div className=" sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   {/* first field */}
 
@@ -398,7 +398,7 @@ const profile = ({ data1 }) => {
                 </div>
               </div>
             </div>
-            <div className="p-5">
+            <div>
               <label
                 htmlFor="about"
                 className="block text-sm font-medium text-gray-700"

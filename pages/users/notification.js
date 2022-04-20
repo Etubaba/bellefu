@@ -112,7 +112,7 @@ const notification = () => {
           variant="rectangular"
           animation="wave"
           width={"100%"}
-          height={25}
+          height={30}
         />
       )}
       <hr />
@@ -128,9 +128,9 @@ const notification = () => {
               </p>
             </div>
           </div>
-          <span className="text-orange-300 justify-end mt-28 mr-4  flex">
+         <span className="text-orange-300 justify-end mt-28 mr-4  flex">
             <MdDeleteForever className="text-xl" /> Delete all notification
-          </span>
+        </span>
         </div>:<Skeleton
           className="rounded mt-6 "
           variant="rectangular"
@@ -178,20 +178,20 @@ const notification = () => {
 notification.Layout = Layout;
 export default notification;
 
-export async function getServerSideProps(context) {
-  // console.log(userid)
-  // const userid = useSelector((state) => state.bellefu?.profileDetails.id);
+// export async function getServerSideProps(context) {
+//   // console.log(userid)
+//   // const userid = useSelector((state) => state.bellefu?.profileDetails.id);
 
-  const res = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/general/user/notification/${userid}`
-  );
-  // const data = await res.json();
-  // const userid=context.query;
+//   const res = await fetch(
+//     `https://bellefu.inmotionhub.xyz/api/general/user/notification/${userid}`
+//   );
+//   // const data = await res.json();
+//   // const userid=context.query;
 
-  return {
-    props: {
-      data,
-      userid,
-    },
-  };
-}
+//   return {
+//     props: {
+//       data,
+//       userid,
+//     },
+//   };
+// }

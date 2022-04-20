@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import { useRouter } from "next/router";
 import MyAds from "../../components/layoutComponents/adsComponents/MyAds";
@@ -8,11 +8,15 @@ import MyAdsHeader from "../../components/layoutComponents/adsComponents/MyAdsHe
 import axios from "axios";
 import { apiData } from "../../constant";
 import { useSelector } from "react-redux";
+import Skeleton from "@mui/material/Skeleton";
+
+
 
 const Ads = () => {
   const [published, setPublished] = useState([]);
   const [pend, setPend] = useState([]);
   const [expired, setExpired] = useState([]);
+const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -56,10 +60,27 @@ const Ads = () => {
 
   const all = [...published, ...pend, ...expired];
 
+
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
   return (
     <div className="lg:mt-5 mt-2">
-      <MyAdsHeader />
-      <div className=" bg-bellefuWhite divide-y space-y-1 lg:space-y-2 mt-1 rounded-b-md">
+{   loading?   <MyAdsHeader />:<Skeleton
+          className="rounded mt-6 "
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={30}
+        />
+}      <div className=" bg-bellefuWhite divide-y space-y-1 lg:space-y-2 mt-1 rounded-b-md">
         <div className="">
           <div className="flex items-center px-2 lg:px-4 justify-between pt-3">
             <p className="text-sm lg:text-xl text-bellefuTitleBlack font-semibold tracking-wider">
