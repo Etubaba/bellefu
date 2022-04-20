@@ -644,8 +644,8 @@ function Verifyaccount() {
               <div className="h-auto">
                 {/* first upload */}
 
-                <div className="flex justify-between my-7 mx-10">
-                  <div>Company/Business Certificate</div>
+                <div className="flex  flex-col md:flex-row text-[13px] md:text-lg mx-5 justify-between my-7 md:mx-10">
+                  <div >Company/Business Certificate</div>
                   {biz !== undefined && <p>{biz}</p>}
                 </div>
                 <Dropzone
@@ -661,14 +661,14 @@ function Verifyaccount() {
                   {({ getRootProps, getInputProps }) => (
                     <div
                       {...getRootProps()}
-                      className="border-dashed space-y-4 border-2 mx-10 my-16 flex flex-col border-gray-300 justify-center p-10  items-center "
+                      className="border-dashed space-y-4 border-2 mx-4 md:mx-10 my-8 md:my-16 flex flex-col border-gray-300 justify-center p-6 md:p-10  items-center "
                     >
                       <input {...getInputProps()} />
                       <p>
-                        <BsCloudUpload className="text-6xl text-gray-600" />
+                        <BsCloudUpload className="md:text-6xl text-3xl text-gray-600" />
                       </p>
 
-                      <div className="space-y-3 flex flex-col items-center justify-center">
+                      <div className="space-y-3 text-center text-sm md:text-lg flex flex-col items-center justify-center">
                         <p>Click here or Drag & drop images here </p>
 
                         <div>
@@ -687,7 +687,7 @@ function Verifyaccount() {
 
                 {/* second upload  */}
 
-                <div className="flex justify-between my-7 mx-10">
+                <div className="flex flex-col md:flex-row text-[13px] md:text-lg mx-5 justify-between my-7 md:mx-10">
                   <div>Proof of Address or Utility bill</div>
                   {bill !== undefined && <p>{bill}</p>}
                 </div>
@@ -704,14 +704,14 @@ function Verifyaccount() {
                   {({ getRootProps, getInputProps }) => (
                     <div
                       {...getRootProps()}
-                      className="border-dashed space-y-4 border-2 mx-10 my-16 flex flex-col border-gray-300 justify-center p-10  items-center "
+                      className="border-dashed space-y-4 border-2 mx-4 md:mx-10 my-8 md:my-16 flex flex-col border-gray-300 justify-center p-6 md:p-10  items-center "
                     >
                       <input {...getInputProps()} />
                       <p>
-                        <BsCloudUpload className="text-6xl text-gray-600" />
+                        <BsCloudUpload className="md:text-6xl text-3xl text-gray-600" />
                       </p>
 
-                      <div className="space-y-3 flex flex-col items-center justify-center">
+                      <div className="space-y-3 text-center text-sm md:text-lg flex flex-col items-center justify-center">
                         <p>Click here or Drag & drop images here </p>
 
                         <div>
@@ -730,7 +730,7 @@ function Verifyaccount() {
 
                 <hr className="mb-10" />
 
-                <div className="flex justify-between my-7 mx-10">
+                <div className="flex flex-col md:flex-row text-[13px] md:text-lg mx-5 justify-between my-7 md:mx-10">
                   <div>Picture of your farm/office</div>
                   {pics !== undefined && <p>{pics}</p>}
                 </div>
@@ -747,14 +747,14 @@ function Verifyaccount() {
                   {({ getRootProps, getInputProps }) => (
                     <div
                       {...getRootProps()}
-                      className="border-dashed space-y-4 border-2 mx-10 my-16 flex flex-col border-gray-300 justify-center p-10  items-center "
+                      className="border-dashed space-y-4 border-2 mx-4 md:mx-10 my-8 md:my-16 flex flex-col border-gray-300 justify-center p-10  items-center "
                     >
                       <input {...getInputProps()} />
                       <p>
-                        <BsCloudUpload className="text-6xl text-gray-600" />
+                        <BsCloudUpload className="md:text-6xl text-3xl text-gray-600" />
                       </p>
 
-                      <div className="space-y-3 flex flex-col items-center justify-center">
+                      <div className="space-y-3 text-center text-sm md:text-lg flex flex-col items-center justify-center">
                         <p>Click here or Drag & drop images here </p>
 
                         <div>
@@ -772,8 +772,8 @@ function Verifyaccount() {
                 {/* company account details form  */}
                 <hr className="mb-10" />
 
-                <div className=" m-10 space-y-5">
-                  <label className="block  text-sm font-medium text-gray-700">
+                <div className="m-5 md:m-10 space-y-3 md:space-y-5">
+                  <label className="block text-[10px]  md:text-sm font-medium text-gray-700">
                     Account Number
                   </label>
                   <input
@@ -785,8 +785,8 @@ function Verifyaccount() {
                   />
                 </div>
 
-                <div className=" m-10 space-y-5">
-                  <label className="block  text-sm font-medium text-gray-700">
+                <div className=" m-5 md:m-10 space-y-3 md:space-y-5">
+                  <label className="block   text-[10px]  md:text-sm font-medium text-gray-700">
                     Account Name
                   </label>
                   <input
@@ -798,8 +798,8 @@ function Verifyaccount() {
                   />
                 </div>
 
-                <div className=" m-10 space-y-5">
-                  <label className="block  text-sm font-medium text-gray-700">
+                <div className="m-5 md:m-10 space-y-3 md:space-y-5">
+                  <label className="block  text-[10px]  md:text-sm font-medium text-gray-700">
                     Type of Account
                   </label>
                   <input
@@ -811,8 +811,8 @@ function Verifyaccount() {
                   />
                 </div>
 
-                <div className=" m-10 space-y-5">
-                  <label className="block  text-sm font-medium text-gray-700">
+                <div className=" m-5 md:m-10 space-y-3 md:space-y-5">
+                  <label className="block  text-[10px]  md:text-sm font-medium text-gray-700">
                     Bank Name
                   </label>
                   <input
