@@ -47,11 +47,11 @@ const notification = () => {
       <div className="flex text-center justify-between p-2">
         <div className="text-lg ml-3 font-bold ">Notifications</div>
 
-        <div className="flex justify-evenly">
-          <pre className="bg-bellefuBackground text-bellefuOrange rounded   p-1">
-            Clear
-          </pre>
+
+        <div className="bg-bellefuBackground hover:text-orange-200 text-bellefuOrange rounded   p-1">
+          Clear
         </div>
+
       </div>
       <hr />
 
