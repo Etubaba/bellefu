@@ -17,8 +17,15 @@ import NavLink from "./NavLink";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { isLoggedIn } from "../../features/bellefuSlice";
+import Skeleton from "@mui/material/Skeleton";
+import  { useState, useEffect } from "react";
+
+
 
 const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
+
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter(),
     iconValues = [
@@ -67,6 +74,14 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
       });
     };
 
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setLoading(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }, []);
+    
   return (
     <div className="lg:hidden bg-bellefuWhite w-full absolute left-0 pt-4 z-40 ">
       {loading?<div className="w-full h-[100vh] overflow-auto" id="side-bar">
@@ -110,8 +125,8 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
                   className="rounded block sm:hidden lg:hidden "
                   variant="rectangular"
                   animation="wave"
-                  width={250}
-                  height={600}
+                  width={"100%"}
+                  height={800}
                 />}
     </div>
   );
