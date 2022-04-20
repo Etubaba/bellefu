@@ -63,7 +63,7 @@ const messages = ({ data1 }) => {
     }).then((res) => {
       if (res.data.status) {
         setMessage("");
-        setFile("");
+        setFile(undefined);
       }
     });
   };
@@ -126,23 +126,7 @@ const messages = ({ data1 }) => {
 
   // change from unread to seen message 
 
-  const seenMessage = () => {
 
-    if (unread > 0) {
-      axios.post(`${apiData}update/seen/status`, {
-        receiverId: receiverId, userId: senderId
-      }).then((res) => console.log(res.data))
-        .catch((err) => console.log('wahala =>', err))
-
-      checkRead(msgRead(1))
-
-
-
-    } else {
-      return;
-    }
-
-  }
 
 
 
@@ -200,7 +184,17 @@ const messages = ({ data1 }) => {
                 setLname(item.last_name);
                 setDp(item.avatar);
                 setRead(!read);
-                seenMessage()
+                if (item.unread > 0) {
+                  axios.post(`${apiData}update/seen/status`, {
+                    receiverId: item.id, userId: senderId
+                  }).then((res) => console.log(res.data))
+                    .catch((err) => console.log('wahala =>', err))
+
+                  checkRead(msgRead())
+
+                } else {
+                  return;
+                }
               }}
               key={index}
               className="p-2  mx-auto w-full  lg:w-[93%] lg:p-5 my-3 md:my-5 border-b md:border md:rounded-lg hover:bg-[#F9FDF5]  h-auto"

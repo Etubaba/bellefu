@@ -66,6 +66,9 @@ const NavBar = () => {
       .then((res) => setUnseen(res.data.unseen));
   }, [msgRead]);
 
+
+
+
   console.log('read message', msgRead)
   //new notification
   useEffect(() => {
