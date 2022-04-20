@@ -322,7 +322,7 @@ function Verifyaccount() {
       ) : (
         // verification options
         <div className="flex flex-col flex-auto mb-8">
-          <div className="hover:bg-[#F8FDF2] mt-10 mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
+          <div className="hover:bg-[#F8FDF2] mt-10 mb-2 md:mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
             <div className="flex justify-between items-center">
               <div className="flex px-8">
                 <p className="md:mr-5 mr-3 pt-1">
@@ -344,63 +344,66 @@ function Verifyaccount() {
               // phone verification
 
               <div className=" ease-out h-auto">
-                <div className="flex flex-col h-auto space-y-5 justify-center items-center  mt-16 mb-16">
-                  <p className="mb-5">
+                <div className="flex flex-col text-center h-auto space-y-5 justify-center items-center  mt-16 mb-10">
+                  <p className="mb-5  text-sm md:text-lg">
                     A verification code has been sent to this number :{" "}
                     <strong>{userId?.phone} </strong>
                   </p>
-                  <div className="flex bg-white p-5 border justify-center text-center px-2 mt-5 rounded-md">
-                    <input
-                      value={firstNo}
-                      onChange={(e) => setFirstNo(e.target.value)}
-                      className="m-2 border h-12 w-12 text-center form-control rounded"
-                      type="text"
-                      maxlength="1"
-                      ref={firstInput}
-                    />
-                    <input
-                      value={secondNo}
-                      onChange={(e) => setSecondNo(e.target.value)}
-                      className="m-2 border h-12 w-12 text-center form-control rounded"
-                      type="text"
-                      maxlength="1"
-                      ref={secondInput}
-                    />
-                    <input
-                      value={thirdNo}
-                      onChange={(e) => setThirdNo(e.target.value)}
-                      className="m-2 border h-12 w-12 text-center form-control rounded"
-                      type="text"
-                      maxlength="1"
-                      ref={thirdInput}
-                    />
-                    <input
-                      value={fourthNo}
-                      onChange={(e) => setFouthNo(e.target.value)}
-                      className="m-2 border h-12 w-12 text-center form-control rounded"
-                      type="text"
-                      maxlength="1"
-                      ref={fourthInput}
-                    />
-                    <input
-                      value={fifthNo}
-                      onChange={(e) => setFifthNo(e.target.value)}
-                      ref={fifthInput}
-                      className="m-2 border h-12 w-12 text-center form-control rounded"
-                      type="text"
-                      maxlength="1"
-                    />
-                    <input
-                      value={sixthNo}
-                      ref={sixthInput}
-                      onChange={(e) => setSixthNo(e.target.value)}
-                      className="m-2 border h-12 w-12 text-center form-control rounded"
-                      type="text"
-                      maxlength="1"
-                    />
+                  <div className="px-2 w-full md:w-1/2 mx-auto mt-5">
+
+                    <div className="flex bg-white border rounded-md space-x-2 items-center justify-center md:px-7 md:py-4 p-2">
+                      <input
+                        value={firstNo}
+                        onChange={(e) => setFirstNo(e.target.value)}
+                        className=" border h-8 md:h-10 w-full text-center form-control rounded"
+                        type="text"
+                        maxlength="1"
+                        ref={firstInput}
+                      />
+                      <input
+                        value={secondNo}
+                        onChange={(e) => setSecondNo(e.target.value)}
+                        className="border h-8 md:h-10 w-full text-center form-control rounded"
+                        type="text"
+                        maxlength="1"
+                        ref={secondInput}
+                      />
+                      <input
+                        value={thirdNo}
+                        onChange={(e) => setThirdNo(e.target.value)}
+                        className=" border w-full h-8 md:h-10 text-center form-control rounded"
+                        type="text"
+                        maxlength="1"
+                        ref={thirdInput}
+                      />
+                      <input
+                        value={fourthNo}
+                        onChange={(e) => setFouthNo(e.target.value)}
+                        className=" border h-8 md:h-10 w-full text-center form-control rounded"
+                        type="text"
+                        maxlength="1"
+                        ref={fourthInput}
+                      />
+                      <input
+                        value={fifthNo}
+                        onChange={(e) => setFifthNo(e.target.value)}
+                        ref={fifthInput}
+                        className=" border h-8 md:h-10 w-full text-center form-control rounded"
+                        type="text"
+                        maxlength="1"
+                      />
+                      <input
+                        value={sixthNo}
+                        ref={sixthInput}
+                        onChange={(e) => setSixthNo(e.target.value)}
+                        className=" border h-8 md:h-10 w-full text-center form-control rounded"
+                        type="text"
+                        maxlength="1"
+                      />
+                    </div>
                   </div>
 
-                  <p className="my-14 ">
+                  <p className="md:my-14 my-8 text-sm md:text-lg ">
                     Request another code in:
                     {showCount ? (
                       <Countdown
@@ -413,22 +416,22 @@ function Verifyaccount() {
                     )}
                   </p>
 
-                  <div className="flex space-x-3 pt-10 justify-center items-center">
+                  <div className=" block md:flex space-y-3 md:space-y-0 md:space-x-3 pt-10 justify-center items-center">
                     <button
                       onClick={handleCall}
                       disabled={showCount ? true : false}
                       className={
                         !showCount
                           ? "flex hover:bg-green-600  rounded-md text-white py-3 px-10 space-x-3 bg-bellefuGreen"
-                          : "flex   rounded-md text-white py-3 px-10 space-x-3 bg-[#E0E0E0] "
+                          : "flex   rounded-md text-white  py-3 px-10 space-x-3 bg-[#E0E0E0] "
                       }
                     >
                       <MdVerified
                         className={
-                          showCount ? "text-xl text-[#A6A6A6]" : "text-xl"
+                          showCount ? "text-xl  text-[#A6A6A6]" : "text-xl "
                         }
                       />
-                      <span className={showCount ? "text-[#A6A6A6]" : null}>
+                      <span className={showCount ? "text-[#A6A6A6] md:text-lg text-sm" : 'md:text-lg text-sm'}>
                         Request call verification
                       </span>
                     </button>
@@ -446,7 +449,7 @@ function Verifyaccount() {
                           showCount ? "text-xl text-[#A6A6A6]" : "text-xl"
                         }
                       />
-                      <span className={showCount ? "text-[#A6A6A6]" : null}>
+                      <span className={showCount ? "text-[#A6A6A6] md:text-lg text-sm" : 'md:text-lg text-sm'}>
                         Request OTP verification
                       </span>
                     </button>
@@ -476,7 +479,7 @@ function Verifyaccount() {
 
           {/* ID verification */}
 
-          <div className="hover:bg-[#F8FDF2] mt-10 mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
+          <div className="hover:bg-[#F8FDF2] mt-10 mb-2 md:mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
             <div className="flex justify-between items-center">
               <div className="flex px-8">
                 <p className="md:mr-5 mr-3 pt-1">
@@ -498,7 +501,7 @@ function Verifyaccount() {
             {idopen && <hr className="mt-7" />}
 
             {idopen && preview === undefined && (
-              <div className="h-80">
+              <div className="md:h-80 h-auto">
                 <Dropzone
                   onDrop={(acceptedFiles) => {
                     for (let i = 0; i < acceptedFiles.length; i++) {
@@ -512,14 +515,14 @@ function Verifyaccount() {
                   {({ getRootProps, getInputProps }) => (
                     <div
                       {...getRootProps()}
-                      className="border-dashed space-y-4 border-2 mx-10 my-16 flex flex-col border-gray-300 justify-center p-10  items-center "
+                      className="border-dashed space-y-4 border-2 mx-4 md:mx-10 my-8 md:my-16 flex flex-col border-gray-300 justify-center p-10  items-center "
                     >
                       <input {...getInputProps()} />
                       <p>
-                        <BsCloudUpload className="text-6xl text-gray-600" />
+                        <BsCloudUpload className="md:text-6xl text-3xl text-gray-600" />
                       </p>
 
-                      <div className="space-y-3 flex flex-col items-center justify-center">
+                      <div className="space-y-3 text-center text-sm md:text-lg flex flex-col items-center justify-center">
                         <p>Click here or Drag & drop images here </p>
 
                         <div>
@@ -538,16 +541,16 @@ function Verifyaccount() {
             {/* when first file is uploaded  */}
 
             {preview !== undefined && idopen && !idsubmitted && (
-              <div className="h-80  ">
-                <div className="flex items-center my-10 justify-center">
-                  <div className="h-40 w-[40%] mr-3 justify-center items-center  border-dashed border">
+              <div className="md:h-80 h-auto  ">
+                <div className="md:flex block items-center space-y-5 md:space-y-0 my-10 justify-center">
+                  <div className="md:h-40  md:mx-0 md:w-[40%] px-2 md:px-0 w-full h-auto  md:mr-3 justify-center items-center  border-dashed border">
                     <img
                       alt="invincible"
                       src={preview}
-                      className="h-[98%] w-[99%]"
+                      className="md:h-[98%] md:w-[99%] w-full h-98% object-contain rounded"
                     />
                   </div>
-                  <div className="h-40 w-[40%] items-center justify-center border-dashed border">
+                  <div className="md:h-40 md:w-[40%] px-2 md:px-0 h-auto w-full items-center justify-center border-dashed border">
                     {preview2 === undefined ? (
                       <Dropzone
                         onDrop={(acceptedFiles) => {
@@ -562,7 +565,7 @@ function Verifyaccount() {
                         {({ getRootProps, getInputProps }) => (
                           <p {...getRootProps()}>
                             <input {...getInputProps()} />
-                            <VscAdd className="text-6xl my-12 mx-32 text-gray-300" />
+                            <VscAdd className="md:text-6xl text-3xl my-12 mx-32 text-gray-300" />
                           </p>
                         )}
                       </Dropzone>
@@ -570,20 +573,20 @@ function Verifyaccount() {
                       <img
                         alt="invincible"
                         src={preview2}
-                        className="h-[98%] w-[99%]"
+                        className="md:h-[98%] md:w-[99%] w-full h-98% object-contain rounded"
                       />
                     )}
                   </div>
                 </div>
 
-                <div className="items-center flex space-x-5  justify-center">
-                  <button className="px-32 py-4 hover:bg-gray-200 border  rounded">
+                <div className="items-center space-y-5 flex md:space-y-0 flex-col md:flex-row md:space-x-5  justify-center">
+                  <button className="md:px-32 md:py-4 px-20 py-3 hover:bg-gray-200 border  rounded">
                     {" "}
                     Cancel
                   </button>
                   <button
                     onClick={handleIdSubmit}
-                    className="px-32 py-4 bg-bellefuOrange hover:bg-orange-500 text-white rounded"
+                    className="md:px-32 md:py-4 px-20 py-3 bg-bellefuOrange hover:bg-orange-500 text-white rounded"
                   >
                     {" "}
                     Submit{" "}
@@ -593,9 +596,9 @@ function Verifyaccount() {
             )}
 
             {preview !== undefined && idopen && idsubmitted && (
-              <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-                <MdVerified className="text-8xl  mb-5 text-bellefuOrange" />
-                <p className="mb-7 text-center">
+              <div className="flex flex-col justify-center md:my-24 my-12 items-center">
+                <MdVerified className="md:text-8xl text-6xl  mb-5 text-bellefuOrange" />
+                <p className="mb-7 text-sm md:text-lg text-center">
                   <strong> Congrats !!!</strong>
                   <br />
                   {isverified?.id
@@ -617,7 +620,7 @@ function Verifyaccount() {
 
           {/* KYC Verification */}
 
-          <div className="hover:bg-[#F8FDF2] mt-10 mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
+          <div className="hover:bg-[#F8FDF2] mt-10 mb-2 md:mb-5 mx-3 md:mx-10 py-8 rounded-lg border">
             <div className="flex justify-between items-center">
               <div className="flex px-8">
                 <p className="md:mr-5 mr-3 pt-1">
