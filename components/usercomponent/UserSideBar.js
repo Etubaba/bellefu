@@ -20,10 +20,7 @@ import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 const UserSideBar = () => {
-
   const [loading, setLoading] = useState(false);
-
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,7 +28,6 @@ const UserSideBar = () => {
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
-
 
   const dispatch = useDispatch();
   const router = useRouter(),
@@ -83,43 +79,47 @@ const UserSideBar = () => {
 
   return (
     <div className="hidden lg:inline h-[90vh]  overflow-auto bg-bellefuWhite w-[25vw] mr-3 mt-6 pt-4">
-     {loading? <div className="" id="side-bar">
-        {iconValues.map((iconValue, index) => {
-          if (index === lastElem) {
-            return (
-              <p
-                className="flex m-4 mb-24 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
-                onClick={handleLogout}
-                key={index}
-              >
-                <span className="pt-1 px-3">
-                  <iconValue.icon />
-                </span>
-                <span>{iconValue.text}</span>
-              </p>
-            );
-          }
+      {loading ? (
+        <div className="" id="side-bar">
+          {iconValues.map((iconValue, index) => {
+            if (index === lastElem) {
+              return (
+                <p
+                  className="flex m-4 mb-24 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
+                  onClick={handleLogout}
+                  key={index}
+                >
+                  <span className="pt-1 px-3">
+                    <iconValue.icon />
+                  </span>
+                  <span>{iconValue.text}</span>
+                </p>
+              );
+            }
 
-          if (iconValue.icon) {
-            return (
-              <NavLink
-                to={iconValue.to}
-                className="flex m-4 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
-                icon={iconValue}
-                key={index}
-              />
-            );
-          } else {
-            return <hr key={index} />;
-          }
-        })}
-      </div>: <Skeleton
-                  className="rounded hidden sm:block lg:block "
-                  variant="rectangular"
-                  animation="wave"
-                  width={330}
-                  height={900}
-                />}
+            if (iconValue.icon) {
+              return (
+                <NavLink
+                  to={iconValue.to}
+                  className="flex m-4 cursor-pointer hover:bg-bellefuBackground rounded-lg py-1.5"
+                  icon={iconValue}
+                  key={index}
+                />
+              );
+            } else {
+              return <hr key={index} />;
+            }
+          })}
+        </div>
+      ) : (
+        <Skeleton
+          className="rounded hidden sm:block lg:block "
+          variant="rectangular"
+          animation="wave"
+          width={330}
+          height={900}
+        />
+      )}
     </div>
   );
 };

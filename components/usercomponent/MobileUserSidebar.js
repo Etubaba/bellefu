@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import {
   MdAccountBox,
@@ -17,9 +17,11 @@ import NavLink from "./NavLink";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { isLoggedIn } from "../../features/bellefuSlice";
+import Skeleton from "@mui/material/Skeleton";
 
 const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
+
   const router = useRouter(),
     iconValues = [
       { icon: MdAccountBox, text: "Account overview", to: "/users" },
@@ -69,7 +71,7 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
 
   return (
     <div className="lg:hidden bg-bellefuWhite w-full absolute left-0 pt-4 z-40 ">
-      {loading?<div className="w-full h-[100vh] overflow-auto" id="side-bar">
+      <div className="w-full h-[100vh] overflow-auto" id="side-bar">
         <p
           className="absolute flex justify-end pr-3 mt-3 right-0"
           onClick={() => setIsOpen(false)}
@@ -106,13 +108,7 @@ const MobileUserSideBar = ({ isOpen, setIsOpen }) => {
             return <hr key={index} />;
           }
         })}
-      </div>:<Skeleton
-                  className="rounded block sm:hidden lg:hidden "
-                  variant="rectangular"
-                  animation="wave"
-                  width={250}
-                  height={600}
-                />}
+      </div>
     </div>
   );
 };
