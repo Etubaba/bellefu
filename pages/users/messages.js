@@ -80,16 +80,31 @@ const messages = ({ data1 }) => {
 
   // get chat between two people
 
-  useEffect(() => {
-    const getChat = async () => {
-      // senderId/receiverId
-      await axios
-        .get(`${apiData}single/contact/${senderId}/${receiverId}`)
-        .then((res) => setChat(res.data.data));
-    };
+  // useEffect(() => {
+  //   const getChat = async () => {
+  //     // senderId/receiverId
+  //     await axios
+  //       .get(`${apiData}single/contact/${senderId}/${receiverId}`)
+  //       .then((res) => setChat(res.data.data));
+  //   };
 
+  //   getChat();
+  // }, [message, receiverId]);
+
+
+
+
+  const getChat = async () => {
+    // senderId/receiverId
+    await axios
+      .get(`${apiData}single/contact/${senderId}/${receiverId}`)
+      .then((res) => setChat(res.data.data));
+  };
+
+
+  setTimeout(() => {
     getChat();
-  }, [message, receiverId]);
+  }, 5000)
 
 
   //automatic scroll to the bottom in chat
@@ -322,7 +337,7 @@ const messages = ({ data1 }) => {
                 </div>
               ))}
 
-              {file !== undefined && read && (
+              {/* {file !== undefined && read && (
 
                 <div className='flex rounded-t-lg justify-center top-[61%] left-96  items-center absolute bg-white w-[64%] h-40'>
                   <img
@@ -334,7 +349,7 @@ const messages = ({ data1 }) => {
                     onClick={() => setFile(undefined)}
                     className='bg-red-600 px- top-5 left-[55.5%] h-6 w-6 absolute flex items-center justify-center rounded-full' > <MdClose className='text-white text-xl' /></span>
                 </div>
-              )}
+              )} */}
 
 
 
