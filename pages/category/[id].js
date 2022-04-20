@@ -133,21 +133,21 @@ const Product = () => {
                 <ul className="rounded px-5 py-4">
                   {index?.categories.map((cat) => (
                     <li
-                      key={cat.id}
+                      key={cat?.id}
                       onClick={() => {
                         setOpen(false);
-                        dispatch(selectCat(cat.id));
-                        dispatch(updateIdpath(cat.id));
-                        setCatUpdate(cat.id);
+                        dispatch(selectCat(cat?.id));
+                        dispatch(updateIdpath(cat?.id));
+                        setCatUpdate(cat?.id);
                       }}
                       className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                     >
                       <img
-                        src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat.image}`}
+                        src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat?.image}`}
                         alt="icons"
                         className="w-6 h-6 object-cover"
                       />
-                      <span>{cat.name}</span>
+                      <span>{cat?.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -182,12 +182,12 @@ const Product = () => {
                     <li
                       onClick={() => {
                         setOpen1(!open1);
-                        setSubCatText(item.subCatName);
+                        setSubCatText(item?.subCatName);
                       }}
-                      key={item.id}
+                      key={item?.id}
                       className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                     >
-                      <span>{item.subCatName}</span>
+                      <span>{item?.subCatName}</span>
                     </li>
                   ))}
                 </ul>
@@ -220,10 +220,10 @@ const Product = () => {
                 <ul className="rounded h-80 overflow-y-scroll px-5 py-4">
                   {province.map((state) => (
                     <li
-                      key={state.id}
+                      key={state?.id}
                       className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                     >
-                      <span>{state.name}</span>
+                      <span>{state?.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -419,20 +419,20 @@ const Product = () => {
                     <ul className="rounded px-5 py-4">
                       {index?.categories.map((cat) => (
                         <li
-                          key={cat.id}
+                          key={cat?.id}
                           onClick={() => {
                             setOpen(false);
-                            dispatch(updateIdpath(cat.id));
-                            setCatUpdate(cat.id);
+                            dispatch(updateIdpath(cat?.id));
+                            setCatUpdate(cat?.id);
                           }}
                           className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                         >
                           <img
-                            src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat.image}`}
+                            src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat?.image}`}
                             alt="icons"
                             className="w-6 h-6 object-cover"
                           />
-                          <span>{cat.name}</span>
+                          <span>{cat?.name}</span>
                         </li>
                       ))}
                     </ul>
@@ -467,12 +467,12 @@ const Product = () => {
                         <li
                           onClick={() => {
                             setOpen1(!open1);
-                            setSubCatText(item.subCatName);
+                            setSubCatText(item?.subCatName);
                           }}
-                          key={item.id}
+                          key={item?.id}
                           className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                         >
-                          <span>{item.subCatName}</span>
+                          <span>{item?.subCatName}</span>
                         </li>
                       ))}
                     </ul>
@@ -508,10 +508,10 @@ const Product = () => {
                     <ul className="rounded h-80 overflow-y-scroll px-5 py-4">
                       {province.map((state) => (
                         <li
-                          key={state.id}
+                          key={state?.id}
                           className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                         >
-                          <span>{state.name}</span>
+                          <span>{state?.name}</span>
                         </li>
                       ))}
                     </ul>
