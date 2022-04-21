@@ -43,6 +43,7 @@ const ShopComponent = ({ product }) => {
     }
   }
 
+  console.log('!')
   const removeFav = () => {
 
     axios
