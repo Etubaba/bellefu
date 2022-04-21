@@ -7,9 +7,10 @@ import Skeleton from "@mui/material/Skeleton";
 import { useEffect, useState } from "react";
 
 import Footer from "../components/footer/Footer";
-import Mobilefooter from "../components/footer/Mobilefooter";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Mobilefooter from "../components/footer/Mobilefooter";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [loading, setLoading] = useState(false);
@@ -52,7 +53,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           height={500}
         />
       )}{" "}
-{     loading? <Mobilefooter />:(
+      {loading ? (
+        <Mobilefooter />
+      ) : (
         <Skeleton
           className="rounded my-3 block sm:hidden lg:hidden"
           variant="rectangular"
@@ -60,8 +63,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           width={"100%"}
           height={400}
         />
-      )
-}      <ToastContainer />
+      )}{" "}
+      <ToastContainer />
     </Provider>
   );
 }
