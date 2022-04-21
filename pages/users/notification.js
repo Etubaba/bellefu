@@ -124,7 +124,7 @@ const notification = () => {
         {loading?<div className="h-full">
         <div
           onClick={deleteAll}
-          className="bg-bellefuBackground hover:text-orange-200 text-bellefuOrange rounded px-2  p-1"
+          className="bg-bellefuBackground hover:text-orange-200 cursor-pointer text-bellefuOrange rounded px-2  p-1"
         >
           Clear
         </div>
