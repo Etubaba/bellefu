@@ -4,6 +4,9 @@ import CategoryProductList from "./CategoryProductList";
 import Loader from "../../constant";
 
 const CategoryProducts = ({ product }) => {
+
+
+
   return (
     <div>
       <MainProductHeader />

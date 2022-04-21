@@ -25,6 +25,7 @@ const Product = () => {
   const [subcat, setSubcat] = useState([]);
   const [product, setProduct] = useState([]);
   const [subCatText, setSubCatText] = useState(null);
+  const [subCatId, setSubCatId] = useState(null);
   const [stateList, setStateList] = useState([]);
 
   const productId = useSelector((state) => state.bellefu.catfilter);
@@ -74,27 +75,39 @@ const Product = () => {
     fetchStates();
   }, [state]);
 
-  // const filterproduct = product.filter((newP)=>{
-  //   if(newP.catId===product)
-  // })
 
   const province = country === null ? index?.countryStates : stateList;
 
-  // console.log(index);
 
-  // methods for the range
-  // const [value, setValue] = useState([20, 37]);
+
+
 
   const [startPrice, setStartPrice] = useState(100);
   const [endPrice, setEndPrice] = useState(1000000);
 
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+
   const handleChange = (event, value) => {
     setStartPrice(value[0]);
     setEndPrice(value[1]);
   };
+
+
+  const filterProduct = product.filter((newP) => {
+    if (startPrice === 100 && subCatId === null) {
+      return newP;
+    } else if (newP.price >= startPrice && newP.price <= endPrice) {
+      return newP;
+    } else if (newP.subcategory_id === subCatId) {
+      return newP;
+    }
+
+  })
+
+
+
+  console.log('newproducts->', filterProduct)
+  console.log('subcat->', subCatId)
+
 
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
@@ -185,7 +198,7 @@ const Product = () => {
                   {subCatText === null ? " Select Subcategory" : subCatText}
                 </h5>
               </div>
-              {open1 === false ? (
+              {!open1 ? (
                 <div onClick={() => setOpen1(!open1)}>
                   <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
                 </div>
@@ -195,14 +208,16 @@ const Product = () => {
                 </div>
               )}
             </div>
-            {open1 === true ? (
+            {open1 ? (
               <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in">
                 <ul className="rounded px-5 py-4">
                   {subcat?.map((item) => (
                     <li
                       onClick={() => {
                         setOpen1(!open1);
-                        setSubCatText(item?.subCatName);
+                        setSubCatText(item.subCatName);
+                        setSubCatId(item.subCatId)
+
                       }}
                       key={item?.id}
                       className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
@@ -374,8 +389,9 @@ const Product = () => {
                     <Slider
                       size="small"
                       getAriaLabel={() => "Price range"}
-                      min={100}
-                      max={500000}
+                      min={index?.defaultCountry === 'NG' ? 100 :
+                        1}
+                      max={index.defaultCountry === 'NG' ? 1000000 : 100000}
                       onChange={handleChange}
                       defaultValue={[startPrice, endPrice]}
                       valueLabelDisplay="auto"
