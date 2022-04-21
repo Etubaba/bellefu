@@ -17,17 +17,12 @@ import {
   chooseCountry,
   handleSearch,
   selectCat,
- 
 } from "../../features/bellefuSlice";
 // import { BiSearch } from "react-icons/bi";
 // import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 // import MobileHeaderSearch from "./MobileHeaderSearch";
 
 const HeaderSearch = () => {
-
-
-
-
   const [open, setOpen] = useState(false);
   const [selectCountry, setSelectCountry] = useState(false);
   const [selectlang, setSelectlang] = useState(false);
@@ -43,13 +38,12 @@ const HeaderSearch = () => {
 
   const index = useSelector(homeData);
 
-
-  const dialet =index?.defaultLanguage;
-  const state =index?.countryStates;
+  const dialet = index?.defaultLanguage;
+  const state = index?.countryStates;
   const defaultCountry = index?.defaultCountryName;
-  const languages =index?.languages;
-  const countries =index?.countries;
-  const location =index?.defaultCountry;
+  const languages = index?.languages;
+  const countries = index?.countries;
+  const location = index?.defaultCountry;
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -66,14 +60,10 @@ const HeaderSearch = () => {
   return (
     <div>
       {/* desktop screen header search */}
-      <div className="inline lg:hidden">
-        <div
-          className={
-            "w-full h-20  flex space-x-96     rounded-md items-center "
-          }
-        >
-          <div className="flex">
-            <div className="flex space-x-4 items-center justify-center ml-8">
+      <div className="lg:hidden">
+        <div className={"w-full flex rounded-md items-center "}>
+          <div className="flex space-x-5 ml-6">
+            <div className="flex space-x-2 items-center justify-center py-1">
               <div>
                 <img
                   alt="error"
@@ -97,7 +87,7 @@ const HeaderSearch = () => {
               />
             </div>
             {selectCountry && (
-              <div className="z-10 absolute top-36 left-[6%]  h-80 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="z-10 absolute left-22  h-80 overflow-y-scroll mt-10 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="flex items-center justify-center mx-auto my-3 ">
                   <input
                     type="text"
@@ -152,11 +142,9 @@ const HeaderSearch = () => {
               </div>
             )}
 
-
-
             {/* language */}
             {selectlang && (
-              <div className="z-50 absolute top-32 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="z-50 absolute mt-10 w-1/4 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {languages.map((lang) => (
                   <div
                     onClick={() => {
@@ -180,7 +168,7 @@ const HeaderSearch = () => {
                 setOpen(false);
                 setSelectlang(!selectlang);
               }}
-              className=" bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex"
+              className=" bg-bellefuOrange space-x-2 rounded-sm items-center px-2 py-1 justify-center ml-6 flex"
             >
               <p className="text-white">
                 {native === null

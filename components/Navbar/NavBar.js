@@ -74,21 +74,22 @@ const NavBar = () => {
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
       {/* left side */}
-      <div
-        onClick={() => router.push("/")}
-        className="bg-white relative p-2 rounded-md w-24 md:w-24 h-10 md:h-12 flex items-center justify-center cursor-pointer"
-      >
-        {" "}
-        <Image
-          src={BellefuLogo}
-          alt="bellefu-logo"
-          object-fit="cover"
-          className="rounded-lg p-2 "
-        />
+      <div className="flex items-center">
+        <div
+          onClick={() => router.push("/")}
+          className="bg-white p-2 rounded-md w-24 md:w-24 h-10 md:h-12 flex items-center justify-center cursor-pointer"
+        >
+          {" "}
+          <Image
+            src={BellefuLogo}
+            alt="bellefu-logo"
+            object-fit="cover"
+            className="rounded-lg p-2 "
+          />
+        </div>
+        {/* $$country select and language select for mobile */}
+        <Navbarsch />
       </div>
-
-      {/* $$country select and language select for mobile */}
-      <Navbarsch />
 
       {/* ################################## */}
 
