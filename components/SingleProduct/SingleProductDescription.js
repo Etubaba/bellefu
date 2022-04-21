@@ -18,9 +18,9 @@ import {
 
 import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { login } from "../../features/bellefuSlice";
+import { login, userFav } from "../../features/bellefuSlice";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
@@ -41,7 +41,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const receiverId = productDetails[0]?.productOwnerId;
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
-
+  const dispatch = useDispatch();
   // check if product is among favorite
 
   // console.log("details =>", productDetails);
@@ -116,6 +116,10 @@ const SingleProductDescription = ({ productDetails }) => {
   }, []);
 
   const favArr = fav?.map((item) => item.productId);
+
+  if (favArr && isLoggedIn) {
+    dispatch(userFav(favArr));
+  }
 
   const [clean, setClean] = useState(favArr);
 

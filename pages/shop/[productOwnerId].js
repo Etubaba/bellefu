@@ -7,11 +7,10 @@ import { userDId } from "../../features/bellefuSlice";
 const Shop = ({ userProducts }) => {
   const details = useSelector(userDId);
 
-  console.log("details", details);
-  console.log("userProducts", userProducts);
-
   const products = userProducts.data.data;
-  console.log("products", products);
+
+
+
   return (
     <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto">
       <ShopSideBar userDetails={details} />

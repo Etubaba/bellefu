@@ -4,6 +4,7 @@ const initialState = {
   idApply: typeof window !== "undefined" ? localStorage.getItem("idapply") : false,
   kycApply: typeof window !== "undefined" ? localStorage.getItem("kycapply") : false,
   subcatselected: undefined,
+  favArr: [],
   favLoad: 0,
   messageRead: 0,
   // messageRead: typeof window !== "undefined" ? localStorage.getItem("msg") : 0,
@@ -85,6 +86,10 @@ export const bellefuSlice = createSlice({
     kycpending: (state, action) => {
       state.kycApply = action.payload;
       localStorage.setItem('kycapply', state.kycApply)
+    },
+    userFav: (state, action) => {
+      state.favArr = action.payload;
+
     },
     favUpdated: (state) => {
       state.favLoad += 1;
@@ -213,7 +218,7 @@ export const {
   handleIndexApi,
   handleSearch,
   updateIdpath,
-  fetchData,
+  fetchData, userFav,
   Subcat, msgRead,
   selectCat, favUpdated,
   chooseState,
