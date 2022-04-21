@@ -9,7 +9,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 function Footer() {
   return (
-    <div className="bg-[#191A19] hidden lg:block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
+    <div className="bg-[#191A19] hidden lg:inline-block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
       <div className="flex justify-evenly space-x-10 mb-12">
         <div className="flex flex-col space-y-3 w-80">
           <img
@@ -34,11 +34,26 @@ function Footer() {
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             <li>
-              <a href='www.radio.bellefu.com ' className='link '>Bellefu Radio</a>
+              <a href="www.radio.bellefu.com " className="link ">
+                Bellefu Radio
+              </a>
             </li>
-            <li><a href='' className='link'>Training Group</a></li>
-            <li> <a href='www.webinar.bellefu.com' className='link'>Webinar</a>   </li>
-            <li ><a href='www.blog.bellefu.com ' className='link'>Blog</a></li>
+            <li>
+              <a href="" className="link">
+                Training Group
+              </a>
+            </li>
+            <li>
+              {" "}
+              <a href="www.webinar.bellefu.com" className="link">
+                Webinar
+              </a>{" "}
+            </li>
+            <li>
+              <a href="www.blog.bellefu.com " className="link">
+                Blog
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -48,14 +63,22 @@ function Footer() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li className='link'>Feedback</li>
+            <li className="link">Feedback</li>
 
-            <li >
-              <a className='link'
-                href='mailto:hr@bellefu.com?subject=Application'>Submit CV</a>
+            <li>
+              <a
+                className="link"
+                href="mailto:hr@bellefu.com?subject=Application"
+              >
+                Submit CV
+              </a>
             </li>
-            <li className='link'>Contact</li>
-            <li><a href='' className='link'>Documentary</a></li>
+            <li className="link">Contact</li>
+            <li>
+              <a href="" className="link">
+                Documentary
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -65,8 +88,10 @@ function Footer() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li><a className='link'>About us</a></li>
-            <li className='link'>Legal</li>
+            <li>
+              <a className="link">About us</a>
+            </li>
+            <li className="link">Legal</li>
           </ul>
         </div>
         <div className="space-y-2">
@@ -102,7 +127,6 @@ function Footer() {
           <input
             className="w-96 text-white rounded-sm bg-[#2C2C2C] mr-2 p-4 outline-none "
             type="email"
-
             placeholder="Enter your email here"
           />
           <button className="bg-bellefuOrange rounded-sm py-4  px-8 text-white">

@@ -13,12 +13,9 @@ import { login } from "../../features/bellefuSlice";
 const ShopComponent = ({ product }) => {
   const [fav2, setFav2] = useState(false);
   const router = useRouter();
-  const favArr = useSelector(state => state.bellefu?.favArr)
-  const userId = useSelector(state => state.bellefu?.profileDetails?.id)
+  const favArr = useSelector((state) => state.bellefu?.favArr);
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
-
-
-
 
   const addFav = (e) => {
     e.stopPropagation();
@@ -33,19 +30,15 @@ const ShopComponent = ({ product }) => {
           if (res.data.status) {
             setFav2(!fav2);
             toast.success(
-              `${product.title.substring(
-                0,
-                20
-              )} added to favourite`
+              `${product.title.substring(0, 20)} added to favourite`
             );
           }
         });
     }
-  }
+  };
 
-  console.log('!')
+  console.log("!");
   const removeFav = () => {
-
     axios
       .post(`${apiData}delete/favorite/webindex`, {
         productId: product.productId,
@@ -59,23 +52,19 @@ const ShopComponent = ({ product }) => {
           // );
           // setClean(cleanArr);
           toast.error(
-            `${product.title.substring(
-              0,
-              20
-            )} removed from favorite product`,
+            `${product.title.substring(0, 20)} removed from favorite product`,
             {
               position: "top-right",
             }
           );
         }
       });
-
-  }
+  };
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
-        onClick={() => router.push(`/product/${product.productId}`)}
+        // onClick={() => router.push(`/product/${product.productId}`)}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
       />
@@ -95,13 +84,15 @@ const ShopComponent = ({ product }) => {
         <p className="text-bellefuGreen font-poppins font-semibold">
           ₦ {product.price}
         </p>
-        {fav2 || favArr?.includes(product.productId) ?
+        {fav2 || favArr?.includes(product.productId) ? (
           <div onClick={removeFav} className="cursor-pointer">
             <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange" />
-          </div> :
+          </div>
+        ) : (
           <div onClick={addFav} className="cursor-pointer">
             <BsHeart className="w-4 h-4 text-bellefuOrange" />
-          </div>}
+          </div>
+        )}
       </div>
       <div className="flex items-center space-x-3 mt-2">
         <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">

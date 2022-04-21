@@ -9,35 +9,35 @@ import {
 
 function Mobilefooter() {
   return (
-    <div className="bg-[#3F3F3F] lg:hidden mt-7 md:px-7  px-4 w-full h-auto relative bottom-0 pb-3 pt-6">
-      <div className="flex space-x-2 items-center justify-between md:justify-between">
-        <div className="ml-2">
+    <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-4 w-full h-auto relative bottom-0 pb-3 ">
+      <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 md:items-center md:justify-between">
+        <div className="-mt-1 md:-mt-0">
           <img
             alt="logo"
             src="https://www.linkpicture.com/q/bellefulogo_1_-removebg-preview.png"
-            className="w-20 mt-5 h-10"
+            className="w-full mt-5 h-10 object-contain"
           />
         </div>
 
-        <div className=" flex flex-col space-y-2 items-center justify-center">
-          <p className="text-[#D4D7D1] text-xs text-center">
+        <div className=" flex flex-col space-y-2 md:items-center md:justify-center">
+          <p className="text-[#D4D7D1] md:text-sm text-base text-center tracking-wide font-semibold">
             Subscribe to our newsletters
           </p>
-          <div className="flex">
+          <div className="flex items-center w-4/5 space-x-2 pb-3 mx-auto">
             <input
-              className="w-44 md:w-80 bg-[#2c2c2c] rounded-sm p-1 outline-none "
+              className="w-full md:w-80 bg-[#2c2c2c] rounded-sm p-2 outline-none text-white text-lg"
               type="email"
               placeholder="Enter email here"
             />
-            <button className="bg-bellefuOrange rounded-bl-sm rounded-tl-sm py-2  px-3 text-white">
+            <button className="bg-bellefuOrange rounded-sm md:rounded-bl-sm md:rounded-tl-sm px-4 py-2 text-white font-semibold">
               Send
             </button>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-center items-center space-x-3 mt-6 ">
-        <p className="text-[#D4D7D1] hidden w-72 mr-20 md:inline-block text-justify font-light text-xs">
+      <div className="flex justify-evenly md:justify-between md:items-center space-x-3 mb-3">
+        <p className="text-[#D4D7D1] hidden w-1/3 md:inline-block text-justify font-light text-base">
           Bellefu.com is a dynamic online marketplace dedicated to
           agriculture-related activities ensuring farmers, buyers, and sellers
           of agricultural products have direct contact with other agro-allied
@@ -50,7 +50,7 @@ function Mobilefooter() {
             <strong>Tools & Resources</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-xs">
+          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-base md:text-sm">
             <li>Bellefu Radio</li>
             <li>Training Group</li>
             <li>Webinar</li>
@@ -63,7 +63,7 @@ function Mobilefooter() {
             <strong>Information</strong>
           </p>
 
-          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-xs">
+          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-base md:text-sm">
             <li>About us</li>
             <li>Legal</li>
             <li>Feedback</li>
@@ -76,7 +76,7 @@ function Mobilefooter() {
             <strong>Head Office</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-xs">
+          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-base md:text-sm">
             <li> 9550 Forest Lane</li>
             <li>Dallas TX, 75243,</li>
             <li>United State</li>
@@ -86,27 +86,27 @@ function Mobilefooter() {
 
       <hr className="" />
 
-      <div className=" flex items-center space-x-3 justify-center mb-4">
+      <div className=" flex items-center space-x-2 justify-center mb-4 mt-3">
         <img
           alt="error"
           src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
-          className="w-28 h-6 "
+          className="w-28 h-8 object-contain"
         />
         <img
           alt="error"
           src="https://www.linkpicture.com/q/ios-removebg-preview.png"
-          className="w-28 h-6"
+          className="w-28 h-8 object-contain"
         />
       </div>
 
-      <div className="space-x-3 flex items-center justify-evenly mb-4">
-        <BsFacebook className="text-[#d4d7d1] text-xl" />
-        <AiFillTwitterCircle className="text-[#d4d7d1] text-xl" />
-        <FaLinkedin className="text-[#d4d7d1] text-xl" />
-        <AiFillInstagram className="text-[#d4d7d1] text-xl" />
+      <div className="flex items-center justify-center mb-4 space-x-8">
+        <BsFacebook className="text-[#4267B2] text-2xl" />
+        <AiFillTwitterCircle className="text-[#00acee] text-2xl" />
+        <FaLinkedin className="text-[#0e76a8] text-2xl" />
+        <AiFillInstagram className="text-[#8a3ab9] text-2xl" />
       </div>
 
-      <p className="flex text-[#9c9c9c] items-center justify-center text-xs m-3 space-x-3">
+      <p className="flex text-[#9c9c9c] items-center justify-center text-base md:text-sm m-3 space-x-3">
         {/* <AiOutlineCopyrightCircle className="text-xl mr-2" /> */}© 2022
         Bellefu Agro consult. All rights reserved.
       </p>
