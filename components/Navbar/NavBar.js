@@ -14,7 +14,7 @@ import { profileDetails } from "../../features/bellefuSlice";
 import { isLoggedIn } from "../../features/bellefuSlice";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-
+import Navbarsch from "./Navbarsch";
 import MobileNavbar from "./MobileNavbar";
 import axios from "axios";
 import { apiData } from "../../constant";
@@ -44,20 +44,18 @@ const NavBar = () => {
 
   const handleNotify = () => {
     if (getIsLoggedIn) {
-      router.push("/users/notification")
-      axios.post(`${apiData}change/notification/read`, { userId: username?.id })
+      router.push("/users/notification");
+      axios
+        .post(`${apiData}change/notification/read`, { userId: username?.id })
         .then((res) => {
           if (res.data.status) {
-            console.log('na lie ')
+            console.log("na lie ");
           }
-        })
-
+        });
     } else {
-      toast.info("Login to view notification", { position: "top-right" })
+      toast.info("Login to view notification", { position: "top-right" });
     }
-  }
-
-
+  };
 
   // new message
   useEffect(() => {
@@ -66,17 +64,12 @@ const NavBar = () => {
       .then((res) => setUnseen(res.data.unseen));
   }, [msgRead]);
 
-
-
   //new notification
   useEffect(() => {
     axios
       .get(`${apiData}notification/count/${username?.id}`)
       .then((res) => setUnread(res.data.unread));
   }, []);
-
-
-
 
   return (
     <nav className="flex px-2 py-4 lg:px-12 lg:py-3 bg-bellefuGreen items-center justify-between sticky top-0 z-50 ">
@@ -93,6 +86,12 @@ const NavBar = () => {
           className="rounded-lg p-2 "
         />
       </div>
+
+      {/* $$country select and language select for mobile */}
+           <Navbarsch/>
+      
+      {/* ################################## */}
+
       {/* right side */}
 
       {/* mobile right side */}
@@ -141,10 +140,7 @@ const NavBar = () => {
                     className="rounded-full object-cover"
                   />
                   {unseen !== 0 ? (
-                    <p
-
-                      className="bg-bellefuOrange -top-2 left-5 h-5 w-5 absolute flex items-center justify-center rounded-full"
-                    >
+                    <p className="bg-bellefuOrange -top-2 left-5 h-5 w-5 absolute flex items-center justify-center rounded-full">
                       <span className="text-white text-[10px] text-center ">
                         {unseen}
                       </span>
@@ -247,9 +243,7 @@ const NavBar = () => {
               </p>
             </div>
           )}
-          <div className="relative cursor-pointer"
-            onClick={handleNotify}
-          >
+          <div className="relative cursor-pointer" onClick={handleNotify}>
             <IoMdNotifications
               className={
                 unread !== 0
@@ -259,10 +253,7 @@ const NavBar = () => {
             />
 
             {unread !== 0 ? (
-              <p
-
-                className=" bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full"
-              >
+              <p className=" bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full">
                 <span className="text-white text-[10px] text-center ">
                   {unread}
                 </span>

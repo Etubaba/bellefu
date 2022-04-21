@@ -79,7 +79,7 @@ function resetpassword() {
   };
 
   return (
-    <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite h-auto w-full md:w-auto pb-2">
+    <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite h-auto px-6 w-full md:w-auto pb-2">
       <div className="text-xl md:ml-4 self p-2 text-center lg:text-left">
         Reset Password
       </div>
@@ -98,7 +98,7 @@ function resetpassword() {
         </div>
       ) : (
         <div>
-          <div className="flex flex-col border rounded-lg w-full my-16 mx-2 lg:mx-20 lg:items-center lg:justify-center">
+          <div className="flex flex-col border rounded-lg w-full my-6   lg:items-center lg:justify-center">
             <form className="m-2 lg:m-6">
               <div className="col-span-6 sm:col-span-3 mb-10">
                 <label

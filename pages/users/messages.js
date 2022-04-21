@@ -18,6 +18,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 
 
+
 const messages = ({ data1 }) => {
   const [read, setRead] = useState(false);
   const [message, setMessage] = useState("");
@@ -170,7 +171,7 @@ const messages = ({ data1 }) => {
       <hr />
 
 
-      {loading?!read && contact.length === 0 && (
+      {!read && contact.length === 0 && (
 
         <div className="h-full px-2 ">
           <div className=" md:border mx-auto my-10 rounded-xl w-full lg:w-7/12 h-11/12 ">
@@ -183,13 +184,7 @@ const messages = ({ data1 }) => {
           </div>
         </div>
 
-      ):<Skeleton
-      className="rounded mt-6 "
-      variant="rectangular"
-      animation="wave"
-      width={"100%"}
-      height={500}
-    />}
+      )}
 
 
       {/* message contents 1 */}

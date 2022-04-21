@@ -398,14 +398,15 @@ const profile = ({ data1 }) => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="sm:px-6 lg:px-6 mt-3">
               <label
                 htmlFor="about"
-                className="block text-sm font-medium text-gray-700"
+                className=" text-sm flex justify-between font-medium text-gray-700"
               >
                 About Me
+                <p>{bioholder.length}/1500</p>
               </label>
-              <div className="mt-1">
+              <div className="mt-1 ">
                 <textarea
                   cols={3}
                   onChange={handleBio}
