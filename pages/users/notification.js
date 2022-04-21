@@ -99,7 +99,7 @@ const notification = () => {
     <div className="  rounded-lg mt-5 bg-bellefuWhite h-auto  w-full lg:w-auto pb-2 ">
       {loading ? (
         <div className="flex text-center justify-between p-2">
-          <div className="text-lg ml-3 font-bold ">Notifications</div>
+          <div className="text-lg md:ml-3 font-bold ">Notifications</div>
 
           <div
             onClick={deleteAll}
@@ -130,10 +130,11 @@ const notification = () => {
         </div>
       </div>
       <hr /> */}
-      
-        {notifyList?.length === 0 ? (
-          <>
-            {loading?<div className="h-full">
+
+      {notifyList?.length === 0 ? (
+        <>
+          {loading ? (
+            <div className="h-full">
               <div className="border mx-auto mt-10  rounded-xl    w-7/12 h-11/12 ">
                 <div className="flex flex-col justify-center mt-24 mb-24 items-center">
                   <BsBellFill className="text-4xl mb-5 text-gray-600" />
@@ -142,16 +143,19 @@ const notification = () => {
                   </p>
                 </div>
               </div>
-            <span className="text-orange-300 justify-end mt-28 mr-4  flex">
+              <span className="text-orange-300 justify-end mt-28 mr-4  flex">
                 <MdDeleteForever className="text-xl" /> Delete all notification
-            </span>
-            </div>:<Skeleton
+              </span>
+            </div>
+          ) : (
+            <Skeleton
               className="rounded mt-6 "
               variant="rectangular"
               animation="wave"
               width={"100%"}
               height={500}
-            />}
+            />
+          )}
         </>
       ) : (
         <>

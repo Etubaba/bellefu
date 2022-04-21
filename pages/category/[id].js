@@ -9,6 +9,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { homeData, updateIdpath, selectCat } from "../../features/bellefuSlice";
 import axios from "axios";
+import Slider from "@mui/material/Slider";
+
+function valuetext(value) {
+  return `₦ ${value}`;
+}
 
 const Product = () => {
   const [open, setOpen] = useState(false);
@@ -76,6 +81,21 @@ const Product = () => {
   const province = country === null ? index?.countryStates : stateList;
 
   // console.log(index);
+
+  // methods for the range
+  // const [value, setValue] = useState([20, 37]);
+
+  const [startPrice, setStartPrice] = useState(100);
+  const [endPrice, setEndPrice] = useState(1000000);
+
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
+  const handleChange = (event, value) => {
+    setStartPrice(value[0]);
+    setEndPrice(value[1]);
+  };
+
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
       <Head>
@@ -347,25 +367,51 @@ const Product = () => {
                       : ""
                   }
                 >
-                  <Range />
-                  <div className="flex space-x-6 items-center ">
-                    <div className="flex items-center space-x-2 mt-1">
+                  {/* <Range /> */}
+
+                  {/* the range starts here */}
+                  <div>
+                    <Slider
+                      size="small"
+                      getAriaLabel={() => "Price range"}
+                      min={100}
+                      max={500000}
+                      onChange={handleChange}
+                      defaultValue={[startPrice, endPrice]}
+                      valueLabelDisplay="auto"
+                      getAriaValueText={valuetext}
+                      sx={{ color: "#FFA500" }}
+                      disableSwap
+                    />
+                  </div>
+
+                  {/* the range ends here */}
+                  <div className="flex space-x-6 items-center justify-center">
+                    <div className="flex items-center space-x-2">
                       <p className="text-bellefuBlack1 text-sm whitespace-nowrap">
                         From :
                       </p>
-                      <input
+                      {/* <input
                         type="number"
+                        defaultValue={startPrice}
                         className="border outline-none pl-2 rounded-sm w-14 text-sm text-bellefuBlack1"
-                      />
+                      /> */}
+                      <p className="border outline-none px-2 rounded-sm w-auto text-sm text-bellefuBlack1">
+                        {startPrice}
+                      </p>
                     </div>
                     <div className="flex items-center space-x-2">
                       <p className="text-bellefuBlack1 text-sm whitespace-nowrap">
                         To :
                       </p>
-                      <input
+                      {/* <input
                         type="number"
+                        defaultValue={endPrice}
                         className="border outline-none pl-2 rounded-sm w-14 text-sm text-bellefuBlack1"
-                      />
+                      /> */}
+                      <p className="border outline-none px-2 rounded-sm w-auto text-sm text-bellefuBlack1">
+                        {endPrice}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -638,25 +684,46 @@ const Product = () => {
                       : ""
                   }
                 >
-                  <Range />
-                  <div className="flex space-x-6 items-center justify-center">
-                    <div className="flex items-center space-x-2 mt-1">
+                  {/* <Range /> */}
+
+                  {/* the range starts here */}
+                  <div>
+                    <Slider
+                      getAriaLabel={() => "Price range"}
+                      min={100}
+                      max={500000}
+                      onChange={handleChange}
+                      defaultValue={[startPrice, endPrice]}
+                      valueLabelDisplay="auto"
+                      getAriaValueText={valuetext}
+                      sx={{ color: "#FFA500" }}
+                      disableSwap
+                    />
+                  </div>
+                  <div className="flex space-x-6 items-center justify-center pb-2">
+                    <div className="flex items-center space-x-2 ">
                       <p className="text-bellefuBlack1 text-normal whitespace-nowrap">
                         From :
                       </p>
-                      <input
+                      {/* <input
                         type="number"
                         className="border outline-none px-2 py-1 rounded-sm w-full text-sm text-bellefuBlack1"
-                      />
+                      /> */}
+                      <p className="border outline-none p-2 rounded-sm w-auto text-sm text-bellefuBlack1">
+                        {startPrice}
+                      </p>
                     </div>
                     <div className="flex items-center space-x-2">
                       <p className="text-bellefuBlack1 text-normal whitespace-nowrap">
                         To :
                       </p>
-                      <input
+                      {/* <input
                         type="number"
                         className="border outline-none px-2 py-1 rounded-sm w-full text-sm text-bellefuBlack1"
-                      />
+                      /> */}
+                      <p className="border outline-none p-2 rounded-sm w-auto text-sm text-bellefuBlack1">
+                        {endPrice}
+                      </p>
                     </div>
                   </div>
                 </div>

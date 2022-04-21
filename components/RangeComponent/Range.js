@@ -19,6 +19,8 @@ export default function Range() {
         size="small"
         getAriaLabel={() => "Temperature range"}
         value={value}
+        min={100}
+        max={1000000}
         onChange={handleChange}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}

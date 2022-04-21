@@ -76,7 +76,7 @@ const NavBar = () => {
       {/* left side */}
       <div
         onClick={() => router.push("/")}
-        className="bg-white relative p-2 rounded-md w-24 md:w-24 h-10 md:h-12 flex items-center justify-center"
+        className="bg-white relative p-2 rounded-md w-24 md:w-24 h-10 md:h-12 flex items-center justify-center cursor-pointer"
       >
         {" "}
         <Image
@@ -88,22 +88,29 @@ const NavBar = () => {
       </div>
 
       {/* $$country select and language select for mobile */}
-           <Navbarsch/>
-      
+      <Navbarsch />
+
       {/* ################################## */}
 
       {/* right side */}
 
       {/* mobile right side */}
 
-      <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
+      <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden">
         {!isOpen && <FiMenu className="w-10 h-10 text-white" />}
       </button>
 
       {/* mobile sidebar */}
 
-      {isOpen && <MobileNavbar isOpen={isOpen} setIsOpen={setIsOpen} />}
-      <div className="hidden md:inline-flex">
+      {isOpen && (
+        <MobileNavbar
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          username={username}
+          msgRead={msgRead}
+        />
+      )}
+      <div className="hidden lg:inline-flex">
         <div className="flex space-x-4 items-center">
           <div className="text-white space-x-4 capitalize text-md font-semibold">
             <a
@@ -263,7 +270,7 @@ const NavBar = () => {
 
           <div
             onClick={toPostAds}
-            className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1"
+            className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1 cursor-pointer"
           >
             <IoMdAddCircleOutline className="text-white w-4 h-4 text-md font-semibold" />
             <p className="text-white hover:text-gray-200 capitalize text-md font-semibold">

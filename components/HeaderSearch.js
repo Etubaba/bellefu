@@ -5,7 +5,11 @@ import { AiFillCaretDown } from "react-icons/ai";
 import axios from "axios";
 import { apiData } from "../constant";
 import { useDispatch } from "react-redux";
-import { chooseCountry, handleSearch, selectCat } from "../features/bellefuSlice";
+import {
+  chooseCountry,
+  handleSearch,
+  selectCat,
+} from "../features/bellefuSlice";
 import { chooseState } from "../features/bellefuSlice";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
@@ -27,8 +31,8 @@ const HeaderSearch = ({
   const [countryName, setCountryName] = useState(null);
   const [stateList, setStateList] = useState([]);
   const [search, setSearch] = useState("");
-  const [findCountry, setFindCountry] = useState('');
-  const [findState, setFindState] = useState('');
+  const [findCountry, setFindCountry] = useState("");
+  const [findState, setFindState] = useState("");
 
   const dispatch = useDispatch();
 
@@ -54,7 +58,7 @@ const HeaderSearch = ({
           }
         >
           <div className="flex">
-            <div className="flex space-x-4 items-center justify-center ml-8">
+            <div className="flex space-x-4 items-center justify-center ml-8 cursor-pointer">
               <div>
                 <img
                   alt="error"
@@ -79,54 +83,57 @@ const HeaderSearch = ({
             </div>
             {selectCountry && (
               <div className="z-10 absolute top-36 left-[6%]  h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className='flex items-center justify-center mx-auto my-3 '>
-
-                  <input type="text" placeholder="Search country"
+                <div className="flex items-center justify-center mx-auto my-3 ">
+                  <input
+                    type="text"
+                    placeholder="Search country"
                     className="w-full border mx-4 h-10 px-4 py-2 rounded-md text-sm text-gray-600 focus:border-bellefuOrange focus:outline-none focus:ring-1 focus:ring-black focus:ring-opacity-5"
                     onChange={(e) => setFindCountry(e.target.value)}
-                    value={findCountry} />
-
+                    value={findCountry}
+                  />
                 </div>
-                {countries?.filter(item => {
-                  if (findCountry === '') {
-
-                    return item
-
-
-                  } else if (item.name.toLowerCase().includes(findCountry.toLowerCase())) {
-                    return item
-                  }
-
-                }).map((list) => (
-                  <div
-                    key={list.id}
-                    onClick={() => {
-                      setFlag(list.iso2);
-                      setSelectCountry(false);
-                      setSelectlang(false);
-                      setCountryName(list.name);
-                      dispatch(chooseState(null));
-                      dispatch(handleSearch(''));
-                      dispatch(selectCat(null))
-                      dispatch(chooseCountry(list.iso2));
-                    }}
-                    className="py-1 flex space-x-3 hover:bg-bellefuBackground"
-                  >
-                    <p
+                {countries
+                  ?.filter((item) => {
+                    if (findCountry === "") {
+                      return item;
+                    } else if (
+                      item.name
+                        .toLowerCase()
+                        .includes(findCountry.toLowerCase())
+                    ) {
+                      return item;
+                    }
+                  })
+                  .map((list) => (
+                    <div
                       key={list.id}
-                      className="text-gray-700 space-x-3 px-4 flex py-2 text-sm"
+                      onClick={() => {
+                        setFlag(list.iso2);
+                        setSelectCountry(false);
+                        setSelectlang(false);
+                        setCountryName(list.name);
+                        dispatch(chooseState(null));
+                        dispatch(handleSearch(""));
+                        dispatch(selectCat(null));
+                        dispatch(chooseCountry(list.iso2));
+                      }}
+                      className="py-1 flex space-x-3 hover:bg-bellefuBackground"
                     >
-                      <div>
-                        <img
-                          alt="error"
-                          src={`https://flagcdn.com/20x15/${list.iso2.toLowerCase()}.png`}
-                        />
-                      </div>
+                      <p
+                        key={list.id}
+                        className="text-gray-700 space-x-3 px-4 flex py-2 text-sm"
+                      >
+                        <div>
+                          <img
+                            alt="error"
+                            src={`https://flagcdn.com/20x15/${list.iso2.toLowerCase()}.png`}
+                          />
+                        </div>
 
-                      <span>{list.name}</span>
-                    </p>
-                  </div>
-                ))}
+                        <span>{list.name}</span>
+                      </p>
+                    </div>
+                  ))}
               </div>
             )}
             {selectlang && (
@@ -154,7 +161,7 @@ const HeaderSearch = ({
                 setOpen(false);
                 setSelectlang(!selectlang);
               }}
-              className=" bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex"
+              className="cursor-pointer bg-bellefuOrange space-x-2 rounded-sm items-center px-2 justify-center ml-6 flex"
             >
               <p className="text-white">
                 {native === null
@@ -211,34 +218,39 @@ const HeaderSearch = ({
 
             {open && (
               <div className="transition ease-in-out delay-150 duration-700  z-10 absolute h-80 overflow-y-scroll top-36 right-60 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className='flex items-center justify-center mx-auto my-3 '>
-
-                  <input type="text" placeholder="Search state"
+                <div className="flex items-center justify-center mx-auto my-3 ">
+                  <input
+                    type="text"
+                    placeholder="Search state"
                     className="w-full border mx-4 h-10 px-4 py-2 rounded-md text-sm text-gray-600 focus:border-bellefuOrange focus:outline-none focus:ring-1 focus:ring-black focus:ring-opacity-5"
                     onChange={(e) => setFindState(e.target.value)}
-                    value={findState} />
-
+                    value={findState}
+                  />
                 </div>
-                {province?.filter(item => {
-                  if (findState === '') {
-                    return item
-                  } else if (item.name.toLowerCase().includes(findState.toLowerCase())) {
-                    return item
-                  }
-                }).map((state) => (
-                  <div
-                    onClick={() => {
-                      setOpen(!open);
-                      dispatch(chooseState(state.code));
-                    }}
-                    key={state.id}
-                    className="py-1  hover:bg-bellefuBackground "
-                  >
-                    <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">
-                      {state.name}
-                    </span>
-                  </div>
-                ))}
+                {province
+                  ?.filter((item) => {
+                    if (findState === "") {
+                      return item;
+                    } else if (
+                      item.name.toLowerCase().includes(findState.toLowerCase())
+                    ) {
+                      return item;
+                    }
+                  })
+                  .map((state) => (
+                    <div
+                      onClick={() => {
+                        setOpen(!open);
+                        dispatch(chooseState(state.code));
+                      }}
+                      key={state.id}
+                      className="py-1  hover:bg-bellefuBackground "
+                    >
+                      <span className="text-gray-700 block px-4 hover:bg-bellefuBackground py-2 text-sm">
+                        {state.name}
+                      </span>
+                    </div>
+                  ))}
               </div>
             )}
 

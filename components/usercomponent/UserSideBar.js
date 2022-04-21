@@ -78,7 +78,7 @@ const UserSideBar = () => {
     };
 
   return (
-    <div className="hidden lg:inline h-[90vh]  overflow-auto bg-bellefuWhite w-[25vw] mr-3 mt-6 pt-4">
+    <div className="hidden lg:inline h-[90vh]  overflow-auto bg-bellefuWhite w-[25vw] mr-3 mt-6">
       {loading ? (
         <div className="" id="side-bar">
           {iconValues.map((iconValue, index) => {

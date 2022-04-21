@@ -9,7 +9,7 @@ const CategoryProductList = ({ product }) => {
 
   // console.log(product)
   return (
-    <div className="bg-bellefuWhite p-3 rounded-b-md">
+    <div className="bg-bellefuWhite p-3 rounded-b-md cursor-pointer">
       <img
         onClick={() => router.push(`/product/${product?.productId}`)}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
