@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { GoVerified } from "react-icons/go";
 import { BsFillPersonFill } from "react-icons/bs";
-import { RiMessage2Fill, RiCloseFill } from "react-icons/ri";
+import {
+  RiMessage2Fill,
+  RiCloseFill,
+  RiShoppingCart2Fill,
+} from "react-icons/ri";
+
 import { IoIosCall } from "react-icons/io";
 import { RiMessageFill } from "react-icons/ri";
 import moment from "moment";
@@ -246,6 +251,16 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
                 />
               </div>
             )}
+            {/* my shop */}
+            <div
+              onClick={() =>
+                router.push(`/shop/${mobileDetails[0]?.productOwnerId}`)
+              }
+              className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-gradient-to-r from-bellefuGreen to-bellefuOrange justify-center cursor-pointer"
+            >
+              <RiShoppingCart2Fill className="w-4 h-4 text-white" />
+              <p className="text-white font-medium text-sm">Shop</p>
+            </div>
           </div>
         </div>
 
