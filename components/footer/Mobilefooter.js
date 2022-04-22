@@ -50,7 +50,7 @@ function Mobilefooter() {
             <strong>Tools & Resources</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             <li>Bellefu Radio</li>
             <li>Training Group</li>
             <li>Webinar</li>
@@ -63,7 +63,7 @@ function Mobilefooter() {
             <strong>Information</strong>
           </p>
 
-          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>About us</li>
             <li>Legal</li>
             <li>Feedback</li>
@@ -76,7 +76,7 @@ function Mobilefooter() {
             <strong>Head Office</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-sm">
             <li> 9550 Forest Lane</li>
             <li>Dallas TX, 75243,</li>
             <li>United State</li>
