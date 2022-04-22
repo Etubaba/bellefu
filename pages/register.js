@@ -21,7 +21,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       countries: data.slice().sort(),
-      countries1: data.slice().sort((a, b) => a.phone_code - b.phone_code)
+      countries1: data.slice().sort((a, b) => a?.phone_code - b?.phone_code)
     }
   }
 };
@@ -192,7 +192,7 @@ const Register = ({ countries, countries1 }) => {
   useEffect(() => {
     if (!countryPhoneCode) {
       const country = countries1.find(country => country.iso2 === defaultCountry)
-      setCountryPhoneCode(`+${country.phone_code}`);
+      setCountryPhoneCode(`+${country?.phone_code}`);
     }
   }, [])
 
@@ -247,7 +247,7 @@ const Register = ({ countries, countries1 }) => {
                       onClick={() => {
                         setFlag(country.iso2);
                         setSelectCountry(false);
-                        //setCountryPhoneCode(`+${country?.phone_code}`);
+                        setCountryPhoneCode(`+${country?.phone_code}`);
                       }}
                       className="py-1 flex space-x-3 hover:bg-bellefuBackground"
                     >
@@ -287,7 +287,7 @@ const Register = ({ countries, countries1 }) => {
                 </select>
               </p>
             </div>
-            <div className="flex flex-col flex-auto mb-4 md:mb-0">
+            <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
               <p><label id="country" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Country</label></p>
               <p >
                 <select htmlFor="country" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.country} onChange={onChange("countryCode")} >
@@ -339,7 +339,7 @@ const Register = ({ countries, countries1 }) => {
               <p className="text-white w-[100%] md:w-[75%]">
                 <button
                   type="button"
-                  className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
+                  className="flex items-center border-2 rounded-lg py-3 pl-4 pr-10 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
                   onClick={() => signIn("facebook")}
                 >
                   <ImFacebook className='text-3xl text-white' /> <strong className="pl-4 text-md">Sign up with Facebook</strong>
