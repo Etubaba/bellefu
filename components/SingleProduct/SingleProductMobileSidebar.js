@@ -18,7 +18,9 @@ import { toast } from "react-toastify";
 import { Rating } from "@mui/material";
 import axios from "axios";
 
-const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
+import { apiData } from "../../constant";
+
+const SingleProductMobileSidebar = ({ mobileDetails }) => {
   const isLoggedIn = useSelector(login);
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -27,6 +29,7 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
   const [open5, setOpen5] = useState(false);
+  const [message, setMessage] = useState("");
   const [reviewmsg, setReviewmsg] = useState("");
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState(false);
@@ -92,6 +95,33 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
             setReview(false);
           }
         });
+    }
+  };
+
+  const sendMessage = () => {
+    if (message === "") {
+      toast.error("You can not send an empty field", { position: "top-right" });
+    } else {
+      const formData = new FormData();
+      formData.append("messageTo", receiverId);
+      formData.append("messageFrom", senderId);
+      formData.append("image", "");
+      formData.append("message", message);
+      axios({
+        method: "POST",
+        url: `${apiData}send/messages`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => {
+        if (res.data.status) {
+          toast.success("Your message has been sent successfully.", {
+            position: "top-right",
+          });
+          setMessage("");
+        }
+      });
     }
   };
 
@@ -192,6 +222,8 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
 
                 <textarea
                   rows="5"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="w-full bg-transparent px-3 outline-none text-xs"
                 />
                 <div className="flex items-center justify-center py-2">

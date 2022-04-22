@@ -77,6 +77,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           toast.success("Your message has been sent successfully.", {
             position: "top-right",
           });
+          setMessage("");
         }
       });
     }
