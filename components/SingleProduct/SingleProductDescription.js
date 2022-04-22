@@ -480,11 +480,6 @@ const SingleProductDescription = ({ productDetails }) => {
                   <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
                 </WhatsappShareButton>
 
-
-
-
-
-
                 <EmailShareButton
                   subject="Check out this product"
                   url={shareUrl}

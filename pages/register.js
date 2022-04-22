@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { apiData } from "../constant";
-import {BsEye, BsEyeSlash} from "react-icons/bs";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import { setProfileDetails } from "../features/bellefuSlice";
 import { homeData } from "../features/bellefuSlice";
@@ -16,20 +16,20 @@ import classNames from "classnames";
 
 export const getStaticProps = async () => {
   const response = await fetch(`${apiData}get/countries`);
-  const {data} = await response.json()
+  const { data } = await response.json()
 
   return {
     props: {
       countries: data.slice().sort(),
-      countries1: data.slice().sort((a, b) => a.phone_code-b.phone_code)
+      countries1: data.slice().sort((a, b) => a.phone_code - b.phone_code)
     }
   }
 };
 
-const Register = ({countries, countries1}) => {
+const Register = ({ countries, countries1 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   const defaultCountry = useSelector(homeData)?.defaultCountry;
   const [formFields, setFormFields] = useState({
     fname: "",
@@ -66,7 +66,7 @@ const Register = ({countries, countries1}) => {
       return;
     }
 
-    setFormFields({ ...formFields, [input]: evt.target.value});
+    setFormFields({ ...formFields, [input]: evt.target.value });
   };
   const handleClickShowPassword = () => {
     setShowPassword((prevState) => !prevState);
@@ -82,7 +82,7 @@ const Register = ({countries, countries1}) => {
     }
 
     if (!formFields.email) {
-      formValues = {...formFields, email: `${formFields.username}@gmail.com`}
+      formValues = { ...formFields, email: `${formFields.username}@gmail.com` }
     }
 
     //Check for phone number that starts with zero
@@ -92,7 +92,7 @@ const Register = ({countries, countries1}) => {
         break;
       }
     }
-    formValues = {...formValues, phone: countryPhoneCode.concat(formValues.phone)};
+    formValues = { ...formValues, phone: countryPhoneCode.concat(formValues.phone) };
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
@@ -101,26 +101,26 @@ const Register = ({countries, countries1}) => {
       },
       body: JSON.stringify(formValues),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setIsLoading(false);
-      if (data.status) {
-        localStorage.setItem("user", JSON.stringify(data.data));
-        dispatch(setProfileDetails(data.data));
-      
-        //Sign out the user after authentication, for bellefu to take control of login and logout
-        return signOut({redirect: false, callbackUrl: "/verify-phone"});
-        //router.push("/verify-phone");
-      }
-    })
-    .then(resSignOut => {
-      router.replace(resSignOut.url);
-    })
-    .catch(error => {
-      console.log(`Error for user registration ${error}`);
-      setIsLoading(false);
-    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setIsLoading(false);
+        if (data.status) {
+          localStorage.setItem("user", JSON.stringify(data.data));
+          dispatch(setProfileDetails(data.data));
+
+          //Sign out the user after authentication, for bellefu to take control of login and logout
+          return signOut({ redirect: false, callbackUrl: "/verify-phone" });
+          //router.push("/verify-phone");
+        }
+      })
+      .then(resSignOut => {
+        router.replace(resSignOut.url);
+      })
+      .catch(error => {
+        console.log(`Error for user registration ${error}`);
+        setIsLoading(false);
+      })
   };
   const validateInput = (formValues) => {
     const emptyFieldExists = false
@@ -147,12 +147,12 @@ const Register = ({countries, countries1}) => {
       else phone = target.value;
 
       url = `${apiData}userphone/exist`;
-      data = {phone: countryPhoneCode.concat(phone)} 
+      data = { phone: countryPhoneCode.concat(phone) }
     }
 
     if (target.name === "username") {
       url = `${apiData}username/exist`;
-      data = {username: target.value}
+      data = { username: target.value }
     }
 
     fetch(url, {
@@ -162,17 +162,17 @@ const Register = ({countries, countries1}) => {
       },
       body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(resData => {
-      if (resData.status && target.name === "phone") setPhoneExists(true);
-      else setPhoneExists(false);
+      .then(response => response.json())
+      .then(resData => {
+        if (resData.status && target.name === "phone") setPhoneExists(true);
+        else setPhoneExists(false);
 
-      if (resData.status && target.name === "username") setUsernameExists(true);
-      else setUsernameExists(false);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+        if (resData.status && target.name === "username") setUsernameExists(true);
+        else setUsernameExists(false);
+      })
+      .catch(error => {
+        console.log(error);
+      })
   };
   const clearExists = (evt) => {
     const target = evt.target;
@@ -186,7 +186,7 @@ const Register = ({countries, countries1}) => {
     const { user, providerId, providerName } = session;
     //signOut();
 
-    setFormFields({...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email, socialSignup: true, providerId, providerName,})
+    setFormFields({ ...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email, socialSignup: true, providerId, providerName, })
   }, [session])
 
   useEffect(() => {
@@ -203,7 +203,7 @@ const Register = ({countries, countries1}) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {!session && <RegisterHeader />}
-      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2",{"mt-9": session})}>
+      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2", { "mt-9": session })}>
         <h1 className="text-center font-bold py-4">{!session ? "Create Your Account With Bellefu!" : "Thanks for Your Interest in Bellefu App"}</h1>
         {session && <h2 className="text-center font-semibold pb-4">To Serve You Better and Complete Your Registration, We Need More Information from You.</h2>}
         <hr />
@@ -211,19 +211,19 @@ const Register = ({countries, countries1}) => {
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">First Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.fname} onChange={onChange("fname")} disabled={session?true:false} /></p>
+              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.fname} onChange={onChange("fname")} disabled={session ? true : false} /></p>
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Last Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lname} onChange={onChange("lname")} disabled={session?true:false} /></p>
+              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lname} onChange={onChange("lname")} disabled={session ? true : false} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-          <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
+            <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
               <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700 z-0">Phone Number</label></p>
               <div className="absolute mt-8 left-[5%] md:left-[24%] flex space-x-1 items-center justify-center ml-8 hover:cursor-pointer" onClick={() => setSelectCountry(!selectCountry)}>
                 <div className="flex">
-                 <span className="mr-1">{`${countryPhoneCode}`}</span>
+                  <span className="mr-1">{`${countryPhoneCode}`}</span>
                   <img
                     alt="error"
                     src={
@@ -247,7 +247,7 @@ const Register = ({countries, countries1}) => {
                       onClick={() => {
                         setFlag(country.iso2);
                         setSelectCountry(false);
-                        setCountryPhoneCode(`+${country.phone_code}`);
+                        setCountryPhoneCode(`+${country?.phone_code}`);
                       }}
                       className="py-1 flex space-x-3 hover:bg-bellefuBackground"
                     >
@@ -256,7 +256,7 @@ const Register = ({countries, countries1}) => {
                         className="text-gray-700 space-x-3 px-4 flex py-2 text-sm"
                       >
                         <div className="flex">
-                          <span className="mr-2">{`+${country.phone_code}`}</span>
+                          <span className="mr-2">{`+${country?.phone_code}`}</span>
                           <img
                             alt="error"
                             src={`https://flagcdn.com/20x15/${country.iso2.toLowerCase()}.png`}
@@ -268,15 +268,15 @@ const Register = ({countries, countries1}) => {
                 </div>
               )}
               <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
-              { phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p> }
+              {phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p>}
             </div>
             <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
               <p><label id="email" className="text-sm font-medium text-slate-700">Email {!session && "(optional)"}</label></p>
-              <p className="w-full"><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} disabled={session?true:false} /></p>
+              <p className="w-full"><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} disabled={session ? true : false} /></p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
-          <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
+            <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
               <p><label id="gender" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Gender</label></p>
               <p >
                 <select htmlFor="gender" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.gender} onChange={onChange("gender")} >
@@ -292,7 +292,7 @@ const Register = ({countries, countries1}) => {
               <p >
                 <select htmlFor="country" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.country} onChange={onChange("countryCode")} >
                   <option className="w-full" key={1}></option>
-                  { 
+                  {
                     countries.map(country => <option key={country.iso2} value={country.iso2} className="w-full">{country.name}</option>)
                   }
                 </select>
@@ -303,26 +303,26 @@ const Register = ({countries, countries1}) => {
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
               <p><label id="user-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name</label></p>
               <p><input type="text" htmlFor="user-name" value={formFields.username} name="username" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("username")} onFocus={clearExists} onBlur={checkExists} /></p>
-              { usernameExists && <p className="text-red-500 text-sm font-medium">username already exists!</p> }
+              {usernameExists && <p className="text-red-500 text-sm font-medium">username already exists!</p>}
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
               <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
-              { showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer':"hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon?'absolute  mt-9 right-[10%]  md:right-[27%] hover:cursor-pointer':"hidden"} />
+              {showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%]  md:right-[27%] hover:cursor-pointer' : "hidden"} />
               }
-              <p><input type={showPassword?"text":"password"} htmlFor="password" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={onChange("password")} /></p>
+              <p><input type={showPassword ? "text" : "password"} htmlFor="password" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={onChange("password")} /></p>
             </div>
           </div>
-          { !isLoading ? 
-            <p className="hover:bg-bellefuOrange bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer font-bold" onClick={handleRegister}>{!session?"Register":"Continue"}</p> : 
+          {!isLoading ?
+            <p className="hover:bg-bellefuOrange bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer font-bold" onClick={handleRegister}>{!session ? "Register" : "Continue"}</p> :
             <p className="bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 ..." disabled>
               <svg className="animate-spin h-1 w-5 mr-3 ..." viewBox="0 0 24 24">
-                 
+
               </svg>
               Processing...
             </p>
           }
         </div>
-        { !session &&
+        {!session &&
           <>
             <hr />
             <p className="text-center mt-11 mb-8">OR</p>
