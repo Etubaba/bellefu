@@ -454,9 +454,9 @@ const SingleProductDescription = ({ productDetails }) => {
                 <FacebookShareButton
                   url={shareUrl}
                   quote={title}
-                  picture={
-                    "https://pixabay.com/photos/football-sport-play-competition-4455306/"
-                  }
+
+                  picture={image}
+
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
@@ -464,13 +464,21 @@ const SingleProductDescription = ({ productDetails }) => {
                 <TwitterShareButton
                   url={shareUrl}
                   quote={title}
-                  picture={"https://pixabay.com/photos/football-sport-play-competition-4455306/"}
+                  picture={image}
                 >
                   <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
                 </TwitterShareButton>
 
                 <BsInstagram className="w-7 h-7 text-[#E1306C] cursor-pointer" />
-                <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
+
+
+                <WhatsappShareButton
+                  url={shareUrl}
+                  quote={title}
+                  picture={image}
+                >
+                  <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
+                </WhatsappShareButton>
               </div>
             </div>
           </div>
