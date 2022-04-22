@@ -46,7 +46,7 @@ function Mobilefooter() {
           fingertips.
         </p>
         <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Tools & Resources</strong>
           </p>
 
@@ -59,7 +59,7 @@ function Mobilefooter() {
         </div>
 
         <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Information</strong>
           </p>
 
@@ -72,7 +72,7 @@ function Mobilefooter() {
         </div>
 
         <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Head Office</strong>
           </p>
 
