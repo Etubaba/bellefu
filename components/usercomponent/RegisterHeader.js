@@ -1,10 +1,11 @@
 import NavLink from "./NavLink"
+import classNames from "classnames";
 
-const RegisterHeader = ({firstLink="Register", secondLink="Login"}) => {
+const RegisterHeader = ({firstLink:{firstLinkText="Register",firstLinkUrl="/register"}={firstLink:{}}, secondLink:{secondLinkText="Login", secondLinkUrl="/login"}={secondLink:{}}, customWidth=false}) => {
   return (
-    <div className="w-[90%] md:w-[55%] mx-auto mt-14 mb-6 flex rounded-lg border-2 px-3 md:px-9 py-4">
-      <NavLink to="/register" className="mr-auto hover:cursor-pointer hover:underline">{firstLink}</NavLink>
-      <NavLink to="/login" className="hover:cursor-pointer hover:underline">{secondLink}</NavLink>
+    <div className={classNames("w-[90%] mx-auto mt-14 mb-6 flex rounded-lg border-2 px-3 md:px-9 py-4", {"md:w-[55%]": !customWidth, "md:w-[85%]": customWidth})}>
+      <NavLink to={firstLinkUrl} className="mr-auto hover:cursor-pointer hover:underline">{firstLinkText}</NavLink>
+      <NavLink to={secondLinkUrl} className="hover:cursor-pointer hover:underline">{secondLinkText}</NavLink>
     </div>
   )
 };
