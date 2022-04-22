@@ -34,23 +34,23 @@ function Footer() {
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             <li>
-              <a href="www.radio.bellefu.com " className="link ">
+              <a href="https://www.radio.bellefu.com " className="link ">
                 Bellefu Radio
               </a>
             </li>
             <li>
-              <a href="" className="link">
+              <a href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV" className="link">
                 Training Group
               </a>
             </li>
             <li>
               {" "}
-              <a href="www.webinar.bellefu.com" className="link">
+              <a href="https://www.webinar.bellefu.com" className="link">
                 Webinar
               </a>{" "}
             </li>
             <li>
-              <a href="www.blog.bellefu.com " className="link">
+              <a href="https://www.blog.bellefu.com " className="link">
                 Blog
               </a>
             </li>
@@ -75,7 +75,7 @@ function Footer() {
             </li>
             <li className="link">Contact</li>
             <li>
-              <a href="" className="link">
+              <a href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q" className="link">
                 Documentary
               </a>
             </li>
