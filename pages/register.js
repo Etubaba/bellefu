@@ -287,7 +287,7 @@ const Register = ({ countries, countries1 }) => {
                 </select>
               </p>
             </div>
-            <div className="flex flex-col flex-auto mb-4 md:mb-0">
+            <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
               <p><label id="country" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Country</label></p>
               <p >
                 <select htmlFor="country" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.country} onChange={onChange("countryCode")} >
