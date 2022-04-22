@@ -17,7 +17,12 @@ import {
   BsSuitHeartFill,
   BsFillCheckSquareFill,
 } from "react-icons/bs";
-
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  WhatsappShareButton,
+  TwitterShareButton
+} from 'react-share'
 import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
@@ -202,12 +207,16 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const facebookShare = () => {
 
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${router.asPath}`)
+    window.open(`https://www.facebook.com/sharer.php?u=${window.location.href}`)
   }
 
 
+  const shareUrl = window.location.href;
+  const title = "Bellefu.com";
+  const image = 'https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg'
 
 
+  console.log('current url=>', shareUrl)
 
   return (
     <div className="bg-bellefuWhite rounded-t-md">
@@ -445,7 +454,14 @@ const SingleProductDescription = ({ productDetails }) => {
                 Share this product on social media :
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
-                <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" onClick={facebookShare} />
+                <FacebookShareButton
+                  url={shareUrl}
+                  quote={title}
+                  picture={image}
+                  className="Demo__some-network__share-button"
+                >
+                  <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
+                </FacebookShareButton>
                 <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
                 <BsInstagram className="w-7 h-7 text-[#E1306C] cursor-pointer" />
                 <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
