@@ -231,7 +231,7 @@ const VerifyPhone = () => {
         ) : (
           // verification options
           <div className="flex flex-col flex-auto mb-4">
-            <div className="hover:bg-[#F8FDF2] mt-10 mx-10 py-8 rounded-lg border">
+            <div className="hover:bg-[#F8FDF2] mt-10 mx-10 py-2 rounded-lg border">
               <div className="flex justify-between items-center">
                 <div className="flex px-8">
                   <p className="mr-5 pt-1">
@@ -337,7 +337,7 @@ const VerifyPhone = () => {
               )}
 
               {phone && pCongrats && (
-                <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+                <div className="flex flex-col justify-center my-8 items-center">
                   <MdVerified className="text-8xl  mb-5 text-bellefuGreen" />
                   <p className="mb-7 text-center">
                     <strong> Congrats !!!</strong>
