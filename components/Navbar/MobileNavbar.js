@@ -218,7 +218,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         )}
 
         {getIsLoggedIn && (
-          <div className="w-2/5 mx-auto pt-6">
+          <div className="w-2/5 mx-auto pt-2">
             <div
               className="flex items-center justify-center space-x-1 px-2 py-1  bg-orange-400 font-bold tracking-wider rounded"
               onClick={() => {
