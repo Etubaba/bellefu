@@ -205,10 +205,7 @@ const SingleProductDescription = ({ productDetails }) => {
       });
   };
 
-  const facebookShare = () => {
 
-    window.open(`https://www.facebook.com/sharer.php?u=${window.location.href}`)
-  }
 
 
   const shareUrl = window.location.href;

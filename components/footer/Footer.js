@@ -6,8 +6,14 @@ import {
   AiOutlineCopyrightCircle,
 } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 function Footer() {
+
+
+
+
+  const router = useRouter();
   return (
     <div className="bg-[#191A19] hidden lg:inline-block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
       <div className="flex justify-evenly space-x-10 mb-12">
@@ -91,7 +97,7 @@ function Footer() {
             <li>
               <a className="link">About us</a>
             </li>
-            <li className="link">Legal</li>
+            <li onClick={() => router.push('/policy')} className="link">Legal</li>
           </ul>
         </div>
         <div className="space-y-2">
