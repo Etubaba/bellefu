@@ -79,11 +79,14 @@ const Product = () => {
   const province = country === null ? index?.countryStates : stateList;
 
 
+  const price = product?.map((item) => parseFloat(item.price))
+
+  const maxPrice = price.length === 0 ? 1000 : Math.max(...price)
+  const minPrice = price.length === 0 ? 0 : Math.min(...price)
 
 
-
-  const [startPrice, setStartPrice] = useState(100);
-  const [endPrice, setEndPrice] = useState(1000000);
+  const [startPrice, setStartPrice] = useState(minPrice);
+  const [endPrice, setEndPrice] = useState(maxPrice);
 
 
   const handleChange = (event, value) => {
@@ -102,12 +105,6 @@ const Product = () => {
     }
 
   })
-
-
-
-  console.log('newproducts->', filterProduct)
-  console.log('subcat->', subCatId)
-
 
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
@@ -389,9 +386,8 @@ const Product = () => {
                     <Slider
                       size="small"
                       getAriaLabel={() => "Price range"}
-                      min={index?.defaultCountry === 'NG' ? 100 :
-                        1}
-                      max={index.defaultCountry === 'NG' ? 1000000 : 100000}
+                      min={minPrice}
+                      max={maxPrice}
                       onChange={handleChange}
                       defaultValue={[startPrice, endPrice]}
                       valueLabelDisplay="auto"
@@ -753,7 +749,7 @@ const Product = () => {
 
         {/* product session */}
         <div className="flex-1">
-          <CategoryProducts product={product} />
+          <CategoryProducts product={filterProduct} />
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { MdLocationOn, MdOutlineWarningAmber } from "react-icons/md";
 import { GiHearts } from "react-icons/gi";
-import { IoWarningOutline } from "react-icons/io";
+
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
-import { Modal, Typography, Divider, Box, Button } from '@mui/material'
+import { Modal, Button } from '@mui/material'
 import { apiData } from '../../../constant'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -87,25 +87,31 @@ const FavouriteProduct = ({ product }) => {
           onClose={() => setOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-        // sx={{ opacity: 0.5 }}
+        // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
+
         >
-          <Box sx={edit}>
-            <Box sx={{ margin: 'auto 42%' }}>
+
+
+          <div className='flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md  w-72 h-48    md:w-[400px] md:h-[230px] bg-bellefuWhite'
+          // sx={edit}
+          >
+            <div className='flex justify-center items-center'>
               {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
-              <MdOutlineWarningAmber className='text-6xl' />
-            </Box>
-            <Divider sx={{ mb: 5 }} />
+              <MdOutlineWarningAmber className='md:text-6xl text-5xl mb-1 md:mb-3' />
+            </div>
+            <hr className="mb-4" />
 
-            <Typography sx={{ p: 1, ml: 1, mb: 6 }} variant="p"> Do you want to remove this Product from favorite ? </Typography>
+            <p className="p-1 mx-3 mb-2 md:mb-6 " > Do you want to remove this Product from favorite ? </p>
 
 
 
-            <Divider sx={{ mt: 2, mb: 2 }} />
-            <Box sx={{ mt: 5, display: "flex", bgColor: 'grey', justifyContent: 'space-between', m: 4, mb: 5 }}>
-              <Button onClick={() => setOpen(false)}>cancel</Button>
-              <Button color='error' onClick={remove} >Remove</Button>
-            </Box>
-          </Box>
+            <hr className='mb-2 mt-2' />
+            <div className='flex mt-3 space-x-20 justify-around'>
+              <Button onClick={() => setOpen(false)}><p className='text-xs md:text-[15px]'>Cancel</p></Button>
+              <Button color='error' onClick={remove} ><p className='text-xs md:text-[15px]'>Remove</p></Button>
+            </div>
+          </div>
+
         </Modal>
 
 
