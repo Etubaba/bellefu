@@ -163,13 +163,16 @@ const ShopSideBar = ({ userDetails }) => {
             <p className="text-gray-400 font-medium">View Profile</p>
           </div>
           {/* message */}
-          <div
-            className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
-            onClick={openMessage}
-          >
-            <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
-            <p className="text-white font-medium text-sm">Messages</p>
-          </div>
+          {senderId !== receiverId && (
+            <div
+              className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
+              onClick={openMessage}
+            >
+              <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
+              <p className="text-white font-medium text-sm">Messages</p>
+            </div>
+          )}
+
           {/* message box */}
           {open && (
             <div className="border -mt-10 bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
@@ -205,13 +208,16 @@ const ShopSideBar = ({ userDetails }) => {
           {/* end of message box */}
           {/* end of message */}
           {/* call */}
-          <div
-            onClick={call}
-            className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center"
-          >
-            <IoIosCall className="w-4 h-4 text-white" />
-            <p className="text-white font-medium text-sm">Call</p>
-          </div>
+
+          {senderId !== receiverId && (
+            <div
+              onClick={call}
+              className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center"
+            >
+              <IoIosCall className="w-4 h-4 text-white" />
+              <p className="text-white font-medium text-sm">Call</p>
+            </div>
+          )}
         </div>
 
         {/* border line */}
