@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BsHeart } from "react-icons/bs";
-import { AiFillEye } from "react-icons/ai";
+import { AiFillEye, AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
 import { Modal } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
@@ -19,6 +19,7 @@ import {
 } from "react-icons/bs";
 import {
   EmailShareButton,
+  LinkedinShareButton,
   FacebookShareButton,
   WhatsappShareButton,
   TwitterShareButton,
@@ -464,7 +465,8 @@ const SingleProductDescription = ({ productDetails }) => {
                 <TwitterShareButton
                   url={shareUrl}
                   quote={title}
-                  picture={image}
+                  hashtags={["bellefu", "Agriculture", '#Agribusiness']}
+                  className="Demo__some-network__share-button"
                 >
                   <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
                 </TwitterShareButton>
@@ -472,13 +474,37 @@ const SingleProductDescription = ({ productDetails }) => {
                 <BsInstagram className="w-7 h-7 text-[#E1306C] cursor-pointer" />
 
 
+
                 <WhatsappShareButton
                   url={shareUrl}
                   quote={title}
                   picture={image}
-                >
+                  className="Demo__some-network__share-button">
+
                   <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
                 </WhatsappShareButton>
+
+
+                <LinkedinShareButton
+                  title={title}
+                  summary={'Check out this amazing product from bellefu.com'}
+                  source={shareUrl}
+                  className="Demo__some-network__share-button"
+                >
+                  <AiFillLinkedin className="w-7 h-7 text-[#0E76A8] cursor-pointer" />
+                </LinkedinShareButton>
+
+
+
+                <EmailShareButton
+                  subject="Check out this product"
+                  url={shareUrl}
+                  body={"hey there, pls share my link" + <a href="www.example.com">Link</a>}
+                  className="Demo__some-network__share-button"
+
+                >
+                  <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />
+                </EmailShareButton>
               </div>
             </div>
           </div>
