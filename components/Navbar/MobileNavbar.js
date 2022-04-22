@@ -5,15 +5,17 @@ import { RiLogoutBoxFill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { login } from "../../features/bellefuSlice";
+
+import { isLoggedIn, login } from "../../features/bellefuSlice";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { FcShop } from "react-icons/fc";
+import { useSelector, useDispatch } from "react-redux";
 
 const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
   const getIsLoggedIn = useSelector(login);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [unseen, setUnseen] = useState(0);
   const [unread, setUnread] = useState(2);
@@ -225,7 +227,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
                 dispatch(isLoggedIn(false));
                 localStorage.clear();
                 router.push("/login");
-                setOpen(false);
+                setIsOpen(false);
                 toast.info("You have logged out successfully", {
                   position: "top-center",
                 });
