@@ -465,15 +465,11 @@ const SingleProductDescription = ({ productDetails }) => {
                 <TwitterShareButton
                   url={shareUrl}
                   quote={title}
-                  hashtags={["bellefu", "Agriculture", '#Agribusiness']}
+                  hashtags={["bellefu", "Agriculture", 'Agribusiness']}
                   className="Demo__some-network__share-button"
                 >
                   <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
                 </TwitterShareButton>
-
-                <BsInstagram className="w-7 h-7 text-[#E1306C] cursor-pointer" />
-
-
 
                 <WhatsappShareButton
                   url={shareUrl}
@@ -485,21 +481,14 @@ const SingleProductDescription = ({ productDetails }) => {
                 </WhatsappShareButton>
 
 
-                <LinkedinShareButton
-                  title={title}
-                  summary={'Check out this amazing product from bellefu.com'}
-                  source={shareUrl}
-                  className="Demo__some-network__share-button"
-                >
-                  <AiFillLinkedin className="w-7 h-7 text-[#0E76A8] cursor-pointer" />
-                </LinkedinShareButton>
+
 
 
 
                 <EmailShareButton
                   subject="Check out this product"
                   url={shareUrl}
-                  body={"hey there, pls share my link" + <a href="www.example.com">Link</a>}
+                  body={`Check out ${productDetails[0]?.productTitle} from`}
                   className="Demo__some-network__share-button"
 
                 >
