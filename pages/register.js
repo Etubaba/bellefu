@@ -247,7 +247,7 @@ const Register = ({ countries, countries1 }) => {
                       onClick={() => {
                         setFlag(country.iso2);
                         setSelectCountry(false);
-                        setCountryPhoneCode(`+${country?.phone_code}`);
+                        //setCountryPhoneCode(`+${country?.phone_code}`);
                       }}
                       className="py-1 flex space-x-3 hover:bg-bellefuBackground"
                     >
