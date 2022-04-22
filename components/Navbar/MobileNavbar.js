@@ -18,7 +18,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
   const dispatch = useDispatch();
 
   const [unseen, setUnseen] = useState(0);
-  const [unread, setUnread] = useState(2);
+  const [unread, setUnread] = useState(0);
 
   const toPostAds = () => {
     if (getIsLoggedIn) {
@@ -107,7 +107,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
               />
 
               {unread !== 0 ? (
-                <p className=" bg-orange-400 -top-1 left-3 h-5 w-5 absolute flex items-center justify-center rounded-full">
+                <p className=" bg-orange-400 -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full">
                   <span className="text-white text-sm text-center ">
                     {unread}
                   </span>
