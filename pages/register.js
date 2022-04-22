@@ -73,6 +73,13 @@ const Register = ({countries, countries1}) => {
   };
   const handleRegister = () => {
     let formValues = formFields;
+    let emptyFieldExists = false;
+
+    emptyFieldExists = validateInput(formValues);
+
+    if (emptyFieldExists) {
+      return;
+    }
 
     if (!formFields.email) {
       formValues = {...formFields, email: `${formFields.username}@gmail.com`}
@@ -86,7 +93,6 @@ const Register = ({countries, countries1}) => {
       }
     }
     formValues = {...formValues, phone: countryPhoneCode.concat(formValues.phone)};
-    console.log(formValues);
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
@@ -109,7 +115,6 @@ const Register = ({countries, countries1}) => {
       }
     })
     .then(resSignOut => {
-      console.log("!!")
       router.replace(resSignOut.url);
     })
     .catch(error => {
@@ -126,8 +131,8 @@ const Register = ({countries, countries1}) => {
       }
     }
 
-    if (emptyFieldExists) return false;
-    else return true;
+    if (emptyFieldExists) return true;
+    else return false;
   };
   const checkExists = (evt) => {
     const target = evt.target;

@@ -89,7 +89,7 @@ const Login = () => {
 
     for (const key in formValues) {
       if (Object.hasOwnProperty.call(formValues, key)) {
-        if (key === "socialSignin") {console.log("social"); continue;}
+        if (key === "socialSignin") continue;
         if (!formValues[key]) {
           emptyFieldExists = true;
           break; 
@@ -100,8 +100,7 @@ const Login = () => {
     if (emptyFieldExists) return true;
     else return false;
   };
-  const clearErrorMsg = (input) => (evt) => {
-    const target = evt.target;
+  const clearErrorMsg = (input) => () => {
     if (input === "phone") setPhoneEmpty(false);
     if (input === "password") setPasswordEmpty(false);
   }
@@ -141,11 +140,6 @@ const Login = () => {
     const signOutData = await signOut({ redirect: false, callbackUrl: "/" });
     router.replace(signOutData.url);
   }
-
-  useEffect(() => {
-    console.log(phoneEmpty);
-    console.log(passwordEmpty)
-  }, [phoneEmpty, passwordEmpty])
 
   useEffect(() => {
     if (session?.providerId) {
@@ -199,6 +193,7 @@ const Login = () => {
             <button
               type="button"
               className="flex border-2 rounded-lg py-3 justify-center items-center pl-4 pr-6 bg-blue-500 hover:bg-blue-600 w-full"
+              onClick={() => signIn("facebook")}
             >
               <ImFacebook className='text-3xl text-white' />
               <strong className="pl-4 text-lg">Sign in with Facebook</strong>
