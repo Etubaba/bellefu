@@ -197,7 +197,7 @@ const Login = () => {
               onClick={() => signIn("facebook")}
             >
               <ImFacebook className='text-3xl text-white' />
-              <strong className="pl-3 text-lg">Sign in with Facebook</strong>
+              <strong className="pl-1 lg:pl-4 text-lg">Sign in with Facebook</strong>
             </button>
           </p>
         </div>
