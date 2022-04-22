@@ -125,8 +125,9 @@ const Login = () => {
       toast.error(data.msg, {
         position: toast.POSITION.TOP_CENTER
       })
-      router.push("/login");
-      return null;
+      return signOut({redirect: false})
+      //router.push("/login");
+      //return null;
     }
 
     const user = data.data.user
