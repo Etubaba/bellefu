@@ -451,11 +451,24 @@ const SingleProductDescription = ({ productDetails }) => {
                 Share this product on social media :
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
-                <BsFacebook
-                  className="w-7 h-7 text-[#4267B2] cursor-pointer"
-                  onClick={facebookShare}
-                />
-                <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
+                <FacebookShareButton
+                  url={shareUrl}
+                  quote={title}
+                  picture={
+                    "https://pixabay.com/photos/football-sport-play-competition-4455306/"
+                  }
+                  className="Demo__some-network__share-button"
+                >
+                  <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
+                </FacebookShareButton>
+                <TwitterShareButton
+                  url={shareUrl}
+                  quote={title}
+                  picture={"https://pixabay.com/photos/football-sport-play-competition-4455306/"}
+                >
+                  <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
+                </TwitterShareButton>
+
                 <BsInstagram className="w-7 h-7 text-[#E1306C] cursor-pointer" />
                 <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
               </div>
