@@ -61,7 +61,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
   }, []);
 
   return (
-    <div className="absolute bg-gradient-to-b to-bellefuGreen from-[#191a1c] w-72 space-y-3 px-2 py-5 top-0 -left-1 h-[100vh] font-semibold text-white lg:hidden shadow-md animate-slide-in">
+    <div className="absolute bg-gradient-to-b to-bellefuGreen from-[#191a1c] w-72 space-y-3 px-2 pt-2 pb-5 top-0 -left-1 h-[100vh] font-semibold text-white lg:hidden shadow-md animate-slide-in">
       <div
         className="-mb-2 flex items-center justify-end"
         onClick={() => setIsOpen(false)}
@@ -121,7 +121,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
       <div className="space-y-4 text-white">
         {getIsLoggedIn && (
           <p
-            className=" bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-lg"
+            className=" bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-sm"
             onClick={() => (router.push("/users"), setIsOpen(false))}
           >
             Dashboard
@@ -129,7 +129,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         )}
         {getIsLoggedIn && (
           <p
-            className=" bg-orange-400 font-bold tracking-wider p-2  text-center rounded text-lg"
+            className=" bg-orange-400 font-bold tracking-wider p-2  text-center rounded text-sm"
             onClick={() => (router.push("/users/profile"), setIsOpen(false))}
           >
             Profile
@@ -138,7 +138,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
 
         {getIsLoggedIn && (
           <p
-            className=" bg-orange-400 font-bold tracking-wider p-2  text-center rounded text-lg"
+            className=" bg-orange-400 font-bold tracking-wider p-2  text-center rounded text-sm"
             onClick={() => (router.push("/users/messages"), setIsOpen(false))}
           >
             Message
@@ -147,7 +147,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
 
         {getIsLoggedIn && (
           <p
-            className=" bg-orange-400 font-bold tracking-wider p-2  text-center rounded text-lg"
+            className=" bg-orange-400 font-bold tracking-wider p-2  text-center rounded text-sm"
             onClick={() => (
               router.push("/users/favourite-items"), setIsOpen(false)
             )}
@@ -157,7 +157,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         )}
 
         <p
-          className="bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-lg"
+          className="bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-sm"
           onClick={() => setIsOpen(false)}
         >
           <a href="https://webinar.bellefu.com/" target="_blank">
@@ -165,7 +165,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
           </a>
         </p>
         <p
-          className=" bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-lg"
+          className=" bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-sm"
           onClick={() => setIsOpen(false)}
         >
           <a href="https://radio.bellefu.com/" target="_blank">
@@ -173,7 +173,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
           </a>
         </p>
         <p
-          className="bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-lg"
+          className="bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-sm"
           onClick={() => setIsOpen(false)}
         >
           <a href="https://blog.bellefu.com/" target="_blank">
@@ -183,13 +183,13 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         {!getIsLoggedIn && (
           <>
             <p
-              className="bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-lg"
+              className="bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-sm"
               onClick={() => (router.push("/login"), setIsOpen(false))}
             >
               Login
             </p>
             <p
-              className=" bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-lg"
+              className=" bg-orange-400 font-bold tracking-wider p-2 text-center rounded text-sm"
               onClick={() => (router.push("/register"), setIsOpen(false))}
             >
               Register
@@ -198,7 +198,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         )}
         {getIsLoggedIn && (
           <p
-            className=" bg-orange-400 font-bold tracking-wider p-2 justify-center rounded text-lg flex items-center space-x-2"
+            className=" bg-orange-400 font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
             onClick={() => setIsOpen(false)}
           >
             <FcShop className="w-6 h-6" />
@@ -213,7 +213,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
             onClick={toPostAds}
           >
             <IoMdAddCircleOutline className="text-white w-5 h-5" />
-            <p className="text-lg capitalize">post ads</p>
+            <p className="text-sm capitalize">post ads</p>
           </div>
         )}
 
@@ -231,8 +231,8 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
                 });
               }}
             >
-              <RiLogoutBoxFill className="text-white w-6 h-6" />
-              <p className="text-base capitalize py-1">Logout</p>
+              <RiLogoutBoxFill className="text-white w-5 h-5" />
+              <p className="text-sm capitalize py-1">Logout</p>
             </div>
           </div>
         )}
