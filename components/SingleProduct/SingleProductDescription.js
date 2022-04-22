@@ -36,7 +36,6 @@ const SingleProductDescription = ({ productDetails }) => {
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
   const [report, setReport] = useState("");
-  const [message, setMessage] = useState("");
 
   const receiverId = productDetails[0]?.productOwnerId;
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
@@ -182,7 +181,9 @@ const SingleProductDescription = ({ productDetails }) => {
         if (res.data.status) {
           setFavStatus(!favStatus);
 
-          const cleanArr = favArr.filter((items) => items !== productDetails[0]?.productId);
+          const cleanArr = favArr.filter(
+            (items) => items !== productDetails[0]?.productId
+          );
           setClean(cleanArr);
           toast.error(
             `${productDetails[0]?.productTitle.substring(
@@ -205,8 +206,8 @@ const SingleProductDescription = ({ productDetails }) => {
           {productDetails[0]?.productTitle}
         </p>
         {favStatus ||
-          (clean?.includes(productDetails[0]?.productId) &&
-            favArr?.includes(productDetails[0]?.productId)) ? (
+        (clean?.includes(productDetails[0]?.productId) &&
+          favArr?.includes(productDetails[0]?.productId)) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -261,10 +262,7 @@ const SingleProductDescription = ({ productDetails }) => {
       {/* product owner profile details */}
 
       <div className="py-3 px-3 lg:hidden">
-        <SingleProductMobileSidebar
-          mobileDetails={productDetails}
-          sendMessage={sendMessage}
-        />
+        <SingleProductMobileSidebar mobileDetails={productDetails} />
       </div>
 
       {/* end of product owner details */}
@@ -301,7 +299,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 onClose={() => setModalOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-              // sx={{ opacity: 0.5 }}
+                // sx={{ opacity: 0.5 }}
               >
                 <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
