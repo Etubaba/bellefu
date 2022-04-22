@@ -192,7 +192,7 @@ const Register = ({ countries, countries1 }) => {
   useEffect(() => {
     if (!countryPhoneCode) {
       const country = countries1.find(country => country.iso2 === defaultCountry)
-      setCountryPhoneCode(`+${country.phone_code}`);
+      setCountryPhoneCode(`+${country?.phone_code}`);
     }
   }, [])
 
