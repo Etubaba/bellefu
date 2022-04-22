@@ -114,6 +114,13 @@ const NavBar = () => {
       <div className="hidden lg:inline-flex">
         <div className="flex space-x-4 items-center">
           <div className="text-white space-x-4 capitalize text-md font-semibold">
+
+            <a
+              className="hover:text-gray-200"
+            // href="https://webinar.bellefu.com/"
+            >
+              Create Shop
+            </a>
             <a
               className="hover:text-gray-200"
               href="https://webinar.bellefu.com/"

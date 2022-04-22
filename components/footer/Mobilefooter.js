@@ -9,7 +9,7 @@ import {
 
 function Mobilefooter() {
   return (
-    <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-4 w-full h-auto relative bottom-0 pb-3 ">
+    <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-3 ">
       <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 md:items-center md:justify-between">
         <div className="-mt-1 md:-mt-0">
           <img
@@ -45,12 +45,12 @@ function Mobilefooter() {
           designed to make searching for agro products available at your
           fingertips.
         </p>
-        <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+        <div className="space-y-2 flex flex-col items-center justify-center">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Tools & Resources</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             <li>Bellefu Radio</li>
             <li>Training Group</li>
             <li>Webinar</li>
@@ -58,12 +58,12 @@ function Mobilefooter() {
           </ul>
         </div>
 
-        <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+        <div className="space-y-2 lex flex-col items-center justify-center">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Information</strong>
           </p>
 
-          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>About us</li>
             <li>Legal</li>
             <li>Feedback</li>
@@ -71,12 +71,12 @@ function Mobilefooter() {
           </ul>
         </div>
 
-        <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+        <div className="space-y-2 lex flex-col items-center justify-center">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Head Office</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-sm">
             <li> 9550 Forest Lane</li>
             <li>Dallas TX, 75243,</li>
             <li>United State</li>
