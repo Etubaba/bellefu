@@ -193,11 +193,11 @@ const Login = () => {
           <p className="text-white w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="flex border-2 rounded-lg py-3 justify-center items-center pl-4 pr-6 bg-blue-500 hover:bg-blue-600 w-full"
+              className="flex border-2 rounded-lg py-3 items-center pl-4 pr-6 bg-blue-500 hover:bg-blue-600 w-full"
               onClick={() => signIn("facebook")}
             >
               <ImFacebook className='text-3xl text-white' />
-              <strong className="pl-1 lg:pl-4 text-md lg:text-lg">Sign in with Facebook</strong>
+              <strong className="pl-4 text-md">Sign in with Facebook</strong>
             </button>
           </p>
         </div>
