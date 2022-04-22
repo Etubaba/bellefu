@@ -21,8 +21,8 @@ import {
   EmailShareButton,
   FacebookShareButton,
   WhatsappShareButton,
-  TwitterShareButton
-} from 'react-share'
+  TwitterShareButton,
+} from "react-share";
 import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
@@ -205,15 +205,11 @@ const SingleProductDescription = ({ productDetails }) => {
       });
   };
 
-
-
-
   const shareUrl = window.location.href;
   const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
   const image = 'https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg'
 
-
-  console.log('current url=>', shareUrl)
+  console.log("current url=>", shareUrl);
 
   return (
     <div className="bg-bellefuWhite rounded-t-md">
@@ -296,20 +292,24 @@ const SingleProductDescription = ({ productDetails }) => {
             <p className="text-2xl text-bellefuBlack1">Contact The Seller</p>
 
             <div className="flex items-center mt-2 w-full space-x-10 justify-center">
-              <div
-                onClick={handleMessage}
-                className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
-              >
-                <RiMessage2Fill className="text-white" />
-                <p className="text-white">Message</p>
-              </div>
-              <div
-                onClick={handleCall}
-                className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
-              >
-                <MdCall className="text-white" />
-                <p className="text-white">Call</p>
-              </div>
+              {userId !== receiverId && (
+                <div
+                  onClick={handleMessage}
+                  className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
+                >
+                  <RiMessage2Fill className="text-white" />
+                  <p className="text-white">Message</p>
+                </div>
+              )}
+              {userId !== receiverId && (
+                <div
+                  onClick={handleCall}
+                  className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
+                >
+                  <MdCall className="text-white" />
+                  <p className="text-white">Call</p>
+                </div>
+              )}
 
               <Modal
                 open={modalOpen}
@@ -451,24 +451,11 @@ const SingleProductDescription = ({ productDetails }) => {
                 Share this product on social media :
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
-                <FacebookShareButton
-                  url={shareUrl}
-                  quote={title}
-                  picture={
-                    "https://pixabay.com/photos/football-sport-play-competition-4455306/"
-                  }
-                  className="Demo__some-network__share-button"
-                >
-                  <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
-                </FacebookShareButton>
-                <TwitterShareButton
-                  url={shareUrl}
-                  quote={title}
-                  picture={"https://pixabay.com/photos/football-sport-play-competition-4455306/"}
-                >
-                  <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
-                </TwitterShareButton>
-
+                <BsFacebook
+                  className="w-7 h-7 text-[#4267B2] cursor-pointer"
+                  onClick={facebookShare}
+                />
+                <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
                 <BsInstagram className="w-7 h-7 text-[#E1306C] cursor-pointer" />
                 <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
               </div>
