@@ -240,7 +240,7 @@ const Register = ({ countries, countries1 }) => {
                 />
               </div>
               {selectCountry && (
-                <div className="z-50 absolute top-32 left-[9%] md:left-[24%] h-80 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="z-50 absolute left-[9%] md:left-[24%] h-60 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {countries1?.map((country) => (
                     <div
                       key={country.id}
@@ -324,8 +324,13 @@ const Register = ({ countries, countries1 }) => {
         </div>
         {!session &&
           <>
-            <hr />
-            <p className="text-center mt-11 mb-8">OR</p>
+            <div className="flex items-center mt-4 mb-8">
+              <p className="w-[46%]"><hr className="w-full" /></p>
+              <p className="w-[6%] text-center mx-4">OR</p>
+              <p className="w-[46%]"><hr className="w-full" /></p>
+            </div>
+            {/* <hr /> */}
+            {/* <p className="text-center mt-11 mb-8">OR</p> */}
             <div className="flex flex-col md:flex-row items-center justify-center mb-12 px-6 py-4 md:px-12 md:py-4">
               <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
                 <button

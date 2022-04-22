@@ -183,7 +183,7 @@ const Login = () => {
           <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]">
             <button
               type="button"
-              className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-6 bg-white hover:bg-[#F2F2F2] w-full"
+              className="flex items-center border-2 rounded-lg py-3 pl-4 pr-6 bg-white hover:bg-[#F2F2F2] w-full"
               onClick={() => signIn("google")}
             >
               <FcGoogle className='text-3xl' /> <strong className='text-[#303A4B] pl-4 text-lg'>Sign in with Google</strong>
