@@ -39,7 +39,7 @@ const profile = ({ data1 }) => {
   const [lgachecker, setLgachecker] = useState("");
   const [addressholder, setAddressholder] = useState("");
   const [bioholder, setBioholder] = useState("");
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [files, setFiles] = useState("");
   const [files2, setFiles2] = useState();
 
