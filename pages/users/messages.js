@@ -353,7 +353,7 @@ const messages = ({ data1 }) => {
 
               {file !== undefined && read && (
 
-                <div className='flex rounded-t-lg justify-center top-[61%] left-96  items-center absolute bg-white w-[64%] h-40'>
+                <div className='flex rounded-t-lg justify-center top-[61%] left-96  items-center absolute bg-white w-1/2  lg:w-[64%] h-40'>
                   <img
                     className='w-24  h-32 object-contain'
                     src={preview}

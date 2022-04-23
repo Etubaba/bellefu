@@ -162,16 +162,22 @@ function Footer() {
         </div>
 
         <div className=" flex">
-          <img
-            alt="error"
-            src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
-            className="w-40 h-10 mr-6"
-          />
-          <img
-            alt="error"
-            src="https://www.linkpicture.com/q/ios-removebg-preview.png"
-            className="w-40 h-10"
-          />
+          <a href='https://play.google.com/store/apps/details?id=com.bellefu_farmers_market.bellefu'>
+            <img
+              alt="error"
+              src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
+              className="w-40 h-10 mr-6"
+            />
+          </a>
+          <a href='https://apps.apple.com/us/app/bellefu/id1556135856'>
+
+            <img
+              alt="error"
+              src="https://www.linkpicture.com/q/ios-removebg-preview.png"
+              className="w-40 h-10"
+            />
+          </a>
+
         </div>
 
         <p className="flex text-[#9c9c9c] space-x-3">
