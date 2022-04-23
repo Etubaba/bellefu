@@ -159,15 +159,15 @@ const messages = ({ data1 }) => {
   return (
     // the message header
     <div className="w-full    md:mt-3  rounded-lg lg:mt-5 bg-bellefuWhite h-auto md:w-auto  pb-2 ">
-     { loading?<div className="flex items-center  text-center p-3">
+      {loading ? <div className="flex items-center  text-center p-3">
         <div className="text-xl ">Messages</div>
-      </div>:<Skeleton
-          className="rounded mt-6 "
-          variant="rectangular"
-          animation="wave"
-          width={"100%"}
-          height={30}
-        />}
+      </div> : <Skeleton
+        className="rounded mt-6 "
+        variant="rectangular"
+        animation="wave"
+        width={"100%"}
+        height={30}
+      />}
       <hr />
 
 
@@ -351,7 +351,7 @@ const messages = ({ data1 }) => {
                 </div>
               ))}
 
-              {/* {file !== undefined && read && (
+              {file !== undefined && read && (
 
                 <div className='flex rounded-t-lg justify-center top-[61%] left-96  items-center absolute bg-white w-[64%] h-40'>
                   <img
@@ -363,7 +363,7 @@ const messages = ({ data1 }) => {
                     onClick={() => setFile(undefined)}
                     className='bg-red-600 px- top-5 left-[55.5%] h-6 w-6 absolute flex items-center justify-center rounded-full' > <MdClose className='text-white text-xl' /></span>
                 </div>
-              )} */}
+              )}
 
 
 

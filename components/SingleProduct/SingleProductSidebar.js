@@ -36,7 +36,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
 
   const handleMessage = () => {
     if (isLoggedIn) {
-      setOpen(!open);
+      setOpen(true);
     } else {
       setModalOpen(true);
     }
@@ -255,8 +255,8 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
         {/* when user never logged */}
 
         <Modal
-          open={open}
-          onClose={() => setOpen(false)}
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         // sx={{ opacity: 0.5 }}
