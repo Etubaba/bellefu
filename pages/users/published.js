@@ -7,6 +7,7 @@ import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
 import { profileDetails } from "../../features/bellefuSlice";
+import { useRouter } from "next/router";
 
 const Published = () => {
   const [pend, setPend] = useState(true);

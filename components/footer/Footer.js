@@ -2,7 +2,7 @@ import React from "react";
 import { BsFacebook } from "react-icons/bs";
 import {
   AiFillTwitterCircle,
-  AiFillInstagram,
+  AiOutlineInstagram,
   AiOutlineCopyrightCircle,
 } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
@@ -145,10 +145,20 @@ function Footer() {
 
       <div className="flex justify-between mt-10 mx-5 items-center space-x-3 ">
         <div className="space-x-4 flex justify-evenly">
-          <BsFacebook className="text-[#d4d7d1] text-2xl" />
-          <AiFillTwitterCircle className="text-[#d4d7d1] text-2xl" />
-          <FaLinkedin className="text-[#d4d7d1] text-2xl" />
-          <AiFillInstagram className="text-[#d4d7d1] text-2xl" />
+          <a href='https://web.facebook.com/Bellefu.official'>
+            <BsFacebook className=" hover:text-gray-500   text-[#d4d7d1] link text-2xl" />
+          </a>
+          <a href='https://twitter.com/Bellefuofficial'>
+            <AiFillTwitterCircle className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+          </a>
+          <a href=" https://www.instagram.com/bellefu_official/">
+            <AiOutlineInstagram className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+          </a>
+          <a href='https://www.linkedin.com/company/67955966/'>
+            <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+          </a>
+
+
         </div>
 
         <div className=" flex">
