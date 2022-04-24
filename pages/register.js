@@ -240,7 +240,7 @@ const Register = ({ countries, countries1 }) => {
                 />
               </div>
               {selectCountry && (
-                <div className="z-50 absolute top-56 left-[9%] md:left-[24%] h-60 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="z-50 absolute top-96 left-[9%] md:left-[24%] h-60 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {countries1?.map((country) => (
                     <div
                       key={country.id}
