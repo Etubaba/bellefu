@@ -203,7 +203,7 @@ const Register = ({ countries, countries1 }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {!session && <RegisterHeader />}
-      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2", { "mt-9": session })}>
+      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2", { "mt-9": session })} onClick={() => setSelectCountry(false)}>
         <h1 className="text-center font-bold py-4">{!session ? "Create Your Account With Bellefu!" : "Thanks for Your Interest in Bellefu App"}</h1>
         {session && <h2 className="text-center font-semibold pb-4">To Serve You Better and Complete Your Registration, We Need More Information from You.</h2>}
         <hr />
