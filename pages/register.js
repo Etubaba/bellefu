@@ -203,7 +203,7 @@ const Register = ({ countries, countries1 }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {!session && <RegisterHeader />}
-      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2", { "mt-9": session })} onClick={() => setSelectCountry(false)}>
+      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2", { "mt-9": session })}>
         <h1 className="text-center font-bold py-4">{!session ? "Create Your Account With Bellefu!" : "Thanks for Your Interest in Bellefu App"}</h1>
         {session && <h2 className="text-center font-semibold pb-4">To Serve You Better and Complete Your Registration, We Need More Information from You.</h2>}
         <hr />
@@ -240,7 +240,7 @@ const Register = ({ countries, countries1 }) => {
                 />
               </div>
               {selectCountry && (
-                <div className="z-50 absolute top-56 left-[9%] md:left-[24%] h-60 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="z-50 absolute left-[9%] md:left-[24%] h-60 overflow-y-scroll mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {countries1?.map((country) => (
                     <div
                       key={country.id}
