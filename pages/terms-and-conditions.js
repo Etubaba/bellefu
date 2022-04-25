@@ -14,7 +14,7 @@ const TermsandConditions = () => {
         <ol className="text-xl font-bold">
           <li>
             <h3 className="mb-3">Acceptance of the terms</h3>
-            <ol className="text-md font-normal">
+            <ol className="text-normal font-normal">
               <li className="mb-3">These Terms and Conditions (the “Terms”) constitute a binding and enforceable legal contract between Bellefu Agro Consult (“Bellefu”) and you. Please read these Terms carefully.</li>
               <li className="mb-3">Your access and use of the bellefu.com website and mobile applications, as well as any service, content, and data available via them (together, the “Service” or the “Platform”) are governed by these Terms.</li>
               <li className="mb-3">If you do not agree with any part of these Terms, or if you are not eligible or authorized to be bound by the Terms, then do not access or use the Service.</li>
