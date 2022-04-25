@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdLocationOn } from "react-icons/md";
 
-import { BsHeart, BsSuitHeartFill } from "react-icons/bs";
+import { BsHeart, BsSuitHeartFill, BsCart3 } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -102,7 +102,7 @@ const ShopComponent = ({ product }) => {
       </div>
       <div className="flex items-center space-x-3 mt-2">
         <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
-          <MdOutlineMessage className="text-white" />
+          <BsCart3 className="text-white" />
         </button>
         <button className="bg-bellefuGreen w-full flex items-center justify-center py-4 rounded-md">
           <MdCall className="text-white" />
