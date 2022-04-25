@@ -41,6 +41,8 @@ const initialState = {
     phone: "",
     price: null,
     currencyCode: "",
+    images: [],
+    videofile: "",
     tag: [],
     description: "",
     userid: "",
@@ -165,6 +167,9 @@ export const bellefuSlice = createSlice({
     handleImagesUpdate: (state, action) => {
       state.postAddata.images = action.payload;
     },
+    handleVideoUpdate: (state, action) => {
+      state.postAddata.videofile = action.payload;
+    },
     handleUseridUpdate: (state, action) => {
       state.postAddata.userid = action.payload;
     },
@@ -243,7 +248,8 @@ export const {
   handleStates, idpending,
   handleLga, ifVerified,
   handleLganame, kycpending,
-  handleStatesname
+  handleStatesname,
+  handleVideoUpdate
 } = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;
