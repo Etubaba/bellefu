@@ -221,8 +221,8 @@ const SingleProductDescription = ({ productDetails }) => {
           {productDetails[0]?.productTitle}
         </p>
         {favStatus ||
-        (clean?.includes(productDetails[0]?.productId) &&
-          favArr?.includes(productDetails[0]?.productId)) ? (
+          (clean?.includes(productDetails[0]?.productId) &&
+            favArr?.includes(productDetails[0]?.productId)) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -314,11 +314,11 @@ const SingleProductDescription = ({ productDetails }) => {
               )}
 
               <Modal
-                open={open}
-                onClose={() => setOpen(false)}
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                // sx={{ opacity: 0.5 }}
+              // sx={{ opacity: 0.5 }}
               >
                 <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}

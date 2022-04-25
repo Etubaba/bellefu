@@ -163,7 +163,7 @@ function Footer() {
             <AiOutlineInstagram className="text-[#d4d7d1] hover:text-gray-500  text-3xl" />
           </a>
           <a href='https://www.linkedin.com/company/67955966/'>
-            <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  mt-2 text-2xl" />
+            <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  mt-1 text-2xl" />
           </a>
 
 
