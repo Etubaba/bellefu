@@ -157,13 +157,13 @@ function Footer() {
             <BsFacebook className=" hover:text-gray-500   text-[#d4d7d1] link text-2xl" />
           </a>
           <a href='https://twitter.com/Bellefuofficial'>
-            <AiFillTwitterCircle className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+            <AiFillTwitterCircle className="text-[#d4d7d1] hover:text-gray-500  text-3xl" />
           </a>
           <a href=" https://www.instagram.com/bellefu_official/">
-            <AiOutlineInstagram className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+            <AiOutlineInstagram className="text-[#d4d7d1] hover:text-gray-500  text-3xl" />
           </a>
           <a href='https://www.linkedin.com/company/67955966/'>
-            <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+            <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  mt-1 text-2xl" />
           </a>
 
 

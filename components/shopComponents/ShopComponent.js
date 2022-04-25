@@ -17,6 +17,12 @@ const ShopComponent = ({ product }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
 
+
+  console.log('shop=>', product)
+
+
+
+
   const addFav = (e) => {
     e.stopPropagation();
     if (isLoggedIn) {
