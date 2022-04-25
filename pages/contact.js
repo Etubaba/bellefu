@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BsFacebook,
   BsTwitter,
@@ -12,6 +12,11 @@ import {
 import { FaLinkedinIn } from "react-icons/fa";
 
 const Contact = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [comment, setComment] = useState("");
+
   return (
     <div className="md:max-w-5xl md:mx-auto w-full flex flex-col md:flex-row space-y-3 md:space-x-10 bg-white mt-6 md:mt-20 md:p-5 p-2 rounded-sm">
       {/* left side */}
@@ -26,20 +31,28 @@ const Contact = () => {
         <div className="flex flex-col space-y-3">
           <input
             type="text"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             placeholder="Full name"
             className="border outline-none px-2 md:py-1 py-2 rounded focus:ring-bellefuOrange focus:ring-1 text-base md:text-lg"
           />
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enmail"
             className="border outline-none px-2 md:py-1 py-2 rounded focus:ring-bellefuOrange focus:ring-1 text-base md:text-lg"
           />
           <input
             type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             placeholder="Phone number"
             className="border outline-none px-2 md:py-1 py-2 rounded focus:ring-bellefuOrange focus:ring-1 text-base md:text-lg"
           />
           <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             className=" p-2 rounded shadow outline-none ring-yellow-500 focus:ring-1"
             placeholder="Comment"
             rows="5"
