@@ -7,8 +7,9 @@
     @apply bg-bellefuBackground font-poppins select-none;
   }
 
-  ol, ul, menu {
+  ol {
     list-style-type: decimal;
+    @apply m-8
   }
 }
 
