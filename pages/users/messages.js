@@ -82,9 +82,9 @@ const messages = ({ data1 }) => {
     };
 
     getMessages();
-  }, [read]);
+  }, []);
 
-
+  console.log(contact)
 
 
   // get chat between two people

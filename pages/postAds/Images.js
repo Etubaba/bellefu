@@ -1,13 +1,13 @@
 import React from "react";
 import Layout from "../../components/postAdsComponent/Layout";
 import { useEffect, useState } from "react";
-import { useDropzone ,Dropzone} from "react-dropzone";
+import { useDropzone, Dropzone } from "react-dropzone";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { handleImagesUpdate ,handleVideoUpdate} from "../../features/bellefuSlice";
+import { handleImagesUpdate, handleVideoUpdate } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
 import Video from "./Video";
 
@@ -40,7 +40,7 @@ export default function Images(props) {
 
 
 
-
+  const videoFile = useSelector(state => state.bellefu?.video);
 
   const router = useRouter();
 
@@ -53,10 +53,7 @@ export default function Images(props) {
 
 
 
-  const videoFiles=(viddata)=>{
-    const [newviddata] =viddata;
-    setVidfi(newviddata);
-  };
+
   console.log(vidfi);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*,video/*",
@@ -85,7 +82,7 @@ export default function Images(props) {
 
 
 
-  
+
 
 
   // console.log(files2);
@@ -125,7 +122,7 @@ export default function Images(props) {
       });
     }
   };
-  
+
 
   return (
     <div>
@@ -170,14 +167,14 @@ export default function Images(props) {
               </span>
             </div>
           </div>
-           
 
 
-        {/* #################### VIDEO */}
-          <Video videoFiles={videoFiles}/>
 
-        {/* ######################## */}
-         
+          {/* #################### VIDEO */}
+          <Video />
+
+          {/* ######################## */}
+
 
           <div className="p-5 flex justify-between">
             <button
