@@ -22,8 +22,6 @@ export default function Video({ videoFiles }) {
     border: "1px solid #eaeaea",
     marginBottom: 8,
     marginRight: 8,
-    // width: 200,
-    // height: 150,
     padding: 4,
     boxSizing: "border-box",
   };
@@ -56,8 +54,8 @@ export default function Video({ videoFiles }) {
   const handleRemovetag = (tags, e) => {
     setVidchecker(false);
     e.stopPropagation();
-    const newArr = files.filter((tag) => tag !== tags);
-    const newArr2 = files2.filter((tag) => tag.name !== tags);
+    const newArr = files?.filter((tag) => tag !== tags);
+    const newArr2 = files2?.filter((tag) => tag.name !== tags);
     setFiles(newArr);
     setFiles2(newArr2);
   };
