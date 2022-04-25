@@ -6,6 +6,10 @@
   body {
     @apply bg-bellefuBackground font-poppins select-none;
   }
+
+  ol, ul, menu {
+    list-style-type: decimal;
+  }
 }
 
 @layer components {
