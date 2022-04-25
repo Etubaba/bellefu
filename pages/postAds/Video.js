@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
 import { FcVideoCall } from "react-icons/fc";
+import { handleVideo } from "../../features/bellefuSlice";
 
 export default function Video({ videoFiles }) {
   const dispatch = useDispatch();
@@ -14,7 +15,14 @@ export default function Video({ videoFiles }) {
   const [files2, setFiles2] = useState([]);
   const [vidchecker, setVidchecker] = useState(false);
 
-  videoFiles(files2);
+  // videoFiles(files2);
+
+
+
+
+  if (files2.length > 0) {
+    dispatch(handleVideo(files2));
+  }
 
   const thumb = {
     display: "inline-flex",
@@ -42,7 +50,8 @@ export default function Video({ videoFiles }) {
 
         for (let i = 0; i < acceptedFiles.length; i++) {
           let loopedFile = acceptedFiles[i];
-          setFiles2( [loopedFile]);
+          setFiles2([loopedFile]);
+          dispatch(handleVideo(loopedFile));
 
         }
       }
