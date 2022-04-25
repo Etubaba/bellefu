@@ -1,16 +1,15 @@
 import React from "react";
 import Layout from "../../components/postAdsComponent/Layout";
 import { useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useDropzone ,Dropzone} from "react-dropzone";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { handleImagesUpdate } from "../../features/bellefuSlice";
+import { handleImagesUpdate ,handleVideoUpdate} from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
-
-
+import Video from "./Video";
 
 
 const thumbsContainer = {
@@ -38,43 +37,63 @@ const img = {
 };
 
 export default function Images(props) {
-  const router = useRouter();
 
+
+
+
+
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
   const [files2, setFiles2] = useState([]);
+  const [vidfi, setVidfi] = useState("");
 
+
+
+
+
+  const videoFiles=(viddata)=>{
+    const [newviddata] =viddata;
+    setVidfi(newviddata);
+  };
+  console.log(vidfi);
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
+    accept: "image/*,video/*",
     onDrop: (acceptedFiles) => {
       setFiles((prevState) => [
         ...prevState,
         URL.createObjectURL(acceptedFiles[0]),
       ]);
 
-      // see the file object image i dey end for back end which is files2 as arrays of files 
+      // see the file object image  dey end for back end which is files2 as arrays of files
 
       for (let i = 0; i < acceptedFiles.length; i++) {
-        let loopedFile = acceptedFiles[i]
-       
-        if(files2.length>=10){
+        let loopedFile = acceptedFiles[i];
 
+        if (files2.length >= 10) {
           toast.error("Image upload can not be more than 10", {
-            position: 'top-center',
-          })
-        }else{
+            position: "top-center",
+          });
+        } else {
           setFiles2((prevState) => [...prevState, loopedFile]);
-
         }
       }
       // setFiles2((prevState) => [...prevState, acceptedFiles]);
     },
   });
- console.log(files2);
+
+
+
+  
+
+
+  // console.log(files2);
   const handleRemovetag = (tags) => {
     const newArr = files.filter((tag) => tag !== tags);
+    const newArr2 = files.filter((tag) => tag.name !== tags);
     setFiles(newArr);
+    setFiles2(newArr2);
   };
 
   const thumbs = files.map((file, index) => (
@@ -98,18 +117,15 @@ export default function Images(props) {
     e.preventDefault();
     if (files2.length !== 0) {
       dispatch(handleImagesUpdate(files2));
-      router.push('/postAds/Publish')
-
+      dispatch(handleVideoUpdate(vidfi));
+      router.push("/postAds/Publish");
     } else {
       toast.error("You have not uoloaded any Images", {
-        position: 'top-center',
-      })
+        position: "top-center",
+      });
     }
-  }
-  // useEffect(() => {
-  //   // Make sure to revoke the data uris to avoid memory leaks
-  //   files.forEach(file => URL.revokeObjectURL(file.preview));
-  // }, [files]);
+  };
+  
 
   return (
     <div>
@@ -124,13 +140,17 @@ export default function Images(props) {
           </p>
 
           <div className="space-y-3 flex flex-col items-center justify-center">
-            <p className=" text-[12px] lg:text-base text-center">Click here or Drag & drop images here </p>
+            <p className=" text-[12px] lg:text-base text-center">
+              Click here or Drag & drop images/Videos here{" "}
+            </p>
 
             <div>
               <p className=" text-[12px] lg:text-base">
                 Max file size : <strong className="ml-[10px">5mb</strong>
               </p>
-              <p  className="mb-10 text-[12px] lg:text-base">Accept : jpeg/png</p>
+              <p className="mb-10 text-[12px] lg:text-base">
+                Accept : jpeg/png/
+              </p>
             </div>
           </div>
         </div>
@@ -150,6 +170,15 @@ export default function Images(props) {
               </span>
             </div>
           </div>
+           
+
+
+        {/* #################### VIDEO */}
+          <Video videoFiles={videoFiles}/>
+
+        {/* ######################## */}
+         
+
           <div className="p-5 flex justify-between">
             <button
               onClick={handleBack}

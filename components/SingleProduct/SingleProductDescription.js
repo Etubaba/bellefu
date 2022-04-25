@@ -208,7 +208,8 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const shareUrl = window.location.href;
   const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
-  const image = 'https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg'
+  const image =
+    "https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg";
 
   console.log("current url=>", shareUrl);
 
@@ -220,8 +221,8 @@ const SingleProductDescription = ({ productDetails }) => {
           {productDetails[0]?.productTitle}
         </p>
         {favStatus ||
-          (clean?.includes(productDetails[0]?.productId) &&
-            favArr?.includes(productDetails[0]?.productId)) ? (
+        (clean?.includes(productDetails[0]?.productId) &&
+          favArr?.includes(productDetails[0]?.productId)) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -317,20 +318,27 @@ const SingleProductDescription = ({ productDetails }) => {
                 onClose={() => setOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-              // sx={{ opacity: 0.5 }}
+                // sx={{ opacity: 0.5 }}
               >
                 <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
-                  <strong className="ml-4 mb-8 text-sm md:text-md"> Sign in </strong>
+                  <strong className="ml-4 mb-8 text-sm md:text-md">
+                    {" "}
+                    Sign in{" "}
+                  </strong>
 
                   <div className="flex space-x-4 justify-center items-center my-4">
                     <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
                       <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
-                      <strong className="text-[#303A4B] text-sm md:text-xl">Google</strong>
+                      <strong className="text-[#303A4B] text-sm md:text-xl">
+                        Google
+                      </strong>
                     </button>
                     <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
                       <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
-                      <strong className="text-white text-sm md:text-xl">Facebook</strong>
+                      <strong className="text-white text-sm md:text-xl">
+                        Facebook
+                      </strong>
                     </button>
                   </div>
 
@@ -338,7 +346,6 @@ const SingleProductDescription = ({ productDetails }) => {
                     onClick={() => router.push("/login")}
                     className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
                   >
-
                     Email or Phone
                   </button>
 
@@ -455,9 +462,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 <FacebookShareButton
                   url={shareUrl}
                   quote={title}
-
                   picture={image}
-
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
@@ -465,7 +470,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 <TwitterShareButton
                   url={shareUrl}
                   quote={title}
-                  hashtags={["bellefu", "Agriculture", 'Agribusiness']}
+                  hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                   className="Demo__some-network__share-button"
                 >
                   <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
@@ -475,8 +480,8 @@ const SingleProductDescription = ({ productDetails }) => {
                   url={shareUrl}
                   quote={title}
                   picture={image}
-                  className="Demo__some-network__share-button">
-
+                  className="Demo__some-network__share-button"
+                >
                   <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
                 </WhatsappShareButton>
 
@@ -485,7 +490,6 @@ const SingleProductDescription = ({ productDetails }) => {
                   url={shareUrl}
                   body={`Check out ${productDetails[0]?.productTitle} from`}
                   className="Demo__some-network__share-button"
-
                 >
                   <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />
                 </EmailShareButton>

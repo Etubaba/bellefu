@@ -43,6 +43,8 @@ export default function Publish() {
   // publish ads.... section wey i do beware###########################
 
   const handlePublish = (e) => {
+    console.log(dataTopost.videofile);
+
     e.preventDefault();
 
     if (dataTopost.plans === "") {
@@ -66,7 +68,6 @@ export default function Publish() {
         position: "top-center",
       });
     } else {
-      console.log(dataTopost.images);
       const formData = new FormData();
       //  things i dey post from redux store
       formData.append("title", dataTopost.title);
@@ -82,6 +83,7 @@ export default function Publish() {
       formData.append("images8", dataTopost.images[7]);
       formData.append("images9", dataTopost.images[8]);
       formData.append("images10", dataTopost.images[9]);
+      formData.append("video", dataTopost.videofile);
       formData.append("categoryid", dataTopost.categoryid);
       formData.append("subcategoryid", dataTopost.subcategoryid);
       formData.append("price", dataTopost.price);
