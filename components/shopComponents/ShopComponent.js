@@ -37,7 +37,7 @@ const ShopComponent = ({ product }) => {
     }
   };
 
-  console.log("!");
+
   const removeFav = () => {
     axios
       .post(`${apiData}delete/favorite/webindex`, {

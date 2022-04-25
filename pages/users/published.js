@@ -5,12 +5,19 @@ import PublishedAds from "../../components/layoutComponents/publishAds/Published
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { apiData } from "../../constant";
+import { toast } from "react-toastify";
+import { profileDetails } from "../../features/bellefuSlice";
+import { useRouter } from "next/router";
 
 const Published = () => {
   const [pend, setPend] = useState(true);
   const [approvedProduct, setApprovedProduct] = useState([]);
 
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+  const verify = useSelector((state) => state.bellefu?.verificationStatus);
+  const profile = useSelector(profileDetails);
+  const router = useRouter();
+
 
   const test = 1285;
 
@@ -24,6 +31,29 @@ const Published = () => {
 
     getProduct();
   }, []);
+
+
+  const toPostAds = () => {
+    if (verify.phone && profile.avatar !== "useravatar.jpg") {
+      router.push("/postAds");
+    } else if (!verify.phone) {
+      toast.info("Verify your phone number to post Ads", {
+        position: "top-right",
+      });
+      router.push("/users/verify-account");
+    } else if (profile.avatar === "useravatar.jpg") {
+      toast.info("Update your profile details to post  Ads", {
+        position: "top-right",
+      });
+      router.push("/users/profile");
+    }
+  };
+
+
+
+
+
+
 
   return (
     <div className="rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
@@ -41,7 +71,7 @@ const Published = () => {
                 You do not have any published product yet
               </p>
 
-              <button className="py-1 lg:py-3 hover:bg-orange-200 mt-16 px-8 lg:px-12 rounded-lg bg-bellefuOrange text-white text-sm lg:text-lg">
+              <button onClick={toPostAds} className="py-1 lg:py-3 hover:bg-orange-200 mt-16 px-8 lg:px-12 rounded-lg bg-bellefuOrange text-white text-sm lg:text-lg">
                 Make your first post
               </button>
             </div>

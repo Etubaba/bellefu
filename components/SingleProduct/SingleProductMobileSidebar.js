@@ -18,7 +18,9 @@ import { toast } from "react-toastify";
 import { Rating } from "@mui/material";
 import axios from "axios";
 
-const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
+import { apiData } from "../../constant";
+
+const SingleProductMobileSidebar = ({ mobileDetails }) => {
   const isLoggedIn = useSelector(login);
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -27,6 +29,7 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
   const [open5, setOpen5] = useState(false);
+  const [message, setMessage] = useState("");
   const [reviewmsg, setReviewmsg] = useState("");
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState(false);
@@ -92,6 +95,33 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
             setReview(false);
           }
         });
+    }
+  };
+
+  const sendMessage = () => {
+    if (message === "") {
+      toast.error("You can not send an empty field", { position: "top-right" });
+    } else {
+      const formData = new FormData();
+      formData.append("messageTo", receiverId);
+      formData.append("messageFrom", senderId);
+      formData.append("image", "");
+      formData.append("message", message);
+      axios({
+        method: "POST",
+        url: `${apiData}send/messages`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => {
+        if (res.data.status) {
+          toast.success("Your message has been sent successfully.", {
+            position: "top-right",
+          });
+          setMessage("");
+        }
+      });
     }
   };
 
@@ -167,13 +197,16 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
           {/* call and message */}
           <div className="flex flex-col">
             {/* message */}
-            <div
-              className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
-              onClick={handleMessage}
-            >
-              <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
-              <p className="text-white font-medium text-sm">Messages</p>
-            </div>
+            {senderId !== receiverId && (
+              <div
+                className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
+                onClick={handleMessage}
+              >
+                <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
+                <p className="text-white font-medium text-sm">Messages</p>
+              </div>
+            )}
+
             {/* message box */}
             {open === true && (
               <div className="border bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
@@ -192,6 +225,8 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
 
                 <textarea
                   rows="5"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="w-full bg-transparent px-3 outline-none text-xs"
                 />
                 <div className="flex items-center justify-center py-2">
@@ -226,13 +261,15 @@ const SingleProductMobileSidebar = ({ mobileDetails, sendMessage }) => {
             )}
 
             {/* call */}
-            <div
-              onClick={handleCall}
-              className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center"
-            >
-              <IoIosCall className="w-4 h-4 text-white" />
-              <p className="text-white font-medium text-sm">Call</p>
-            </div>
+            {senderId !== receiverId && (
+              <div
+                onClick={handleCall}
+                className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center"
+              >
+                <IoIosCall className="w-4 h-4 text-white" />
+                <p className="text-white font-medium text-sm">Call</p>
+              </div>
+            )}
             {open3 === true && (
               <div className="w-full flex items-center justify-between mt-1">
                 <h1 className="text-bellefuGreen capitalize">

@@ -3,19 +3,19 @@ import { FaLinkedin } from "react-icons/fa";
 import { BsFacebook } from "react-icons/bs";
 import {
   AiFillTwitterCircle,
-  AiFillInstagram,
+  AiOutlineInstagram
   // AiOutlineCopyrightCircle,
 } from "react-icons/ai";
 
 function Mobilefooter() {
   return (
-    <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-4 w-full h-auto relative bottom-0 pb-3 ">
+    <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-3 ">
       <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 md:items-center md:justify-between">
         <div className="-mt-1 md:-mt-0">
           <img
             alt="logo"
             src="https://www.linkpicture.com/q/bellefulogo_1_-removebg-preview.png"
-            className="w-full mt-5 h-10 object-contain"
+            className="w-full mt-5 h-10 object-contain cursor-pointer"
           />
         </div>
 
@@ -45,25 +45,25 @@ function Mobilefooter() {
           designed to make searching for agro products available at your
           fingertips.
         </p>
-        <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+        <div className="space-y-2 flex flex-col items-center justify-center">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Tools & Resources</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-base md:text-sm">
-            <li>Bellefu Radio</li>
-            <li>Training Group</li>
-            <li>Webinar</li>
-            <li>Blog</li>
+          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
+            <li><a href="https://www.radio.bellefu.com ">Bellefu Radio</a></li>
+            <li href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV">Training Group</li>
+            <li href="https://www.webinar.bellefu.com">Webinar</li>
+            <li href="https://www.blog.bellefu.com ">Blog</li>
           </ul>
         </div>
 
-        <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+        <div className="space-y-2 lex flex-col items-center justify-center">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Information</strong>
           </p>
 
-          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>About us</li>
             <li>Legal</li>
             <li>Feedback</li>
@@ -71,12 +71,12 @@ function Mobilefooter() {
           </ul>
         </div>
 
-        <div className="space-y-2">
-          <p className="text-[#F9FDF5]">
+        <div className="space-y-2 lex flex-col items-center justify-center">
+          <p className="text-[#F9FDF5] text-center">
             <strong>Head Office</strong>
           </p>
 
-          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-base md:text-sm">
+          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-sm">
             <li> 9550 Forest Lane</li>
             <li>Dallas TX, 75243,</li>
             <li>United State</li>
@@ -100,10 +100,20 @@ function Mobilefooter() {
       </div>
 
       <div className="flex items-center justify-center mb-4 space-x-8">
-        <BsFacebook className="text-[#4267B2] text-2xl" />
-        <AiFillTwitterCircle className="text-[#00acee] text-2xl" />
-        <FaLinkedin className="text-[#0e76a8] text-2xl" />
-        <AiFillInstagram className="text-[#8a3ab9] text-2xl" />
+        <a href='https://web.facebook.com/Bellefu.official'>
+          <BsFacebook className="text-[#4267B2] text-2xl" />
+        </a>
+        <a href='https://twitter.com/Bellefuofficial'>
+          <AiFillTwitterCircle className="text-[#00acee] text-2xl" />
+        </a>
+        <a href='https://www.linkedin.com/company/67955966/'>
+          <FaLinkedin className="text-[#0e76a8] text-2xl" />
+        </a>
+        <a href=" https://www.instagram.com/bellefu_official/">
+          <AiOutlineInstagram className="text-gradient-b from-[#DF4A8E]   to-[#F99D4F] text-2xl" />
+        </a>
+
+
       </div>
 
       <p className="flex text-[#9c9c9c] items-center justify-center text-base md:text-sm m-3 space-x-3">

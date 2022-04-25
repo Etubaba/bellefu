@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BsHeart } from "react-icons/bs";
-import { AiFillEye } from "react-icons/ai";
+import { AiFillEye, AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
 import { Modal } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
@@ -11,11 +11,19 @@ import { RiMessage2Fill, RiMessageFill, RiCloseFill } from "react-icons/ri";
 import {
   BsFacebook,
   BsTwitter,
+  BsWhatsapp,
   BsFillFlagFill,
+  BsInstagram,
   BsSuitHeartFill,
   BsFillCheckSquareFill,
 } from "react-icons/bs";
-
+import {
+  EmailShareButton,
+  LinkedinShareButton,
+  FacebookShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+} from "react-share";
 import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,12 +39,11 @@ const SingleProductDescription = ({ productDetails }) => {
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
-
+  const [message, setMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
   const [report, setReport] = useState("");
-  const [message, setMessage] = useState("");
 
   const receiverId = productDetails[0]?.productOwnerId;
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
@@ -182,7 +189,9 @@ const SingleProductDescription = ({ productDetails }) => {
         if (res.data.status) {
           setFavStatus(!favStatus);
 
-          const cleanArr = favArr.filter((items) => items !== productDetails[0]?.productId);
+          const cleanArr = favArr.filter(
+            (items) => items !== productDetails[0]?.productId
+          );
           setClean(cleanArr);
           toast.error(
             `${productDetails[0]?.productTitle.substring(
@@ -197,6 +206,13 @@ const SingleProductDescription = ({ productDetails }) => {
       });
   };
 
+  const shareUrl = window.location.href;
+  const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
+  const image =
+    "https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg";
+
+  console.log("current url=>", shareUrl);
+
   return (
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
@@ -205,8 +221,8 @@ const SingleProductDescription = ({ productDetails }) => {
           {productDetails[0]?.productTitle}
         </p>
         {favStatus ||
-          (clean?.includes(productDetails[0]?.productId) &&
-            favArr?.includes(productDetails[0]?.productId)) ? (
+        (clean?.includes(productDetails[0]?.productId) &&
+          favArr?.includes(productDetails[0]?.productId)) ? (
           <BsSuitHeartFill
             onClick={removeFav}
             className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -261,10 +277,7 @@ const SingleProductDescription = ({ productDetails }) => {
       {/* product owner profile details */}
 
       <div className="py-3 px-3 lg:hidden">
-        <SingleProductMobileSidebar
-          mobileDetails={productDetails}
-          sendMessage={sendMessage}
-        />
+        <SingleProductMobileSidebar mobileDetails={productDetails} />
       </div>
 
       {/* end of product owner details */}
@@ -281,49 +294,59 @@ const SingleProductDescription = ({ productDetails }) => {
             <p className="text-2xl text-bellefuBlack1">Contact The Seller</p>
 
             <div className="flex items-center mt-2 w-full space-x-10 justify-center">
-              <div
-                onClick={handleMessage}
-                className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
-              >
-                <RiMessage2Fill className="text-white" />
-                <p className="text-white">Message</p>
-              </div>
-              <div
-                onClick={handleCall}
-                className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
-              >
-                <MdCall className="text-white" />
-                <p className="text-white">Call</p>
-              </div>
+              {userId !== receiverId && (
+                <div
+                  onClick={handleMessage}
+                  className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
+                >
+                  <RiMessage2Fill className="text-white" />
+                  <p className="text-white">Message</p>
+                </div>
+              )}
+              {userId !== receiverId && (
+                <div
+                  onClick={handleCall}
+                  className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
+                >
+                  <MdCall className="text-white" />
+                  <p className="text-white">Call</p>
+                </div>
+              )}
 
               <Modal
-                open={modalOpen}
-                onClose={() => setModalOpen(false)}
+                open={open}
+                onClose={() => setOpen(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-              // sx={{ opacity: 0.5 }}
+                // sx={{ opacity: 0.5 }}
               >
-                <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
+                <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
-                  <strong className="ml-4 mb-8"> Sign in </strong>
+                  <strong className="ml-4 mb-8 text-sm md:text-md">
+                    {" "}
+                    Sign in{" "}
+                  </strong>
 
-                  <div className="flex space-x-3 justify-center items-center my-4">
-                    <button className=" flex py-3 px-14 border-2 hover:bg-gray-200  rounded-lg  ">
-                      <FcGoogle className="text-3xl mr-5" />{" "}
-                      <strong className="text-[#303A4B] text-xl">Google</strong>
+                  <div className="flex space-x-4 justify-center items-center my-4">
+                    <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
+                      <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
+                      <strong className="text-[#303A4B] text-sm md:text-xl">
+                        Google
+                      </strong>
                     </button>
-                    <button className="hover:bg-blue-700 flex py-3 px-14 bg-[#3B5998] rounded-lg ">
-                      <ImFacebook className="text-3xl text-white mr-5 " />
-                      <strong className="text-white text-xl">Facebook</strong>
+                    <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
+                      <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
+                      <strong className="text-white text-sm md:text-xl">
+                        Facebook
+                      </strong>
                     </button>
                   </div>
 
                   <button
                     onClick={() => router.push("/login")}
-                    className="py-3 px-40 mb-4 ml-4 rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+                    className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
                   >
-                    {" "}
-                    Email or Phone Number{" "}
+                    Email or Phone
                   </button>
 
                   <p className="flex justify-center items-center">
@@ -436,8 +459,40 @@ const SingleProductDescription = ({ productDetails }) => {
                 Share this product on social media :
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
-                <BsFacebook className="w-7 h-7 text-[#4267B2]" />
-                <BsTwitter className="w-7 h-7 text-[#1DA1F2]" />
+                <FacebookShareButton
+                  url={shareUrl}
+                  quote={title}
+                  picture={image}
+                  className="Demo__some-network__share-button"
+                >
+                  <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
+                </FacebookShareButton>
+                <TwitterShareButton
+                  url={shareUrl}
+                  quote={title}
+                  hashtags={["bellefu", "Agriculture", "Agribusiness"]}
+                  className="Demo__some-network__share-button"
+                >
+                  <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
+                </TwitterShareButton>
+
+                <WhatsappShareButton
+                  url={shareUrl}
+                  quote={title}
+                  picture={image}
+                  className="Demo__some-network__share-button"
+                >
+                  <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
+                </WhatsappShareButton>
+
+                <EmailShareButton
+                  subject="Check out this product"
+                  url={shareUrl}
+                  body={`Check out ${productDetails[0]?.productTitle} from`}
+                  className="Demo__some-network__share-button"
+                >
+                  <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />
+                </EmailShareButton>
               </div>
             </div>
           </div>

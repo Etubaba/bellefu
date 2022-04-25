@@ -2,12 +2,14 @@ import React from "react";
 import { BsFacebook } from "react-icons/bs";
 import {
   AiFillTwitterCircle,
-  AiFillInstagram,
+  AiOutlineInstagram,
   AiOutlineCopyrightCircle,
 } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 function Footer() {
+  const router = useRouter();
   return (
     <div className="bg-[#191A19] hidden lg:inline-block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
       <div className="flex justify-evenly space-x-10 mb-12">
@@ -34,23 +36,26 @@ function Footer() {
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             <li>
-              <a href="www.radio.bellefu.com " className="link ">
+              <a href="https://www.radio.bellefu.com " className="link ">
                 Bellefu Radio
               </a>
             </li>
             <li>
-              <a href="" className="link">
+              <a
+                href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV"
+                className="link"
+              >
                 Training Group
               </a>
             </li>
             <li>
               {" "}
-              <a href="www.webinar.bellefu.com" className="link">
+              <a href="https://www.webinar.bellefu.com" className="link">
                 Webinar
               </a>{" "}
             </li>
             <li>
-              <a href="www.blog.bellefu.com " className="link">
+              <a href="https://www.blog.bellefu.com " className="link">
                 Blog
               </a>
             </li>
@@ -73,9 +78,14 @@ function Footer() {
                 Submit CV
               </a>
             </li>
-            <li className="link">Contact</li>
+            <li className="link" onClick={() => router.push("/contact")}>
+              Contact
+            </li>
             <li>
-              <a href="" className="link">
+              <a
+                href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q"
+                className="link"
+              >
                 Documentary
               </a>
             </li>
@@ -89,9 +99,13 @@ function Footer() {
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>
-              <a className="link">About us</a>
+              <a className="link" onClick={() => router.push("/about")}>
+                About us
+              </a>
             </li>
-            <li className="link">Legal</li>
+            <li onClick={() => router.push("/policy")} className="link">
+              Legal
+            </li>
           </ul>
         </div>
         <div className="space-y-2">
@@ -139,23 +153,39 @@ function Footer() {
 
       <div className="flex justify-between mt-10 mx-5 items-center space-x-3 ">
         <div className="space-x-4 flex justify-evenly">
-          <BsFacebook className="text-[#d4d7d1] text-2xl" />
-          <AiFillTwitterCircle className="text-[#d4d7d1] text-2xl" />
-          <FaLinkedin className="text-[#d4d7d1] text-2xl" />
-          <AiFillInstagram className="text-[#d4d7d1] text-2xl" />
+          <a href='https://web.facebook.com/Bellefu.official'>
+            <BsFacebook className=" hover:text-gray-500   text-[#d4d7d1] link text-2xl" />
+          </a>
+          <a href='https://twitter.com/Bellefuofficial'>
+            <AiFillTwitterCircle className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+          </a>
+          <a href=" https://www.instagram.com/bellefu_official/">
+            <AiOutlineInstagram className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+          </a>
+          <a href='https://www.linkedin.com/company/67955966/'>
+            <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  text-2xl" />
+          </a>
+
+
         </div>
 
         <div className=" flex">
-          <img
-            alt="error"
-            src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
-            className="w-40 h-10 mr-6"
-          />
-          <img
-            alt="error"
-            src="https://www.linkpicture.com/q/ios-removebg-preview.png"
-            className="w-40 h-10"
-          />
+          <a href='https://play.google.com/store/apps/details?id=com.bellefu_farmers_market.bellefu'>
+            <img
+              alt="error"
+              src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
+              className="w-40 h-10 mr-6"
+            />
+          </a>
+          <a href='https://apps.apple.com/us/app/bellefu/id1556135856'>
+
+            <img
+              alt="error"
+              src="https://www.linkpicture.com/q/ios-removebg-preview.png"
+              className="w-40 h-10"
+            />
+          </a>
+
         </div>
 
         <p className="flex text-[#9c9c9c] space-x-3">

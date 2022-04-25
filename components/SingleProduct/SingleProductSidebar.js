@@ -36,7 +36,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
 
   const handleMessage = () => {
     if (isLoggedIn) {
-      setOpen(!open);
+      setOpen(true);
     } else {
       setModalOpen(true);
     }
@@ -77,6 +77,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           toast.success("Your message has been sent successfully.", {
             position: "top-right",
           });
+          setMessage("");
         }
       });
     }
@@ -172,18 +173,18 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 verified?.phone && !verified?.id && !verified?.kyc
                   ? "text-black/70 w-3 h-3"
                   : !verified?.kyc && verified?.id && verified?.phone
-                  ? "w-3 h-3 text-bellefuOrange"
-                  : verified?.id && verified?.phone && verified?.kyc
-                  ? "w-3 h-3 text-bellefuGreen"
-                  : "w-3 h-3 text-[#A6A6A6]"
+                    ? "w-3 h-3 text-bellefuOrange"
+                    : verified?.id && verified?.phone && verified?.kyc
+                      ? "w-3 h-3 text-bellefuGreen"
+                      : "w-3 h-3 text-[#A6A6A6]"
               }
             />
             <i className="text-[10px] ml-2">
               {verified?.phone && !verified?.id && !verified?.kyc
                 ? "Phone verified"
                 : verified?.phone && verified?.id && !verified?.kyc
-                ? "ID verified"
-                : "KYC verified"}
+                  ? "ID verified"
+                  : "KYC verified"}
             </i>
           </span>
         </div>
@@ -206,15 +207,18 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           </p>
         </div>
         {/* message */}
-        <div
-          className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
-          onClick={handleMessage}
-        >
-          <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
-          <p className="text-white font-medium text-sm cursor-pointer">
-            Messages
-          </p>
-        </div>
+        {senderId !== receiverId && (
+          <div
+            className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
+            onClick={handleMessage}
+          >
+            <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
+            <p className="text-white font-medium text-sm cursor-pointer">
+              Messages
+            </p>
+          </div>
+        )}
+
         {/* message box */}
         {open && (
           <div className="border -mt-10 bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
@@ -255,29 +259,29 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           onClose={() => setModalOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          // sx={{ opacity: 0.5 }}
+        // sx={{ opacity: 0.5 }}
         >
-          <div className=" absolute  top-[7%] translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 left-[7%] w-[44%] h-[48%] bg-bellefuWhite ">
+          <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
             {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
-            <strong className="ml-4 mb-8"> Sign in </strong>
+            <strong className="ml-4 mb-8 text-sm md:text-md"> Sign in </strong>
 
-            <div className="flex space-x-3 justify-center items-center my-4">
-              <button className=" flex py-3 px-14 border-2 hover:bg-gray-200  rounded-lg  ">
-                <FcGoogle className="text-3xl mr-5" />{" "}
-                <strong className="text-[#303A4B] text-xl">Google</strong>
+            <div className="flex space-x-4 justify-center items-center my-4">
+              <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
+                <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
+                <strong className="text-[#303A4B] text-sm md:text-xl">Google</strong>
               </button>
-              <button className="hover:bg-blue-700 flex py-3 px-14 bg-[#3B5998] rounded-lg ">
-                <ImFacebook className="text-3xl text-white mr-5 " />
-                <strong className="text-white text-xl">Facebook</strong>
+              <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
+                <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
+                <strong className="text-white text-sm md:text-xl">Facebook</strong>
               </button>
             </div>
 
             <button
               onClick={() => router.push("/login")}
-              className="py-3 px-40 mb-4 ml-4 rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+              className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
             >
-              {" "}
-              Email or Phone Number{" "}
+
+              Email or Phone
             </button>
 
             <p className="flex justify-center items-center">
@@ -295,13 +299,15 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
         {/* end of message box */}
         {/* end of message */}
         {/* call */}
-        <div
-          onClick={handleCall}
-          className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center cursor-pointer"
-        >
-          <IoIosCall className="w-4 h-4 text-white" />
-          <p className="text-white font-medium text-sm">Call</p>
-        </div>
+        {senderId !== receiverId && (
+          <div
+            onClick={handleCall}
+            className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center cursor-pointer"
+          >
+            <IoIosCall className="w-4 h-4 text-white" />
+            <p className="text-white font-medium text-sm">Call</p>
+          </div>
+        )}
         {/* my shop */}
         <div
           onClick={() => router.push(`/shop/${userDetails[0]?.productOwnerId}`)}

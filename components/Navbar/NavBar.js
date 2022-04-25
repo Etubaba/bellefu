@@ -31,14 +31,25 @@ const NavBar = () => {
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
 
+
   const toPostAds = () => {
-    if (getIsLoggedIn && verify.phone) {
+    if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
       router.push("/postAds");
-    } else {
-      toast.info("Login or verify phone to make post", {
+    } else if (!getIsLoggedIn) {
+      toast.info("Login to post  Ads", {
         position: "top-right",
       });
       router.push("/login");
+    } else if (!verify.phone) {
+      toast.info("Verify your phone number to post Ads", {
+        position: "top-right",
+      });
+      router.push("/users/verify-account");
+    } else if (username.avatar === "useravatar.jpg") {
+      toast.info("Update your profile details to post  Ads", {
+        position: "top-right",
+      });
+      router.push("/users/profile");
     }
   };
 
@@ -114,6 +125,13 @@ const NavBar = () => {
       <div className="hidden lg:inline-flex">
         <div className="flex space-x-4 items-center">
           <div className="text-white space-x-4 capitalize text-md font-semibold">
+
+            <a
+              className="hover:text-gray-200"
+            // href="https://webinar.bellefu.com/"
+            >
+              Create Shop
+            </a>
             <a
               className="hover:text-gray-200"
               href="https://webinar.bellefu.com/"
