@@ -9,10 +9,6 @@ import { FaLinkedin } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 function Footer() {
-
-
-
-
   const router = useRouter();
   return (
     <div className="bg-[#191A19] hidden lg:inline-block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
@@ -45,7 +41,10 @@ function Footer() {
               </a>
             </li>
             <li>
-              <a href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV" className="link">
+              <a
+                href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV"
+                className="link"
+              >
                 Training Group
               </a>
             </li>
@@ -79,9 +78,14 @@ function Footer() {
                 Submit CV
               </a>
             </li>
-            <li className="link">Contact</li>
+            <li className="link" onClick={() => router.push("/contact")}>
+              Contact
+            </li>
             <li>
-              <a href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q" className="link">
+              <a
+                href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q"
+                className="link"
+              >
                 Documentary
               </a>
             </li>
@@ -95,9 +99,13 @@ function Footer() {
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>
-              <a className="link">About us</a>
+              <a className="link" onClick={() => router.push("/about")}>
+                About us
+              </a>
             </li>
-            <li onClick={() => router.push('/policy')} className="link">Legal</li>
+            <li onClick={() => router.push("/policy")} className="link">
+              Legal
+            </li>
           </ul>
         </div>
         <div className="space-y-2">
