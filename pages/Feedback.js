@@ -3,15 +3,15 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import SelectUnstyled, {
-    selectUnstyledClasses,
-  } from "@mui/base/SelectUnstyled";
-  import OptionUnstyled, {
-    optionUnstyledClasses,
-  } from "@mui/base/OptionUnstyled";
-  import PopperUnstyled from "@mui/base/PopperUnstyled";
+  selectUnstyledClasses,
+} from "@mui/base/SelectUnstyled";
+import OptionUnstyled, {
+  optionUnstyledClasses,
+} from "@mui/base/OptionUnstyled";
+import PopperUnstyled from "@mui/base/PopperUnstyled";
 //   import {handleCatUpdate} from "../../features/bellefuSlice";
 //   import { useSelector, useDispatch } from "react-redux";
-  import { styled } from "@mui/system";
+import { styled } from "@mui/system";
 
 const blue = {
   100: "#DAECFF",
@@ -56,9 +56,8 @@ const StyledButton = styled("button")(
     }
   
     &.${selectUnstyledClasses.focusVisible} {
-      outline: 3px solid ${
-        theme.palette.mode === "dark" ? blue[900] : blue[900]
-      };
+      outline: 3px solid ${theme.palette.mode === "dark" ? blue[900] : blue[900]
+    };
     }
   
     &.${selectUnstyledClasses.expanded} {
@@ -103,23 +102,20 @@ const StyledOption = styled(OptionUnstyled)(
     }
   
     &.${optionUnstyledClasses.selected} {
-      background-color: ${
-        theme.palette.mode === "dark" ? blue[900] : blue[900]
-      };
+      background-color: ${theme.palette.mode === "dark" ? blue[900] : blue[900]
+    };
       color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
     }
   
     &.${optionUnstyledClasses.highlighted} {
-      background-color: ${
-        theme.palette.mode === "dark" ? grey[800] : grey[100]
-      };
+      background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]
+    };
       color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
     }
   
     &.${optionUnstyledClasses.highlighted}.${optionUnstyledClasses.selected} {
-      background-color: ${
-        theme.palette.mode === "dark" ? blue[900] : blue[900]
-      };
+      background-color: ${theme.palette.mode === "dark" ? blue[900] : blue[900]
+    };
       color: ${theme.palette.mode === "dark" ? blue[900] : blue[900]};
     }
   
@@ -128,9 +124,8 @@ const StyledOption = styled(OptionUnstyled)(
     }
   
     &:hover:not(.${optionUnstyledClasses.disabled}) {
-      background-color: ${
-        theme.palette.mode === "dark" ? grey[800] : grey[100]
-      };
+      background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]
+    };
       color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
     }
     `
@@ -152,13 +147,13 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 });
 
 function UnstyledSelectSimple1() {
-    //   const optionSelect = category;
-    //   const dispatch = useDispatch();
-    //   const handleThings = (counts) => {
-    //     dispatch(handleCatUpdate(counts.id));
-    //     subcatCatcher(counts.sub_category, counts.name);
-    //     console.log(counts);
-    //   };
+  //   const optionSelect = category;
+  //   const dispatch = useDispatch();
+  //   const handleThings = (counts) => {
+  //     dispatch(handleCatUpdate(counts.id));
+  //     subcatCatcher(counts.sub_category, counts.name);
+  //     console.log(counts);
+  //   };
 
   return (
     <CustomSelect>
@@ -170,27 +165,28 @@ function UnstyledSelectSimple1() {
         </span>
       ))} */}
       <StyledOption value={"Ads"} >
-            Ads
+        Ads
       </StyledOption>
       <StyledOption value={"Customer service"}>
-            Customer service
+        Customer service
       </StyledOption>
       <StyledOption value={"Custom request"}>
-            Custom request
+        Custom request
       </StyledOption>
       <StyledOption value={" Feature request"} >
-            Feature request
+        Feature request
       </StyledOption>
       <StyledOption value={"others"}>
-            others
+        others
       </StyledOption>
-     
+
     </CustomSelect>
   );
 }
 
 export default function Feedback() {
   const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
