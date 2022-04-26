@@ -295,8 +295,8 @@ const messages = ({ data1 }) => {
                       <div
                         className={
                           item.from_id !== senderId
-                            ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-700 bg-gray-100 rounded shadow"
-                            : "relative max-w-xl mb-4 px-4 py-2 md:px-8 md:py-4 text-gray-100 bg-bellefuGreen rounded shadow"
+                            ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-4 py-2 md:px-5 md:py-4 text-gray-700 bg-gray-100 rounded shadow"
+                            : "relative max-w-xl mb-4 px-4 py-2 md:px-5 md:py-4 text-gray-100 bg-bellefuGreen rounded shadow"
                         }
                       >
                         <div className="block">
