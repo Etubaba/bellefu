@@ -14,7 +14,7 @@ const TermsandConditions = () => {
         <ol className="text-xl font-bold">
           <li>
             <h3 className="mb-3">Acceptance of the terms</h3>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">These Terms and Conditions (the “Terms”) constitute a binding and enforceable legal contract between Bellefu Agro Consult (“Bellefu”) and you. Please read these Terms carefully.</li>
               <li className="mb-3">Your access and use of the bellefu.com website and mobile applications, as well as any service, content, and data available via them (together, the “Service” or the “Platform”) are governed by these Terms.</li>
               <li className="mb-3">If you do not agree with any part of these Terms, or if you are not eligible or authorized to be bound by the Terms, then do not access or use the Service.</li>
@@ -22,7 +22,7 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h3 className="mb-3">Important Disclaimers</h3>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">ALL SERVICES RENDERED BY THE BELLEFU ARE RENDERED “AS IS”, “AS AVAILABLE” AND “WITH ALL FAULTS”, AND BELLEFU DISCLAIMS ALL WARRANTIES, EXPRESSED OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY GUARANTEES REGARDING CONDITION, QUALITY, LIFE DURATION, PERFORMANCE, ACCURACY, RELIABILITY, COMMERCIAL VALUE AND SUITABILITY FOR SPECIFIC PURPOSES. ALL SUCH WARRANTIES AND LIABILITIES ARE HEREBY EXCLUDED.</li>
               <li className="mb-3">BELLEFU HAS NO CONTROL OVER AND DOES NOT GUARANTEE THE EXISTENCE, QUALITY, SAFETY OR LEGALITY OF GOODS AND SERVICES PUBLISHED BY USERS ON THE PLATFORM; THE TRUSTWORTHINESS OR ACCURACY OF INFORMATION PROVIDED BY USERS IN THE ANNOUNCEMENTS; THE ABILITY OF SELLERS TO SELL GOODS OR TO PROVIDE SERVICES; THE ABILITY OF BUYERS TO PAY FOR GOODS OR SERVICES; OR THAT A USER WILL ACTUALLY COMPLETE A TRANSACTION. BELLEFU MAKES NO GUARANTEES CONCERNING THAT MANUFACTURING, IMPORT, EXPORT, OFFER, DISPLAYING, PURCHASE, SALE, ADVERTISING AND/OR USE OF PRODUCTS OR SERVICES, WHICH ARE OFFERED OR DISPLAYED ON THE PLATFORM DO NOT INFRINGE ANY THIRD PARTIES&apos; RIGHTS. THEREFORE, BELLEFU EXPRESSLY DISCLAIMS ANY LIABILITY IN CONNECTION TO MATERIALS AND INFORMATION POSTED BY USERS ON THE PLATFORM.</li>
               <li className="mb-3">YOU ARE ENCOURAGED TO CHECK THE GOODS BEFORE PAYMENT AND TO REQUEST THE SELLER TO PROVIDE DOCUMENTS CONFIRMING COMPLIANCE OF THE GOODS WITH APPLICABLE REQUIREMENTS OF LAWS, REGULATIONS, RULES, GUIDELINES, STANDARDS.</li>
@@ -30,7 +30,7 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h3 className="mb-3">Account registration</h3>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">In order to use certain features of the Service you may need to register an account on the Platform (the “Account”) and provide certain information about yourself as prompted by the registration form.</li>
               <li className="mb-3">You may create an Account as an individual or as an authorized representative of a company.</li>
               <li className="mb-3">You acknowledge that you are solely responsible for safeguarding and maintaining the confidentiality of access details to your Account and that you are fully responsible and liable for any activity performed using your Account access details.</li>
@@ -40,7 +40,7 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h3 className="mb-3">Service</h3>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">The Platform is an online service that allows users to create and publish announcements, to view announcements published by other users, to communicate with other users using the contact details provided in the announcements.</li>
               <li className="mb-3">The BELLEFU itself is not an importer, manufacturer, distributor, or seller of any item, as well as not a provider of any service posted by users on the Platform. In addition, the BELLEFU is neither a marketer nor a person acting on user's behalf with respect to the marketing of any goods or services posted on the Platform. The actual sale and purchase contracts or services contracts are entered into directly between the users, and the BELLEFU itself is not a party to such transactions. The BELLEFU provides users with an opportunity to communicate.</li>
               <li className="mb-3">Users shall be solely responsible to collect and remit any applicable taxes resulting from the sale of their goods or services posted on the Platform.</li>
@@ -52,7 +52,7 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h3 className="mb-3">Posting of Annoucements by users</h3>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">A user shall provide to the BELLEFU any documents confirming the legitimacy of posting of announcements and identity documents upon the BELLEFU&apos;s request.</li>
               <li className="mb-3">A user, who posts announcements with regard to sale of goods or services on the Platform, shall provide precise and complete information about such goods and services, as well as about the terms and conditions of sale and services provision.</li>
               <li className="mb-3">The terms and conditions of sale and services provision developed by the user shall not interfere with these Terms and applicable laws.</li>
@@ -60,7 +60,7 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h3 className="mb-3">Fees</h3>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">The Platform is generally free; however, it may contain payable services. For instance, we may set limits for publishing announcements in certain categories or offer advertising options for announcements on the Platform.</li>
               <li className="mb-3">The fees we charge for using payable services and payment methods accepted by us are disclosed on the Platform.</li>
               <li className="mb-3">We reserve the right, in our sole discretion, to change the fees and acceptable payment methods from time to time and for any reason.</li>
@@ -68,7 +68,7 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h3 className="mb-3">User presentation and Warranties</h3>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <h4 className="mb-3">By using the Service, you represent and warrant that:</h4>
               {/* <li className="mb-3"><h4>By using the Service, you represent and warrant that:</h4></li> */}
               <li className="mb-3">You have the legal capacity and you agree to comply with the Terms;</li>
@@ -109,23 +109,23 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h1 className="mb-3">Indentity</h1>
-            <p className="text-normal font-normal">You agree to indemnify and hold the BELLEFU, its successors, subsidiaries, affiliates, related companies, its suppliers, licensors and partners, and the officers, directors, employees, agents, and representatives of each of them harmless from any claim or demand, including costs and attorneys&apos; fees, made by any third party due to or arising out of: (i) your use of the Platform; (ii) your User Content; (iii) your violation of any representation, warranty, covenant, or obligation stipulated in these Terms; (iv) your violation of any applicable law, industry-standard, regulation, guideline, rule; (v) any transaction entered into by you via the Platform or your violation of terms of such transaction. The BELLEFU reserves the right, at your expense, to assume the exclusive defense and control of any matter for which you are required to indemnify us and you agree to cooperate with our defense of these claims.</p>
+            <p className="text-[16px] font-normal">You agree to indemnify and hold the BELLEFU, its successors, subsidiaries, affiliates, related companies, its suppliers, licensors and partners, and the officers, directors, employees, agents, and representatives of each of them harmless from any claim or demand, including costs and attorneys&apos; fees, made by any third party due to or arising out of: (i) your use of the Platform; (ii) your User Content; (iii) your violation of any representation, warranty, covenant, or obligation stipulated in these Terms; (iv) your violation of any applicable law, industry-standard, regulation, guideline, rule; (v) any transaction entered into by you via the Platform or your violation of terms of such transaction. The BELLEFU reserves the right, at your expense, to assume the exclusive defense and control of any matter for which you are required to indemnify us and you agree to cooperate with our defense of these claims.</p>
           </li>
           <li><h1 className="mb-3">Limitation of Liability</h1>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">IN NO EVENT SHALL BELLEFU (AND ITS AFFILIATES) BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY LOST PROFIT OR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL OR PUNITIVE DAMAGES ARISING FROM THESE TERMS OR YOUR USE OF, OR INABILITY TO USE, THE SERVICE, OR THIRD-PARTY ADS, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. ACCESS TO, AND USE OF, THE SERVICE, AND THIRD-PARTY ADS ARE AT YOUR OWN DISCRETION AND RISK, AND YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTING SYSTEM OR LOSS OF DATA RESULTING THEREFROM.</li>
               <li className="mb-3">NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, YOU AGREE THAT THE AGGREGATE LIABILITY OF THE BELLEFU TO YOU FOR ANY AND ALL CLAIMS ARISING FROM THE USE OF THE SERVICE, CONTENT OF ANNOUNCEMENTS, IS LIMITED TO THE LESSER OF THE AMOUNTS YOU HAVE PAID, IF ANY, TO US DURING THE SIX (6) MONTH PERIOD PRIOR TO ANY CAUSE OF ACTION ARISING OR NGN30,000.</li>
             </ol>
           </li>
           <li><h1 className="mb-3">Intellectual Property rights</h1>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">Information you submit to us as part of your registration, and any data, text, pictures and other materials that you may submit or post on the Platform (the “User Content”) remain your intellectual property, and the BELLEFU does not claim any ownership of the copyright or other proprietary intellectual property rights in such registration information and the User Content. Notwithstanding the foregoing, you agree that the BELLEFU may retain copies of all registration information and the User Content and use such information and the User Content as reasonably necessary for or incidental to its operation of the Service and as described in these Terms and the Privacy Policy.</li>
               <li className="mb-3">You grant the BELLEFU the non-exclusive, worldwide, transferable, perpetual, irrevocable right to publish, distribute, publicly display and perform the User Content in connection with the Service.</li>
               <li className="mb-3">You agree, and represent and warrant, that your use of the Service, or any portion thereof, will neither infringe nor violate the rights of any other party or breach any contract or legal duty to any other parties.</li>
               <li className="mb-3">Materials on the Platform, except those posted by the user, including but not limited to texts, software, scripts, graphics, photos, sounds, music, videos, interactive functions, etc. <span className="font-bold">("Materials")</span> and trademarks, service marks and logos included in it <span className="font-bold">("Marks")</span> belong to or are licensed by the BELLEFU representing items of copyright and of any other intellectual property rights. Any use of such Materials and Marks without prior notice of the BELLEFU is not allowed. <span className="font-bold">Notice for Claims of Intellectual Property Violations and Copyright Infringement</span></li>
               <li className="mb-3">If you are a holder of intellectual property rights or a person authorized to act in the name of a holder of intellectual property rights and you reasonably believe that information which is posted to the Platform someway infringes your intellectual property rights or intellectual property rights of a person, in which name you act, you may provide notification to the BELLEFU requiring to delete such material. In this regard, you shall warrant that your appeal has a legal basis, and you act in good faith according to law.</li>
               <li className="mb-3"><p>When providing relevant notification concerning infringement of rights you shall ensure that your request corresponds to the form below and includes the following:</p>
-                <ol className="text-normal font-normal">
+                <ol className="text-[16px] font-normal">
                   <li className="mb-3">an appeal should include the physical or electronic signature of a person empowered for acting in the name of a holder of the right, which is believed to be infringed;</li>
                   <li className="mb-3">the objects of intellectual property right, rights on which were supposedly infringed, shall be specified. If several objects exist, the entire list of such items shall be provided;</li>
                   <li className="mb-3">you shall specify materials (with an indication of specific URL-pages), which are stated to infringe rights or themselves are the objects of infringement;</li>
@@ -141,13 +141,13 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h1 className="mb-3">Govering law and jurisdiction</h1>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">These Terms shall be governed in accordance with the laws of the Republic of Nigeria.</li>
               <li className="mb-3">Any dispute arising out of or in connection with these Terms, including any question regarding its existence, validity or termination, shall be referred to and finally resolved by arbitration under the Arbitration and Conciliation Act (Cap. A18) of the Republic of Nigeria. The number of arbitrators shall be one. The seat of arbitration shall be Lagos, Nigeria. The language to be used in the arbitral proceedings shall be English.</li>
             </ol>
           </li>
           <li><h1 className="mb-3">Miscellaneous Provisions</h1>
-            <ol className="text-normal font-normal">
+            <ol className="text-[16px] font-normal">
               <li className="mb-3">Except as otherwise provided, if any provision of these Terms is held to be invalid, void, or for any reason unenforceable, such provision shall be struck out and shall not affect the validity and enforceability of the remaining provisions.</li>
               <li className="mb-3">We may transfer and assign any and all of our rights and obligations under these Terms to any other person, by any way, including by novation, and by accepting these Terms you give us consent to any such transfer or assignment.</li>
               <li className="mb-3">If we fail to take any action with respect to your breach of these Terms, we will still be entitled to use our rights and remedies in any other situation where you breach these Terms.</li>
@@ -155,7 +155,7 @@ const TermsandConditions = () => {
             </ol>
           </li>
           <li><h1 className="mb-3">Bellefu Contest Rules</h1>
-            <p className="text-normal font-normal">According to the applicable provisions of the tax legislation of Nigeria the Company will apply a withholding tax to your award, therefore you may receive your award less respective withholding tax as applied. You are hereby informed and acknowledge that the ultimate responsibility for your federal, state and municipal individual income taxes and/or other taxes related to the award and legally applicable to you, is and remains your responsibility and may exceed the amount actually withheld by the Company.</p>
+            <p className="text-[16px] font-normal">According to the applicable provisions of the tax legislation of Nigeria the Company will apply a withholding tax to your award, therefore you may receive your award less respective withholding tax as applied. You are hereby informed and acknowledge that the ultimate responsibility for your federal, state and municipal individual income taxes and/or other taxes related to the award and legally applicable to you, is and remains your responsibility and may exceed the amount actually withheld by the Company.</p>
           </li>
         </ol>
       </div>
