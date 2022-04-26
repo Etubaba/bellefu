@@ -7,9 +7,16 @@ import {
 } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
 import { useRouter } from "next/router";
+import NewsletterSub from "./NewsletterSub";
 
 function Footer() {
   const router = useRouter();
+
+
+  const action = 'https://bellefu.us7.list-manage.com/subscribe/post?u=500989ddbb1252dfed8f35378&amp;id=bad07acb72'
+
+
+
   return (
     <div className="bg-[#191A19] hidden lg:inline-block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
       <div className="flex justify-evenly space-x-10 mb-12">
@@ -68,7 +75,7 @@ function Footer() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li className="link">Feedback</li>
+            <li onClick={() => router.push("/feedback")} className="link">Feedback</li>
 
             <li>
               <a
@@ -133,7 +140,10 @@ function Footer() {
         </div>
       </div>
 
-      <div className=" flex flex-col space-y-2 items-center justify-center">
+
+
+      <NewsletterSub action={action} />
+      {/* <div className=" flex flex-col space-y-2 items-center justify-center">
         <p className="text-[#D4D7D1] text-xs">
           Subscribe to our newsletter to get updates and amazing tips
         </p>
@@ -147,7 +157,7 @@ function Footer() {
             Send
           </button>
         </div>
-      </div>
+      </div> */}
 
       <hr className="my-2 mx-4 bg-[#767873] " />
 

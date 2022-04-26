@@ -84,11 +84,23 @@ const Contact = () => {
               contact@bellefu.com
             </p>
             <div className="flex items-center space-x-5 text-xl">
-              <BsFacebook className="text-[#3b5998]" />
-              <BsTwitter className="text-[#00acee]" />
-              <FaLinkedinIn className="text-[#0e76a8]" />
-              <BsInstagram className="text-[#E1306C]" />
-              <BsYoutube className="text-[#c4302b]" />
+              <a href="https://www.facebook.com/bellefu.official">
+                <BsFacebook className="text-[#3b5998]" />
+              </a>
+
+              <a href='https://twitter.com/Bellefuofficial'>
+                <BsTwitter className="text-[#00acee]" />
+              </a>
+              <a href='https://www.linkedin.com/company/67955966/'>
+                <FaLinkedinIn className="text-[#0e76a8]" />
+              </a>
+              <a href=" https://www.instagram.com/bellefu_official/">
+                <BsInstagram className="text-[#E1306C]" />
+              </a>
+              <a href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q">
+                <BsYoutube className="text-[#c4302b]" />
+              </a>
+
             </div>
           </div>
         </div>
