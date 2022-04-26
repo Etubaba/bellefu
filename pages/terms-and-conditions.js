@@ -9,7 +9,7 @@ const TermsandConditions = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader firstLink={{firstLinkText:"Policy and Privacy",firstLinkUrl:"/policy"}} secondLink={{secondLinkText:"Terms and Conditions", secondLinkUrl:"/terms-and-conditions"}} customWidth={true} />
-      <div className="mx-16">
+      <div className="mx-24">
         <h1 className="capitalize text-bellefuOrange underline font-bold text-2xl text-center">Bellefu Terms and Conditions</h1>
         <ol className="text-xl font-bold">
           <li>
