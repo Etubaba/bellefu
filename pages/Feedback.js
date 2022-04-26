@@ -2,190 +2,81 @@ import React from "react";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
-import SelectUnstyled, {
-  selectUnstyledClasses,
-} from "@mui/base/SelectUnstyled";
-import OptionUnstyled, {
-  optionUnstyledClasses,
-} from "@mui/base/OptionUnstyled";
-import PopperUnstyled from "@mui/base/PopperUnstyled";
+import axios from "axios";
+import { AiOutlineCaretRight, AiOutlineCaretDown } from 'react-icons/ai'
+import { apiData } from "../constant";
 //   import {handleCatUpdate} from "../../features/bellefuSlice";
 //   import { useSelector, useDispatch } from "react-redux";
-import { styled } from "@mui/system";
 
-const blue = {
-  100: "#DAECFF",
-  200: "#99CCF3",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  900: "E8F0FE",
-};
 
-const grey = {
-  100: "#E7EBF0",
-  200: "#E0E3E7",
-  300: "#CDD2D7",
-  400: "#B2BAC2",
-  500: "#A0AAB4",
-  600: "#6F7E8C",
-  700: "#3E5060",
-  800: "#2D3843",
-  900: "#1A2027",
-};
 
-const StyledButton = styled("button")(
-  ({ theme }) => `
-    font-family: IBM Plex Sans, sans-serif;
-    font-size: 0.875rem;
-    box-sizing: border-box;
-    min-height: calc(1.5em + 17px);
-    min-width: 100%;
-    background: ${theme.palette.mode === "dark" ? grey[900] : "#ffffff"};
-    border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[300]};
-    border-radius: 0.50em;
-    margin-top: 0.29em;
-    padding: 5px;
-    text-align: left;
-    line-height: 1.5;
-    color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-  
-    &:hover {
-      background: ${theme.palette.mode === "dark" ? "" : grey[100]};
-      border-color: ${theme.palette.mode === "dark" ? grey[700] : grey[400]};
-    }
-  
-    &.${selectUnstyledClasses.focusVisible} {
-      outline: 3px solid ${theme.palette.mode === "dark" ? blue[900] : blue[900]
-    };
-    }
-  
-    &.${selectUnstyledClasses.expanded} {
-      &::after {
-        content: '▴';
-      }
-    }
-  
-    &::after {
-      content: '▾';
-      float: right;
-    }
-    `
-);
-
-const StyledListbox = styled("ul")(
-  ({ theme }) => `
-    font-family: IBM Plex Sans, sans-serif;
-    font-size: 0.875rem;
-    box-sizing: border-box;
-    padding: 4px;
-    margin: 10px 0;
-    min-width: 26vw;
-    background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-    border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[300]};
-    border-radius: 0.50em;
-    color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-    overflow: auto;
-    outline: 0px;
-    `
-);
-
-const StyledOption = styled(OptionUnstyled)(
-  ({ theme }) => `
-    list-style: none;
-    padding: 8px;
-    border-radius: 0.45em;
-    cursor: default;
-  
-    &:last-of-type {
-      border-bottom: none;
-    }
-  
-    &.${optionUnstyledClasses.selected} {
-      background-color: ${theme.palette.mode === "dark" ? blue[900] : blue[900]
-    };
-      color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-    }
-  
-    &.${optionUnstyledClasses.highlighted} {
-      background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]
-    };
-      color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-    }
-  
-    &.${optionUnstyledClasses.highlighted}.${optionUnstyledClasses.selected} {
-      background-color: ${theme.palette.mode === "dark" ? blue[900] : blue[900]
-    };
-      color: ${theme.palette.mode === "dark" ? blue[900] : blue[900]};
-    }
-  
-    &.${optionUnstyledClasses.disabled} {
-      color: ${theme.palette.mode === "dark" ? grey[700] : grey[400]};
-    }
-  
-    &:hover:not(.${optionUnstyledClasses.disabled}) {
-      background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]
-    };
-      color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-    }
-    `
-);
-
-const StyledPopper = styled(PopperUnstyled)`
-  z-index: 1;
-`;
-
-const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
-  const components = {
-    Root: StyledButton,
-    Listbox: StyledListbox,
-    Popper: StyledPopper,
-    ...props.components,
-  };
-
-  return <SelectUnstyled {...props} ref={ref} components={components} />;
-});
-
-function UnstyledSelectSimple1() {
-  //   const optionSelect = category;
-  //   const dispatch = useDispatch();
-  //   const handleThings = (counts) => {
-  //     dispatch(handleCatUpdate(counts.id));
-  //     subcatCatcher(counts.sub_category, counts.name);
-  //     console.log(counts);
-  //   };
-
-  return (
-    <CustomSelect>
-      {/* {optionSelect.categories?.map((counts, index) => (
-        <span onClick={() => handleThings(counts)}>
-          <StyledOption key={index} value={counts.name}>
-            {counts.name}
-          </StyledOption>
-        </span>
-      ))} */}
-      <StyledOption value={"Ads"} >
-        Ads
-      </StyledOption>
-      <StyledOption value={"Customer service"}>
-        Customer service
-      </StyledOption>
-      <StyledOption value={"Custom request"}>
-        Custom request
-      </StyledOption>
-      <StyledOption value={" Feature request"} >
-        Feature request
-      </StyledOption>
-      <StyledOption value={"others"}>
-        others
-      </StyledOption>
-
-    </CustomSelect>
-  );
-}
+const optionSelect = [
+  { value: 'Ads' },
+  { value: 'Customer service' },
+  { value: 'Custom request' },
+  { value: ' Feature request' },
+  { value: 'others' }];
 
 export default function Feedback() {
   const [loading, setLoading] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [dept, setDept] = useState(null);
+  const [comment, setComment] = useState('');
+
+
+
+
+
+
+  const handleSubmit = (e) => {
+    if (fname === '' || lname === '' || email === '' || phone === '' || dept === null || comment === '') {
+      toast.error("Please fill all the fields");
+    } else {
+
+      e.preventDefault();
+      const data = {
+        firstname: fname,
+        lastname: lname,
+        email: email,
+        phone: phone,
+        department: dept,
+        comment: comment
+      };
+      fetch(`${apiData}send/feedback/mail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) => {
+        if (res.status === 200) {
+          toast.success("Feedback submitted successfully");
+          setFname('');
+          setLname('');
+          setEmail('');
+          setPhone('');
+          setDept(null);
+          setComment('');
+        } else {
+          toast.error("Something went wrong");
+
+        }
+      });
+
+    }
+
+
+
+
+
+
+
+
+  }
 
 
   useEffect(() => {
@@ -216,14 +107,15 @@ export default function Feedback() {
                       <div className="">
                         <label
                           for="first-name"
-                          className="block text-sm font-medium text-gray-700"
+                          className="block my-2 text-sm font-medium text-gray-700"
                         >
                           First-Name
                         </label>
                         <input
                           type="text"
                           id="location"
-                          // onChange={handleLocation}
+                          onChange={(e) => setFname(e.target.value)}
+                          value={fname}
                           className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         />
                       </div>
@@ -231,13 +123,15 @@ export default function Feedback() {
                       <div className="col-span-6 sm:col-span-3">
                         <label
                           for="last-name"
-                          className="block  text-sm font-medium text-gray-700"
+                          className="block my-2 text-sm font-medium text-gray-700"
                         >
                           Last-Name
                         </label>
                         <input
                           type="text"
                           id="location"
+                          onChange={(e) => setLname(e.target.value)}
+                          value={lname}
                           // onChange={handleLocation}
                           className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         />
@@ -245,12 +139,14 @@ export default function Feedback() {
                       <div className="col-span-6 sm:col-span-3">
                         <label
                           for="email"
-                          className="block text-sm font-medium text-gray-700"
+                          className="block my-2 text-sm font-medium text-gray-700"
                         >
                           Email
                         </label>
                         <input
                           type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          value={email}
                           // onChange={handleLocation}
                           className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         />
@@ -258,34 +154,77 @@ export default function Feedback() {
                       <div className="col-span-6 sm:col-span-3">
                         <label
                           for="email"
-                          className="block text-sm font-medium text-gray-700"
+                          className="block my-2 text-sm font-medium text-gray-700"
                         >
                           Number
                         </label>
                         <input
                           type="number"
+                          onChange={(e) => setPhone(e.target.value)}
+                          value={phone}
                           // onChange={handleLocation}
                           className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         />
                       </div>
                       <div className="col-span-6 sm:col-span-3">
-                        <label
+                        {/* <label
                           for="email"
-                          className="block text-sm font-medium text-gray-700"
+                          className="block my-2 text-sm font-medium text-gray-700"
                         >
                           Department
-                        </label>
-                        <UnstyledSelectSimple1
-                        />{" "}
+                        </label> */}
+                        {/* <UnstyledSelectSimple1
+                        />{" "} */}
+                        <div className="w-full">
+
+                          <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
+                            <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
+                              <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
+                                {dept === null ? ' Select Department' : dept}
+                              </h5>
+                            </div>
+                            {!open1 ? (
+                              <div onClick={() => setOpen1(!open1)}>
+                                <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
+                              </div>
+                            ) : (
+                              <div onClick={() => setOpen1(!open1)}>
+                                <AiOutlineCaretDown className="text-gray-300 cursor-pointer" />
+                              </div>
+                            )}
+                          </div>
+                          {open1 ? (
+                            <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in">
+                              <ul className="rounded px-5 py-4">
+                                {optionSelect?.map((item, index) => (
+                                  <li
+                                    onClick={() => {
+                                      setOpen1(!open1);
+                                      // setSubCatText(item.subCatName);
+                                      setDept(item.value);
+                                    }}
+                                    key={index}
+                                    className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
+                                  >
+                                    <span>{item.value}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
+                        </div>
+
                       </div>
                       <div className="col-span-6 sm:col-span-3">
                         <label
                           for="email"
-                          className="block text-sm font-medium text-gray-700"
+                          className="block text-sm my-2 font-medium text-gray-700"
                         >
                           Comment
                         </label>
                         <textarea
+                          onChange={(e) => setComment(e.target.value)}
+                          value={comment}
                           type="text"
                           col="4"
                           // onChange={handleLocation}
@@ -301,7 +240,7 @@ export default function Feedback() {
                   <button
                     // disabled={address===""?true:false}
                     type="submit"
-                    // onClick={handleSubmit}
+                    onClick={handleSubmit}
                     class="flex justify-center items-center  w-full py-2 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                   >
                     Submit

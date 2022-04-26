@@ -10,12 +10,63 @@ import {
   BsYoutube,
 } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { apiData } from "../constant";
 
 const Contact = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [comment, setComment] = useState("");
+
+  const handleSubmit = (e) => {
+    if (fullName === "" || email === "" || phone === "" || comment === "") {
+
+      toast.error("Please fill all the fields", { position: "top-center" });
+    } else {
+
+      e.preventDefault();
+
+      const data = {
+        fullname: fullName,
+        email: email,
+        phone: phone,
+        comment: comment,
+      }
+
+      fetch(`${apiData}send/contact/mail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) => {
+        if (res.status === 200) {
+          toast.success("Your message was submitted successfully");
+          setFullName('');
+          setEmail('');
+          setPhone('');
+          setComment('');
+        } else {
+          toast.error("Something went wrong");
+
+        }
+      });
+
+
+
+
+
+
+
+
+
+
+    }
+
+  }
+
+
 
   return (
     <div className="md:max-w-5xl md:mx-auto w-full flex flex-col md:flex-row space-y-3 md:space-x-10 bg-white mt-6 md:mt-20 md:p-5 p-2 rounded-sm">
@@ -57,7 +108,7 @@ const Contact = () => {
             placeholder="Comment"
             rows="5"
           ></textarea>
-          <button className="bg-bellefuOrange px-6 py-1 text-white text-center font-bold rounded tracking-wider">
+          <button onClick={handleSubmit} className="bg-bellefuOrange px-6 py-1 text-white text-center font-bold rounded tracking-wider">
             Submit
           </button>
         </div>
