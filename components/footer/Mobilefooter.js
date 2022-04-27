@@ -6,8 +6,12 @@ import {
   AiOutlineInstagram
   // AiOutlineCopyrightCircle,
 } from "react-icons/ai";
+import { useRouter } from "next/router";
+import NewsletterSub from "./NewsletterSub";
 
 function Mobilefooter() {
+
+  const router = useRouter();
   return (
     <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-3 ">
       <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 md:items-center md:justify-between">
@@ -19,7 +23,10 @@ function Mobilefooter() {
           />
         </div>
 
-        <div className=" flex flex-col space-y-2 md:items-center md:justify-center">
+
+
+        <NewsletterSub />
+        {/* <div className=" flex flex-col space-y-2 md:items-center md:justify-center">
           <p className="text-[#D4D7D1] md:text-sm text-base text-center tracking-wide font-semibold">
             Subscribe to our newsletters
           </p>
@@ -33,7 +40,8 @@ function Mobilefooter() {
               Send
             </button>
           </div>
-        </div>
+        </div> */}
+
       </div>
 
       <div className="flex justify-evenly md:justify-between md:items-center space-x-3 mb-3">
@@ -64,10 +72,10 @@ function Mobilefooter() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li>About us</li>
-            <li>Legal</li>
-            <li>Feedback</li>
-            <li>Contact</li>
+            <li onClick={() => router.push('/about')}>About us</li>
+            <li onClick={() => router.push('/policy')}>Legal</li>
+            <li onClick={() => router.push('/feedback')}>Feedback</li>
+            <li onClick={() => router.push('/contact')}>Contact</li>
           </ul>
         </div>
 
@@ -87,16 +95,21 @@ function Mobilefooter() {
       <hr className="" />
 
       <div className=" flex items-center space-x-2 justify-center mb-4 mt-3">
-        <img
-          alt="error"
-          src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
-          className="w-28 h-8 object-contain"
-        />
-        <img
-          alt="error"
-          src="https://www.linkpicture.com/q/ios-removebg-preview.png"
-          className="w-28 h-8 object-contain"
-        />
+        <a href='https://play.google.com/store/apps/details?id=com.bellefu_farmers_market.bellefu'>
+          <img
+            alt="error"
+            src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
+            className="w-28 h-8 object-contain"
+          />
+        </a>
+        <a href='https://apps.apple.com/us/app/bellefu/id1556135856'>
+          <img
+            alt="error"
+            src="https://www.linkpicture.com/q/ios-removebg-preview.png"
+            className="w-28 h-8 object-contain"
+          />
+        </a>
+
       </div>
 
       <div className="flex items-center justify-center mb-4 space-x-8">
@@ -110,7 +123,7 @@ function Mobilefooter() {
           <FaLinkedin className="text-[#0e76a8] text-2xl" />
         </a>
         <a href=" https://www.instagram.com/bellefu_official/">
-          <AiOutlineInstagram className="text-gradient-b from-[#DF4A8E]   to-[#F99D4F] text-2xl" />
+          <AiOutlineInstagram className=" text-[#DF4A8E]   text-2xl" />
         </a>
 
 

@@ -6,6 +6,11 @@
   body {
     @apply bg-bellefuBackground font-poppins select-none;
   }
+
+  ol {
+    list-style-type: decimal;
+    @apply m-8
+  }
 }
 
 @layer components {

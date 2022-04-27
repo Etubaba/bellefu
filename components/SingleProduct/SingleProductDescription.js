@@ -3,7 +3,7 @@ import { BsHeart } from "react-icons/bs";
 import { AiFillEye, AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
 import { Modal } from "@mui/material";
-import { FcGoogle } from "react-icons/fc";
+import { FcGoogle, FcVideoCall } from "react-icons/fc";
 import { ImFacebook } from "react-icons/im";
 import { TiLocation } from "react-icons/ti";
 import { MdCall } from "react-icons/md";
@@ -44,6 +44,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
   const [report, setReport] = useState("");
+  const [watch, setWatch] = useState(false)
 
   const receiverId = productDetails[0]?.productOwnerId;
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
@@ -51,7 +52,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const dispatch = useDispatch();
   // check if product is among favorite
 
-  // console.log("details =>", productDetails);
+  console.log("single details =>", productDetails);
 
   // handle message open
   const handleMessage = () => {
@@ -211,7 +212,8 @@ const SingleProductDescription = ({ productDetails }) => {
   const image =
     "https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg";
 
-  console.log("current url=>", shareUrl);
+
+  const video = 'https://bellefu.inmotionhub.xyz/get/video/'
 
   return (
     <div className="bg-bellefuWhite rounded-t-md">
@@ -263,9 +265,12 @@ const SingleProductDescription = ({ productDetails }) => {
 
       {/* description section */}
       <div>
-        <p className="lg:px-7 px-3 mt-4 lg:mt-6 text-xl lg:text-2xl text-bellefuBlack1 font-medium">
-          Ads Description
-        </p>
+        <div className='flex justify-between'>
+          <p className="lg:px-7 px-3 mt-4 lg:mt-6 text-xl lg:text-2xl text-bellefuBlack1 font-medium">
+            Ads Description
+          </p>
+          {productDetails[0]?.video !== null && <FcVideoCall onClick={() => setWatch(true)} className="md:text-5xl text-3xl m-3 " />}
+        </div>
         <div className="border-b lg:mt-6 mt-4" />
         <p
           className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4 capitalize"
@@ -313,6 +318,41 @@ const SingleProductDescription = ({ productDetails }) => {
                 </div>
               )}
 
+              {/* Watching video modal  */}
+
+              <Modal
+                open={watch}
+                onClose={() => setWatch(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+
+                <div
+                  className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto "
+                >
+
+
+                  <video width="420" height="440" controls>
+                    <source src={`${video}get/video/${productDetails[0]?.video}`} type="video/mp4" />
+                    <source src="movie.ogg" type="video/ogg" />
+                    Your browser does not support the video.
+                  </video>
+
+
+
+                </div>
+
+
+
+
+
+
+              </Modal>
+
+
+
+
+
+              {/* When user is not login modal */}
               <Modal
                 open={modalOpen}
                 onClose={() => setModalOpen(false)}
