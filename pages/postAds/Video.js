@@ -21,7 +21,8 @@ export default function Video({ videoFiles }) {
 
 
   if (files2.length > 0) {
-    dispatch(handleVideo(files2));
+    const [mainthing]=files2
+    dispatch(handleVideo(mainthing));
   }
 
   const thumb = {

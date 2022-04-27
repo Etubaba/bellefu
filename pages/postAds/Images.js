@@ -47,14 +47,14 @@ export default function Images(props) {
   const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
   const [files2, setFiles2] = useState([]);
-  const [vidfi, setVidfi] = useState("");
+  // const [vidfi, setVidfi] = useState("");
 
 
 
 
 
 
-  console.log(vidfi);
+  console.log(videoFile);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*,video/*",
     onDrop: (acceptedFiles) => {
@@ -114,7 +114,7 @@ export default function Images(props) {
     e.preventDefault();
     if (files2.length !== 0) {
       dispatch(handleImagesUpdate(files2));
-      dispatch(handleVideoUpdate(vidfi));
+      dispatch(handleVideoUpdate(videoFile));
       router.push("/postAds/Publish");
     } else {
       toast.error("You have not uoloaded any Images", {
