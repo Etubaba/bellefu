@@ -15,6 +15,7 @@ const Layout = ({ children }) => {
     return () => clearTimeout(timer);
   }, []);
   const userId = useSelector((state) => state.bellefu?.profileDetails);
+
   return (
     <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
       {userId ? (
