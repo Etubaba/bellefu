@@ -56,7 +56,7 @@ export default function Images(props) {
 
   console.log(videoFile);
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*,video/*",
+    accept: "image/*",
     onDrop: (acceptedFiles) => {
       setFiles((prevState) => [
         ...prevState,
