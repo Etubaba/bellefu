@@ -3,10 +3,10 @@
   color: black;
   border: none;
   border-radius: 3px;
-  padding: 14px 5px;
+  padding: 9px 5px;
   outline: none;
-
-  font-size: 16px;
+  width: 25vw;
+  font-size: 14px;
 }
 
 /*google translate link | logo */
@@ -31,6 +31,12 @@
 .goog-text-highlight {
   background: none !important;
   box-shadow: none !important;
+}
+
+@media (width: 640px) {
+  #google_translate_element select {
+    padding: 3px 5px !important;
+  }
 }
 
 @tailwind base;
