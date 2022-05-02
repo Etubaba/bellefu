@@ -315,7 +315,7 @@ const messages = ({ data1 }) => {
                         <img
                           src={`https://bellefu.inmotionhub.xyz/get/chat/image/${item.attachment}`}
                           alt='error'
-                          className=' md:w-32 md:h-36 w-40 h-40 object-cover rounded-md'
+                          className=' md:w-52 md:h-64 w-48 h-52 object-cover rounded-md'
                         />
 
                       </div>
