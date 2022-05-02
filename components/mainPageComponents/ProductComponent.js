@@ -6,7 +6,7 @@ import Skeleto from "./Skeleton";
 // import { countryChoice } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { apiData } from "../../constant";
+import Loader, { apiData } from "../../constant";
 import Skeleton from "@mui/material/Skeleton";
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
@@ -38,6 +38,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const search = useSelector((state) => state.bellefu.searchFilter);
 
   useEffect(() => {
+    setCountryData([]);
+
+
     const newProducts = async () => {
       axios
         .get(
@@ -101,6 +104,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const main =
     getCountry !== null ? countryData : search !== "" ? searchResult : products;
 
+
+
+
   return (
     <div>
       {loading ? (
@@ -114,29 +120,38 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           height={70}
         />
       )}
-      <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
+      <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
         {loading
-          ? main
-              .filter((item) => {
-                if (getState === null && subCatClicked === undefined) {
-                  return item;
-                } else if (item.stateCode === getState) {
-                  return item;
-                } else if (item.subcatid === subCatClicked) {
-                  return item;
-                }
-              })
-              .map((product) => (
-                <div key={product.productId}>
-                  <ProductList
-                    key={product.productId}
-                    currency={currency}
-                    product={product}
-                    fav={favId}
-                    favdata={fav}
-                    currencyCode={currencyCode}
-                  />
+          ?
+          (
+            main === countryData && countryData.length === 0 ?
+              (
+                <div className="flex justify-center items-center h-screen">
+                  <Loader isLoading={true} />
                 </div>
+              ) : (
+                main
+                  .filter((item) => {
+                    if (getState === null && subCatClicked === undefined) {
+                      return item;
+                    } else if (item.stateCode === getState) {
+                      return item;
+                    } else if (item.subcatid === subCatClicked) {
+                      return item;
+                    }
+                  })
+                  .map((product) => (
+                    <div key={product.productId}>
+                      <ProductList
+                        key={product.productId}
+                        currency={currency}
+                        product={product}
+                        fav={favId}
+                        favdata={fav}
+                        currencyCode={currencyCode}
+                      />
+                    </div>
+                  ))
               ))
           : skeleMapper.map((skele, index) => <div key={index}>{skele}</div>)}
       </div>
