@@ -71,10 +71,12 @@ const HeaderSearch = ({
               </div>
 
               <AiFillCaretDown
+                onClose={() => setSelectCountry(false)}
                 onClick={() => {
                   setSelectlang(false);
                   setOpen(false);
                   setSelectCountry(!selectCountry);
+
                 }}
                 className={
                   selectCountry ? "text-bellefuOrange" : "text-gray-600"
