@@ -62,7 +62,7 @@ const HeaderSearch = () => {
       {/* desktop screen header search */}
       <div className="lg:hidden">
         <div className={"w-full flex rounded-md items-center "}>
-          <div className="flex space-x-5 ml-6">
+          <div className="flex space-x-2 ml-4">
             <div className="flex space-x-2 items-center justify-center py-1">
               <div>
                 <img
@@ -162,7 +162,7 @@ const HeaderSearch = () => {
               </div>
             )}
 
-            <div
+            {/* <div
               onClick={() => {
                 setSelectCountry(false);
                 setOpen(false);
@@ -177,7 +177,7 @@ const HeaderSearch = () => {
               </p>
 
               <AiFillCaretDown className="text-white" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

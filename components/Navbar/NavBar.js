@@ -120,8 +120,8 @@ const NavBar = () => {
           />
         </div>
         {/* $$country select and language select for mobile */}
-        <div id="google_translate_element"> </div>
         <Navbarsch />
+        <div id="google_translate_element" className="ml-4"></div>
       </div>
 
       {/* ################################## */}
