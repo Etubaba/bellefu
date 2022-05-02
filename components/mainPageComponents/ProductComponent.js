@@ -11,25 +11,10 @@ import Skeleton from "@mui/material/Skeleton";
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [loading, setLoading] = useState(false);
-
-  const skeleMapper = [
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-    <Skeleto />,
-  ];
-
   const [countryData, setCountryData] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [fav, setFav] = useState([]);
+  const [grid, setGrid] = useState(false);
 
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
   const getState = useSelector((state) => state.bellefu.stateSelected);
@@ -104,13 +89,26 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const main =
     getCountry !== null ? countryData : search !== "" ? searchResult : products;
 
-
+  const skeleMapper = [
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+    <Skeleto />,
+  ];
 
 
   return (
     <div>
       {loading ? (
-        <MainProductHeader />
+        <MainProductHeader grid={grid} changeView={setGrid} />
       ) : (
         <Skeleton
           className="rounded my-3"
@@ -120,7 +118,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           height={70}
         />
       )}
-      <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
+      <div className="bg-bellefuBackground mt-1 rounded-md grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
         {loading
           ?
           (
