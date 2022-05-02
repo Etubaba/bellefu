@@ -57,10 +57,8 @@ export default function Home({ data }) {
                 location={data.defaultCountry}
               />
               <div className="block  md:hidden lg:hidden mt-3">
-              <Slider  slider={data.slider} />
-
+                <Slider slider={data.slider} />
               </div>
-
             </>
           ) : (
             <Skeleton
@@ -96,7 +94,13 @@ export default function Home({ data }) {
             {search === "" ? (
               <div className=" h-auto lg:hidden my-4 rounded-sm">
                 {loading ? (
-                  <MobileCategoryBar categories={data.categories} />
+                  <div>
+                    <h3 className=" block lg:hidden font-bold text-[1rem] sm:text-[1rem] m-5 lg:text-[1.2rem]">
+                      Search by categories
+                    </h3>
+                    
+                    <MobileCategoryBar categories={data.categories} />
+                  </div>
                 ) : (
                   <Skeleton
                     className="rounded  "
