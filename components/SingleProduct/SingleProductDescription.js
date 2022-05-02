@@ -504,7 +504,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   url={shareUrl}
                   quote={title}
                   picture={image}
-                  children={ <Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} width={150} height={150} /> }
+                  children={ <Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} alt="share image" width={150} height={150} /> }
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
