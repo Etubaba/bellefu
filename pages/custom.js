@@ -89,12 +89,11 @@ export default function Custom() {
   return (
     <div className="justify-center align-middle flex">
       {loading ? (
-        <div className=" shadow bg-bellefuWhite lg:w-[50%] m-5 rounded-md  p-5">
+        <div className=" shadow bg-bellefuWhite lg:w-[50%] m-5 rounded-md mt-24  p-5">
           <div className="justify-center align-middle text-center">
             <h2 className="text-2xl font-bold">CUSTOM REQUEST</h2>
             <p>
-              Have a custom request about any of the products or ads on our
-              website? Please use the form below to let us know about it.
+             Do you have a custom request? Please use the form below to let us know about it.
             </p>
           </div>
 
