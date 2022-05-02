@@ -19,24 +19,26 @@ const CategorySideBar = ({ categories, indexData }) => {
         <div className="">
           <div
             onClick={() => router.push("/custom")}
-            className="flex items-center mb-7 hover:bg-bellefuBackground p-1 rounded-md"
+            className="flex items-center justify-between mb-7 hover:bg-bellefuBackground p-1 rounded-md"
           >
-            <div className="flex  items-center flex-1 space-x-2 cursor-pointer">
-              <img
-                onClick={() => router.push("/custom")}
-                src={`https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
-                alt="icons"
-                className="w-8 h-8"
-              />
-              <div className="flex  flex-1 justify-between space-x-20">
-                <h5
-                  className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
+            <div className="flex items-center space-x-2 cursor-pointer">
+              <div>
+                <img
                   onClick={() => router.push("/custom")}
-                >
-                  custom request
-                </h5>
-                <AiOutlineCaretRight className="text-gray-500 cursor-pointer" />
+                  src={`https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
+                  alt="icons"
+                  className="w-8 h-8"
+                />
               </div>
+              <h5
+                className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
+                onClick={() => router.push("/custom")}
+              >
+                Custom Request
+              </h5>
+            </div>
+            <div className="">
+              <AiOutlineCaretRight className="text-gray-500 cursor-pointer" />
             </div>
           </div>
         </div>
