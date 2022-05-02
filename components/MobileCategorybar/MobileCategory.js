@@ -4,10 +4,15 @@ import { RiCloseFill } from "react-icons/ri";
 
 import { useRouter } from "next/router";
 import MobileCategoryItem from "./MobileCategoryItem";
+import { Modal, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 const MobileCategory = ({ category }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   if (category.sub_category) {
     return (
@@ -48,7 +53,7 @@ const MobileCategory = ({ category }) => {
           </div>
         </div>
         {/* mobile category sidebar */}
-        <div
+        {/* <div
           className={
             open
               ? "inline-block w-72 h-72 -mt-6 space-y-3 text-sm text-white select-none bg-[#333333] absolute top-52 left-0 z-50 rounded-br-md rounded-tr-md animate-slide-in "
@@ -66,7 +71,21 @@ const MobileCategory = ({ category }) => {
           {category.sub_category.map((child) => (
             <MobileCategoryItem key={child.sub_category} child={child} />
           ))}
-        </div>
+        </div> */}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div className="flex flex-col items-center justify-center mx-auto mt-52 pt-2 rounded-md shadow-md h-80 w-72  bg-bellefuWhite overflow-y-scroll">
+            <div className="text-start">
+              {category.sub_category.map((child) => (
+                <MobileCategoryItem key={child.sub_category} child={child} />
+              ))}
+            </div>
+          </div>
+        </Modal>
       </div>
     );
   } else {
