@@ -58,7 +58,6 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   // const favdelete = fav?.map(item => item.favId)
 
   // search query and fetch
-
   const where = getCountry === null ? location : getCountry;
 
   useEffect(() => {
