@@ -17,8 +17,7 @@ import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
-  const [from, setFrom] = useState(null);
-  const [amount, setAmount] = useState(null);
+
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
   const [fav2, setFav2] = useState(false);
@@ -189,7 +188,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-            // sx={{ opacity: 0.5 }}
+          // sx={{ opacity: 0.5 }}
           >
             <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
               {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}

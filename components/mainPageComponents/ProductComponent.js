@@ -118,7 +118,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           height={70}
         />
       )}
-      <div className="bg-bellefuBackground mt-1 rounded-md grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
+      <div className={grid ? "bg-bellefuBackground mt-1 rounded-md grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense " : "bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense "}>
         {loading
           ?
           (
