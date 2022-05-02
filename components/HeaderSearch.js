@@ -155,7 +155,7 @@ const HeaderSearch = ({
               </div>
             )}
 
-            <div
+            {/* <div
               onClick={() => {
                 setSelectCountry(false);
                 setOpen(false);
@@ -170,7 +170,7 @@ const HeaderSearch = ({
               </p>
 
               <AiFillCaretDown className="text-white" />
-            </div>
+            </div> */}
           </div>
 
           <div className="flex pl-2 justify-center items-center bg-bellefuBackground w-6/12 h-11">

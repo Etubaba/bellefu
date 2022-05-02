@@ -310,12 +310,12 @@ const messages = ({ data1 }) => {
                         className={
                           item.from_id !== senderId
                             ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-2 py-1 md:px-4 md:py-2 text-gray-700 bg-gray-100 rounded shadow"
-                            : "relative max-w-xl mb-4 px-2 py-1 md:px-4 md:py-2 text-gray-100 bg-bellefuGreen rounded shadow"
+                            : "relative max-w-xl mb-4 px-1 py-1 md:px-4 md:py-2 text-gray-100 bg-bellefuGreen rounded shadow"
                         }>
                         <img
                           src={`https://bellefu.inmotionhub.xyz/get/chat/image/${item.attachment}`}
                           alt='error'
-                          className=' md:w-28 md:h-28 w-20 h-20 object-cover rounded-md'
+                          className=' md:w-52 md:h-64 w-48 h-52 object-fill rounded-md'
                         />
 
                       </div>
