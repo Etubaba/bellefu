@@ -5,7 +5,7 @@
   border-radius: 3px;
   padding: 9px 5px;
   outline: none;
-  width: 25vw;
+  width: 65%;
   font-size: 14px;
 }
 
@@ -45,7 +45,7 @@
 
 @layer base {
   body {
-    @apply bg-bellefuBackground font-poppins select-none;
+    @apply bg-bellefuBackground font-poppins;
   }
 
   ol {

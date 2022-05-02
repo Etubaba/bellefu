@@ -9,7 +9,6 @@ import axios from "axios";
 import Loader, { apiData } from "../../constant";
 import Skeleton from "@mui/material/Skeleton";
 
-
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [loading, setLoading] = useState(false);
 
@@ -121,7 +120,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           height={70}
         />
       )}
-      <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
+      <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense ">
         {loading
           ?
           (

@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="p-2 w-full md:max-w-3xl md:mx-auto space-y-8">
+    <div className="p-2 w-full md:max-w-3xl md:mx-auto space-y-8 mt-20">
       <div className="mt-5">
         <h1 className="text-center text-xl text-bellefuOrange underline tracking-wider mb-5">
           About Us

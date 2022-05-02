@@ -16,14 +16,14 @@ import classNames from "classnames";
 
 export const getStaticProps = async () => {
   const response = await fetch(`${apiData}get/countries`);
-  const { data } = await response.json()
+  const { data } = await response.json();
 
   return {
     props: {
       countries: data.slice().sort(),
-      countries1: data.slice().sort((a, b) => a?.phone_code - b?.phone_code)
-    }
-  }
+      countries1: data.slice().sort((a, b) => a?.phone_code - b?.phone_code),
+    },
+  };
 };
 
 const Register = ({ countries, countries1 }) => {
@@ -62,7 +62,12 @@ const Register = ({ countries, countries1 }) => {
     }
 
     if (input === "fname" || input === "lname") {
-      setFormFields({ ...formFields, [input]: `${evt.target.value.charAt(0).toUpperCase()}${evt.target.value.substring(1)}` });
+      setFormFields({
+        ...formFields,
+        [input]: `${evt.target.value
+          .charAt(0)
+          .toUpperCase()}${evt.target.value.substring(1)}`,
+      });
       return;
     }
 
@@ -82,27 +87,31 @@ const Register = ({ countries, countries1 }) => {
     }
 
     if (!formFields.email) {
-      formValues = { ...formFields, email: `${formFields.username}@gmail.com` }
+      formValues = { ...formFields, email: `${formFields.username}@gmail.com` };
     }
 
     //Check for phone number that starts with zero
     for (const field in formValues) {
       if (Object.hasOwnProperty.call(formValues, field) && field === "phone") {
-        if (Number(formValues[field].charAt(0)) === 0) formValues[field] = formValues[field].substring(1);
+        if (Number(formValues[field].charAt(0)) === 0)
+          formValues[field] = formValues[field].substring(1);
         break;
       }
     }
-    formValues = { ...formValues, phone: countryPhoneCode.concat(formValues.phone) };
+    formValues = {
+      ...formValues,
+      phone: countryPhoneCode.concat(formValues.phone),
+    };
     setIsLoading(true);
     fetch(`${apiData}user/register`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formValues),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         console.log(data);
         setIsLoading(false);
         if (data.status) {
@@ -114,16 +123,16 @@ const Register = ({ countries, countries1 }) => {
           //router.push("/verify-phone");
         }
       })
-      .then(resSignOut => {
+      .then((resSignOut) => {
         router.replace(resSignOut.url);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(`Error for user registration ${error}`);
         setIsLoading(false);
-      })
+      });
   };
   const validateInput = (formValues) => {
-    const emptyFieldExists = false
+    const emptyFieldExists = false;
     for (const key in formValues) {
       if (Object.hasOwnProperty.call(formValues, key) && !formValues[key]) {
         emptyFieldExists = true;
@@ -143,36 +152,38 @@ const Register = ({ countries, countries1 }) => {
     if (target.name === "phone") {
       let phone;
 
-      if (Number(target.value.charAt(0)) === 0) phone = target.value.substring(1);
+      if (Number(target.value.charAt(0)) === 0)
+        phone = target.value.substring(1);
       else phone = target.value;
 
       url = `${apiData}userphone/exist`;
-      data = { phone: countryPhoneCode.concat(phone) }
+      data = { phone: countryPhoneCode.concat(phone) };
     }
 
     if (target.name === "username") {
       url = `${apiData}username/exist`;
-      data = { username: target.value }
+      data = { username: target.value };
     }
 
     fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(response => response.json())
-      .then(resData => {
+      .then((response) => response.json())
+      .then((resData) => {
         if (resData.status && target.name === "phone") setPhoneExists(true);
         else setPhoneExists(false);
 
-        if (resData.status && target.name === "username") setUsernameExists(true);
+        if (resData.status && target.name === "username")
+          setUsernameExists(true);
         else setUsernameExists(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-      })
+      });
   };
   const clearExists = (evt) => {
     const target = evt.target;
@@ -186,15 +197,29 @@ const Register = ({ countries, countries1 }) => {
     const { user, providerId, providerName } = session;
     //signOut();
 
-    setFormFields({ ...formFields, fname: `${user.name.split(' ')[0].charAt(0).toUpperCase()}${user.name.split(' ')[0].substring(1)}`, lname: `${user.name.split(' ')[1].charAt(0).toUpperCase()}${user.name.split(' ')[1].substring(1)}`, email: user.email, socialSignup: true, providerId, providerName, })
-  }, [session])
+    setFormFields({
+      ...formFields,
+      fname: `${user.name.split(" ")[0].charAt(0).toUpperCase()}${user.name
+        .split(" ")[0]
+        .substring(1)}`,
+      lname: `${user.name.split(" ")[1].charAt(0).toUpperCase()}${user.name
+        .split(" ")[1]
+        .substring(1)}`,
+      email: user.email,
+      socialSignup: true,
+      providerId,
+      providerName,
+    });
+  }, [session]);
 
   useEffect(() => {
     if (!countryPhoneCode) {
-      const country = countries1.find(country => country.iso2 === defaultCountry)
+      const country = countries1.find(
+        (country) => country.iso2 === defaultCountry
+      );
       setCountryPhoneCode(`+${country?.phone_code}`);
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -203,25 +228,81 @@ const Register = ({ countries, countries1 }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {!session && <RegisterHeader />}
-      <div className={classNames("w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2", { "mt-9": session })}>
-        <h1 className="text-center font-bold py-4">{!session ? "Create Your Account With Bellefu!" : "Thanks for Your Interest in Bellefu App"}</h1>
-        {session && <h2 className="text-center font-semibold pb-4">To Serve You Better and Complete Your Registration, We Need More Information from You.</h2>}
+      <div
+        className={classNames(
+          "w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-20",
+          { "mt-9": session }
+        )}
+      >
+        <h1 className="text-center font-bold py-4">
+          {!session
+            ? "Create Your Account With Bellefu!"
+            : "Thanks for Your Interest in Bellefu App"}
+        </h1>
+        {session && (
+          <h2 className="text-center font-semibold pb-4">
+            To Serve You Better and Complete Your Registration, We Need More
+            Information from You.
+          </h2>
+        )}
         <hr />
         <div className="py-4 md:py-8 px-3 sm:px-6 md:px-12">
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">First Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.fname} onChange={onChange("fname")} disabled={session ? true : false} /></p>
+              <p>
+                <label
+                  id="first-name"
+                  className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700"
+                >
+                  First Name
+                </label>
+              </p>
+              <p>
+                <input
+                  type="text"
+                  htmlFor="first-name"
+                  className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  value={formFields.fname}
+                  onChange={onChange("fname")}
+                  disabled={session ? true : false}
+                />
+              </p>
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
-              <p><label id="first-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Last Name</label></p>
-              <p><input type="text" htmlFor="first-name" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.lname} onChange={onChange("lname")} disabled={session ? true : false} /></p>
+              <p>
+                <label
+                  id="first-name"
+                  className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700"
+                >
+                  Last Name
+                </label>
+              </p>
+              <p>
+                <input
+                  type="text"
+                  htmlFor="first-name"
+                  className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  value={formFields.lname}
+                  onChange={onChange("lname")}
+                  disabled={session ? true : false}
+                />
+              </p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
-              <p><label id="phone" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700 z-0">Phone Number</label></p>
-              <div className="absolute mt-8 left-[5%] md:left-[24%] flex space-x-1 items-center justify-center ml-8 hover:cursor-pointer" onClick={() => setSelectCountry(!selectCountry)}>
+              <p>
+                <label
+                  id="phone"
+                  className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700 z-0"
+                >
+                  Phone Number
+                </label>
+              </p>
+              <div
+                className="absolute mt-8 left-[5%] md:left-[24%] flex space-x-1 items-center justify-center ml-8 hover:cursor-pointer"
+                onClick={() => setSelectCountry(!selectCountry)}
+              >
                 <div className="flex">
                   <span className="mr-1">{`${countryPhoneCode}`}</span>
                   <img
@@ -267,67 +348,202 @@ const Register = ({ countries, countries1 }) => {
                   ))}
                 </div>
               )}
-              <p className="w-full"><input type="text" htmlFor="phone" value={formFields.phone} name="phone" className="w-full rounded-lg py-2 pl-[112px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("phone")} onFocus={clearExists} onBlur={checkExists} /></p>
-              {phoneExists && <p className="text-red-500 text-sm font-medium">phone number already exists!</p>}
+              <p className="w-full">
+                <input
+                  type="text"
+                  htmlFor="phone"
+                  value={formFields.phone}
+                  name="phone"
+                  className="w-full rounded-lg py-2 pl-[112px] md:pl-[100px] pr-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  onChange={onChange("phone")}
+                  onFocus={clearExists}
+                  onBlur={checkExists}
+                />
+              </p>
+              {phoneExists && (
+                <p className="text-red-500 text-sm font-medium">
+                  phone number already exists!
+                </p>
+              )}
             </div>
             <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
-              <p><label id="email" className="text-sm font-medium text-slate-700">Email {!session && "(optional)"}</label></p>
-              <p className="w-full"><input type="text" htmlFor="email" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.email} onChange={onChange("email")} disabled={session ? true : false} /></p>
+              <p>
+                <label
+                  id="email"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Email {!session && "(optional)"}
+                </label>
+              </p>
+              <p className="w-full">
+                <input
+                  type="text"
+                  htmlFor="email"
+                  className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  value={formFields.email}
+                  onChange={onChange("email")}
+                  disabled={session ? true : false}
+                />
+              </p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:my-9">
             <div className="flex flex-col w-[100%] md:w-[50%] md:mr-6 mb-4 md:mb-0">
-              <p><label id="gender" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Gender</label></p>
-              <p >
-                <select htmlFor="gender" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.gender} onChange={onChange("gender")} >
+              <p>
+                <label
+                  id="gender"
+                  className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700"
+                >
+                  Gender
+                </label>
+              </p>
+              <p>
+                <select
+                  htmlFor="gender"
+                  className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  value={formFields.gender}
+                  onChange={onChange("gender")}
+                >
                   <option className="w-full"></option>
-                  <option value="M" key="m">Male</option>
-                  <option value="F" key="f">Female</option>
-                  <option value="O" key="o">Other</option>
+                  <option value="M" key="m">
+                    Male
+                  </option>
+                  <option value="F" key="f">
+                    Female
+                  </option>
+                  <option value="O" key="o">
+                    Other
+                  </option>
                 </select>
               </p>
             </div>
             <div className="flex flex-col w-[100%] md:w-[50%] mb-4 md:mb-0">
-              <p><label id="country" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Country</label></p>
-              <p >
-                <select htmlFor="country" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.country} onChange={onChange("countryCode")} >
+              <p>
+                <label
+                  id="country"
+                  className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700"
+                >
+                  Country
+                </label>
+              </p>
+              <p>
+                <select
+                  htmlFor="country"
+                  className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  value={formFields.country}
+                  onChange={onChange("countryCode")}
+                >
                   <option className="w-full" key={1}></option>
-                  {
-                    countries.map(country => <option key={country.iso2} value={country.iso2} className="w-full">{country.name}</option>)
-                  }
+                  {countries.map((country) => (
+                    <option
+                      key={country.iso2}
+                      value={country.iso2}
+                      className="w-full"
+                    >
+                      {country.name}
+                    </option>
+                  ))}
                 </select>
               </p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row my-3 md:mb-9">
             <div className="flex flex-col flex-auto md:mr-6 mb-4 md:mb-0">
-              <p><label id="user-name" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">User Name</label></p>
-              <p><input type="text" htmlFor="user-name" value={formFields.username} name="username" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" onChange={onChange("username")} onFocus={clearExists} onBlur={checkExists} /></p>
-              {usernameExists && <p className="text-red-500 text-sm font-medium">username already exists!</p>}
+              <p>
+                <label
+                  id="user-name"
+                  className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700"
+                >
+                  User Name
+                </label>
+              </p>
+              <p>
+                <input
+                  type="text"
+                  htmlFor="user-name"
+                  value={formFields.username}
+                  name="username"
+                  className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  onChange={onChange("username")}
+                  onFocus={clearExists}
+                  onBlur={checkExists}
+                />
+              </p>
+              {usernameExists && (
+                <p className="text-red-500 text-sm font-medium">
+                  username already exists!
+                </p>
+              )}
             </div>
             <div className="flex flex-col flex-auto mb-4 md:mb-0">
-              <p><label id="password" className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700">Password</label></p>
-              {showPassword ? <BsEyeSlash onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer' : "hidden"} /> : <BsEye onClick={handleClickShowPassword} className={showIcon ? 'absolute  mt-9 right-[10%]  md:right-[27%] hover:cursor-pointer' : "hidden"} />
-              }
-              <p><input type={showPassword ? "text" : "password"} htmlFor="password" className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]" value={formFields.password} onChange={onChange("password")} /></p>
+              <p>
+                <label
+                  id="password"
+                  className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm font-medium text-slate-700"
+                >
+                  Password
+                </label>
+              </p>
+              {showPassword ? (
+                <BsEyeSlash
+                  onClick={handleClickShowPassword}
+                  className={
+                    showIcon
+                      ? "absolute  mt-9 right-[10%] md:right-[27%] hover:cursor-pointer"
+                      : "hidden"
+                  }
+                />
+              ) : (
+                <BsEye
+                  onClick={handleClickShowPassword}
+                  className={
+                    showIcon
+                      ? "absolute  mt-9 right-[10%]  md:right-[27%] hover:cursor-pointer"
+                      : "hidden"
+                  }
+                />
+              )}
+              <p>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  htmlFor="password"
+                  className="w-full rounded-lg py-2 px-3 outline outline-[#F1F1F1] focus:outline-[#FFA500]"
+                  value={formFields.password}
+                  onChange={onChange("password")}
+                />
+              </p>
             </div>
           </div>
-          {!isLoading ?
-            <p className="hover:bg-bellefuOrange bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer font-bold" onClick={handleRegister}>{!session ? "Register" : "Continue"}</p> :
-            <p className="bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 ..." disabled>
-              <svg className="animate-spin h-1 w-5 mr-3 ..." viewBox="0 0 24 24">
-
-              </svg>
+          {!isLoading ? (
+            <p
+              className="hover:bg-bellefuOrange bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer font-bold"
+              onClick={handleRegister}
+            >
+              {!session ? "Register" : "Continue"}
+            </p>
+          ) : (
+            <p
+              className="bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 ..."
+              disabled
+            >
+              <svg
+                className="animate-spin h-1 w-5 mr-3 ..."
+                viewBox="0 0 24 24"
+              ></svg>
               Processing...
             </p>
-          }
+          )}
         </div>
-        {!session &&
+        {!session && (
           <>
             <div className="flex items-center mt-4 mb-8">
-              <p className="w-[46%]"><hr className="w-full" /></p>
+              <p className="w-[46%]">
+                <hr className="w-full" />
+              </p>
               <p className="w-[6%] text-center mx-4">OR</p>
-              <p className="w-[46%]"><hr className="w-full" /></p>
+              <p className="w-[46%]">
+                <hr className="w-full" />
+              </p>
             </div>
             {/* <hr /> */}
             {/* <p className="text-center mt-11 mb-8">OR</p> */}
@@ -338,7 +554,10 @@ const Register = ({ countries, countries1 }) => {
                   className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 bg-white hover:bg-[#F2F2F2] w-full"
                   onClick={() => signIn("google")}
                 >
-                  <FcGoogle className='text-3xl' /> <strong className='text-[#303A4B] pl-4 text-md'>Sign up with Google</strong>
+                  <FcGoogle className="text-3xl" />{" "}
+                  <strong className="text-[#303A4B] pl-4 text-md">
+                    Sign up with Google
+                  </strong>
                 </button>
               </p>
               <p className="text-white w-[100%] md:w-[75%]">
@@ -347,12 +566,15 @@ const Register = ({ countries, countries1 }) => {
                   className="flex items-center border-2 rounded-lg py-3 pl-4 pr-10 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"
                   onClick={() => signIn("facebook")}
                 >
-                  <ImFacebook className='text-3xl text-white' /> <strong className="pl-4 text-md">Sign up with Facebook</strong>
+                  <ImFacebook className="text-3xl text-white" />{" "}
+                  <strong className="pl-4 text-md">
+                    Sign up with Facebook
+                  </strong>
                 </button>
               </p>
             </div>
           </>
-        }
+        )}
       </div>
     </>
   );

@@ -44,7 +44,7 @@ export default function Home({ data }) {
       </Head>
       {/* Overall container */}
       <main className="bg-bellefuBackground ">
-        <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
+        <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
           {/* second nav bar */}
           {loading ? (
             <>

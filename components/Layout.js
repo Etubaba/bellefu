@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const userId = useSelector((state) => state.bellefu?.profileDetails);
   return (
-    <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
+    <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       <div className="flex flex-col lg:flex-row">
         <UserSideBar />
         {isOpen && <MobileUserSidebar isOpen={isOpen} setIsOpen={setIsOpen} />}

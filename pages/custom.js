@@ -3,40 +3,40 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
-import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
+import { AiOutlineCaretRight, AiOutlineCaretDown } from 'react-icons/ai'
 import { apiData } from "../constant";
 //   import {handleCatUpdate} from "../../features/bellefuSlice";
 //   import { useSelector, useDispatch } from "react-redux";
 
-const optionSelect = [
-  { value: "Ads" },
-  { value: "Customer service" },
-  { value: "Custom request" },
-  { value: " Feature request" },
-  { value: "others" },
-];
 
-export default function Feedback() {
+
+const optionSelect = [
+  { value: 'Ads' },
+  { value: 'Customer service' },
+  { value: 'Custom request' },
+  { value: ' Feature request' },
+  { value: 'others' }];
+
+export default function Custom() {
   const [loading, setLoading] = useState(false);
   const [open1, setOpen1] = useState(false);
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [dept, setDept] = useState(null);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
+
+
+
+
+
 
   const handleSubmit = (e) => {
-    if (
-      fname === "" ||
-      lname === "" ||
-      email === "" ||
-      phone === "" ||
-      dept === null ||
-      comment === ""
-    ) {
+    if (fname === '' || lname === '' || email === '' || phone === '' || dept === null || comment === '') {
       toast.error("Please fill all the fields");
     } else {
+
       e.preventDefault();
       const data = {
         firstname: fname,
@@ -44,7 +44,7 @@ export default function Feedback() {
         email: email,
         phone: phone,
         department: dept,
-        comment: comment,
+        comment: comment
       };
       fetch(`${apiData}send/feedback/mail`, {
         method: "POST",
@@ -55,18 +55,29 @@ export default function Feedback() {
       }).then((res) => {
         if (res.status === 200) {
           toast.success("Feedback submitted successfully");
-          setFname("");
-          setLname("");
-          setEmail("");
-          setPhone("");
+          setFname('');
+          setLname('');
+          setEmail('');
+          setPhone('');
           setDept(null);
-          setComment("");
+          setComment('');
         } else {
           toast.error("Something went wrong");
+
         }
       });
+
     }
-  };
+
+
+
+
+
+
+
+
+  }
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -76,13 +87,13 @@ export default function Feedback() {
   }, []);
 
   return (
-    <div className="justify-center align-middle flex mt-20">
+    <div className="justify-center align-middle flex">
       {loading ? (
         <div className=" shadow bg-bellefuWhite lg:w-[50%] m-5 rounded-md  p-5">
           <div className="justify-center align-middle text-center">
-            <h2 className="text-2xl font-bold">FEEDBACK</h2>
+            <h2 className="text-2xl font-bold">CUSTOM REQUEST</h2>
             <p>
-              Have a complaint or query about any of the products or ads on our
+              Have a custom request about any of the products or ads on our
               website? Please use the form below to let us know about it.
             </p>
           </div>
@@ -165,10 +176,11 @@ export default function Feedback() {
                         {/* <UnstyledSelectSimple1
                         />{" "} */}
                         <div className="w-full">
+
                           <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
                             <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
                               <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
-                                {dept === null ? " Select Department" : dept}
+                                {dept === null ? ' Select Department' : dept}
                               </h5>
                             </div>
                             {!open1 ? (
@@ -201,6 +213,7 @@ export default function Feedback() {
                             </div>
                           ) : null}
                         </div>
+
                       </div>
                       <div className="col-span-6 sm:col-span-3">
                         <label
