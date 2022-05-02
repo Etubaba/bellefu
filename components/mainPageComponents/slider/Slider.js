@@ -10,7 +10,7 @@ export default function Slider({slider}) {
   
 
   return (
-    <div>
+    <div className="">
       <Carousel
         showArrows={true}
         showThumbs={false}

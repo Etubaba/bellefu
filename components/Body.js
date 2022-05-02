@@ -23,7 +23,10 @@ const Body = ({ products, slider, currency, location, currencyCode }) => {
       {search === '' ?
         <div className="mb-2">
           {loading ? (
+            <div  className="hidden md:block lg:block">
             <Slider slider={slider} />
+
+            </div>
           ) : (
             <Skeleton
               className="rounded my-3"

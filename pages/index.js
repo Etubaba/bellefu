@@ -12,6 +12,7 @@ import Body from "../components/Body";
 import MobileCategoryBar from "../components/MobileCategorybar/MobileCategoryBar";
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 import { fetchData } from "../features/bellefuSlice";
+import Slider from "../components/mainPageComponents/slider/Slider";
 
 export default function Home({ data }) {
   const [loading, setLoading] = useState(false);
@@ -46,14 +47,21 @@ export default function Home({ data }) {
         <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
           {/* second nav bar */}
           {loading ? (
-            <HeaderSearch
-              dialet={data.defaultLanguage}
-              state={data.countryStates}
-              defaultCountry={data.defaultCountryName}
-              languages={data.languages}
-              countries={data.countries}
-              location={data.defaultCountry}
-            />
+            <>
+              <HeaderSearch
+                dialet={data.defaultLanguage}
+                state={data.countryStates}
+                defaultCountry={data.defaultCountryName}
+                languages={data.languages}
+                countries={data.countries}
+                location={data.defaultCountry}
+              />
+              <div className="block  md:hidden lg:hidden mt-3">
+              <Slider  slider={data.slider} />
+
+              </div>
+
+            </>
           ) : (
             <Skeleton
               className="rounded my-3"
