@@ -53,6 +53,7 @@ const SingleProductDescription = ({ productDetails }) => {
   // check if product is among favorite
 
   console.log("single details =>", productDetails);
+  console.log("image => ", productDetails[0].images[0]);
 
   // handle message open
   const handleMessage = () => {
@@ -503,6 +504,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   url={shareUrl}
                   quote={title}
                   picture={image}
+                  children={ <Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} alt="share image" width={150} height={150} /> }
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
