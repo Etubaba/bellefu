@@ -14,7 +14,7 @@ import { apiData } from "../../constant";
 import { login } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [from, setFrom] = useState(null);
@@ -25,8 +25,6 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
   const [productId, setProductId] = useState([]);
   const [open, setOpen] = useState(false);
   const [clean, setClean] = useState(fav);
-
-
 
   const router = useRouter();
   const getIsLoggedIn = useSelector(login);
@@ -61,7 +59,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
           <div onClick={() => router.push(`/product/${product.productId}`)}>
             <img
               src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
-              className="rounded-md w-full h-44 object-cover"
+              className="rounded-md w-full h-44 hover:opacity-50 object-cover cursor-pointer"
             />
           </div>
           <p className="capitalize text-medium">
@@ -92,11 +90,15 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                 />
               )}
 
-              {!converter ? product.price : newPrice === null ?
-                <div className='p-[2px]'>
-                  <CircularProgress size='1rem' color="success" />
+              {!converter ? (
+                product.price
+              ) : newPrice === null ? (
+                <div className="p-[2px]">
+                  <CircularProgress size="1rem" color="success" />
                 </div>
-                : newPrice.toFixed(2)}
+              ) : (
+                newPrice.toFixed(2)
+              )}
               {product.currency_code ? (
                 <span
                   onClick={(e) => {
@@ -124,7 +126,6 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             {fav2 || (fav?.includes(product.productId) && getIsLoggedIn) ? (
               <span
                 onClick={(e) => {
-
                   axios
                     .post(`${apiData}delete/favorite/webindex`, {
                       productId: product.productId,
@@ -148,7 +149,6 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                         );
                       }
                     });
-
                 }}
               >
                 <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange cursor-pointer" />
@@ -189,20 +189,27 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-          // sx={{ opacity: 0.5 }}
+            // sx={{ opacity: 0.5 }}
           >
             <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
               {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
-              <strong className="ml-4 mb-8 text-sm md:text-md"> Sign in </strong>
+              <strong className="ml-4 mb-8 text-sm md:text-md">
+                {" "}
+                Sign in{" "}
+              </strong>
 
               <div className="flex space-x-4 justify-center items-center my-4">
                 <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
                   <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
-                  <strong className="text-[#303A4B] text-sm md:text-xl">Google</strong>
+                  <strong className="text-[#303A4B] text-sm md:text-xl">
+                    Google
+                  </strong>
                 </button>
                 <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
                   <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
-                  <strong className="text-white text-sm md:text-xl">Facebook</strong>
+                  <strong className="text-white text-sm md:text-xl">
+                    Facebook
+                  </strong>
                 </button>
               </div>
 
@@ -210,7 +217,6 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                 onClick={() => router.push("/login")}
                 className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
               >
-
                 Email or Phone
               </button>
 
@@ -290,9 +296,9 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                       e.stopPropagation();
                       axios
                         .post(`${apiData}convert/currency`, {
-                          amount: product.price,
+                          amount: product?.price,
                           to: currencyCode,
-                          from: product.currency_code,
+                          from: product?.currency_code,
                         })
                         .then((res) => {
                           setNewPrice(res.data.data.result);

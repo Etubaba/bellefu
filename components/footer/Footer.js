@@ -1,5 +1,5 @@
 import React from "react";
-import { BsFacebook } from "react-icons/bs";
+import { BsFacebook, BsYoutube } from "react-icons/bs";
 import {
   AiFillTwitterCircle,
   AiOutlineInstagram,
@@ -38,21 +38,21 @@ function Footer() {
 
         <div className="space-y-2">
           <p className="text-[#F9FDF5]">
-            <strong>Tools & Resources</strong>
+            <strong>Resources</strong>
           </p>
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             <li>
               <a href="https://www.radio.bellefu.com " className="link ">
-                Bellefu Radio
+                Online Radio
               </a>
             </li>
             <li>
               <a
-                href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV"
+                href="https://www.blog.bellefu.com"
                 className="link"
               >
-                Training Group
+                Blog
               </a>
             </li>
             <li>
@@ -61,11 +61,7 @@ function Footer() {
                 Webinar
               </a>{" "}
             </li>
-            <li>
-              <a href="https://www.blog.bellefu.com " className="link">
-                Blog
-              </a>
-            </li>
+
           </ul>
         </div>
 
@@ -106,8 +102,8 @@ function Footer() {
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>
-              <a className="link" onClick={() => router.push("/about")}>
-                About us
+              <a className="link" href='https://linktr.ee/bellefu'>
+                Linktree
               </a>
             </li>
             <li onClick={() => router.push("/policy")} className="link">
@@ -166,6 +162,7 @@ function Footer() {
           <a href='https://web.facebook.com/Bellefu.official'>
             <BsFacebook className=" hover:text-gray-500   text-[#d4d7d1] link text-2xl" />
           </a>
+
           <a href='https://twitter.com/Bellefuofficial'>
             <AiFillTwitterCircle className="text-[#d4d7d1] hover:text-gray-500  text-3xl" />
           </a>
@@ -174,6 +171,9 @@ function Footer() {
           </a>
           <a href='https://www.linkedin.com/company/67955966/'>
             <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  mt-1 text-2xl" />
+          </a>
+          <a href='https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q'>
+            <BsYoutube className=" hover:text-gray-500  mt-[3px] text-[#d4d7d1] link text-3xl" />
           </a>
 
 
@@ -200,7 +200,7 @@ function Footer() {
 
         <p className="flex text-[#9c9c9c] space-x-3">
           <AiOutlineCopyrightCircle className="text-xl mr-2" />
-          2022 Bellefu Agro consult. All rights reserved.
+          2022 Bellefu Digital Agriculture LLC. All rights reserved.
         </p>
       </div>
     </div>

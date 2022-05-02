@@ -30,7 +30,7 @@ const Product = ({ details }) => {
   const index = useSelector(homeData);
 
   return (
-    <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
+    <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
       {/* large screen header */}
 
@@ -68,7 +68,8 @@ const Product = ({ details }) => {
           {loading ? (
             <SingleProductSidebar
               verified={details.verification}
-              userDetails={newDetails} />
+              userDetails={newDetails}
+            />
           ) : (
             <Skeleton
               className="rounded  "
