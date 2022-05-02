@@ -9,7 +9,6 @@ import axios from "axios";
 import { apiData } from "../../constant";
 import Skeleton from "@mui/material/Skeleton";
 
-
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [loading, setLoading] = useState(false);
 

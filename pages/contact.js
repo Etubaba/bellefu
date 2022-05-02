@@ -21,10 +21,8 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     if (fullName === "" || email === "" || phone === "" || comment === "") {
-
       toast.error("Please fill all the fields", { position: "top-center" });
     } else {
-
       e.preventDefault();
 
       const data = {
@@ -32,7 +30,7 @@ const Contact = () => {
         email: email,
         phone: phone,
         comment: comment,
-      }
+      };
 
       fetch(`${apiData}send/contact/mail`, {
         method: "POST",
@@ -43,33 +41,19 @@ const Contact = () => {
       }).then((res) => {
         if (res.status === 200) {
           toast.success("Your message was submitted successfully");
-          setFullName('');
-          setEmail('');
-          setPhone('');
-          setComment('');
+          setFullName("");
+          setEmail("");
+          setPhone("");
+          setComment("");
         } else {
           toast.error("Something went wrong");
-
         }
       });
-
-
-
-
-
-
-
-
-
-
     }
-
-  }
-
-
+  };
 
   return (
-    <div className="md:max-w-5xl md:mx-auto w-full flex flex-col md:flex-row space-y-3 md:space-x-10 bg-white mt-6 md:mt-20 md:p-5 p-2 rounded-sm">
+    <div className="md:max-w-5xl md:mx-auto w-full flex flex-col md:flex-row space-y-3 md:space-x-10 bg-white mt-20 md:mt-20 md:p-5 p-2 rounded-sm">
       {/* left side */}
       <div className="w-full md:w-[60%]">
         <h2 className="uppercase text-5xl font-semibold text-gray-700 tracking-wider mb-6">
@@ -108,7 +92,10 @@ const Contact = () => {
             placeholder="Comment"
             rows="5"
           ></textarea>
-          <button onClick={handleSubmit} className="bg-bellefuOrange px-6 py-1 text-white text-center font-bold rounded tracking-wider">
+          <button
+            onClick={handleSubmit}
+            className="bg-bellefuOrange px-6 py-1 text-white text-center font-bold rounded tracking-wider"
+          >
             Submit
           </button>
         </div>
@@ -139,10 +126,10 @@ const Contact = () => {
                 <BsFacebook className="text-[#3b5998]" />
               </a>
 
-              <a href='https://twitter.com/Bellefuofficial'>
+              <a href="https://twitter.com/Bellefuofficial">
                 <BsTwitter className="text-[#00acee]" />
               </a>
-              <a href='https://www.linkedin.com/company/67955966/'>
+              <a href="https://www.linkedin.com/company/67955966/">
                 <FaLinkedinIn className="text-[#0e76a8]" />
               </a>
               <a href=" https://www.instagram.com/bellefu_official/">
@@ -151,7 +138,6 @@ const Contact = () => {
               <a href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q">
                 <BsYoutube className="text-[#c4302b]" />
               </a>
-
             </div>
           </div>
         </div>
