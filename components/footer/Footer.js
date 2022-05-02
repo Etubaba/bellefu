@@ -38,21 +38,21 @@ function Footer() {
 
         <div className="space-y-2">
           <p className="text-[#F9FDF5]">
-            <strong>Tools & Resources</strong>
+            <strong>Resources</strong>
           </p>
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             <li>
               <a href="https://www.radio.bellefu.com " className="link ">
-                Bellefu Radio
+                Online Radio
               </a>
             </li>
             <li>
               <a
-                href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV"
+                href="https://www.blog.bellefu.com"
                 className="link"
               >
-                Training Group
+                Blog
               </a>
             </li>
             <li>
@@ -61,11 +61,7 @@ function Footer() {
                 Webinar
               </a>{" "}
             </li>
-            <li>
-              <a href="https://www.blog.bellefu.com " className="link">
-                Blog
-              </a>
-            </li>
+
           </ul>
         </div>
 
@@ -106,8 +102,8 @@ function Footer() {
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>
-              <a className="link" onClick={() => router.push("/about")}>
-                About us
+              <a className="link" href='https://linktr.ee/bellefu'>
+                Linktree
               </a>
             </li>
             <li onClick={() => router.push("/policy")} className="link">

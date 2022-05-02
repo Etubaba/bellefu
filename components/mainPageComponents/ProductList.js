@@ -61,7 +61,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
           <div onClick={() => router.push(`/product/${product.productId}`)}>
             <img
               src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
-              className="rounded-md w-full h-44 object-cover"
+              className="rounded-md w-full h-44 hover:opacity-50 object-cover cursor-pointer"
             />
           </div>
           <p className="capitalize text-medium">
