@@ -1,5 +1,5 @@
 import React from "react";
-import { BsFacebook } from "react-icons/bs";
+import { BsFacebook, BsYoutube } from "react-icons/bs";
 import {
   AiFillTwitterCircle,
   AiOutlineInstagram,
@@ -162,6 +162,7 @@ function Footer() {
           <a href='https://web.facebook.com/Bellefu.official'>
             <BsFacebook className=" hover:text-gray-500   text-[#d4d7d1] link text-2xl" />
           </a>
+
           <a href='https://twitter.com/Bellefuofficial'>
             <AiFillTwitterCircle className="text-[#d4d7d1] hover:text-gray-500  text-3xl" />
           </a>
@@ -170,6 +171,9 @@ function Footer() {
           </a>
           <a href='https://www.linkedin.com/company/67955966/'>
             <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  mt-1 text-2xl" />
+          </a>
+          <a href='https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q'>
+            <BsYoutube className=" hover:text-gray-500  mt-[3px] text-[#d4d7d1] link text-3xl" />
           </a>
 
 
@@ -196,7 +200,7 @@ function Footer() {
 
         <p className="flex text-[#9c9c9c] space-x-3">
           <AiOutlineCopyrightCircle className="text-xl mr-2" />
-          2022 Bellefu Agro consult. All rights reserved.
+          2022 Bellefu Digital Agriculture LLC. All rights reserved.
         </p>
       </div>
     </div>

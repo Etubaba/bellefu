@@ -1,6 +1,6 @@
 import React from "react";
 import { FaLinkedin } from "react-icons/fa";
-import { BsFacebook } from "react-icons/bs";
+import { BsFacebook, BsYoutube } from "react-icons/bs";
 import {
   AiFillTwitterCircle,
   AiOutlineInstagram
@@ -26,21 +26,7 @@ function Mobilefooter() {
 
 
         <NewsletterSub />
-        {/* <div className=" flex flex-col space-y-2 md:items-center md:justify-center">
-          <p className="text-[#D4D7D1] md:text-sm text-base text-center tracking-wide font-semibold">
-            Subscribe to our newsletters
-          </p>
-          <div className="flex items-center w-4/5 space-x-2 pb-3 mx-auto">
-            <input
-              className="w-full md:w-80 bg-[#2c2c2c] rounded-sm p-2 outline-none text-white text-lg"
-              type="email"
-              placeholder="Enter email here"
-            />
-            <button className="bg-bellefuOrange rounded-sm md:rounded-bl-sm md:rounded-tl-sm px-4 py-2 text-white font-semibold">
-              Send
-            </button>
-          </div>
-        </div> */}
+
 
       </div>
 
@@ -55,11 +41,11 @@ function Mobilefooter() {
         </p>
         <div className="space-y-2 flex flex-col items-center justify-center">
           <p className="text-[#F9FDF5] text-center">
-            <strong>Tools & Resources</strong>
+            <strong>Resources</strong>
           </p>
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
-            <li><a href="https://www.radio.bellefu.com ">Bellefu Radio</a></li>
+            <li><a href="https://www.radio.bellefu.com ">Online Radio</a></li>
             <li href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV">Training Group</li>
             <li href="https://www.webinar.bellefu.com">Webinar</li>
             <li href="https://www.blog.bellefu.com ">Blog</li>
@@ -72,7 +58,7 @@ function Mobilefooter() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li onClick={() => router.push('/about')}>About us</li>
+            <li> <a href='https://linktr.ee/bellefu'>linktree</a></li>
             <li onClick={() => router.push('/policy')}>Legal</li>
             <li onClick={() => router.push('/feedback')}>Feedback</li>
             <li onClick={() => router.push('/contact')}>Contact</li>
@@ -125,13 +111,16 @@ function Mobilefooter() {
         <a href=" https://www.instagram.com/bellefu_official/">
           <AiOutlineInstagram className=" text-[#DF4A8E]   text-2xl" />
         </a>
+        <a href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q">
+          <BsYoutube className=" text-red-600   text-2xl" />
+        </a>
 
 
       </div>
 
       <p className="flex text-[#9c9c9c] items-center justify-center text-base md:text-sm m-3 space-x-3">
         {/* <AiOutlineCopyrightCircle className="text-xl mr-2" /> */}© 2022
-        Bellefu Agro consult. All rights reserved.
+        Bellefu Digital Agriculture LLC. All rights reserved.
       </p>
     </div>
   );
