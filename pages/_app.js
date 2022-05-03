@@ -5,7 +5,7 @@ import { store } from "../features/store";
 import NavBar from "../components/Navbar/NavBar";
 import Skeleton from "@mui/material/Skeleton";
 import { useEffect, useState } from "react";
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/footer/Footer";
 import BottomNav from "../components/footer/BottomNav";
 
 import { ToastContainer } from "react-toastify";
