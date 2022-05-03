@@ -451,7 +451,7 @@
 import React from "react";
 
 function CategiryId() {
-  return <div>CategiryId</div>;
+  return <div className="mt-20">CategiryId</div>;
 }
 
 export default CategiryId;
