@@ -16,7 +16,14 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
+const ProductList = ({
+  product,
+  currency,
+  currencyCode,
+  fav,
+  favdata,
+  view,
+}) => {
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
   const [fav2, setFav2] = useState(false);
@@ -60,15 +67,21 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
               className="rounded-md w-full h-44 hover:opacity-50 object-cover cursor-pointer"
             />
           </div>
-          <p className="capitalize text-sm">{product.title.substring(0, 20)}</p>
-          <div className="flex items-center space-x-2">
+          <p className="capitalize text-sm">
+            {view
+              ? product.title.substring(0, 14) + ".."
+              : product.title.substring(0, 20) + ".."}
+          </p>
+          <div className="flex items-center space-x-1">
             <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
             <div className="flex items-center space-x-1">
               <p className="text-bellefuBlack1 text-sm md:text-base capitalize">
                 {product.stateName},
               </p>
               <p className="text-bellefuBlack1 text-sm md:text-base capitalize">
-                {product.countryName}
+                {!view
+                  ? product.countryName
+                  : product.countryName.substring(0, 10) + ".."}
               </p>
             </div>
           </div>
