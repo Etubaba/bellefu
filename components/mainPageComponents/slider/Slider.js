@@ -5,7 +5,6 @@ import Link from "next/link";
 import {useState} from "react";
 
 export default function Slider({slider}) {
- console.log(process.env.NODE_ENV);
 
   const [newSlider]=slider;
   
@@ -26,7 +25,8 @@ export default function Slider({slider}) {
               src={`https://bellefu.inmotionhub.xyz/get/sliders/image/${slideimage}`}
               alt={slideimage}
             />
-            <button className="absolute top-28 left-10 md:top-48 md:left-32 bg-bellefuOrange shadow-md hover:bg-orange-300 p-2 rounded-md text-white" key={index}><a href={ process.env.NODE_ENV === "development"?"http://localhost:3000":"https://bellefu30web.vercel.app/"} target="_blank" key={index}>Learn More</a></button>
+            <button className="absolute top-28 left-10 md:top-52
+             md:left-32 bg-bellefuOrange shadow-md hover:bg-orange-300 p-2 rounded-md text-white" key={index}><a href={ process.env.NODE_ENV === "development"?"http://localhost:3000":"https://bellefu30web.vercel.app/"} target="_blank" key={index}>Learn More</a></button>
           </div>
         ))}
       </Carousel>
