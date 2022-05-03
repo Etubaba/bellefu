@@ -10,8 +10,7 @@ const MobileCategoryItem = ({ child, setOpen }) => {
       className=""
       onClick={() => {
         {
-          dispatch(Subcat(child.subCatId)),
-            router.push("/category/${child.subCatId}");
+          dispatch(Subcat(child.subCatId)), setOpen(false);
         }
       }}
     >
