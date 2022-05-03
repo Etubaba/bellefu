@@ -487,6 +487,8 @@ function CategiryId() {
   const index = useSelector(homeData);
   const router = useRouter();
 
+  console.log("productId", productId);
+
   // getting product base on category
   useEffect(() => {
     const getProduct = async () => {
@@ -496,7 +498,7 @@ function CategiryId() {
     };
 
     getProduct();
-  }, [newId]);
+  }, [catUpdate]);
 
   //   // getting subcategory
   useEffect(() => {
