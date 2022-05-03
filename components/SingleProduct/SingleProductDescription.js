@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BsHeart } from "react-icons/bs";
 import { AiFillEye, AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
-import { Modal } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 import { FcGoogle, FcVideoCall } from "react-icons/fc";
 import { ImFacebook } from "react-icons/im";
 import { TiLocation } from "react-icons/ti";
@@ -216,6 +216,31 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const video = 'https://bellefu.inmotionhub.xyz/get/video/'
 
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'auto',
+    bgcolor: 'background.paper',
+    borderRadius: 3,
+    boxShadow: 24,
+    p: 2,
+  };
+  const style2 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '70%',
+    height: '50%',
+    borderRadius: 3,
+    boxShadow: 24,
+    p: 2,
+  };
+
+
   return (
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
@@ -327,31 +352,16 @@ const SingleProductDescription = ({ productDetails }) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description">
 
-                <div
-                  className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto "
+                <Box
+                  style={style2}
                 >
-
-
-                  <video width="420" height="440" controls>
+                  <video width="650" height="540" controls>
                     <source src={`${video}get/video/${productDetails[0]?.video}`} type="video/mp4" />
                     <source src="movie.ogg" type="video/ogg" />
                     Your browser does not support the video.
                   </video>
-
-
-
-                </div>
-
-
-
-
-
-
+                </Box>
               </Modal>
-
-
-
-
 
               {/* When user is not login modal */}
               <Modal
@@ -361,7 +371,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 aria-describedby="modal-modal-description"
               // sx={{ opacity: 0.5 }}
               >
-                <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
+                <Box sx={style}>
                   {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
                   <strong className="ml-4 mb-8 text-sm md:text-md">
                     {" "}
@@ -394,12 +404,12 @@ const SingleProductDescription = ({ productDetails }) => {
                     Do not have an account?{" "}
                     <stong
                       onClick={() => router.push("/register")}
-                      className="text-bellefuGreen hover:text-green-700 text-lg ml-2"
+                      className="text-bellefuGreen hover:text-green-700 text-sm md:text-lg ml-2"
                     >
                       Register
                     </stong>
                   </p>
-                </div>
+                </Box>
               </Modal>
             </div>
             {/* message box */}

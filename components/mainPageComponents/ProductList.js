@@ -64,9 +64,9 @@ const ProductList = ({
     transform: 'translate(-50%, -50%)',
     width: 'auto',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    borderRadius: 3,
     boxShadow: 24,
-    p: 4,
+    p: 2,
   };
 
 
@@ -213,6 +213,7 @@ const ProductList = ({
             aria-describedby="modal-modal-description"
           // sx={{ opacity: 0.5 }}
           >
+
             <Box sx={style}>
               {/* <div className="flex flex-col items-center justify-center mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite "> */}
               {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
@@ -235,23 +236,24 @@ const ProductList = ({
                   </strong>
                 </button>
               </div>
+              <div className="flex justify-center items-center">
+                <button
+                  onClick={() => router.push("/login")}
+                  className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+                >
+                  Email or Phone
+                </button></div>
 
-              <button
-                onClick={() => router.push("/login")}
-                className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
-              >
-                Email or Phone
-              </button>
-
-              <p className="flex justify-center items-center">
+              <p className="flex justify-center items-center text-xs md:text-base">
                 Do not have an account?{" "}
                 <stong
                   onClick={() => router.push("/register")}
-                  className="text-bellefuGreen hover:text-green-700 text-lg ml-2"
+                  className="text-bellefuGreen hover:text-green-700  ml-2"
                 >
                   Register
                 </stong>
               </p>
+
             </Box>
           </Modal>
 
