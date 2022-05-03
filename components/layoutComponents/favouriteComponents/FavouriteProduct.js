@@ -10,6 +10,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import { favUpdated } from "../../../features/bellefuSlice";
+import { Box } from "@mui/system";
 
 
 
@@ -92,8 +93,8 @@ const FavouriteProduct = ({ product }) => {
         >
 
 
-          <div className='flex flex-col items-center justify-center mx-auto mt-10 translate-y-1/2 translate-x-1/2 p-5  rounded-lg shadow-md  w-72 h-48    md:w-[400px] md:h-[230px] bg-bellefuWhite'
-          // sx={edit}
+          <Box
+            sx={edit}
           >
             <div className='flex justify-center items-center'>
               {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
@@ -110,7 +111,7 @@ const FavouriteProduct = ({ product }) => {
               <Button onClick={() => setOpen(false)}><p className='text-xs md:text-[15px]'>Cancel</p></Button>
               <Button color='error' onClick={remove} ><p className='text-xs md:text-[15px]'>Remove</p></Button>
             </div>
-          </div>
+          </Box>
 
         </Modal>
 
