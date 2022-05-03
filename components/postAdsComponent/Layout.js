@@ -11,13 +11,13 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(true);
-    }, 3000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
   const userId = useSelector((state) => state.bellefu?.profileDetails);
 
   return (
-    <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto">
+    <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {userId ? (
         <>
           <div className="">
