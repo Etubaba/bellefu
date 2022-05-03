@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdLocationOn } from "react-icons/md"
+import { MdLocationOn } from "react-icons/md";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { BsHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useRouter } from "next/router";
@@ -17,33 +17,30 @@ const CategoryProductList = ({ product }) => {
   const isLoggedIn = useSelector(login);
   const router = useRouter();
 
-
-
   const addFav = (e) => {
     e.stopPropagation();
     if (isLoggedIn) {
       axios
         .post(`${apiData}add/favorite`, {
           userId: userId,
-          productId: product.productId,
+          productId: product?.productId,
         })
         .then((res) => {
           console.log(res.data);
           if (res.data.status) {
             setFav2(!fav2);
             toast.success(
-              `${product.title.substring(0, 20)} added to favourite`
+              `${product?.title.substring(0, 20)} added to favourite`
             );
           }
         });
     }
   };
 
-
   const removeFav = () => {
     axios
       .post(`${apiData}delete/favorite/webindex`, {
-        productId: product.productId,
+        productId: product?.productId,
         userId: userId,
       })
       .then((res) => {
@@ -54,7 +51,7 @@ const CategoryProductList = ({ product }) => {
           // );
           // setClean(cleanArr);
           toast.error(
-            `${product.title.substring(0, 20)} removed from favorite product`,
+            `${product?.title.substring(0, 20)} removed from favorite product`,
             {
               position: "top-right",
             }
@@ -63,8 +60,6 @@ const CategoryProductList = ({ product }) => {
       });
   };
 
-
-
   // console.log(product)
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md cursor-pointer">
@@ -72,7 +67,7 @@ const CategoryProductList = ({ product }) => {
         onClick={() => router.push(`/product/${product?.productId}`)}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
-        alt={product.title}
+        alt={product?.title}
       />
       <p className="capitalize text-medium">
         {product?.title.substring(0, 20)}
@@ -92,7 +87,7 @@ const CategoryProductList = ({ product }) => {
         <p className="text-bellefuGreen font-poppins font-semibold">
           ₦ {product?.price}
         </p>
-        {fav2 || favArr?.includes(product.productId) ? (
+        {fav2 || favArr?.includes(product?.productId) ? (
           <div onClick={removeFav} className="cursor-pointer">
             <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange" />
           </div>
