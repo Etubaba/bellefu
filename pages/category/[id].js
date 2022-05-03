@@ -741,9 +741,9 @@ const Product = () => {
         {/* end of mobile view section */}
 
         {/* product session */}
-        <div className="flex-1">
+        {/* <div className="flex-1">
           <CategoryProducts product={filterProduct} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
