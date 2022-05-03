@@ -509,7 +509,7 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={shareUrl}
+                  url={image}
                   quote={title}
                   hashtag="#bellefu"
                   children={<Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} width={150} height={150} />}
