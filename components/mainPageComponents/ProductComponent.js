@@ -139,9 +139,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
                 }
               })
               .map((product) => (
-                <div key={product.productId}>
+                <div key={product?.productId}>
                   <ProductList
-                    key={product.productId}
+                    key={product?.productId}
                     view={grid}
                     currency={currency}
                     product={product}

@@ -23,14 +23,14 @@ const CategoryProductList = ({ product }) => {
       axios
         .post(`${apiData}add/favorite`, {
           userId: userId,
-          productId: product.productId,
+          productId: product?.productId,
         })
         .then((res) => {
           console.log(res.data);
           if (res.data.status) {
             setFav2(!fav2);
             toast.success(
-              `${product.title.substring(0, 20)} added to favourite`
+              `${product?.title.substring(0, 20)} added to favourite`
             );
           }
         });
@@ -40,7 +40,7 @@ const CategoryProductList = ({ product }) => {
   const removeFav = () => {
     axios
       .post(`${apiData}delete/favorite/webindex`, {
-        productId: product.productId,
+        productId: product?.productId,
         userId: userId,
       })
       .then((res) => {
@@ -51,7 +51,7 @@ const CategoryProductList = ({ product }) => {
           // );
           // setClean(cleanArr);
           toast.error(
-            `${product.title.substring(0, 20)} removed from favorite product`,
+            `${product?.title.substring(0, 20)} removed from favorite product`,
             {
               position: "top-right",
             }

@@ -90,7 +90,7 @@ const Product = () => {
     setEndPrice(value[1]);
   };
 
-  const filterProduct = product.filter((newP) => {
+  const filterProduct = product?.filter((newP) => {
     if (startPrice === 100 && subCatId === null) {
       return newP;
     } else if (newP.price >= startPrice && newP.price <= endPrice) {
