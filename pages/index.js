@@ -26,12 +26,14 @@ export default function Home({ data }) {
   useEffect(() => {
     dispatch(fetchData(data));
   }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(true);
-    }, 1000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
+
   return (
     <div>
       <Head>
@@ -116,7 +118,7 @@ export default function Home({ data }) {
                     <h3 className=" block lg:hidden font-bold text-[1rem] sm:text-[1rem] m-5 lg:text-[1.2rem]">
                       Search by categories
                     </h3>
-                    
+
                     <MobileCategoryBar categories={data.categories} />
                   </div>
                 ) : (

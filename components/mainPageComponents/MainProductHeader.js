@@ -3,19 +3,19 @@ import { BiSortAlt2, BiGridSmall } from "react-icons/bi";
 import { FaThList } from "react-icons/fa";
 import { IoGrid } from "react-icons/io";
 
-function MainProductHeader() {
+function MainProductHeader({ changeView }) {
   return (
     <div className="bg-bellefuWhite rounded-t-md">
       <div className="flex items-center justify-between p-4 ">
         <h3 className="font-bold text-[1rem] sm:text-[1rem] lg:text-[1.2rem]">
           Trending Ads
         </h3>
-        <div className="flex justify-between">
+        <div className=" md:hidden flex justify-between">
           <div className="border-2 rounded-md w-[20vw] sm:w-[20vw]  lg:w-[4vw] flex justify-around">
-            <div>
+            <div onClick={() => changeView(false)}>
               <FaThList className="text-bellefuOrange text-[1.5rem] pt-2" />
             </div>
-            <div>
+            <div onClick={() => changeView(true)}>
               {" "}
               <BiGridSmall className="text-bellefuOrange text-[2rem]" />
             </div>

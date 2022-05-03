@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import SimilarProducts from "./SimilarProducts";
 import SingleProductDescription from "./SingleProductDescription";
 import SingleProductSlider from "./SingleProductSlider";
 
 const SingleProductBody = ({ productDetails, similarProductDetails }) => {
+  const [viewAll, setViewAll] = useState(false);
   return (
     <div className="rounded-t-md -mt-5 lg:mt-0">
       <SingleProductSlider sliderDetails={productDetails} />
@@ -13,11 +14,11 @@ const SingleProductBody = ({ productDetails, similarProductDetails }) => {
           <p className="text-xl text-bellefuTitleBlack font-semibold tracking-wider">
             Similar Products
           </p>
-          <p className="text-bellefuOrange text-xs font-medium tracking-wider">
+          <p onClick={() => setViewAll(true)} className="text-bellefuOrange hover:text-orange-400 text-xs font-medium cursor-pointer tracking-wider">
             View All
           </p>
         </div>
-        <SimilarProducts similarProductDetails={similarProductDetails} />
+        <SimilarProducts view={viewAll} similarProductDetails={similarProductDetails} />
       </div>
     </div>
   );

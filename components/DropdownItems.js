@@ -4,18 +4,16 @@ import { useDispatch } from "react-redux";
 import { Subcat } from "../features/bellefuSlice";
 
 const DropdownItems = ({ child }) => {
-
-
-  const sendAm = useDispatch()
+  const sendAm = useDispatch();
 
   return (
-    <div onClick={() => {
-      sendAm(Subcat(child.subCatId))
-
-    }} className="hover:bg-bellefuBackground">
-      <p className=" p-2 rounded-sm">
-        {child.subCatName}
-      </p>
+    <div
+      onClick={() => {
+        sendAm(Subcat(child.subCatId));
+      }}
+      className="hover:bg-bellefuBackground"
+    >
+      <p className=" p-2 rounded-sm">{child.subCatName}</p>
     </div>
   );
 };

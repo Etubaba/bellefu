@@ -75,25 +75,20 @@ const Product = () => {
     fetchStates();
   }, [state]);
 
-
   const province = country === null ? index?.countryStates : stateList;
 
+  const price = product?.map((item) => parseFloat(item.price));
 
-  const price = product?.map((item) => parseFloat(item.price))
-
-  const maxPrice = price.length === 0 ? 1000 : Math.max(...price)
-  const minPrice = price.length === 0 ? 0 : Math.min(...price)
-
+  const maxPrice = price.length === 0 ? 1000 : Math.max(...price);
+  const minPrice = price.length === 0 ? 0 : Math.min(...price);
 
   const [startPrice, setStartPrice] = useState(minPrice);
   const [endPrice, setEndPrice] = useState(maxPrice);
-
 
   const handleChange = (event, value) => {
     setStartPrice(value[0]);
     setEndPrice(value[1]);
   };
-
 
   const filterProduct = product.filter((newP) => {
     if (startPrice === 100 && subCatId === null) {
@@ -103,11 +98,10 @@ const Product = () => {
     } else if (newP.subcategory_id === subCatId) {
       return newP;
     }
-
-  })
+  });
 
   return (
-    <div className="max-w-[95%] lg:max-w-[90%] mx-auto">
+    <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       <Head>
         <title>Categories</title>
         <meta
@@ -213,8 +207,7 @@ const Product = () => {
                       onClick={() => {
                         setOpen1(!open1);
                         setSubCatText(item.subCatName);
-                        setSubCatId(item.subCatId)
-
+                        setSubCatId(item.subCatId);
                       }}
                       key={item?.id}
                       className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"

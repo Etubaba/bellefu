@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Modal } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { MdLocationOn, MdOutlineCancel } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
@@ -16,9 +16,14 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
-  const [from, setFrom] = useState(null);
-  const [amount, setAmount] = useState(null);
+const ProductList = ({
+  product,
+  currency,
+  currencyCode,
+  fav,
+  favdata,
+  view,
+}) => {
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
   const [fav2, setFav2] = useState(false);
@@ -52,6 +57,19 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
 
   // console.log(productId)
 
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'auto',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       {product?.inStock ? (
@@ -62,17 +80,21 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
               className="rounded-md w-full h-44 hover:opacity-50 object-cover cursor-pointer"
             />
           </div>
-          <p className="capitalize text-medium">
-            {product.title.substring(0, 20)}
+          <p className="capitalize text-sm">
+            {view
+              ? product.title.substring(0, 14) + ".."
+              : product.title.substring(0, 20) + ".."}
           </p>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
             <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
             <div className="flex items-center space-x-1">
-              <p className="text-bellefuBlack1 text-sm capitalize">
+              <p className="text-bellefuBlack1 text-sm md:text-base capitalize">
                 {product.stateName},
               </p>
-              <p className="text-bellefuBlack1 text-sm capitalize">
-                {product.countryName}
+              <p className="text-bellefuBlack1 text-sm md:text-base capitalize">
+                {!view
+                  ? product.countryName
+                  : product.countryName.substring(0, 10) + ".."}
               </p>
             </div>
           </div>
@@ -189,9 +211,10 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-            // sx={{ opacity: 0.5 }}
+          // sx={{ opacity: 0.5 }}
           >
-            <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
+            <Box sx={style}>
+              {/* <div className="flex flex-col items-center justify-center mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite "> */}
               {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
               <strong className="ml-4 mb-8 text-sm md:text-md">
                 {" "}
@@ -229,7 +252,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
                   Register
                 </stong>
               </p>
-            </div>
+            </Box>
           </Modal>
 
           <div className="flex items-center mt-2 space-x-3">
