@@ -48,8 +48,17 @@ const HeaderSearch = ({
   }, [flag]);
 
   const province = flag !== null ? stateList : state;
+
+
+  window.onclick = (e) => {
+    e.target.className === "con"
+    setOpen(false);
+    setSelectCountry(false);
+    setSelectlang(false);
+
+  }
   return (
-    <div>
+    <div className="con">
       {/* desktop screen header search */}
       <div className="hidden lg:inline">
         <div
@@ -71,8 +80,9 @@ const HeaderSearch = ({
               </div>
 
               <AiFillCaretDown
-                onClose={() => setSelectCountry(false)}
-                onClick={() => {
+
+                onClick={(e) => {
+                  e.stopPropagation();
                   setSelectlang(false);
                   setOpen(false);
                   setSelectCountry(!selectCountry);
@@ -84,7 +94,7 @@ const HeaderSearch = ({
               />
             </div>
             {selectCountry && (
-              <div className="z-10 absolute top-36 left-[6%]  h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div onClick={(e) => e.stopPropagation()} className="z-10 absolute top-14   h-80 overflow-y-scroll mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="flex items-center justify-center mx-auto my-3 ">
                   <input
                     type="text"
@@ -109,7 +119,8 @@ const HeaderSearch = ({
                   .map((list) => (
                     <div
                       key={list.id}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setFlag(list.iso2);
                         setSelectCountry(false);
                         setSelectlang(false);
@@ -142,7 +153,8 @@ const HeaderSearch = ({
               <div className="z-50 absolute top-32 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {languages.map((lang) => (
                   <div
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setNative(lang.code);
                       setSelectlang(false);
                     }}
@@ -186,6 +198,7 @@ const HeaderSearch = ({
               list="brow"
               value={search}
               onChange={(e) => {
+                e.stopPropagation();
                 dispatch(handleSearch(e.target.value));
                 dispatch(chooseState(null));
                 dispatch(selectCat(null));
@@ -204,7 +217,8 @@ const HeaderSearch = ({
             <div className="px-3 text-black opacity-20 text-2xl -mt-2">|</div>
 
             <span
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setSelectCountry(false);
                 setSelectlang(false);
                 setOpen(!open);
@@ -219,13 +233,16 @@ const HeaderSearch = ({
             </span>
 
             {open && (
-              <div className="transition ease-in-out delay-150 duration-700  z-10 absolute h-80 overflow-y-scroll top-36 right-60 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div onClick={(e) => e.stopPropagation()} className="transition ease-in-out delay-150 duration-700  z-10 absolute h-80 overflow-y-scroll top-14  mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="flex items-center justify-center mx-auto my-3 ">
                   <input
                     type="text"
                     placeholder="Search state"
                     className="w-full border mx-4 h-10 px-4 py-2 rounded-md text-sm text-gray-600 focus:border-bellefuOrange focus:outline-none focus:ring-1 focus:ring-black focus:ring-opacity-5"
-                    onChange={(e) => setFindState(e.target.value)}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      setFindState(e.target.value)
+                    }}
                     value={findState}
                   />
                 </div>
@@ -241,7 +258,8 @@ const HeaderSearch = ({
                   })
                   .map((state) => (
                     <div
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setOpen(!open);
                         dispatch(chooseState(state.code));
                       }}
@@ -281,6 +299,7 @@ const HeaderSearch = ({
             type="text"
             value={search}
             onChange={(e) => {
+              e.stopPropagation();
               dispatch(handleSearch(e.target.value));
               setSearch(e.target.value);
             }}
@@ -305,7 +324,10 @@ const HeaderSearch = ({
           </div>
           <div className="">
             {open === false ? (
-              <div onClick={() => setOpen(!open)}>
+              <div onClick={(e) => {
+                e.stopPropagation();
+                setOpen(!open)
+              }}>
                 <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
               </div>
             ) : (
@@ -318,7 +340,8 @@ const HeaderSearch = ({
             <div className=" -ml-3 z-10 absolute h-80 overflow-y-scroll top-12 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               {province?.map((state) => (
                 <div
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setOpen(!open);
                     dispatch(chooseState(state.code));
                   }}

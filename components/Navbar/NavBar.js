@@ -103,8 +103,13 @@ const NavBar = () => {
     );
   };
 
+  window.onclick = (e) => {
+    e.target.className === "con"
+    setOpen(false);
+
+  }
   return (
-    <div className="fixed top-0 z-50 w-full">
+    <div className="fixed top-0 z-50 w-full ">
       <div className=" bg-black h-6">hello</div>
       <nav className="flex px-2 py-2 lg:px-12 bg-bellefuGreen items-center justify-between  ">
         {/* left side */}
@@ -146,7 +151,7 @@ const NavBar = () => {
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
                 className="hover:text-gray-200"
-                // href="https://webinar.bellefu.com/"
+              // href="https://webinar.bellefu.com/"
               >
                 Create Shop
               </a>
@@ -202,11 +207,17 @@ const NavBar = () => {
                   </p>
                   <div className="">
                     {open === false ? (
-                      <div onClick={() => setOpen(!open)}>
+                      <div onClick={(e) => {
+                        e.stopPropagation();
+                        setOpen(!open)
+                      }}>
                         <AiOutlineCaretRight className="text-white cursor-pointer" />
                       </div>
                     ) : (
-                      <div onClick={() => setOpen(!open)}>
+                      <div onClick={(e) => {
+                        e.stopPropagation();
+                        setOpen(!open)
+                      }}>
                         <AiOutlineCaretDown className="text-white cursor-pointer" />
                       </div>
                     )}
@@ -216,7 +227,7 @@ const NavBar = () => {
             )}
             {/* drop down beginning */}
             {open ? (
-              <div className="absolute w-52 bg-bellefuWhite rounded border z-40 shadow-lg top-12 right-[10%] space-y-3">
+              <div onClick={(e) => e.stopPropagation()} className=" con absolute w-52 bg-bellefuWhite rounded border z-40 shadow-lg top-16 right-[10%] space-y-3">
                 <ul className="rounded px-2 py-3 space-y-2">
                   <div
                     onClick={() => {
