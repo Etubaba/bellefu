@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdLocationOn, MdOutlineWarningAmber } from "react-icons/md";
-import { IoHeartDislike } from "react-icons/io";
+import { IoIosHeartDislike } from "react-icons/io";
 
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
@@ -78,7 +78,7 @@ const FavouriteProduct = ({ product }) => {
             dangerouslySetInnerHTML={{ __html: details?.defaultCurrency }}
           />   {product.price}
         </p>
-        <IoHeartDislike onClick={() => {
+        <IoIosHeartDislike onClick={() => {
           setOpen(true)
           setFavId(product.FavId)
         }} className="w-5 h-5 text-bellefuOrange" />
