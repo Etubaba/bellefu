@@ -102,9 +102,9 @@ const FavouriteProduct = ({ product }) => {
               {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
               <MdOutlineWarningAmber className='md:text-6xl text-5xl mb-1 md:mb-3' />
             </div>
-            <hr className="mb-4" />
+            <hr className="mb-4 md:mb-3" />
 
-            <p className="p-1 mx-3 mb-2 md:mb-6 " > Do you want to remove this Product from favorite ? </p>
+            <p className="p-1 mx-3 mb-2 md:mb-2 " > Do you want to remove this Product from favorite ? </p>
 
 
 
