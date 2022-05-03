@@ -6,7 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-import { isLoggedIn, login } from "../../features/bellefuSlice";
+import { isLoggedIn, login, profileDetails } from "../../features/bellefuSlice";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { FcShop } from "react-icons/fc";
@@ -14,6 +14,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
   const getIsLoggedIn = useSelector(login);
+  const verify = useSelector((state) => state.bellefu?.verificationStatus);
+  const usernam = useSelector(profileDetails);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -21,14 +23,25 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
   const [unread, setUnread] = useState(0);
 
   const toPostAds = () => {
-    if (getIsLoggedIn) {
+    if (getIsLoggedIn && verify.phone && usernam.avatar !== "useravatar.jpg") {
       router.push("/postAds");
-      setIsOpen(false);
-    } else {
-      toast.info("Login to make post", { position: "top-right" });
+    } else if (!getIsLoggedIn) {
+      toast.info("Login to post  Ads", {
+        position: "top-right",
+      });
       router.push("/login");
-      setIsOpen(false);
+    } else if (!verify.phone) {
+      toast.info("Verify your phone number to post Ads", {
+        position: "top-right",
+      });
+      router.push("/users/verify-account");
+    } else if (usernam.avatar === "useravatar.jpg") {
+      toast.info("Update your profile details to post  Ads", {
+        position: "top-right",
+      });
+      router.push("/users/profile");
     }
+    setIsOpen(false);
   };
 
   //notification method
