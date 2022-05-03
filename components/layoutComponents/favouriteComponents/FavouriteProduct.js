@@ -10,7 +10,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import { favUpdated } from "../../../features/bellefuSlice";
-import { Box } from "@mui/system";
+import { Box, margin } from "@mui/system";
 
 
 
@@ -45,12 +45,13 @@ const FavouriteProduct = ({ product }) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    height: 280,
+    width: 350,
+    height: 200,
     bgcolor: 'white',
     boxShadow: 24,
     borderRadius: 3,
-    paddingTop: 2
+    paddingTop: 2,
+    margin: '0 auto'
   }
 
   return (
