@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
-
   const [newPrice, setNewPrice] = useState(null);
   const [converter, setConverter] = useState(false);
   const [fav2, setFav2] = useState(false);
@@ -61,16 +60,14 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
               className="rounded-md w-full h-44 hover:opacity-50 object-cover cursor-pointer"
             />
           </div>
-          <p className="capitalize text-medium">
-            {product.title.substring(0, 20)}
-          </p>
+          <p className="capitalize text-sm">{product.title.substring(0, 20)}</p>
           <div className="flex items-center space-x-2">
             <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
             <div className="flex items-center space-x-1">
-              <p className="text-bellefuBlack1 text-sm capitalize">
+              <p className="text-bellefuBlack1 text-sm md:text-base capitalize">
                 {product.stateName},
               </p>
-              <p className="text-bellefuBlack1 text-sm capitalize">
+              <p className="text-bellefuBlack1 text-sm md:text-base capitalize">
                 {product.countryName}
               </p>
             </div>
@@ -188,7 +185,7 @@ const ProductList = ({ product, currency, currencyCode, fav, favdata }) => {
             onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-          // sx={{ opacity: 0.5 }}
+            // sx={{ opacity: 0.5 }}
           >
             <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
               {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
