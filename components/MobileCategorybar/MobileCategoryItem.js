@@ -1,9 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Subcat } from "../../features/bellefuSlice";
-import { useRouter } from "next/router";
 
 const MobileCategoryItem = ({ child, setOpen }) => {
-  const router = useRouter();
   const dispatch = useDispatch();
   return (
     <div
