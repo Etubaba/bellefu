@@ -526,7 +526,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                 </FacebookShareButton>
                 <TwitterShareButton
-                  url={shareUrl}
+                  url={image}
                   quote={title}
                   hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                   className="Demo__some-network__share-button"
