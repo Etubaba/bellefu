@@ -31,22 +31,7 @@ const MyAds = ({ products }) => {
           </>
         ))
       }
-      <div className="block sm:hidden lg:hidden">
-        <Stack spacing={1} className="block sm:hidden lg:hidden">
-          <Skeleton variant="rectangular" width={"100%"} height={170} />
-          <Skeleton variant="text" width={"100%"} height={20} />
-          <Skeleton variant="text" width={"100%"} height={20} />
-          <div className="flex space-x-36">
-            <Skeleton
-              variant="rectangular"
-              className="mr-3"
-              width={100}
-              height={60}
-            />
-            <Skeleton variant="rectangular" width={100} height={60} />
-          </div>
-        </Stack>
-      </div>
+    
     </div>
   );
 };
