@@ -81,7 +81,7 @@ const MobileCategory = ({ category }) => {
           <div className="flex flex-col items-center justify-center mx-auto mt-52 pt-2 rounded-md shadow-md h-80 w-72  bg-bellefuWhite overflow-y-scroll">
             <div className="text-start">
               {category.sub_category.map((child) => (
-                <MobileCategoryItem key={child.sub_category} child={child} />
+                <MobileCategoryItem key={child.id} child={child} />
               ))}
             </div>
           </div>

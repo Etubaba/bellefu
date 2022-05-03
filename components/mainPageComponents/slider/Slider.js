@@ -26,7 +26,7 @@ export default function Slider({slider}) {
               src={`https://bellefu.inmotionhub.xyz/get/sliders/image/${slideimage}`}
               alt={slideimage}
             />
-            <button className="absolute top-48 left-32 bg-bellefuOrange shadow-md hover:bg-orange-300 p-2 rounded-md text-white"><a href="http://localhost:3000" target="_blank">Learn More</a></button>
+            <button className="absolute top-28 left-10 md:top-48 md:left-32 bg-bellefuOrange shadow-md hover:bg-orange-300 p-2 rounded-md text-white" key={index}><a href="http://localhost:3000" target="_blank">Learn More</a></button>
           </>
         ))}
       </Carousel>
