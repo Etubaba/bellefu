@@ -50,12 +50,14 @@ const HeaderSearch = ({
   const province = flag !== null ? stateList : state;
 
 
-  window.onclick = (e) => {
-    e.target.className === "con"
-    setOpen(false);
-    setSelectCountry(false);
-    setSelectlang(false);
+  if (typeof window !== "undefined") {
+    window.onclick = (e) => {
+      e.target.className === "con"
+      setOpen(false);
+      setSelectCountry(false);
+      setSelectlang(false);
 
+    }
   }
   return (
     <div className="con">
