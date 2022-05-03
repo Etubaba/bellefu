@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdLocationOn, MdOutlineWarningAmber } from "react-icons/md";
-import { GiHearts } from "react-icons/gi";
+import { IoHeartDislike } from "react-icons/io";
 
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
@@ -47,7 +47,7 @@ const FavouriteProduct = ({ product }) => {
     transform: 'translate(-50%, -50%)',
     width: 400,
     height: 280,
-    bgcolor: 'background.paper',
+    bgcolor: 'white',
     boxShadow: 24,
     borderRadius: 3,
     paddingTop: 2
@@ -78,7 +78,7 @@ const FavouriteProduct = ({ product }) => {
             dangerouslySetInnerHTML={{ __html: details?.defaultCurrency }}
           />   {product.price}
         </p>
-        <GiHearts onClick={() => {
+        <IoHeartDislike onClick={() => {
           setOpen(true)
           setFavId(product.FavId)
         }} className="w-5 h-5 text-bellefuOrange" />
@@ -88,6 +88,7 @@ const FavouriteProduct = ({ product }) => {
           onClose={() => setOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          opacity={6}
         // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
 
         >
