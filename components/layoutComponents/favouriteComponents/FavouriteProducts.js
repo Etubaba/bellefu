@@ -10,7 +10,6 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import Skeleto from "../../mainPageComponents/Skeleton";
 
-
 const FavouriteProducts = () => {
   const [favProduct, setFavProduct] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +17,7 @@ const FavouriteProducts = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(true);
-    }, 3000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -27,7 +26,7 @@ const FavouriteProducts = () => {
   const router = useRouter();
 
   const userId = useSelector((state) => state.bellefu?.profileDetails);
-  const favCheck = useSelector((state) => state.bellefu?.favLoad)
+  const favCheck = useSelector((state) => state.bellefu?.favLoad);
 
   useEffect(() => {
     const getFav = async () => {
@@ -39,37 +38,22 @@ const FavouriteProducts = () => {
     getFav();
   }, [favCheck]);
 
-
   return (
     <div>
       {favProduct !== undefined ? (
         <div className="bg-bellefuBackground mt-1 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-row-dense ">
-          {loading?favProduct?.map((product) => (
-            <FavouriteProduct key={product.id} product={product} />
-          )):
-          skeleBig.map((ske, index) => (
-            <>
-              <div className="hidden sm:block lg:block" key={index}>
-                {ske}
-              </div>
-            </>
-          ))}
-          <div className="block sm:hidden lg:hidden">
-        <Stack spacing={1} className="block sm:hidden lg:hidden">
-          <Skeleton variant="rectangular" width={"100%"} height={170} />
-          <Skeleton variant="text" width={"100%"} height={20} />
-          <Skeleton variant="text" width={"100%"} height={20} />
-          <div className="flex space-x-36">
-            <Skeleton
-              variant="rectangular"
-              className="mr-3"
-              width={100}
-              height={60}
-            />
-            <Skeleton variant="rectangular" width={100} height={60} />
-          </div>
-        </Stack>
-      </div>
+          {loading
+            ? favProduct?.map((product) => (
+                <FavouriteProduct key={product.id} product={product} />
+              ))
+            : skeleBig.map((ske, index) => (
+                <>
+                  <div className="hidden sm:block lg:block" key={index}>
+                    {ske}
+                  </div>
+                </>
+              ))}
+         
         </div>
       ) : (
         <div className="h-auto mt-2">

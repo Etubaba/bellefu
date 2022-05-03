@@ -12,7 +12,7 @@ const MobileCategoryItem = ({ child, setOpen }) => {
         }
       }}
     >
-      <p className="hover:bg-bellefuOrange px-1 py-2 rounded-br-md rounded-tr-md">
+      <p className="hover:bg-bellefuOrange px-1 py-2 rounded-br-md rounded-tr-md text">
         {child?.subCatName}
       </p>
     </div>
