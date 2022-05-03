@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import { BsHeart } from "react-icons/bs";
 import { AiFillEye, AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
 import { BsClockFill } from "react-icons/bs";
@@ -217,6 +218,12 @@ const SingleProductDescription = ({ productDetails }) => {
   const video = 'https://bellefu.inmotionhub.xyz/get/video/'
 
   return (
+    <>
+    <Head>
+      <title>{productDetails[0]?.productTitle}</title>
+      <meta property="og:description" content={productDetails[0]?.productTitle} />
+      <meta property="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
+    </Head>
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
       <div className="flex items-center justify-between lg:px-7 px-3">
@@ -509,6 +516,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
+                  {/* <Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} width={150} height={150} /> */}
                 </FacebookShareButton>
                 <TwitterShareButton
                   url={shareUrl}
@@ -594,6 +602,7 @@ const SingleProductDescription = ({ productDetails }) => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
