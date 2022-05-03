@@ -48,7 +48,7 @@ const FavouriteProducts = () => {
               ))
             : skeleBig.map((ske, index) => (
                 <>
-                  <div className="hidden sm:block lg:block" key={index}>
+                  <div className="" key={index}>
                     {ske}
                   </div>
                 </>
