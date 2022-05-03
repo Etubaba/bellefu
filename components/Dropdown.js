@@ -26,7 +26,7 @@ const Dropdown = ({ category }) => {
             onClick={() => {
               dispatch(selectCat(category?.id));
 
-              router.push(`/category/${category?.id}`);
+              router.push(`/category/${catId === null ? category?.id : catId}`);
             }}
             className="flex items-center flex-1 space-x-2 cursor-pointer select-none"
           >
