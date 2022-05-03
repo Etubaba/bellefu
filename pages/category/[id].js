@@ -528,6 +528,32 @@ function CategiryId() {
         countries={index?.countries}
         location={index?.defaultCountry}
       />
+
+      <div className="flex flex-col lg:flex-row">
+        {/* sidebar section */}
+
+        <div className="hidden lg:inline w-80 bg-bellefuWhite rounded-md mr-3 pb-5 px-3 pt-5 space-y-10 h-5/6">
+          {/* select category */}
+          <div className="w-full">
+            <p className="text-bellefuBlack1 font-semibold ">
+              Select Category:
+            </p>
+            <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
+              <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
+                <img
+                  src="/bellefu-images/image1.svg"
+                  alt="icons"
+                  className="w-6 h-6"
+                />
+                <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
+                  {/* Agricultural Produce */}
+                  {product[0]?.CatName}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
