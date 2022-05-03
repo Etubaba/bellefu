@@ -92,7 +92,7 @@ const FavouriteProduct = ({ product }) => {
         >
 
 
-          <div className='flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md  w-72 h-48    md:w-[400px] md:h-[230px] bg-bellefuWhite'
+          <div className='flex flex-col items-center justify-center mx-auto mt-10 translate-y-1/2 translate-x-1/2 p-5  rounded-lg shadow-md  w-72 h-48    md:w-[400px] md:h-[230px] bg-bellefuWhite'
           // sx={edit}
           >
             <div className='flex justify-center items-center'>

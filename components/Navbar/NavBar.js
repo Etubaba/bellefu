@@ -103,12 +103,14 @@ const NavBar = () => {
     );
   };
 
-  window.onclick = (e) => {
-    e.target.className === "con"
-    setOpen(false);
+  if (typeof window !== "undefined") {
+    window.onclick = (e) => {
+      e.target.className === "con"
+      setOpen(false);
 
-  }
-  return (
+    }
+    ret
+  } urn(
     <div className="fixed top-0 z-50 w-full ">
       <div className=" bg-black h-6">hello</div>
       <nav className="flex px-2 py-2 lg:px-12 bg-bellefuGreen items-center justify-between  ">
