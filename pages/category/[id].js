@@ -448,10 +448,88 @@
 
 // export default Product;
 
-import React from "react";
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import HeaderSearch from "../../components/HeaderSearch";
+import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
+import CategoryProducts from "../../components/categoryIdProducts/CategoryProducts";
+import Range from "../../components/RangeComponent/Range";
+import { apiData } from "../../constant";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { homeData, updateIdpath, selectCat } from "../../features/bellefuSlice";
+import axios from "axios";
+import Slider from "@mui/material/Slider";
+
+function valuetext(value) {
+  return `₦ ${value}`;
+}
 
 function CategiryId() {
-  return <div className="mt-20">CategiryId</div>;
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
+  const [catUpdate, setCatUpdate] = useState(null);
+  const [subcat, setSubcat] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [subCatText, setSubCatText] = useState(null);
+  const [subCatId, setSubCatId] = useState(null);
+  const [stateList, setStateList] = useState([]);
+
+  const productId = useSelector((state) => state.bellefu.catfilter);
+
+  const country = useSelector((state) => state.bellefu.countrySelected);
+
+  const newId = catUpdate === null ? productId : catUpdate;
+  const dispatch = useDispatch();
+  const index = useSelector(homeData);
+  const router = useRouter();
+
+  // getting product base on category
+  useEffect(() => {
+    const getProduct = async () => {
+      const response = await fetch(`${apiData}get/product/cat/${newId}`);
+      const { data } = await response.json();
+      setProduct(data);
+    };
+
+    getProduct();
+  }, [newId]);
+
+  //   // getting subcategory
+  useEffect(() => {
+    const getsubcat = async () => {
+      const res = await fetch(`${apiData}get/subcategory/${newId}`);
+      const { data } = await res.json();
+      setSubcat(data);
+    };
+
+    getsubcat();
+  }, [newId]);
+
+  return (
+    <div className="mt-20 max-w-[95%] lg:max-w-[90%] mx-auto">
+      <Head>
+        <title>Categories</title>{" "}
+        <meta
+          name="categories of agricultural produce"
+          content="food products, agricultural machinery,farmers"
+        />{" "}
+        <link rel="icon" href="/bellefulogo-fav.png" />
+      </Head>
+
+      <HeaderSearch
+        dialet={index?.defaultLanguage}
+        state={index?.countryStates}
+        defaultCountry={index?.defaultCountryName}
+        languages={index?.languages}
+        countries={index?.countries}
+        location={index?.defaultCountry}
+      />
+    </div>
+  );
 }
 
 export default CategiryId;
