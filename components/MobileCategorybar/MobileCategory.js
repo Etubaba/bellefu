@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import { RiCloseFill } from "react-icons/ri";
+import { useDispatch } from "react-redux";
 
 import { useRouter } from "next/router";
 import MobileCategoryItem from "./MobileCategoryItem";
 import { Modal, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 
 const MobileCategory = ({ category }) => {
   const router = useRouter();
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  console.log("category: ", category);
 
   if (category.sub_category) {
     return (
@@ -72,6 +75,11 @@ const MobileCategory = ({ category }) => {
             <MobileCategoryItem key={child.sub_category} child={child} />
           ))}
         </div> */}
+        {/* onClick=
+        {() => {
+          setText(child.subCatId);
+          dispatch(Subcat(child.subcatId));
+        }} */}
         <Modal
           open={open}
           onClose={handleClose}
@@ -81,7 +89,11 @@ const MobileCategory = ({ category }) => {
           <div className="flex flex-col items-center justify-center mx-auto mt-52 pt-2 rounded-md shadow-md h-80 w-72  bg-bellefuWhite overflow-y-scroll">
             <div className="text-start">
               {category.sub_category.map((child) => (
-                <MobileCategoryItem key={child.id} child={child} />
+                <MobileCategoryItem
+                  key={child.subCatId}
+                  child={child}
+                  setOpen={setOpen}
+                />
               ))}
             </div>
           </div>
