@@ -210,7 +210,7 @@ const SingleProductDescription = ({ productDetails }) => {
   };
 
   const shareUrl = window.location.href;
-  const title = `${productDetails[0]?.productTitle} | <p>Bellefu.com</p>`;
+  const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
   const image =
     "https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg";
 
@@ -511,12 +511,9 @@ const SingleProductDescription = ({ productDetails }) => {
                 <FacebookShareButton
                   url={image}
                   quote={title}
-                  hashtag="#bellefu"
-                  children={<Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} width={150} height={150} />}
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
-                  {/* <Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} width={150} height={150} /> */}
                 </FacebookShareButton>
                 <TwitterShareButton
                   url={shareUrl}
@@ -528,7 +525,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 </TwitterShareButton>
 
                 <WhatsappShareButton
-                  url={shareUrl}
+                  url={image}
                   quote={title}
                   picture={image}
                   className="Demo__some-network__share-button"
@@ -538,7 +535,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
                 <EmailShareButton
                   subject="Check out this product"
-                  url={shareUrl}
+                  url={image}
                   body={`Check out ${productDetails[0]?.productTitle} from`}
                   className="Demo__some-network__share-button"
                 >
