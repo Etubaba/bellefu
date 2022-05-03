@@ -23,7 +23,7 @@ const MobileCategory = ({ category }) => {
         >
           <div
             className="flex flex-col items-center flex-1 space-x-2 cursor-pointer select-none"
-            onClick={() => router.push("/category/id")}
+            onClick={() => setOpen(!open)}
           >
             <img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
@@ -34,7 +34,7 @@ const MobileCategory = ({ category }) => {
               {category.name}
             </h5>
           </div>
-          <div className="mr-2">
+          {/* <div className="mr-2">
             {open === false ? (
               <div
                 onClick={() => setOpen(!open)}
@@ -50,7 +50,7 @@ const MobileCategory = ({ category }) => {
                 <AiOutlineCaretDown className="text-gray-400 cursor-pointer w-4 h-4 flex items-center justify-center" />
               </div>
             )}
-          </div>
+          </div> */}
         </div>
         {/* mobile category sidebar */}
         {/* <div
