@@ -83,7 +83,7 @@ const BottomNav = () => {
                 <div class="h-12 w-24 bg-bellefuBackground 
                                    rounded-bl-full rounded-br-full ">
 
-                    <div onClick={toPostAds} className='w-[4.3rem] h-[4.3rem] -mt-8 mx-auto flex text-center justify-center leading-tight font-bold items-center text-base rounded-full bg-bellefuOrange text-semibold text-white'> Post<br /> Ads </div>
+                    <div onClick={toPostAds} className='w-[4.3rem] h-[4.3rem] shadow-lg -mt-8 mx-auto flex text-center justify-center leading-tight font-bold items-center text-base rounded-full bg-bellefuOrange text-semibold text-white'> Post<br /> Ads </div>
                 </div>
             </div>
 
