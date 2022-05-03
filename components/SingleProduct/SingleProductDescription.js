@@ -210,7 +210,7 @@ const SingleProductDescription = ({ productDetails }) => {
   };
 
   const shareUrl = window.location.href;
-  const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
+  const title = `${productDetails[0]?.productTitle} | <p>Bellefu.com</p>`;
   const image =
     "https://mcusercontent.com/500989ddbb1252dfed8f35378/_thumbs/764ca4a5-d8c1-ccdb-4afe-ffc7956a69a5.jpeg";
 
