@@ -100,7 +100,7 @@ const FavouriteProduct = ({ product }) => {
           >
             <div className='flex justify-center items-center'>
               {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
-              <MdOutlineWarningAmber className='md:text-6xl text-5xl mb-1 md:mb-3' />
+              <MdOutlineWarningAmber className='md:text-5xl text-5xl mb-1 md:mb-2' />
             </div>
             <hr className="mb-4 md:mb-3" />
 
