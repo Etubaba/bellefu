@@ -5,8 +5,8 @@ import { store } from "../features/store";
 import NavBar from "../components/Navbar/NavBar";
 import Skeleton from "@mui/material/Skeleton";
 import { useEffect, useState } from "react";
-
 import Footer from "../components/footer/Footer";
+import BottomNav from "../components/footer/BottomNav";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -41,6 +41,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
+
       </SessionProvider>
       {loading ? (
         <Footer />
@@ -64,6 +65,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           height={400}
         />
       )}{" "}
+      <BottomNav />
       <ToastContainer />
     </Provider>
   );

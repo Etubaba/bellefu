@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { Modal, Rating } from "@mui/material";
+import { Modal, Rating, Box } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook } from "react-icons/im";
 import { GrStar } from "react-icons/gr";
@@ -139,6 +139,19 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
     }
   };
 
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'auto',
+    bgcolor: 'background.paper',
+    borderRadius: 3,
+    boxShadow: 24,
+    p: 2,
+  };
+
   return (
     <div className="bg-bellefuWhite rounded-md flex flex-col pb-10 ">
       <div className="flex items-center px-3 py-2 justify-center">
@@ -261,8 +274,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           aria-describedby="modal-modal-description"
         // sx={{ opacity: 0.5 }}
         >
-          <div className="absolute grid place-content-center -left-40 md:ml-80 mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite ">
-            {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
+          <Box sx={style}>
             <strong className="ml-4 mb-8 text-sm md:text-md"> Sign in </strong>
 
             <div className="flex space-x-4 justify-center items-center my-4">
@@ -275,16 +287,17 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 <strong className="text-white text-sm md:text-xl">Facebook</strong>
               </button>
             </div>
+            <div className="flex justify-center items-center">
+              <button
+                onClick={() => router.push("/login")}
+                className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+              >
 
-            <button
-              onClick={() => router.push("/login")}
-              className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
-            >
+                Email or Phone
+              </button>
+            </div>
 
-              Email or Phone
-            </button>
-
-            <p className="flex justify-center items-center">
+            <p className="flex justify-center text-xs md:text-base items-center">
               Do not have an account?{" "}
               <stong
                 onClick={() => router.push("/register")}
@@ -293,7 +306,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 Register
               </stong>
             </p>
-          </div>
+          </Box>
         </Modal>
 
         {/* end of message box */}
