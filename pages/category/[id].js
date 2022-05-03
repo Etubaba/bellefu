@@ -79,8 +79,8 @@ const Product = () => {
 
   const price = product?.map((item) => parseFloat(item.price));
 
-  const maxPrice = price.length === 0 ? 1000 : Math.max(...price);
-  const minPrice = price.length === 0 ? 0 : Math.min(...price);
+  const maxPrice = price?.length === 0 ? 1000 : Math.max(...price);
+  const minPrice = price?.length === 0 ? 0 : Math.min(...price);
 
   const [startPrice, setStartPrice] = useState(minPrice);
   const [endPrice, setEndPrice] = useState(maxPrice);
@@ -243,7 +243,7 @@ const Product = () => {
             {open2 === true ? (
               <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in">
                 <ul className="rounded h-80 overflow-y-scroll px-5 py-4">
-                  {province.map((state) => (
+                  {province?.map((state) => (
                     <li
                       key={state?.id}
                       className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
@@ -557,7 +557,7 @@ const Product = () => {
                 {open2 === true ? (
                   <div className="w-full bg-bellefuWhite rounded mx-auto border -mt-2 transition duration-300 ease-in">
                     <ul className="rounded h-80 overflow-y-scroll px-5 py-4">
-                      {province.map((state) => (
+                      {province?.map((state) => (
                         <li
                           key={state?.id}
                           className="px-2 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
