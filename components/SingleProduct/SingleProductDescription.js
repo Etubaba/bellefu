@@ -520,7 +520,7 @@ const SingleProductDescription = ({ productDetails }) => {
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
                   url={image1}
-                  quote={title1}
+                  quote={title}
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
