@@ -1,8 +1,7 @@
 import Image from "next/image";
 
-export const getServerSideProps = async ({params, query}) => {
-  const {shared:image} = params;
-  const {type, prodName, description} = query;
+export const getServerSideProps = async ({query}) => {
+  const {image, type, prodName, description} = query;
 
   return {
     props: {
@@ -15,7 +14,7 @@ export const getServerSideProps = async ({params, query}) => {
 }
 
 const SharedProduct = ({image, type, prodName, description}) => {
-  if (!image) return null;
+  if (!image) return <div>me</div>;
   
   return (
     <div className="flex p-3 space-x-3">
