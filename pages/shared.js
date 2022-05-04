@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Head from "next/head";
 
 export const getServerSideProps = async ({query}) => {
   const {image, type, prodName, description} = query;
@@ -17,22 +17,12 @@ const SharedProduct = ({image, type, prodName, description}) => {
   if (!image) return <div>me</div>;
   
   return (
-    <div className="flex p-3 space-x-3">
-      {type === "image"?
-        <div>
-          <Image src={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} width={'50%'} height={'50%'} />
-        </div>:
-        <div>
-          <Image src={`https://bellefu.inmotionhub.xyz/get/video/`} />
-        </div>
-      }
-      <div>
-        <p>Bellefu.com</p>
-        <p>{prodName}</p>
-        <p>{description}</p>
-        <p>{`https://bellefu.inmotionhub.xyz/get/product/image/${image}`}</p>
-      </div>
-    </div>
+    <Head>
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+      <meta name="og:title" content={`Product Name: ${prodName}`} />
+      <meta name="og:description" content={`Product Description: ${description}`} />
+      <meta name="og:url" content={`Product Link: https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+    </Head>
   )
 }
 
