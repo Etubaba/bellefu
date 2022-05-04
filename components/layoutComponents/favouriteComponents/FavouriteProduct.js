@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdLocationOn, MdOutlineWarningAmber } from "react-icons/md";
-import { GiHearts } from "react-icons/gi";
+import { IoIosHeartDislike } from "react-icons/io";
 
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +10,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import { favUpdated } from "../../../features/bellefuSlice";
+import { Box, margin } from "@mui/system";
 
 
 
@@ -44,12 +45,13 @@ const FavouriteProduct = ({ product }) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    height: 280,
-    bgcolor: 'background.paper',
+    width: 350,
+    height: 200,
+    bgcolor: 'white',
     boxShadow: 24,
     borderRadius: 3,
-    paddingTop: 2
+    paddingTop: 2,
+    margin: '0 auto'
   }
 
   return (
@@ -77,7 +79,7 @@ const FavouriteProduct = ({ product }) => {
             dangerouslySetInnerHTML={{ __html: details?.defaultCurrency }}
           />   {product.price}
         </p>
-        <GiHearts onClick={() => {
+        <IoIosHeartDislike onClick={() => {
           setOpen(true)
           setFavId(product.FavId)
         }} className="w-5 h-5 text-bellefuOrange" />
@@ -87,21 +89,22 @@ const FavouriteProduct = ({ product }) => {
           onClose={() => setOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          opacity={6}
         // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
 
         >
 
 
-          <div className='flex flex-col items-center justify-center mx-auto mt-10 translate-y-1/2 translate-x-1/2 p-5  rounded-lg shadow-md  w-72 h-48    md:w-[400px] md:h-[230px] bg-bellefuWhite'
-          // sx={edit}
+          <Box
+            sx={edit}
           >
             <div className='flex justify-center items-center'>
               {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
-              <MdOutlineWarningAmber className='md:text-6xl text-5xl mb-1 md:mb-3' />
+              <MdOutlineWarningAmber className='md:text-5xl text-5xl mb-1 md:mb-2' />
             </div>
-            <hr className="mb-4" />
+            <hr className="mb-4 md:mb-3" />
 
-            <p className="p-1 mx-3 mb-2 md:mb-6 " > Do you want to remove this Product from favorite ? </p>
+            <p className="p-1 mx-3 mb-2 md:mb-2 " > Do you want to remove this Product from favorite ? </p>
 
 
 
@@ -110,7 +113,7 @@ const FavouriteProduct = ({ product }) => {
               <Button onClick={() => setOpen(false)}><p className='text-xs md:text-[15px]'>Cancel</p></Button>
               <Button color='error' onClick={remove} ><p className='text-xs md:text-[15px]'>Remove</p></Button>
             </div>
-          </div>
+          </Box>
 
         </Modal>
 
