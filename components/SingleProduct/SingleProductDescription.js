@@ -248,8 +248,8 @@ const SingleProductDescription = ({ productDetails }) => {
     <>
     <Head>
       <title>{productDetails[0]?.productTitle}</title>
-      <meta property="og:description" content={productDetails[0]?.productDescription} />
-      <meta property="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
+      {/* <meta property="og:description" content={productDetails[0]?.productDescription} />
+      <meta property="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} /> */}
     </Head>
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
@@ -521,7 +521,7 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={image}
+                  url={url}
                   quote={title1}
                   className="Demo__some-network__share-button"
                 >
