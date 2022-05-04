@@ -210,7 +210,7 @@ const SingleProductDescription = ({ productDetails }) => {
   };
 
   const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
-  const image = `https://bellefu30web.vercel.app/shared?image=${productDetails[0]?.images[0]}&prodName=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`;
+  const image = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`;
 
 
   const video = 'https://bellefu.inmotionhub.xyz/get/video/'
