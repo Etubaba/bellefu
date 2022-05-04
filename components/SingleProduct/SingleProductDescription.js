@@ -521,7 +521,7 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={url}
+                  url={image}
                   quote={title1}
                   className="Demo__some-network__share-button"
                 >
