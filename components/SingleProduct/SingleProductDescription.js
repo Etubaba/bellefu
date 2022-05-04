@@ -211,10 +211,8 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
   const image = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`;
-  const url = `https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`;
-  const iamge1 = `https://bellefu.vercel.app/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`
+  const image1 = `https://bellefu.vercel.app/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`
 
-  console.log(`https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`)
 
 
   const video = 'https://bellefu.inmotionhub.xyz/get/video/'
@@ -521,7 +519,7 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={image}
+                  url={image1}
                   quote={title1}
                   className="Demo__some-network__share-button"
                 >
