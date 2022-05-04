@@ -212,6 +212,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
   const title1 = "me";
   const image = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`;
+  const url = `https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`
 
   console.log(`https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`)
 
