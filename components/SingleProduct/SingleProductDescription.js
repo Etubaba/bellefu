@@ -212,19 +212,25 @@ const SingleProductDescription = ({ productDetails }) => {
   // PASS PRODUCT DESCRIPTION
   const parser = new DOMParser();
   const doc = parser.parseFromString(`${productDetails[0].productDescription}`, "text/html");
+  //console.log(doc);
   const paras = doc.getElementsByTagName("p");
-  console.log(paras);
+  //console.log(paras);
+  
   let description = "";
 
-  for (let index = 0; index < paras.length; index++) {
-    description =+ ` ${paras[index].firstChild.textContent}`;
-    
+  if (paras.length) {
+
+    for (let index = 0; index < paras.length; index++) {
+      description += `${paras[index]?.firstChild?.nodeValue} `;
+    }
+  } else {
+    description = doc?.body?.firstChild?.nodeValue;
   }
 
-  console.log(description)
+  //console.log(description)
 
   const title = `${productDetails[0]?.productTitle}`;
-  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`;
+  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${description}&type=image`;
   // const image = window.location.href;
 
 
