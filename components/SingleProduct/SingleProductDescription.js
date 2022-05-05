@@ -246,8 +246,8 @@ const SingleProductDescription = ({ productDetails }) => {
     <>
     <Head>
       {/* <title>{productDetails[0]?.productTitle}</title> */}
-      <meta name="og:description" content={productDetails[0]?.productDescription} />
-      <meta name="og:title" content={`Product Name: ${productDetails[0]?.productTitle}`} />
+      <meta name="description" content={productDetails[0]?.productDescription} />
+      <meta name="title" content={`Product Name: ${productDetails[0]?.productTitle}`} />
       <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
     </Head>
     <div className="bg-bellefuWhite rounded-t-md">
