@@ -545,7 +545,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
                 <EmailShareButton
                   subject={`Check out ${productDetails[0]?.productTitle} from`}
-                  url={image}
+                  url={shareUrl}
                   body={`Check out ${productDetails[0]?.productTitle} from`}
                   className="Demo__some-network__share-button"
                 >
