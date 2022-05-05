@@ -211,6 +211,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.productTitle}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`;
+  const image = window.location.href;
 
 
 
@@ -519,7 +520,7 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={shareUrl}
+                  url={image}
                   quote={title}
                   className="Demo__some-network__share-button"
                 >
@@ -536,8 +537,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
                 <WhatsappShareButton
                   url={image}
-                  quote={title}
-                  picture={image}
+                  title={title}
                   className="Demo__some-network__share-button"
                 >
                   <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
