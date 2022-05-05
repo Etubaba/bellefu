@@ -221,6 +221,8 @@ const SingleProductDescription = ({ productDetails }) => {
     
   }
 
+  console.log(description)
+
   const title = `${productDetails[0]?.productTitle}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${productDetails[0].productDescription}&type=image`;
   // const image = window.location.href;
