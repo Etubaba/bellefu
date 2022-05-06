@@ -109,8 +109,6 @@ function Footer() {
                 </li>
               </ul>
             )}
-
-            <li> </li>
           </ul>
         </div>
 
