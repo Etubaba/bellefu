@@ -70,7 +70,7 @@ const BottomNav = () => {
     return (
         <div className='md:hidden sticky z-50 bottom-0  bg-bellefuGreen w-full h-16 p-3 justify-center items-center flex  '>
             <div className='flex space-x-14 '>
-                <MdHome className='text-2xl' onClick={() => router.push('/')} />
+                <MdHome className='text-2xl text-white' onClick={() => router.push('/')} />
                 <FaHeart className='text-white text-2xl' onClick={handlefav} />
             </div>
 
