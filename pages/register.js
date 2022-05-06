@@ -112,7 +112,6 @@ const Register = ({ countries, countries1 }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setIsLoading(false);
         if (data.status) {
           localStorage.setItem("user", JSON.stringify(data.data));
