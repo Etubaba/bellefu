@@ -16,9 +16,6 @@ const BottomNav = () => {
     const verify = useSelector((state) => state.bellefu?.verificationStatus);
 
 
-
-
-
     const toPostAds = () => {
         if (isLoggedIn && verify?.phone && username?.avatar !== "useravatar.jpg") {
             router.push("/postAds");

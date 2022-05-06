@@ -223,14 +223,14 @@ const ProductList = ({
                 Sign in{" "}
               </strong>
 
-              <div className="flex space-x-4 justify-center items-center my-4">
-                <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
+              <div className="flex space-x-3 justify-center items-center my-4">
+                <button className=" flex py-3 px-5 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
                   <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
                   <strong className="text-[#303A4B] text-sm md:text-xl">
                     Google
                   </strong>
                 </button>
-                <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
+                <button className="hover:bg-blue-700 flex py-3 px-5 md:px-10 bg-[#3B5998] rounded-lg ">
                   <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
                   <strong className="text-white text-sm md:text-xl">
                     Facebook
