@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsFacebook, BsYoutube } from "react-icons/bs";
+import {
+  MdOutlineKeyboardArrowDown,
+  MdKeyboardArrowRight,
+} from "react-icons/md";
 import {
   AiFillTwitterCircle,
   AiOutlineInstagram,
@@ -12,10 +16,11 @@ import NewsletterSub from "./NewsletterSub";
 function Footer() {
   const router = useRouter();
 
+  const [openComm, setOpenComm] = useState(false);
+  const [openAcademy, setOpenAcademy] = useState(false);
 
-  const action = 'https://bellefu.us7.list-manage.com/subscribe/post?u=500989ddbb1252dfed8f35378&amp;id=bad07acb72'
-
-
+  const action =
+    "https://bellefu.us7.list-manage.com/subscribe/post?u=500989ddbb1252dfed8f35378&amp;id=bad07acb72";
 
   return (
     <div className="bg-[#191A19] hidden lg:inline-block px-12 w-full h-auto z-50 relative mt-12 bottom-0 pb-6 pt-12">
@@ -42,26 +47,70 @@ function Footer() {
           </p>
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
-            <li>
-              <a href="https://www.radio.bellefu.com " className="link ">
-                Online Radio
-              </a>
+            {/* communication starts here */}
+            <li className="flex items-center">
+              <span className="link ">Communication</span>
+              {!openComm ? (
+                <MdKeyboardArrowRight
+                  className="w-6 h-6 text-gray-500 "
+                  onClick={() => setOpenComm(!openComm)}
+                />
+              ) : (
+                <MdOutlineKeyboardArrowDown
+                  className="w-6 h-6 text-gray-500 "
+                  onClick={() => setOpenComm(!openComm)}
+                />
+              )}
             </li>
-            <li>
-              <a
-                href="https://www.blog.bellefu.com"
-                className="link"
-              >
-                Blog
-              </a>
-            </li>
-            <li>
-              {" "}
-              <a href="https://www.webinar.bellefu.com" className="link">
-                Webinar
-              </a>{" "}
-            </li>
+            {openComm && (
+              <ul className="ml-2 -mt-2 space-y-1">
+                <li>
+                  <a href="https://www.radio.bellefu.com " className="link ">
+                    Online Radio
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.blog.bellefu.com" className="link">
+                    Blog
+                  </a>
+                </li>
+              </ul>
+            )}
 
+            {/* academy starts here */}
+            <li className="flex items-center">
+              <span className="link ">Academy</span>
+              {!openAcademy ? (
+                <MdKeyboardArrowRight
+                  className="w-6 h-6 text-gray-500 "
+                  onClick={() => setOpenAcademy(!openAcademy)}
+                />
+              ) : (
+                <MdOutlineKeyboardArrowDown
+                  className="w-6 h-6 text-gray-500 "
+                  onClick={() => setOpenAcademy(!openAcademy)}
+                />
+              )}
+            </li>
+            {openAcademy && (
+              <ul className="ml-2 -mt-2 space-y-1">
+                <li>
+                  <a href="https://www.webinar.bellefu.com" className="link">
+                    Webinar
+                  </a>{" "}
+                </li>
+                <li>
+                  <a
+                    href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV"
+                    className="link"
+                  >
+                    Training Group
+                  </a>{" "}
+                </li>
+              </ul>
+            )}
+
+            <li> </li>
           </ul>
         </div>
 
@@ -71,7 +120,9 @@ function Footer() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li onClick={() => router.push("/feedback")} className="link">Feedback</li>
+            <li onClick={() => router.push("/feedback")} className="link">
+              Feedback
+            </li>
 
             <li>
               <a
@@ -102,7 +153,7 @@ function Footer() {
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
             <li>
-              <a className="link" href='https://linktr.ee/bellefu'>
+              <a className="link" href="https://linktr.ee/bellefu">
                 Linktree
               </a>
             </li>
@@ -136,8 +187,6 @@ function Footer() {
         </div>
       </div>
 
-
-
       <NewsletterSub action={action} />
       {/* <div className=" flex flex-col space-y-2 items-center justify-center">
         <p className="text-[#D4D7D1] text-xs">
@@ -159,43 +208,39 @@ function Footer() {
 
       <div className="flex justify-between mt-10 mx-5 items-center space-x-3 ">
         <div className="space-x-4 flex justify-evenly">
-          <a href='https://web.facebook.com/Bellefu.official'>
+          <a href="https://web.facebook.com/Bellefu.official">
             <BsFacebook className=" hover:text-gray-500   text-[#d4d7d1] link text-2xl" />
           </a>
 
-          <a href='https://twitter.com/Bellefuofficial'>
+          <a href="https://twitter.com/Bellefuofficial">
             <AiFillTwitterCircle className="text-[#d4d7d1] hover:text-gray-500  text-3xl" />
           </a>
           <a href=" https://www.instagram.com/bellefu_official/">
             <AiOutlineInstagram className="text-[#d4d7d1] hover:text-gray-500  text-3xl" />
           </a>
-          <a href='https://www.linkedin.com/company/67955966/'>
+          <a href="https://www.linkedin.com/company/67955966/">
             <FaLinkedin className="text-[#d4d7d1] hover:text-gray-500  mt-1 text-2xl" />
           </a>
-          <a href='https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q'>
+          <a href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q">
             <BsYoutube className=" hover:text-gray-500  mt-[3px] text-[#d4d7d1] link text-3xl" />
           </a>
-
-
         </div>
 
         <div className=" flex">
-          <a href='https://play.google.com/store/apps/details?id=com.bellefu_farmers_market.bellefu'>
+          <a href="https://play.google.com/store/apps/details?id=com.bellefu_farmers_market.bellefu">
             <img
               alt="error"
               src="https://www.linkpicture.com/q/play-removebg-preview-1.png"
               className="w-40 h-10 mr-6"
             />
           </a>
-          <a href='https://apps.apple.com/us/app/bellefu/id1556135856'>
-
+          <a href="https://apps.apple.com/us/app/bellefu/id1556135856">
             <img
               alt="error"
               src="https://www.linkpicture.com/q/ios-removebg-preview.png"
               className="w-40 h-10"
             />
           </a>
-
         </div>
 
         <p className="flex text-[#9c9c9c] space-x-3">
