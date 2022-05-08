@@ -211,7 +211,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
   // PASS PRODUCT DESCRIPTION
   const parser = new DOMParser();
-  const doc = parser.parseFromString(`${productDetails[0].productDescription}`, "text/html");
+  const doc = parser.parseFromString(`${productDetails[0].description}`, "text/html");
   //console.log(doc);
   const paras = doc.getElementsByTagName("p");
   //console.log(paras);
@@ -231,7 +231,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.title}`;
   console.log(title);
-  //const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${description}&type=image`;
+  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image`;
   const image = window.location.href;
 
 
@@ -542,14 +542,14 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={image}
+                  url={shareUrl}
                   quote={title}
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                 </FacebookShareButton>
                 <TwitterShareButton
-                  url={image}
+                  url={shareUrl}
                   title={title}
                   hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                   className="Demo__some-network__share-button"
@@ -558,7 +558,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 </TwitterShareButton>
 
                 <WhatsappShareButton
-                  url={image}
+                  url={shareUrl}
                   title={title}
                   className="Demo__some-network__share-button"
                 >
@@ -566,9 +566,9 @@ const SingleProductDescription = ({ productDetails }) => {
                 </WhatsappShareButton>
 
                 <EmailShareButton
-                  subject={`Check out ${productDetails[0]?.productTitle} from`}
-                  url={image}
-                  body={`Check out ${productDetails[0]?.productTitle} from`}
+                  subject={`Check out ${productDetails[0]?.title} from`}
+                  url={shareUrl}
+                  body={`Check out ${productDetails[0]?.title} from`}
                   className="Demo__some-network__share-button"
                 >
                   <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />
