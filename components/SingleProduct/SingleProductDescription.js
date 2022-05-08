@@ -230,8 +230,8 @@ const SingleProductDescription = ({ productDetails }) => {
   //console.log(description)
 
   const title = `${productDetails[0]?.productTitle}`;
-  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${description}&type=image`;
-  // const image = window.location.href;
+  //const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${description}&type=image`;
+  const image = window.location.href;
 
 
 
@@ -267,8 +267,9 @@ const SingleProductDescription = ({ productDetails }) => {
     <Head>
       <title>{productDetails[0]?.productTitle}</title>
       <meta name="description" content={productDetails[0]?.productDescription} />
-      {/* <meta name="og:title" content={`Product Name: ${productDetails[0]?.productTitle}`} />
-      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} /> */}
+      <meta name="og:title" content={`Product Name: ${productDetails[0]?.productTitle}`} />
+      <meta name="og:description" content={productDetails[0]?.productDescription} />
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
     </Head>
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
@@ -540,7 +541,7 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={shareUrl}
+                  url={image}
                   quote={title}
                   className="Demo__some-network__share-button"
                 >
