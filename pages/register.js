@@ -7,30 +7,36 @@ import { apiData } from "../constant";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import { setProfileDetails } from "../features/bellefuSlice";
-import { homeData } from "../features/bellefuSlice";
-import { useSelector } from "react-redux";
+//import { homeData } from "../features/bellefuSlice";
+//import { useSelector } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
 import { ImFacebook } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import classNames from "classnames";
 
 export const getStaticProps = async () => {
+  const res = await fetch(
+    `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
+  );
+  const data = await res.json();
+  
   const response = await fetch(`${apiData}get/countries`);
-  const { data } = await response.json();
+  const { data: resData } = await response.json();
 
   return {
     props: {
-      countries: data.slice().sort(),
-      countries1: data.slice().sort((a, b) => a?.phone_code - b?.phone_code),
+      data,
+      countries: resData.slice().sort(),
+      countries1: resData.slice().sort((a, b) => a?.phone_code - b?.phone_code),
     },
   };
 };
 
-const Register = ({ countries, countries1 }) => {
+const Register = ({ data, countries, countries1 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  const defaultCountry = useSelector(homeData)?.defaultCountry;
+  const defaultCountry = data?.defaultCountry;
   const [formFields, setFormFields] = useState({
     fname: "",
     lname: "",
