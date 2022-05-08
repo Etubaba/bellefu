@@ -229,7 +229,8 @@ const SingleProductDescription = ({ productDetails }) => {
 
   //console.log(description)
 
-  const title = `${productDetails[0]?.productTitle}`;
+  const title = `${productDetails[0]?.title}`;
+  console.log(title);
   //const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.productTitle}&description=${description}&type=image`;
   const image = window.location.href;
 
@@ -265,10 +266,10 @@ const SingleProductDescription = ({ productDetails }) => {
   return (
     <>
     <Head>
-      <title>{productDetails[0]?.productTitle}</title>
-      <meta name="description" content={productDetails[0]?.productDescription} />
-      <meta name="og:title" content={`Product Name: ${productDetails[0]?.productTitle}`} />
-      <meta name="og:description" content={productDetails[0]?.productDescription} />
+      <title>{productDetails[0]?.title}</title>
+      <meta name="description" content={productDetails[0]?.description} />
+      <meta name="og:title" content={`Product Name: ${productDetails[0]?.title}`} />
+      <meta name="og:description" content={productDetails[0]?.description} />
       <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
     </Head>
     <div className="bg-bellefuWhite rounded-t-md">
