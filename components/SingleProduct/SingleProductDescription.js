@@ -548,7 +548,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                 </FacebookShareButton>
                 <TwitterShareButton
-                  url={shareUrl}
+                  url={image}
                   title={title}
                   hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                   className="Demo__some-network__share-button"
@@ -557,7 +557,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 </TwitterShareButton>
 
                 <WhatsappShareButton
-                  url={shareUrl}
+                  url={image}
                   title={title}
                   className="Demo__some-network__share-button"
                 >
@@ -566,7 +566,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
                 <EmailShareButton
                   subject={`Check out ${productDetails[0]?.productTitle} from`}
-                  url={shareUrl}
+                  url={image}
                   body={`Check out ${productDetails[0]?.productTitle} from`}
                   className="Demo__some-network__share-button"
                 >
