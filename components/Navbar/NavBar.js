@@ -33,7 +33,7 @@ const NavBar = () => {
 
 
 
-  console.log('hhh')
+  console.log('hhhhhh')
 
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
