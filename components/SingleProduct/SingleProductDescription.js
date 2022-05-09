@@ -267,7 +267,7 @@ const SingleProductDescription = ({ productDetails }) => {
     <Head>
       <title>{productDetails[0]?.title}</title>
       <meta name="description" content={description} />
-      <meta name="og:title" content={`Product Name: ${productDetails[0]?.title}`} />
+      <meta name="og:title" content={productDetails[0]?.title} />
       <meta name="og:description" content={description} />
       <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
     </Head>
