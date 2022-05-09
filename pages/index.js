@@ -64,29 +64,29 @@ export default function Home({ data }) {
             </>
           ) : (
             <>
-            <Skeleton
-              className="rounded my-3 hidden lg:block"
-              variant="rectangular"
-              animation="wave"
-              width={"100%"}
-              height={80}
-            />
-            <div className="block lg:hidden">
-            <Skeleton
-              className="rounded my-3 "
-              variant="rectangular"
-              animation="wave"
-              width={"100%"}
-              height={50}
-            />
-            <Skeleton
-              className="rounded my-3 "
-              variant="rectangular"
-              animation="wave"
-              width={"100%"}
-              height={50}
-            />
-            </div>
+              <Skeleton
+                className="rounded my-3 hidden lg:block"
+                variant="rectangular"
+                animation="wave"
+                width={"100%"}
+                height={80}
+              />
+              <div className="block lg:hidden">
+                <Skeleton
+                  className="rounded my-3 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={50}
+                />
+                <Skeleton
+                  className="rounded my-3 "
+                  variant="rectangular"
+                  animation="wave"
+                  width={"100%"}
+                  height={50}
+                />
+              </div>
             </>
           )}
 
