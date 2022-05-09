@@ -9,7 +9,7 @@ function Form({ status, message, onValidated }) {
         EMAIL: email.value,
       });
   };
-
+  console.log(status);
   return (
     <div className=" flex flex-col space-y-2 items-center justify-center">
       <p className="text-[#D4D7D1] md:text-sm text-base tracking-wide  text-center lg:text-xs">
