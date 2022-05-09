@@ -9,7 +9,7 @@ function Form({ status, message, onValidated }) {
         EMAIL: email.value,
       });
   };
-
+  console.log(status);
   return (
     <div className=" flex flex-col space-y-2 items-center justify-center">
       <p className="text-[#D4D7D1] md:text-sm text-base tracking-wide  text-center lg:text-xs">
@@ -31,7 +31,7 @@ function Form({ status, message, onValidated }) {
           Send
         </button>
       </div>
-      {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
+      {status === "sending" && <div className="bg-bellefuOrange">sending...</div>}
       {status === "error" && (
         <div
           style={{ color: "red" }}

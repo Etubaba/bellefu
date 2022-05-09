@@ -58,11 +58,11 @@ const ProductList = ({
   // console.log(productId)
 
   const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 300,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 550,
     height: 250,
     bgcolor: "background.paper",
     borderRadius: 3,
@@ -215,7 +215,7 @@ const ProductList = ({
             onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-            // sx={{ opacity: 0.5 }}
+          // sx={{ opacity: 0.5 }}
           >
             <Box sx={style}>
               {/* <div className="flex flex-col items-center justify-center mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite "> */}
@@ -225,15 +225,15 @@ const ProductList = ({
                 Sign in{" "}
               </strong>
 
-              <div className="flex space-x-4 justify-center items-center my-4">
-                <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
-                  <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
+              <div className="flex space-x-3 justify-center items-center my-4">
+                <button className=" flex py-3 px-4 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
+                  <FcGoogle className="md:text-3xl text-xl mr-2 md:mr-5" />{" "}
                   <strong className="text-[#303A4B] text-sm md:text-xl">
                     Google
                   </strong>
                 </button>
-                <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
-                  <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
+                <button className="hover:bg-blue-700 flex py-3 px-4 md:px-10 bg-[#3B5998] rounded-lg ">
+                  <ImFacebook className="md:text-3xl text-xl text-white mr-2 md:mr-5 " />
                   <strong className="text-white text-sm md:text-xl">
                     Facebook
                   </strong>
@@ -242,7 +242,7 @@ const ProductList = ({
               <div className="flex justify-center items-center">
                 <button
                   onClick={() => router.push("/login")}
-                  className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+                  className="py-3 text-xs md:text-md px-7  lg:px-40 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
                 >
                   Email or Phone
                 </button>

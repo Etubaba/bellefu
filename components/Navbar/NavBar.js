@@ -31,6 +31,10 @@ const NavBar = () => {
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
 
+
+
+  console.log('hhhhhh')
+
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
       router.push("/postAds");
@@ -157,7 +161,7 @@ const NavBar = () => {
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
                 className="hover:text-gray-200"
-                // href="https://webinar.bellefu.com/"
+              // href="https://webinar.bellefu.com/"
               >
                 Create Shop
               </a>
