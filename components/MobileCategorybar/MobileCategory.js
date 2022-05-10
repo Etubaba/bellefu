@@ -40,17 +40,17 @@ const MobileCategory = ({ category }) => {
             className="flex flex-col items-center flex-1 space-x-2 cursor-pointer select-none"
             onClick={() => setOpen(!open)}
           >
-           {!loading?<img
+           {loading?<img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
             />:<Skeleton
             variant="circular"
             animation="wave"
-            width={"70%"}
-            height={70} 
+            width={"55%"}
+            height={60} 
             />}
-            {!loading?<h5 className="text-bellefuBlack1 font-medium text-xs text-center">
+            {loading?<h5 className="text-bellefuBlack1 font-medium text-xs text-center">
               {category.name}
             </h5>:<Skeleton
                   className="rounded-md mt-2"
