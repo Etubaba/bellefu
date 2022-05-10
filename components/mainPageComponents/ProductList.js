@@ -62,13 +62,13 @@ const ProductList = ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 'auto',
-    bgcolor: 'background.paper',
+    width: 550,
+    height: 250,
+    bgcolor: "background.paper",
     borderRadius: 3,
     boxShadow: 24,
     p: 2,
   };
-
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
@@ -99,7 +99,10 @@ const ProductList = ({
             </div>
           </div>
           <div className="flex items items-center justify-between">
-            <p className="text-bellefuGreen flex font-poppins font-semibold">
+            <p
+              className="text-bellefuGreen flex font-poppins font-semibold"
+              translate="no"
+            >
               {product.currency_code && !converter ? (
                 <p
                   className="mr-1"
@@ -115,7 +118,7 @@ const ProductList = ({
               {!converter ? (
                 product.price
               ) : newPrice === null ? (
-                <div className="p-[2px]">
+                <div className="p-[2px]" translate="no">
                   <CircularProgress size="1rem" color="success" />
                 </div>
               ) : (
@@ -123,6 +126,7 @@ const ProductList = ({
               )}
               {product.currency_code ? (
                 <span
+                  translate="no"
                   onClick={(e) => {
                     e.stopPropagation();
                     axios
@@ -213,7 +217,6 @@ const ProductList = ({
             aria-describedby="modal-modal-description"
           // sx={{ opacity: 0.5 }}
           >
-
             <Box sx={style}>
               {/* <div className="flex flex-col items-center justify-center mx-auto mt-10 translate-y-1/2 translate-x-1/2  rounded-lg shadow-md p-10 h-[300px]   w-[410px] md:w-[500px] lg:w-[44%] md:h-auto bg-bellefuWhite "> */}
               {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
@@ -222,15 +225,15 @@ const ProductList = ({
                 Sign in{" "}
               </strong>
 
-              <div className="flex space-x-4 justify-center items-center my-4">
-                <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
-                  <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
+              <div className="flex space-x-3 justify-center items-center my-4">
+                <button className=" flex py-3 px-4 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
+                  <FcGoogle className="md:text-3xl text-xl mr-2 md:mr-5" />{" "}
                   <strong className="text-[#303A4B] text-sm md:text-xl">
                     Google
                   </strong>
                 </button>
-                <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
-                  <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
+                <button className="hover:bg-blue-700 flex py-3 px-4 md:px-10 bg-[#3B5998] rounded-lg ">
+                  <ImFacebook className="md:text-3xl text-xl text-white mr-2 md:mr-5 " />
                   <strong className="text-white text-sm md:text-xl">
                     Facebook
                   </strong>
@@ -239,10 +242,11 @@ const ProductList = ({
               <div className="flex justify-center items-center">
                 <button
                   onClick={() => router.push("/login")}
-                  className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+                  className="py-3 text-xs md:text-md px-7  lg:px-40 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
                 >
                   Email or Phone
-                </button></div>
+                </button>
+              </div>
 
               <p className="flex justify-center items-center text-xs md:text-base">
                 Do not have an account?{" "}
@@ -253,7 +257,6 @@ const ProductList = ({
                   Register
                 </stong>
               </p>
-
             </Box>
           </Modal>
 

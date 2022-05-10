@@ -209,8 +209,30 @@ const SingleProductDescription = ({ productDetails }) => {
       });
   };
 
-  const title = `${productDetails[0]?.productTitle} | Bellefu.com`;
-  const image = `https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`;
+  // PASS PRODUCT DESCRIPTION
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(`${productDetails[0].description}`, "text/html");
+  //console.log(doc);
+  const paras = doc.getElementsByTagName("p");
+  //console.log(paras);
+  
+  let description = "";
+
+  if (paras.length) {
+
+    for (let index = 0; index < paras.length; index++) {
+      description += `${paras[index]?.firstChild?.nodeValue} `;
+    }
+  } else {
+    description = doc?.body?.firstChild?.nodeValue;
+  }
+
+  //console.log(description)
+
+  const title = `${productDetails[0]?.title}`;
+  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
+  //const image = window.location.href;
+
 
 
   const video = 'https://bellefu.inmotionhub.xyz/get/video/'
@@ -243,9 +265,11 @@ const SingleProductDescription = ({ productDetails }) => {
   return (
     <>
     <Head>
-      <title>{productDetails[0]?.productTitle}</title>
-      <meta property="og:description" content={productDetails[0]?.productTitle} />
-      <meta property="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
+      <title>{productDetails[0]?.title}</title>
+      <meta name="description" content={description} />
+      <meta name="og:title" content={productDetails[0]?.title} />
+      <meta name="og:description" content={description} />
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
     </Head>
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
@@ -517,15 +541,15 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={image}
+                  url={shareUrl}
                   quote={title}
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                 </FacebookShareButton>
                 <TwitterShareButton
-                  url={image}
-                  quote={title}
+                  url={shareUrl}
+                  title={title}
                   hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                   className="Demo__some-network__share-button"
                 >
@@ -533,18 +557,17 @@ const SingleProductDescription = ({ productDetails }) => {
                 </TwitterShareButton>
 
                 <WhatsappShareButton
-                  url={image}
-                  quote={title}
-                  picture={image}
+                  url={shareUrl}
+                  title={title}
                   className="Demo__some-network__share-button"
                 >
                   <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
                 </WhatsappShareButton>
 
                 <EmailShareButton
-                  subject="Check out this product"
-                  url={image}
-                  body={`Check out ${productDetails[0]?.productTitle} from`}
+                  subject={`Check out ${productDetails[0]?.title} from`}
+                  url={shareUrl}
+                  body={`Check out ${productDetails[0]?.title} from`}
                   className="Demo__some-network__share-button"
                 >
                   <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />

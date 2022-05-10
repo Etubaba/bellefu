@@ -31,6 +31,10 @@ const NavBar = () => {
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
 
+
+
+  console.log('hhhhhh')
+
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
       router.push("/postAds");
@@ -94,7 +98,7 @@ const NavBar = () => {
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
       {
-        pageLanguage: "",
+        pageLanguage: "en",
         autoDisplay: true,
         // includedLanguages: "en,ms,ta,zh-CN", // include this for selected languages
         layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
@@ -125,7 +129,11 @@ const NavBar = () => {
           />
           {/* $$country select and language select for mobile */}
           <Navbarsch />
-          <div id="google_translate_element" className="ml-4"></div>
+          <div
+            id="google_translate_element"
+            className="ml-4"
+            translate="no"
+          ></div>
         </div>
 
         {/* ################################## */}
@@ -153,7 +161,7 @@ const NavBar = () => {
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
                 className="hover:text-gray-200"
-                // href="https://webinar.bellefu.com/"
+              // href="https://webinar.bellefu.com/"
               >
                 Create Shop
               </a>
