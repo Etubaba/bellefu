@@ -58,7 +58,8 @@ const initialState = {
     statesname: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userState")) : null,
 
     lganame: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userLga")) : null,
-  }
+  },
+  countryProductSearch: "",
 };
 
 export const bellefuSlice = createSlice({
@@ -216,6 +217,9 @@ export const bellefuSlice = createSlice({
         localStorage.setItem("details", JSON.stringify(state.userDetails));
       }
     },
+    countryProductSearch: (state, action) => {
+      state.countryProductSearch = action.payload;
+    }
     // E don end here
   },
 });
@@ -254,7 +258,8 @@ export const {
   handleLga, ifVerified,
   handleLganame, kycpending,
   handleStatesname,
-  handleVideoUpdate
+  handleVideoUpdate,
+  countryProductSearch,
 } = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;
