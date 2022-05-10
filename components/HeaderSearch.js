@@ -9,6 +9,7 @@ import {
   chooseCountry,
   handleSearch,
   selectCat,
+  searchCountry
 } from "../features/bellefuSlice";
 import { chooseState } from "../features/bellefuSlice";
 import { BiSearch } from "react-icons/bi";
@@ -142,6 +143,7 @@ const HeaderSearch = ({
                         dispatch(handleSearch(""));
                         dispatch(selectCat(null));
                         dispatch(chooseCountry(list.iso2));
+                        dispatch(searchCountry(list.name))
                       }}
                       className="py-1 flex space-x-3 hover:bg-bellefuBackground"
                     >

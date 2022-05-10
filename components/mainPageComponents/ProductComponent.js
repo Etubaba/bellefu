@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import classNames from "classnames";
 import Loader, { apiData } from "../../constant";
-import { countryProductSearch } from "../../features/bellefuSlice";
+import { countryProductSearch, country } from "../../features/bellefuSlice";
 import Skeleton from "@mui/material/Skeleton";
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
@@ -24,7 +24,8 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
 
   const subCatClicked = useSelector((state) => state.bellefu.subcatselected);
   const search = useSelector((state) => state.bellefu.searchFilter);
-  const initialRender = useRef(1);
+  const searchCountry = useSelector(country);
+  const initialRender = useRef(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +41,6 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           console.log(res.data.data);
           setCountryData(res.data.data);
           setInitialData(res.data.data);
-          initialRender.current += 1;
           setSearching(false);
         })
         .catch((err) => {
@@ -64,10 +64,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     getFav();
   }, []);
 
-  useEffect(() => {
-    console.log(initialRender.current);
-    if (initialRender.current.value > 1) dispatch(countryProductSearch("empty"));
-  }, [countryData])
+  // useEffect(() => {
+  //   console.log(initialRender);
+  //   if (initialRender.current > 1) dispatch(countryProductSearch("empty"));
+  // }, [countryData])
 
   const favId = fav?.map((item) => item.productId);
   // const favdelete = fav?.map(item => item.favId)
@@ -82,7 +82,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           .get(
             `${apiData}search/product/${where}/${search.toLocaleLowerCase()}`
           )
-          .then((res) => setSearchResult(res.data.data))
+          .then((res) => {
+            setSearchResult(res.data.data);
+            console.log("!")
+          })
           //  setCountryData(res.data.data))
           .catch((err) => console.log(err));
       };
@@ -132,16 +135,16 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
         />
       )}
       <div
-        className={classNames("bg-bellefuBackground mt-1 rounded-md",{"grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense": countryData?.length, "grid-cols-2 sm:grid-cols-2": grid, "grid-cols-1 sm:grid-cols-1": !grid})}
+        className={classNames("bg-bellefuBackground mt-1 rounded-md",{"grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense": main?.length, "grid-cols-2 sm:grid-cols-2": grid, "grid-cols-1 sm:grid-cols-1": !grid})}
       >
         {loading ? (
           main === countryData && isSearching ? (
             <div className="flex justify-center items-center h-screen">
               <Loader isLoading={isSearching} />
             </div>
-          ) : countryData.length === 0?(
+          ) : main?.length === 0?(
             <div className="mt-8">
-              <p className="text-center font-bold text-3xl mb-8">We don't have product in {getCountry}</p>
+              <p className="text-center font-bold text-3xl mb-8">We don't have product in {searchCountry}</p>
               <div className="flex space-x-10 items-center justify-center">
                 <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500"><button className="w-full p-4 text-2xl text-bellefuWhite">Make Custom Request</button></p>
                 <p className="bg-bellefuGreen rounded-lg hover:bg-green-500"><button className="w-full p-4 text-2xl text-bellefuWhite">Be The First To Post Product</button></p>
