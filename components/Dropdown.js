@@ -68,17 +68,15 @@ const Dropdown = ({ category }) => {
             </>
           ) : (
             <>
-             
               <Skeleton
-              className="mr-1.5"
+                className="mr-1.5"
                 variant="circular"
                 animation="wave"
                 width={"10%"}
                 height={30}
               />
               <Skeleton
-                            className="rounded-md"
-
+                className="rounded-md"
                 variant="rectangular"
                 animation="wave"
                 width={"80%"}
