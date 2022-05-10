@@ -30,7 +30,7 @@ export default function Home({ data }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(true);
-    }, 3000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -48,9 +48,7 @@ export default function Home({ data }) {
       <main className="bg-bellefuBackground ">
         <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
           {/* second nav bar */}
-          {loading ? (
-            <>
-              <HeaderSearch
+          <HeaderSearch
                 dialet={data.defaultLanguage}
                 state={data.countryStates}
                 defaultCountry={data.defaultCountryName}
@@ -61,34 +59,7 @@ export default function Home({ data }) {
               <div className="block  md:hidden lg:hidden mt-3">
                 <Slider slider={data.slider} />
               </div>
-            </>
-          ) : (
-            <>
-            <Skeleton
-              className="rounded my-3 hidden lg:block"
-              variant="rectangular"
-              animation="wave"
-              width={"100%"}
-              height={80}
-            />
-            <div className="block lg:hidden">
-            <Skeleton
-              className="rounded my-3 "
-              variant="rectangular"
-              animation="wave"
-              width={"100%"}
-              height={50}
-            />
-            <Skeleton
-              className="rounded my-3 "
-              variant="rectangular"
-              animation="wave"
-              width={"100%"}
-              height={50}
-            />
-            </div>
-            </>
-          )}
+      
 
           {/* mobile header search */}
           {/* <div className="md:hidden">
@@ -99,17 +70,7 @@ export default function Home({ data }) {
           <div className="flex flex-col lg:flex-row">
             {/* category side bar */}
             <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
-              {loading ? (
-                <CategorySideBar categories={data.categories} />
-              ) : (
-                <Skeleton
-                  className="rounded  "
-                  variant="rectangular"
-                  animation="wave"
-                  width={250}
-                  height={900}
-                />
-              )}
+            <CategorySideBar categories={data.categories} />
             </div>
             {search === "" ? (
               <div className=" h-auto lg:hidden my-4 rounded-sm">
