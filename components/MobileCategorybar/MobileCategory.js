@@ -51,8 +51,8 @@ const MobileCategory = ({ category }) => {
             <Skeleton
             variant="circular"
             animation="wave"
-            width={"60%"}
-            height={90} 
+            width={"50%"}
+            height={70} 
             />
             </>}
           </div>

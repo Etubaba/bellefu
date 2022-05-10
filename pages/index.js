@@ -74,23 +74,13 @@ export default function Home({ data }) {
             </div>
             {search === "" ? (
               <div className=" h-auto lg:hidden my-4 rounded-sm">
-                {loading ? (
-                  <div>
+               <div>
                     <h3 className=" block lg:hidden font-bold text-[1rem] sm:text-[1rem] m-5 lg:text-[1.2rem]">
                       Search by categories
                     </h3>
 
                     <MobileCategoryBar categories={data.categories} />
                   </div>
-                ) : (
-                  <Skeleton
-                    className="rounded  "
-                    variant="rectangular"
-                    animation="wave"
-                    width={"100%"}
-                    height={300}
-                  />
-                )}
               </div>
             ) : null}
             {/* list of products & slider */}
