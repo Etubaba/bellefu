@@ -27,7 +27,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const searchCountry = useSelector(country);
   const initialRender = useRef(0);
   const dispatch = useDispatch();
-  //console.log(searchCountry);
+  console.log(searchCountry);
 
   useEffect(() => {
     setCountryData([]);
