@@ -39,9 +39,9 @@ const Product = ({ details }) => {
     <>
     <Head>
       <title>{singleProduct?.title}</title>
-      <meta name="og:title" content={singleProduct?.title} />
-      <meta name="og:description" content={singleProduct?.description} />
-      <meta name="og:image" content={singleProduct?.image} />
+      <meta property="og:title" content={singleProduct?.title} />
+      <meta property="og:description" content={singleProduct?.description} />
+      <meta property="og:image" content={singleProduct?.image} />
     </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
