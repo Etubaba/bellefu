@@ -27,13 +27,14 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const searchCountry = useSelector(country);
   const initialRender = useRef(0);
   const dispatch = useDispatch();
+  //console.log(searchCountry);
 
   useEffect(() => {
     setCountryData([]);
 
     const newProducts = async () => {
       if (searchCountry) setSearching(true);
-      
+
       axios
         .get(
           `https://bellefu.inmotionhub.xyz/api/general/get/product/${getCountry}`
