@@ -1,6 +1,4 @@
 import React from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
 import HeaderSearch from "../../components/HeaderSearch";
 import SingleProductBody from "../../components/SingleProduct/SingleProductBody";
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar";
@@ -12,24 +10,8 @@ import MobileHeaderSearch from "../../components/MobileHeaderSearch";
 import { homeData, handleUserDetails } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-
-const Product = ({ details, title, description, image }) => {
+const Product = ({ details }) => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  // const query = router.query;
-  // const pathname = router.pathname;
-  // let queryExist = false;
-
-  // for (const key in query) {
-  //   if (key) {
-  //     queryExist = true;
-  //     break;
-  //   }
-  // }
-
-  // if (queryExist) {
-  //   return router.push(pathname);
-  // }
 
   const newDetails = details.data;
   const similarProductDetails = details.similarProducts;
@@ -47,18 +29,7 @@ const Product = ({ details, title, description, image }) => {
   }, []);
   const index = useSelector(homeData);
 
-
-
-
-  console.log('single details', newDetails)
   return (
-    <>
-    <Head>
-      {/* <title>{singleProduct?.title}</title> */}
-      <meta name="og:title" content={title} />
-      <meta name="og:description" content={description} />
-      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
-    </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
       {/* large screen header */}
@@ -130,7 +101,6 @@ const Product = ({ details, title, description, image }) => {
         </div>
       </div>
     </div>
-    </>
   );
 };
 
@@ -138,7 +108,7 @@ export default Product;
 
 //server side fetching of the full product details
 export async function getServerSideProps(context) {
-  const { productId, title, description, image } = context.query;
+  const { productId } = context.query;
 
   const requests = await fetch(
     `https://bellefu.inmotionhub.xyz/api/general/get/single/product/${productId}`
@@ -147,9 +117,6 @@ export async function getServerSideProps(context) {
   return {
     props: {
       details: requests,
-      // title,
-      // description,
-      // image,
     },
   };
 }
