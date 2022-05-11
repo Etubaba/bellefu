@@ -255,7 +255,6 @@ const SingleProductDescription = ({ productDetails, title, description, image })
       title: productDetails[0]?.title,
       description,
       image: `https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`,
-      url: image,
     }))
   }, [])
 
@@ -290,7 +289,7 @@ const SingleProductDescription = ({ productDetails, title, description, image })
         <meta name="description" content={productDetails[0]?.description} />
         <meta name="og:title" content={title} />
         <meta name="og:description" content={description} />
-        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${images}`} />
+        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
       </Head>
       <div className="bg-bellefuWhite rounded-t-md">
         {/* title section */}
@@ -562,14 +561,14 @@ const SingleProductDescription = ({ productDetails, title, description, image })
                 </p>
                 <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                   <FacebookShareButton
-                    url={share}
+                    url={image}
                     quote={title}
                     className="Demo__some-network__share-button"
                   >
                     <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                   </FacebookShareButton>
                   <TwitterShareButton
-                    url={share}
+                    url={image}
                     title={title}
                     hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                     className="Demo__some-network__share-button"
@@ -578,7 +577,7 @@ const SingleProductDescription = ({ productDetails, title, description, image })
                   </TwitterShareButton>
 
                   <WhatsappShareButton
-                    url={share}
+                    url={image}
                     title={title}
                     className="Demo__some-network__share-button"
                   >
@@ -587,7 +586,7 @@ const SingleProductDescription = ({ productDetails, title, description, image })
 
                   <EmailShareButton
                     subject={`Check out ${productDetails[0]?.title} from`}
-                    url={share}
+                    url={image}
                     body={`Check out ${productDetails[0]?.title} from`}
                     className="Demo__some-network__share-button"
                   >
