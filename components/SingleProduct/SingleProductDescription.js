@@ -39,14 +39,14 @@ export const getServerSideProps = ({query}) => {
 
   return {
     props: {
-      title,
-      description,
-      image,
+      proTitle: title,
+      proDescription: description,
+      proImage: image,
     }
   }
 }
 
-const SingleProductDescription = ({ productDetails, title, description, image }) => {
+const SingleProductDescription = ({ productDetails, proTitle, proDescription, proImage }) => {
   const [open, setOpen] = useState(true);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -243,7 +243,7 @@ const SingleProductDescription = ({ productDetails, title, description, image })
 
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
-  const share = "https://bellefu30web.vercel.app/shared";
+  //const share = "https://bellefu30web.vercel.app/shared";
   const image = `${window.location.href}?image=${productDetails[0]?.images[0]}&title=${productDetails[0]?.title}&description=${description}`;
 
 
@@ -288,8 +288,8 @@ const SingleProductDescription = ({ productDetails, title, description, image })
         <title>{productDetails[0]?.title}</title>
         <meta name="description" content={productDetails[0]?.description} />
         <meta name="og:title" content={title} />
-        <meta name="og:description" content={description} />
-        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+        <meta name="og:description" content={proDescription} />
+        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${proImage}`} />
       </Head>
       <div className="bg-bellefuWhite rounded-t-md">
         {/* title section */}
