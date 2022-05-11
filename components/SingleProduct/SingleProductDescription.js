@@ -231,6 +231,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
+  const share = "https://bellefu30web.vercel.app/shared";
   const image = window.location.href;
 
 
@@ -242,6 +243,7 @@ const SingleProductDescription = ({ productDetails }) => {
       title: productDetails[0]?.title,
       description,
       image: `https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`,
+      url: image,
     }))
   }, [])
 
@@ -548,14 +550,14 @@ const SingleProductDescription = ({ productDetails }) => {
                 </p>
                 <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                   <FacebookShareButton
-                    url={image}
+                    url={share}
                     quote={title}
                     className="Demo__some-network__share-button"
                   >
                     <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                   </FacebookShareButton>
                   <TwitterShareButton
-                    url={image}
+                    url={share}
                     title={title}
                     hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                     className="Demo__some-network__share-button"
@@ -564,7 +566,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   </TwitterShareButton>
 
                   <WhatsappShareButton
-                    url={image}
+                    url={share}
                     title={title}
                     className="Demo__some-network__share-button"
                   >
@@ -573,7 +575,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
                   <EmailShareButton
                     subject={`Check out ${productDetails[0]?.title} from`}
-                    url={image}
+                    url={share}
                     body={`Check out ${productDetails[0]?.title} from`}
                     className="Demo__some-network__share-button"
                   >

@@ -1,27 +1,30 @@
 import Head from "next/head";
+import {useSelector} from "react-redux";
+import { singleProductDetails } from "../features/bellefuSlice";
 
-export const getServerSideProps = async ({query}) => {
-  const {image, type, prodName, description} = query;
+// export const getServerSideProps = async ({query}) => {
+//   const {image, type, prodName, description} = query;
 
-  return {
-    props: {
-      image,
-      type,
-      prodName,
-      description
-    }
-  }
-}
+//   return {
+//     props: {
+//       image,
+//       type,
+//       prodName,
+//       description
+//     }
+//   }
+// }
 
-const SharedProduct = ({image, type, prodName, description}) => {
-  if (!image) return <div>me</div>;
+const SharedProduct = () => {
+
+  const singleProduct = useSelector(singleProductDetails);
   
   return (
     <Head>
-      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
-      <meta name="og:title" content={`Product Name: ${prodName}`} />
-      <meta name="og:description" content={`Product Description: ${description}`} />
-      <meta name="og:url" content={`Product Link: https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+      <meta name="og:image" content={singleProduct.image} />
+      <meta name="og:title" content={singleProduct.title} />
+      <meta name="og:description" content={singleProduct.description} />
+      <meta name="og:url" content={singleProduct.url} />
     </Head>
   )
 }
