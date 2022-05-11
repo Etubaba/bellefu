@@ -29,7 +29,7 @@ import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { login, userFav } from "../../features/bellefuSlice";
+import { login, userFav, singleProduct } from "../../features/bellefuSlice";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
@@ -231,12 +231,19 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
-  //const image = window.location.href;
+  const image = window.location.href;
 
 
 
-  const video = 'https://bellefu.inmotionhub.xyz/get/video/'
+  const video = 'https://bellefu.inmotionhub.xyz/get/video/';
 
+  useEffect(() => {
+    dispatch(singleProduct({
+      title: productDetails[0]?.title,
+      description,
+      image: `https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`,
+    }))
+  }, [])
 
   const style = {
     position: 'absolute',
@@ -264,13 +271,13 @@ const SingleProductDescription = ({ productDetails }) => {
 
   return (
     <>
-    <Head>
+    {/* <Head>
       <title>{productDetails[0]?.title}</title>
       <meta name="description" content={description} />
       <meta name="og:title" content={productDetails[0]?.title} />
       <meta name="og:description" content={description} />
       <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
-    </Head>
+    </Head> */}
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
       <div className="flex items-center justify-between lg:px-7 px-3">
@@ -541,14 +548,14 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={shareUrl}
+                  url={image}
                   quote={title}
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                 </FacebookShareButton>
                 <TwitterShareButton
-                  url={shareUrl}
+                  url={image}
                   title={title}
                   hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                   className="Demo__some-network__share-button"
@@ -557,7 +564,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 </TwitterShareButton>
 
                 <WhatsappShareButton
-                  url={shareUrl}
+                  url={image}
                   title={title}
                   className="Demo__some-network__share-button"
                 >
@@ -566,7 +573,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
                 <EmailShareButton
                   subject={`Check out ${productDetails[0]?.title} from`}
-                  url={shareUrl}
+                  url={image}
                   body={`Check out ${productDetails[0]?.title} from`}
                   className="Demo__some-network__share-button"
                 >
