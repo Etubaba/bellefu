@@ -18,7 +18,7 @@ const Product = ({ details, title, description, image }) => {
   const router = useRouter();
   const query = router.query;
   const pathname = router.pathname;
-  const queryExist = false;
+  let queryExist = false;
 
   for (const key in query) {
     if (key) {
