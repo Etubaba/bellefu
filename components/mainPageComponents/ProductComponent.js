@@ -144,8 +144,8 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
             </div>
           ) : main?.length === 0?(
             <div className="mt-8">
-              <p className="text-center font-bold text-3xl mb-8">We don't have product in {searchCountry}</p>
-              <div className="flex space-x-10 items-center justify-center">
+              <p className="text-center font-bold text-base md:text-3xl mb-8">We don't have product in {searchCountry}</p>
+              <div className="flex flex-col md:flex-row space-x-10 items-center justify-center">
                 <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500"><button className="w-full p-4 text-2xl text-bellefuWhite">Make Custom Request</button></p>
                 <p className="bg-bellefuGreen rounded-lg hover:bg-green-500"><button className="w-full p-4 text-2xl text-bellefuWhite">Be The First To Post Product</button></p>
               </div>
