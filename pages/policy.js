@@ -7,6 +7,7 @@ const Policy = () => {
       <Head>
         <title>Policy and Privacy</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="og:image" content="https://bellefu30web.vercel.app/bellefulogo.png" />
       </Head>
       <RegisterHeader firstLink={{firstLinkText:"Policy and Privacy",firstLinkUrl:"/policy"}} secondLink={{secondLinkText:"Terms and Conditions", secondLinkUrl:"/terms-and-conditions"}} customWidth={true} />
       <div className="text-center mx-24">
