@@ -16,20 +16,20 @@ import { useSelector, useDispatch } from "react-redux";
 const Product = ({ details, title, description, image }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const query = router.query;
-  const pathname = router.pathname;
-  let queryExist = false;
+  // const query = router.query;
+  // const pathname = router.pathname;
+  // let queryExist = false;
 
-  for (const key in query) {
-    if (key) {
-      queryExist = true;
-      break;
-    }
-  }
+  // for (const key in query) {
+  //   if (key) {
+  //     queryExist = true;
+  //     break;
+  //   }
+  // }
 
-  if (queryExist) {
-    return router.push(pathname);
-  }
+  // if (queryExist) {
+  //   return router.push(pathname);
+  // }
 
   const newDetails = details.data;
   const similarProductDetails = details.similarProducts;
@@ -57,7 +57,7 @@ const Product = ({ details, title, description, image }) => {
       {/* <title>{singleProduct?.title}</title> */}
       <meta name="og:title" content={title} />
       <meta name="og:description" content={description} />
-      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+      {/* <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} /> */}
     </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
