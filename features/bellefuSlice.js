@@ -61,7 +61,6 @@ const initialState = {
   },
   countryProductSearch: "",
   searchCountry: "",
-  singleProduct: null,
 };
 
 export const bellefuSlice = createSlice({
@@ -225,9 +224,6 @@ export const bellefuSlice = createSlice({
     searchCountry: (state, action) => {
       state.searchCountry = action.payload;
     },
-    singleProduct: (state, action) => {
-      state.singleProduct = action.payload;
-    },
     // E don end here
   },
 });
@@ -269,7 +265,6 @@ export const {
   handleVideoUpdate,
   countryProductSearch,
   searchCountry,
-  singleProduct,
 } = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;
@@ -282,7 +277,6 @@ export const userDId = (state) => state.bellefu.userDetails;
 export const verified = (state) => state.bellefu.verificationStatus;
 export const prouductSearch = (state) => state.bellefu.countryProductSearch;
 export const country = (state) => state.bellefu.searchCountry;
-export const singleProductDetails = (state) => state.bellefu.singleProduct;
 // export const selectLogin = (state) => {
 //   state.bellefu.login;
 // };

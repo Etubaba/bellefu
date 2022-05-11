@@ -232,21 +232,13 @@ const SingleProductDescription = ({ productDetails }) => {
   //console.log(description)
 
   const title = `${productDetails[0]?.title}`;
-  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
+  //const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
   //const share = "https://bellefu30web.vercel.app/shared";
   const image = `${window.location.href}?image=${productDetails[0]?.images[0]}&title=${productDetails[0]?.title}&description=${description}`;
 
 
 
   const video = 'https://bellefu.inmotionhub.xyz/get/video/';
-
-  useEffect(() => {
-    dispatch(singleProduct({
-      title: productDetails[0]?.title,
-      description,
-      image: `https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`,
-    }))
-  }, [])
 
   const style = {
     position: 'absolute',
