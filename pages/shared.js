@@ -21,10 +21,10 @@ const SharedProduct = () => {
   
   return (
     <Head>
-      <meta name="og:image" content={singleProduct.image} />
-      <meta name="og:title" content={singleProduct.title} />
-      <meta name="og:description" content={singleProduct.description} />
-      <meta name="og:url" content={singleProduct.url} />
+      <meta name="og:image" content={singleProduct?.image} />
+      <meta name="og:title" content={singleProduct?.title} />
+      <meta name="og:description" content={singleProduct?.description} />
+      <meta name="og:url" content={singleProduct?.url} />
     </Head>
   )
 }
