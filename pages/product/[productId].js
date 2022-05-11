@@ -31,6 +31,10 @@ const Product = ({ details }) => {
   const index = useSelector(homeData);
   const singleProduct = useSelector(singleProductDetails);
 
+
+
+
+  console.log('single details', newDetails)
   return (
     <>
     <Head>

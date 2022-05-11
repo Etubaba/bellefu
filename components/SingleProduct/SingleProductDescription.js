@@ -215,7 +215,7 @@ const SingleProductDescription = ({ productDetails }) => {
   //console.log(doc);
   const paras = doc.getElementsByTagName("p");
   //console.log(paras);
-  
+
   let description = "";
 
   if (paras.length) {
@@ -271,372 +271,372 @@ const SingleProductDescription = ({ productDetails }) => {
 
   return (
     <>
-    {/* <Head>
-      <title>{productDetails[0]?.title}</title>
-      <meta name="description" content={description} />
-      <meta name="og:title" content={productDetails[0]?.title} />
-      <meta name="og:description" content={description} />
-      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
-    </Head> */}
-    <div className="bg-bellefuWhite rounded-t-md">
-      {/* title section */}
-      <div className="flex items-center justify-between lg:px-7 px-3">
-        <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
-          {productDetails[0]?.productTitle}
-        </p>
-        {favStatus ||
-          (clean?.includes(productDetails[0]?.productId) &&
-            favArr?.includes(productDetails[0]?.productId)) ? (
-          <BsSuitHeartFill
-            onClick={removeFav}
-            className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
-          />
-        ) : (
-          <BsHeart
-            className="lg:w-6 lg:h-6 text-bellefuOrange"
-            onClick={addFav}
-          />
-        )}
-      </div>
+      <Head>
+        <title>{productDetails[0]?.title}</title>
+        <meta name="description" content={description} />
+        <meta name="og:title" content={productDetails[0]?.title} />
+        <meta name="og:description" content={description} />
+        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
+      </Head>
+      <div className="bg-bellefuWhite rounded-t-md">
+        {/* title section */}
+        <div className="flex items-center justify-between lg:px-7 px-3">
+          <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
+            {productDetails[0]?.productTitle}
+          </p>
+          {favStatus ||
+            (clean?.includes(productDetails[0]?.productId) &&
+              favArr?.includes(productDetails[0]?.productId)) ? (
+            <BsSuitHeartFill
+              onClick={removeFav}
+              className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
+            />
+          ) : (
+            <BsHeart
+              className="lg:w-6 lg:h-6 text-bellefuOrange"
+              onClick={addFav}
+            />
+          )}
+        </div>
 
-      {/* tag section */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-7 lg:mt-4 px-3 mt-2 space-y-2">
-        <div className="flex flex-col lg:flex-row space-y-2 lg:space-x-8 lg:items-center">
-          <div className="flex items-center space-x-1 lg:mt-2">
-            <BsClockFill className="w-4 h-4 text-gray-500" />
+        {/* tag section */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-7 lg:mt-4 px-3 mt-2 space-y-2">
+          <div className="flex flex-col lg:flex-row space-y-2 lg:space-x-8 lg:items-center">
+            <div className="flex items-center space-x-1 lg:mt-2">
+              <BsClockFill className="w-4 h-4 text-gray-500" />
+              <p className="text-bellefuBlack1 text-sm">
+                Posted on{" "}
+                {moment(productDetails[0]?.createdAt).format("MMM Do YYYY")}
+              </p>
+            </div>
+            <div className="flex items-center space-x-2 -ml-1">
+              <TiLocation className="w-4 h-4 text-gray-500 ml-1" />
+              <p className="text-bellefuBlack1 text-sm">
+                {productDetails[0]?.lgaName}, {productDetails[0]?.stateName},
+                {productDetails[0]?.countryName}.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-1">
+            <AiFillEye className="w-4 h-4 text-gray-500 " />
             <p className="text-bellefuBlack1 text-sm">
-              Posted on{" "}
-              {moment(productDetails[0]?.productPostedOn).format("MMM Do YYYY")}
+              {productDetails[0]?.inorganic_views} Views
             </p>
           </div>
-          <div className="flex items-center space-x-2 -ml-1">
-            <TiLocation className="w-4 h-4 text-gray-500 ml-1" />
-            <p className="text-bellefuBlack1 text-sm">
-              {productDetails[0]?.lgaName}, {productDetails[0]?.stateName},
-              {productDetails[0]?.countryName}.
+        </div>
+
+        {/* description section */}
+        <div>
+          <div className='flex justify-between'>
+            <p className="lg:px-7 px-3 mt-4 lg:mt-6 text-xl lg:text-2xl text-bellefuBlack1 font-medium">
+              Ads Description
             </p>
+            {productDetails[0]?.video !== null && <FcVideoCall onClick={() => setWatch(true)} className="md:text-5xl text-3xl m-3 " />}
           </div>
+          <div className="border-b lg:mt-6 mt-4" />
+          <p
+            className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4 capitalize"
+            dangerouslySetInnerHTML={{
+              __html: productDetails[0]?.productDescription,
+            }}
+          />
         </div>
-        <div className="flex items-center space-x-1">
-          <AiFillEye className="w-4 h-4 text-gray-500 " />
-          <p className="text-bellefuBlack1 text-sm">
-            {productDetails[0]?.inorganic_views} Views
+        {/* product owner profile details */}
+
+        <div className="py-3 px-3 lg:hidden">
+          <SingleProductMobileSidebar mobileDetails={productDetails} />
+        </div>
+
+        {/* end of product owner details */}
+        {/* contact section */}
+        <div>
+          <p className="lg:px-7 px-3 text-2xl text-bellefuBlack1 font-medium hidden lg:block">
+            Contact
           </p>
-        </div>
-      </div>
+          {/* divider */}
+          <div className="border-b mt-6" />
 
-      {/* description section */}
-      <div>
-        <div className='flex justify-between'>
-          <p className="lg:px-7 px-3 mt-4 lg:mt-6 text-xl lg:text-2xl text-bellefuBlack1 font-medium">
-            Ads Description
-          </p>
-          {productDetails[0]?.video !== null && <FcVideoCall onClick={() => setWatch(true)} className="md:text-5xl text-3xl m-3 " />}
-        </div>
-        <div className="border-b lg:mt-6 mt-4" />
-        <p
-          className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4 capitalize"
-          dangerouslySetInnerHTML={{
-            __html: productDetails[0]?.productDescription,
-          }}
-        />
-      </div>
-      {/* product owner profile details */}
+          <div className=" hidden lg:block px-40 mt-12">
+            <div className="flex items-center flex-col justify-center border py-20 rounded-md bg-bellefuBackground space-y-14">
+              <p className="text-2xl text-bellefuBlack1">Contact The Seller</p>
 
-      <div className="py-3 px-3 lg:hidden">
-        <SingleProductMobileSidebar mobileDetails={productDetails} />
-      </div>
-
-      {/* end of product owner details */}
-      {/* contact section */}
-      <div>
-        <p className="lg:px-7 px-3 text-2xl text-bellefuBlack1 font-medium hidden lg:block">
-          Contact
-        </p>
-        {/* divider */}
-        <div className="border-b mt-6" />
-
-        <div className=" hidden lg:block px-40 mt-12">
-          <div className="flex items-center flex-col justify-center border py-20 rounded-md bg-bellefuBackground space-y-14">
-            <p className="text-2xl text-bellefuBlack1">Contact The Seller</p>
-
-            <div className="flex items-center mt-2 w-full space-x-10 justify-center">
-              {userId !== receiverId && (
-                <div
-                  onClick={handleMessage}
-                  className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
-                >
-                  <RiMessage2Fill className="text-white" />
-                  <p className="text-white">Message</p>
-                </div>
-              )}
-              {userId !== receiverId && (
-                <div
-                  onClick={handleCall}
-                  className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
-                >
-                  <MdCall className="text-white" />
-                  <p className="text-white">Call</p>
-                </div>
-              )}
-
-              {/* Watching video modal  */}
-
-              <Modal
-                open={watch}
-                onClose={() => setWatch(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description">
-
-                <Box
-                  style={style2}
-                >
-                  <video width="650" height="540" controls>
-                    <source src={`${video}get/video/${productDetails[0]?.video}`} type="video/mp4" />
-                    <source src="movie.ogg" type="video/ogg" />
-                    Your browser does not support the video.
-                  </video>
-                </Box>
-              </Modal>
-
-              {/* When user is not login modal */}
-              <Modal
-                open={modalOpen}
-                onClose={() => setModalOpen(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              // sx={{ opacity: 0.5 }}
-              >
-                <Box sx={style}>
-                  {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
-                  <strong className="ml-4 mb-8 text-sm md:text-md">
-                    {" "}
-                    Sign in{" "}
-                  </strong>
-
-                  <div className="flex space-x-4 justify-center items-center my-4">
-                    <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
-                      <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
-                      <strong className="text-[#303A4B] text-sm md:text-xl">
-                        Google
-                      </strong>
-                    </button>
-                    <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
-                      <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
-                      <strong className="text-white text-sm md:text-xl">
-                        Facebook
-                      </strong>
-                    </button>
-                  </div>
-
-                  <button
-                    onClick={() => router.push("/login")}
-                    className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
+              <div className="flex items-center mt-2 w-full space-x-10 justify-center">
+                {userId !== receiverId && (
+                  <div
+                    onClick={handleMessage}
+                    className="bg-bellefuOrange px-8 py-3 rounded-md flex items-center space-x-2 cursor-pointer"
                   >
-                    Email or Phone
-                  </button>
+                    <RiMessage2Fill className="text-white" />
+                    <p className="text-white">Message</p>
+                  </div>
+                )}
+                {userId !== receiverId && (
+                  <div
+                    onClick={handleCall}
+                    className="bg-bellefuGreen px-12 py-3 rounded-md flex items-center cursor-pointer space-x-2"
+                  >
+                    <MdCall className="text-white" />
+                    <p className="text-white">Call</p>
+                  </div>
+                )}
 
-                  <p className="flex justify-center items-center">
-                    Do not have an account?{" "}
-                    <stong
-                      onClick={() => router.push("/register")}
-                      className="text-bellefuGreen hover:text-green-700 text-sm md:text-lg ml-2"
+                {/* Watching video modal  */}
+
+                <Modal
+                  open={watch}
+                  onClose={() => setWatch(false)}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description">
+
+                  <Box
+                    style={style2}
+                  >
+                    <video width="650" height="540" controls>
+                      <source src={`${video}get/video/${productDetails[0]?.video}`} type="video/mp4" />
+                      <source src="movie.ogg" type="video/ogg" />
+                      Your browser does not support the video.
+                    </video>
+                  </Box>
+                </Modal>
+
+                {/* When user is not login modal */}
+                <Modal
+                  open={modalOpen}
+                  onClose={() => setModalOpen(false)}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                // sx={{ opacity: 0.5 }}
+                >
+                  <Box sx={style}>
+                    {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
+                    <strong className="ml-4 mb-8 text-sm md:text-md">
+                      {" "}
+                      Sign in{" "}
+                    </strong>
+
+                    <div className="flex space-x-4 justify-center items-center my-4">
+                      <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
+                        <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
+                        <strong className="text-[#303A4B] text-sm md:text-xl">
+                          Google
+                        </strong>
+                      </button>
+                      <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
+                        <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
+                        <strong className="text-white text-sm md:text-xl">
+                          Facebook
+                        </strong>
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => router.push("/login")}
+                      className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
                     >
-                      Register
-                    </stong>
-                  </p>
-                </Box>
-              </Modal>
-            </div>
-            {/* message box */}
-            {open4 && (
-              <div className="border bg-bellefuBackground divide-y w-1/2 border-orange-200 rounded-md">
-                <div className="flex items-center py-1">
-                  <div className="flex items-center w-full space-x-3 rounded-md justify-end">
-                    <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
-                    <p className="text-gray-400 font-normal text-sm cursor-pointer">
-                      Messages
+                      Email or Phone
+                    </button>
+
+                    <p className="flex justify-center items-center">
+                      Do not have an account?{" "}
+                      <stong
+                        onClick={() => router.push("/register")}
+                        className="text-bellefuGreen hover:text-green-700 text-sm md:text-lg ml-2"
+                      >
+                        Register
+                      </stong>
                     </p>
-                  </div>
-                  <RiCloseFill
-                    className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
-                    onClick={() => setOpen4(!open4)}
-                  />
-                </div>
-
-                <textarea
-                  rows="5"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="w-full bg-transparent px-3 outline-none text-xs pt-1"
-                />
-                <div className="flex items-center justify-center py-2">
-                  <button
-                    onClick={sendMessage}
-                    className="text-white text-sm lg:text-lg bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-6 py-1 rounded-md capitalize"
-                  >
-                    send
-                  </button>
-                </div>
+                  </Box>
+                </Modal>
               </div>
-            )}
-          </div>
-        </div>
-        {/* safety tips, share product, report product */}
-        <div className="lg:px-7 lg:mt-6 px-3 mt-4">
-          <div className="flex items-center justify-between">
-            <button
-              className=" text-sm lg:text-lg font-medium capitalize text-gray-400 active:text-bellefuTitleBlack cursor-pointer"
-              onClick={() => (setOpen(!open), setOpen1(false), setOpen2(false))}
-            >
-              Safety tips
-            </button>
-            <button
-              className="text-sm lg:text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
-              onClick={() => (
-                setOpen1(!open1), setOpen(false), setOpen2(false)
-              )}
-            >
-              Share Product
-            </button>
-            <button
-              className="text-sm lg:text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
-              onClick={() => (
-                setOpen2(!open2), setOpen(false), setOpen1(false)
-              )}
-            >
-              Report Product
-            </button>
-          </div>
-        </div>
-        {/* divider */}
-        <div className="border-b lg:mt-6 mt-3" />
-        {/* safety tips => details */}
-        {open && (
-          <div className=" px-3 lg:px-7 mt-4 pb-4 space-y-2">
-            <div className="flex items-center space-x-4">
-              <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-              <p className="text-xs sm:text-sm">
-                Ensure quality/quantity of Products/Services.
-              </p>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
-              <p className="text-xs sm:text-sm">
-                Ensure meeting in a secured place if the need arise.
-              </p>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <BsFillCheckSquareFill className="lg:w-3 lg:h-3 w-3 h-3 text-bellefuOrange rounded-sm" />
-              <p className="text-xs sm:text-sm whitespace-pre-wrap">
-                Contact support@bellefu.com if you require verification of buyer
-                or seller (Terms & Conditions apply)
-              </p>
-            </div>
-            <p onClick={() => router.push('/tips')} className='hover:text-orange-500 cursor-pointer text-bellefuOrange mt-4'>Read More...</p>
-          </div>
-        )}
-
-        {/* share product => details */}
-        {open1 && (
-          <div className="px-3 lg:px-7 lg:pb-4 pb-2">
-            <div className="flex flex-col lg:items-center py-4 space-y-2 lg:space-x-16">
-              <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
-                Share this product on social media :
-              </p>
-              <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
-                <FacebookShareButton
-                  url={image}
-                  quote={title}
-                  className="Demo__some-network__share-button"
-                >
-                  <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
-                </FacebookShareButton>
-                <TwitterShareButton
-                  url={image}
-                  title={title}
-                  hashtags={["bellefu", "Agriculture", "Agribusiness"]}
-                  className="Demo__some-network__share-button"
-                >
-                  <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
-                </TwitterShareButton>
-
-                <WhatsappShareButton
-                  url={image}
-                  title={title}
-                  className="Demo__some-network__share-button"
-                >
-                  <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
-                </WhatsappShareButton>
-
-                <EmailShareButton
-                  subject={`Check out ${productDetails[0]?.title} from`}
-                  url={image}
-                  body={`Check out ${productDetails[0]?.title} from`}
-                  className="Demo__some-network__share-button"
-                >
-                  <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />
-                </EmailShareButton>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* report product => details */}
-        {open2 && (
-          <div className="lg:px-7 px-3 lg:mt-5 mt-2 lg:pb-4 pb-2">
-            <div className="flex flex-col lg:items-center lg:py-4 py-2 lg:space-x-16 space-y-2">
-              <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
-                Did you think this product is not original/scam?
-              </p>
-              <div
-                className="flex items-center border px-14 cursor-pointer border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground "
-                onClick={() => setOpen3(!open3)}
-              >
-                <BsFillFlagFill className="lg:w-7 lg:h-7 w-4 h-4 text-orange-600" />
-                <p className="text-md lg:text-lg">Flag this product</p>
-              </div>
-              {/* report box */}
-              {open3 && (
-                <div className="border -mt-10 bg-bellefuBackground divide-y lg:w-72 border-orange-200 rounded-md">
+              {/* message box */}
+              {open4 && (
+                <div className="border bg-bellefuBackground divide-y w-1/2 border-orange-200 rounded-md">
                   <div className="flex items-center py-1">
                     <div className="flex items-center w-full space-x-3 rounded-md justify-end">
-                      <RiMessageFill className="w-4 h-4 text-red-500" />{" "}
-                      <p className="text-gray-400 font-normal text-sm">
-                        Report
+                      <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
+                      <p className="text-gray-400 font-normal text-sm cursor-pointer">
+                        Messages
                       </p>
                     </div>
                     <RiCloseFill
                       className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
-                      onClick={() => setOpen3(false)}
+                      onClick={() => setOpen4(!open4)}
                     />
                   </div>
 
                   <textarea
-                    onChange={(e) => setReport(e.target.value)}
-                    value={report}
                     rows="5"
-                    className="w-full bg-transparent px-3 outline-none text-xs"
-                  ></textarea>
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full bg-transparent px-3 outline-none text-xs pt-1"
+                  />
                   <div className="flex items-center justify-center py-2">
                     <button
-                      onClick={handleReport}
-                      className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in py-1 px-6 rounded-md capitalize"
+                      onClick={sendMessage}
+                      className="text-white text-sm lg:text-lg bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-6 py-1 rounded-md capitalize"
                     >
                       send
                     </button>
                   </div>
                 </div>
               )}
-
-              {/* end of report box */}
             </div>
           </div>
-        )}
+          {/* safety tips, share product, report product */}
+          <div className="lg:px-7 lg:mt-6 px-3 mt-4">
+            <div className="flex items-center justify-between">
+              <button
+                className=" text-sm lg:text-lg font-medium capitalize text-gray-400 active:text-bellefuTitleBlack cursor-pointer"
+                onClick={() => (setOpen(!open), setOpen1(false), setOpen2(false))}
+              >
+                Safety tips
+              </button>
+              <button
+                className="text-sm lg:text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
+                onClick={() => (
+                  setOpen1(!open1), setOpen(false), setOpen2(false)
+                )}
+              >
+                Share Product
+              </button>
+              <button
+                className="text-sm lg:text-lg font-medium text-gray-400 capitalize active:text-bellefuTitleBlack cursor-pointer"
+                onClick={() => (
+                  setOpen2(!open2), setOpen(false), setOpen1(false)
+                )}
+              >
+                Report Product
+              </button>
+            </div>
+          </div>
+          {/* divider */}
+          <div className="border-b lg:mt-6 mt-3" />
+          {/* safety tips => details */}
+          {open && (
+            <div className=" px-3 lg:px-7 mt-4 pb-4 space-y-2">
+              <div className="flex items-center space-x-4">
+                <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
+                <p className="text-xs sm:text-sm">
+                  Ensure quality/quantity of Products/Services.
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <BsFillCheckSquareFill className="w-3 h-3 text-bellefuOrange rounded-sm" />
+                <p className="text-xs sm:text-sm">
+                  Ensure meeting in a secured place if the need arise.
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <BsFillCheckSquareFill className="lg:w-3 lg:h-3 w-3 h-3 text-bellefuOrange rounded-sm" />
+                <p className="text-xs sm:text-sm whitespace-pre-wrap">
+                  Contact support@bellefu.com if you require verification of buyer
+                  or seller (Terms & Conditions apply)
+                </p>
+              </div>
+              <p onClick={() => router.push('/tips')} className='hover:text-orange-500 cursor-pointer text-bellefuOrange mt-4'>Read More...</p>
+            </div>
+          )}
+
+          {/* share product => details */}
+          {open1 && (
+            <div className="px-3 lg:px-7 lg:pb-4 pb-2">
+              <div className="flex flex-col lg:items-center py-4 space-y-2 lg:space-x-16">
+                <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
+                  Share this product on social media :
+                </p>
+                <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
+                  <FacebookShareButton
+                    url={shareUrl}
+                    quote={title}
+                    className="Demo__some-network__share-button"
+                  >
+                    <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
+                  </FacebookShareButton>
+                  <TwitterShareButton
+                    url={shareUrl}
+                    title={title}
+                    hashtags={["bellefu", "Agriculture", "Agribusiness"]}
+                    className="Demo__some-network__share-button"
+                  >
+                    <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
+                  </TwitterShareButton>
+
+                  <WhatsappShareButton
+                    url={shareUrl}
+                    title={title}
+                    className="Demo__some-network__share-button"
+                  >
+                    <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
+                  </WhatsappShareButton>
+
+                  <EmailShareButton
+                    subject={`Check out ${productDetails[0]?.title} from`}
+                    url={shareUrl}
+                    body={`Check out ${productDetails[0]?.title} from`}
+                    className="Demo__some-network__share-button"
+                  >
+                    <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />
+                  </EmailShareButton>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* report product => details */}
+          {open2 && (
+            <div className="lg:px-7 px-3 lg:mt-5 mt-2 lg:pb-4 pb-2">
+              <div className="flex flex-col lg:items-center lg:py-4 py-2 lg:space-x-16 space-y-2">
+                <p className="text-xs sm:text-sm lg:text-lg font-medium text-bellefuBlack1">
+                  Did you think this product is not original/scam?
+                </p>
+                <div
+                  className="flex items-center border px-14 cursor-pointer border-bellefuOrange lg:py-3 py-2 rounded-md space-x-3 bg-bellefuBackground "
+                  onClick={() => setOpen3(!open3)}
+                >
+                  <BsFillFlagFill className="lg:w-7 lg:h-7 w-4 h-4 text-orange-600" />
+                  <p className="text-md lg:text-lg">Flag this product</p>
+                </div>
+                {/* report box */}
+                {open3 && (
+                  <div className="border -mt-10 bg-bellefuBackground divide-y lg:w-72 border-orange-200 rounded-md">
+                    <div className="flex items-center py-1">
+                      <div className="flex items-center w-full space-x-3 rounded-md justify-end">
+                        <RiMessageFill className="w-4 h-4 text-red-500" />{" "}
+                        <p className="text-gray-400 font-normal text-sm">
+                          Report
+                        </p>
+                      </div>
+                      <RiCloseFill
+                        className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
+                        onClick={() => setOpen3(false)}
+                      />
+                    </div>
+
+                    <textarea
+                      onChange={(e) => setReport(e.target.value)}
+                      value={report}
+                      rows="5"
+                      className="w-full bg-transparent px-3 outline-none text-xs"
+                    ></textarea>
+                    <div className="flex items-center justify-center py-2">
+                      <button
+                        onClick={handleReport}
+                        className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in py-1 px-6 rounded-md capitalize"
+                      >
+                        send
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* end of report box */}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </>
   );
 };
