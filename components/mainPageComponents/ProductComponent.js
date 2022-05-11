@@ -33,7 +33,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     setCountryData([]);
 
     const newProducts = async () => {
-      if (searchCountry) setSearching(true);
+      //if (searchCountry) setSearching(true);
 
       axios
         .get(
@@ -86,7 +86,6 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           )
           .then((res) => {
             setSearchResult(res.data.data);
-            console.log("!")
           })
           //  setCountryData(res.data.data))
           .catch((err) => console.log(err));
