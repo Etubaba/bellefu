@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import { RiCloseFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
@@ -6,14 +6,26 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import MobileCategoryItem from "./MobileCategoryItem";
 import { Modal, Typography } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
+
+
 
 const MobileCategory = ({ category }) => {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   console.log("category: ", category);
 
@@ -28,14 +40,26 @@ const MobileCategory = ({ category }) => {
             className="flex flex-col items-center flex-1 space-x-2 cursor-pointer select-none"
             onClick={() => setOpen(!open)}
           >
-            <img
+           {loading?<img
               src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
-            />
-            <h5 className="text-bellefuBlack1 font-medium text-xs text-center">
+            />:<Skeleton
+            variant="circular"
+            animation="wave"
+            width={"55%"}
+            height={60} 
+            />}
+            {loading?<h5 className="text-bellefuBlack1 font-medium text-xs text-center">
               {category.name}
-            </h5>
+            </h5>:<Skeleton
+                  className="rounded-md mt-2"
+
+                variant="rectangular"
+                animation="wave"
+                width={"70%"}
+                height={10}
+              />}
           </div>
           {/* <div className="mr-2">
             {open === false ? (

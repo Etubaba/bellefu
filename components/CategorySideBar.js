@@ -1,8 +1,18 @@
 import Dropdown from "./Dropdown";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import { useRouter } from "next/router";
+import Skeleton from "@mui/material/Skeleton";
+import { useState, useEffect } from "react";
 
 const CategorySideBar = ({ categories, indexData }) => {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
   const router = useRouter();
 
   return (
@@ -21,25 +31,46 @@ const CategorySideBar = ({ categories, indexData }) => {
             onClick={() => router.push("/custom")}
             className="flex items-center justify-between mb-7 hover:bg-bellefuBackground p-1 rounded-md"
           >
-            <div className="flex items-center space-x-2 cursor-pointer">
-              <div>
-                <img
-                  onClick={() => router.push("/custom")}
-                  src={`https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
-                  alt="icons"
-                  className="w-8 h-8"
+            {loading ? (
+              <>
+                <div className="flex items-center space-x-2 cursor-pointer">
+                  <div>
+                    <img
+                      onClick={() => router.push("/custom")}
+                      src={`https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
+                      alt="icons"
+                      className="w-8 h-8"
+                    />
+                  </div>
+                  <h5
+                    className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
+                    onClick={() => router.push("/custom")}
+                  >
+                    Custom Request
+                  </h5>
+                </div>
+                <div className="">
+                  <AiOutlineCaretRight className="text-gray-500 cursor-pointer" />
+                </div>
+              </>
+            ) : (
+              <>
+                <Skeleton
+                  className="mr-1.5"
+                  variant="circular"
+                  animation="wave"
+                  width={"10%"}
+                  height={30}
                 />
-              </div>
-              <h5
-                className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
-                onClick={() => router.push("/custom")}
-              >
-                Custom Request
-              </h5>
-            </div>
-            <div className="">
-              <AiOutlineCaretRight className="text-gray-500 cursor-pointer" />
-            </div>
+                <Skeleton
+                  className="rounded-md"
+                  variant="rectangular"
+                  animation="wave"
+                  width={"80%"}
+                  height={10}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

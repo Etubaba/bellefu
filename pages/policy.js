@@ -7,6 +7,9 @@ const Policy = () => {
       <Head>
         <title>Policy and Privacy</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="https://bellefu30web.vercel.app/bellefulogo.png" />
+        <meta property="og:title" content="Privacy Policy Scope" />
+        <meta property="og:description" content="This Privacy Policy identifies and describes the way Bellefu uses and protects the information we collect about users. All use of Bellefu products and services, as well as visits to our website, are subject to this Privacy Policy. We may collect different types of personal and other information based on your use of our services" />
       </Head>
       <RegisterHeader firstLink={{firstLinkText:"Policy and Privacy",firstLinkUrl:"/policy"}} secondLink={{secondLinkText:"Terms and Conditions", secondLinkUrl:"/terms-and-conditions"}} customWidth={true} />
       <div className="text-center mx-24">
