@@ -37,12 +37,12 @@ const Product = ({ details }) => {
   console.log('single details', newDetails)
   return (
     <>
-    <Head>
+    {/* <Head>
       <title>{singleProduct?.title}</title>
       <meta property="og:title" content={singleProduct?.title} />
       <meta property="og:description" content={singleProduct?.description} />
       <meta property="og:image" content={singleProduct?.image} />
-    </Head>
+    </Head> */}
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
       {/* large screen header */}

@@ -34,7 +34,19 @@ import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
 
-const SingleProductDescription = ({ productDetails }) => {
+export const getServerSideProps = ({query}) => {
+  const {title, description, image} = query;
+
+  return {
+    props: {
+      title,
+      description,
+      image,
+    }
+  }
+}
+
+const SingleProductDescription = ({ productDetails, title, description, image }) => {
   const [open, setOpen] = useState(true);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -232,7 +244,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
   const share = "https://bellefu30web.vercel.app/shared";
-  const image = window.location.href;
+  const image = `${window.location.href}?image=${productDetails[0]?.images[0]}&title=${productDetails[0]?.title}&description=${description}`;
 
 
 
@@ -273,13 +285,13 @@ const SingleProductDescription = ({ productDetails }) => {
 
   return (
     <>
-      {/* <Head>
+      <Head>
         <title>{productDetails[0]?.title}</title>
-        <meta name="description" content={description} />
-        <meta name="og:title" content={productDetails[0]?.title} />
+        <meta name="description" content={productDetails[0]?.description} />
+        <meta name="og:title" content={title} />
         <meta name="og:description" content={description} />
-        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
-      </Head> */}
+        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${images}`} />
+      </Head>
       <div className="bg-bellefuWhite rounded-t-md">
         {/* title section */}
         <div className="flex items-center justify-between lg:px-7 px-3">
