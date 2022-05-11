@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import HeaderSearch from "../../components/HeaderSearch";
 import SingleProductBody from "../../components/SingleProduct/SingleProductBody";
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar";
@@ -7,7 +8,7 @@ import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 import MobileHeaderSearch from "../../components/MobileHeaderSearch";
-import { homeData, handleUserDetails } from "../../features/bellefuSlice";
+import { homeData, handleUserDetails, singleProductDetails } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Product = ({ details }) => {
@@ -28,8 +29,16 @@ const Product = ({ details }) => {
     return () => clearTimeout(timer);
   }, []);
   const index = useSelector(homeData);
+  const singleProduct = useSelector(singleProductDetails);
 
   return (
+    <>
+    <Head>
+      <title>{singleProduct?.title}</title>
+      <meta name="og:title" content={singleProduct?.title} />
+      <meta name="og:description" content={singleProduct?.description} />
+      <meta name="og:image" content={singleProduct?.image} />
+    </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
       {/* large screen header */}
@@ -101,6 +110,7 @@ const Product = ({ details }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
