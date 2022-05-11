@@ -21,8 +21,8 @@ const Product = ({ details, title, description, image }) => {
 
   for (const key in query) {
     if (key) {
-      router.push(pathname);
       break;
+      return router.push(pathname);
     }
   }
 

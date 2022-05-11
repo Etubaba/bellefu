@@ -29,7 +29,7 @@ import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { login, userFav, singleProduct } from "../../features/bellefuSlice";
+import { login, userFav } from "../../features/bellefuSlice";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
