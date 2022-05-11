@@ -40,9 +40,9 @@ const Product = ({ details, title, description, image }) => {
     <>
     <Head>
       {/* <title>{singleProduct?.title}</title> */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      <meta name="og:title" content={title} />
+      <meta name="og:description" content={description} />
+      <meta name="og:image" content={image} />
     </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}

@@ -138,7 +138,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
         className={classNames("bg-bellefuBackground mt-1 rounded-md",{"grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense": main?.length, "grid-cols-2 sm:grid-cols-2": grid, "grid-cols-1 sm:grid-cols-1": !grid})}
       >
         {loading ? (
-          main === countryData && countryData.length === 0 ? (
+          main === countryData && countryData.length !== 0 ? (
             <div className="flex justify-center items-center h-screen">
               <Loader isLoading={isSearching} />
             </div>
