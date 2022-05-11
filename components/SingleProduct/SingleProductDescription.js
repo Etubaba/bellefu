@@ -287,8 +287,8 @@ const SingleProductDescription = ({ productDetails, proTitle, proDescription, pr
       <Head>
         <title>{productDetails[0]?.title}</title>
         <meta name="description" content={productDetails[0]?.description} />
-        <meta name="og:title" content={title} />
-        <meta name="og:description" content={proDescription} />
+        <meta name="og:title" content="my page" />
+        <meta name="og:description" content="my page" />
         <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${proImage}`} />
       </Head>
       <div className="bg-bellefuWhite rounded-t-md">
