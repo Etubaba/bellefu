@@ -29,6 +29,10 @@ const Product = ({ details }) => {
   }, []);
   const index = useSelector(homeData);
 
+
+
+
+  console.log('single details', newDetails)
   return (
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
