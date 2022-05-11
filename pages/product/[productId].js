@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import HeaderSearch from "../../components/HeaderSearch";
 import SingleProductBody from "../../components/SingleProduct/SingleProductBody";
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar";
@@ -8,12 +9,22 @@ import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 import MobileHeaderSearch from "../../components/MobileHeaderSearch";
-import { homeData, handleUserDetails, singleProductDetails } from "../../features/bellefuSlice";
+import { homeData, handleUserDetails } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 
 const Product = ({ details, title, description, image }) => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const query = router.query;
+  const pathname = router.pathname;
+
+  for (const key in query) {
+    if (key) {
+      router.push(pathname);
+      break;
+    }
+  }
 
   const newDetails = details.data;
   const similarProductDetails = details.similarProducts;
@@ -30,7 +41,6 @@ const Product = ({ details, title, description, image }) => {
     return () => clearTimeout(timer);
   }, []);
   const index = useSelector(homeData);
-  const singleProduct = useSelector(singleProductDetails);
 
 
 
@@ -42,7 +52,7 @@ const Product = ({ details, title, description, image }) => {
       {/* <title>{singleProduct?.title}</title> */}
       <meta name="og:title" content={title} />
       <meta name="og:description" content={description} />
-      <meta name="og:image" content={image} />
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
     </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
