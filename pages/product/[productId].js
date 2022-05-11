@@ -18,12 +18,17 @@ const Product = ({ details, title, description, image }) => {
   const router = useRouter();
   const query = router.query;
   const pathname = router.pathname;
+  const queryExist = false;
 
   for (const key in query) {
     if (key) {
+      queryExist = true;
       break;
-      return router.push(pathname);
     }
+  }
+
+  if (queryExist) {
+    return router.push(pathname);
   }
 
   const newDetails = details.data;
