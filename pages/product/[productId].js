@@ -11,7 +11,8 @@ import MobileHeaderSearch from "../../components/MobileHeaderSearch";
 import { homeData, handleUserDetails, singleProductDetails } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-const Product = ({ details }) => {
+
+const Product = ({ details, title, description, image }) => {
   const [loading, setLoading] = useState(false);
 
   const newDetails = details.data;
@@ -38,10 +39,10 @@ const Product = ({ details }) => {
   return (
     <>
     <Head>
-      <title>{singleProduct?.title}</title>
-      <meta property="og:title" content="my page" />
-      <meta property="og:description" content="my page" />
-      <meta property="og:image" content={singleProduct?.image} />
+      {/* <title>{singleProduct?.title}</title> */}
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
     </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
@@ -122,7 +123,7 @@ export default Product;
 
 //server side fetching of the full product details
 export async function getServerSideProps(context) {
-  const { productId } = context.query;
+  const { productId, title, description, image } = context.query;
 
   const requests = await fetch(
     `https://bellefu.inmotionhub.xyz/api/general/get/single/product/${productId}`
@@ -131,6 +132,9 @@ export async function getServerSideProps(context) {
   return {
     props: {
       details: requests,
+      title,
+      description,
+      image,
     },
   };
 }

@@ -34,19 +34,9 @@ import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
 
-export const getServerSideProps = ({query}) => {
-  const {title, description, image} = query;
 
-  return {
-    props: {
-      proTitle: title,
-      proDescription: description,
-      proImage: image,
-    }
-  }
-}
 
-const SingleProductDescription = ({ productDetails, proTitle, proDescription, proImage }) => {
+const SingleProductDescription = ({ productDetails }) => {
   const [open, setOpen] = useState(true);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -286,10 +276,10 @@ const SingleProductDescription = ({ productDetails, proTitle, proDescription, pr
     <>
       <Head>
         <title>{productDetails[0]?.title}</title>
-        <meta name="description" content={productDetails[0]?.description} />
+        {/* <meta name="description" content={productDetails[0]?.description} />
         <meta name="og:title" content="my page" />
         <meta name="og:description" content="my page" />
-        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${proImage}`} />
+        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${proImage}`} /> */}
       </Head>
       <div className="bg-bellefuWhite rounded-t-md">
         {/* title section */}
