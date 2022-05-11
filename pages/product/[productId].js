@@ -57,7 +57,7 @@ const Product = ({ details, title, description, image }) => {
       {/* <title>{singleProduct?.title}</title> */}
       <meta name="og:title" content={title} />
       <meta name="og:description" content={description} />
-      {/* <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} /> */}
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
     </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
       {/* header section */}
@@ -147,9 +147,9 @@ export async function getServerSideProps(context) {
   return {
     props: {
       details: requests,
-      title,
-      description,
-      image,
+      // title,
+      // description,
+      // image,
     },
   };
 }
