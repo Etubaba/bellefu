@@ -1,19 +1,4 @@
 import Head from "next/head";
-import {useSelector} from "react-redux";
-//import { singleProductDetails } from "../features/bellefuSlice";
-
-// export const getServerSideProps = async ({query}) => {
-//   const {image, type, prodName, description} = query;
-
-//   return {
-//     props: {
-//       image,
-//       type,
-//       prodName,
-//       description
-//     }
-//   }
-// }
 
 const SharedProduct = () => {
 
