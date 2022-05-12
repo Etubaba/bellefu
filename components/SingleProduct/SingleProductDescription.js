@@ -209,7 +209,7 @@ const SingleProductDescription = ({ productDetails }) => {
       });
   };
 
-  // PASS PRODUCT DESCRIPTION
+  // PARSE PRODUCT DESCRIPTION
   const parser = new DOMParser();
   const doc = parser.parseFromString(`${productDetails[0].description}`, "text/html");
   //console.log(doc);
@@ -231,11 +231,11 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
-  //const image = window.location.href;
+  const image = `${window.location.href}?mage=${productDetails[0]?.images[0]}&title=${productDetails[0]?.title}&description=${description}`;
 
 
 
-  const video = 'https://bellefu.inmotionhub.xyz/get/video/'
+  const video = 'https://bellefu.inmotionhub.xyz/get/video/';
 
 
   const style = {
@@ -266,10 +266,10 @@ const SingleProductDescription = ({ productDetails }) => {
     <>
     <Head>
       <title>{productDetails[0]?.title}</title>
-      <meta name="description" content={description} />
+      {/* <meta name="description" content={description} />
       <meta name="og:title" content={productDetails[0]?.title} />
       <meta name="og:description" content={description} />
-      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} /> */}
     </Head>
     <div className="bg-bellefuWhite rounded-t-md">
       {/* title section */}
@@ -541,14 +541,14 @@ const SingleProductDescription = ({ productDetails }) => {
               </p>
               <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                 <FacebookShareButton
-                  url={shareUrl}
+                  url={image}
                   quote={title}
                   className="Demo__some-network__share-button"
                 >
                   <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                 </FacebookShareButton>
                 <TwitterShareButton
-                  url={shareUrl}
+                  url={image}
                   title={title}
                   hashtags={["bellefu", "Agriculture", "Agribusiness"]}
                   className="Demo__some-network__share-button"
@@ -557,7 +557,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 </TwitterShareButton>
 
                 <WhatsappShareButton
-                  url={shareUrl}
+                  url={image}
                   title={title}
                   className="Demo__some-network__share-button"
                 >
@@ -566,7 +566,7 @@ const SingleProductDescription = ({ productDetails }) => {
 
                 <EmailShareButton
                   subject={`Check out ${productDetails[0]?.title} from`}
-                  url={shareUrl}
+                  url={image}
                   body={`Check out ${productDetails[0]?.title} from`}
                   className="Demo__some-network__share-button"
                 >

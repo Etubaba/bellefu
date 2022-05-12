@@ -1,4 +1,6 @@
 import React from "react"; 
+import Head from "next/head";
+import { useRouter } from "next/router";
 import HeaderSearch from "../../components/HeaderSearch"; 
 import SingleProductBody from "../../components/SingleProduct/SingleProductBody"; 
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar"; 
@@ -10,8 +12,19 @@ import MobileHeaderSearch from "../../components/MobileHeaderSearch";
 import { homeData, handleUserDetails } from "../../features/bellefuSlice"; 
 import { useSelector, useDispatch } from "react-redux"; 
  
-const Product = ({ details }) => { 
+const Product = ({ details, title, description, image }) => { 
   const [loading, setLoading] = useState(false); 
+  const router = useRouter();
+
+  let queryExists = false;
+  for (const key in router.query) {
+    if (key) {
+      queryExists = true;
+      break;
+    }
+  }
+
+  if (queryExists) return router.replace(router.pathname);
  
   const newDetails = details.data; 
   const similarProductDetails = details.similarProducts; 
@@ -30,6 +43,12 @@ const Product = ({ details }) => {
   const index = useSelector(homeData); 
  
   return ( 
+    <>
+    <Head>
+      <meta name="og:title" content={title} />
+      <meta name="og:description" content={description} />
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+    </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20"> 
       {/* header section */} 
       {/* large screen header */} 
@@ -101,6 +120,7 @@ const Product = ({ details }) => {
         </div> 
       </div> 
     </div> 
+    </>
   ); 
 }; 
  
@@ -108,7 +128,7 @@ export default Product;
  
 //server side fetching of the full product details 
 export async function getServerSideProps(context) { 
-  const { productId } = context.query; 
+  const { productId, title, description, image } = context.query; 
  
   const requests = await fetch( 
     `https://bellefu.inmotionhub.xyz/api/general/get/single/product/${productId}` 
@@ -117,6 +137,9 @@ export async function getServerSideProps(context) {
   return { 
     props: { 
       details: requests, 
+      title,
+      description,
+      image,
     }, 
   }; 
 }
