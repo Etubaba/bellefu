@@ -16,16 +16,18 @@ const Product = ({ details, title, description, image }) => {
   const [loading, setLoading] = useState(false); 
   const router = useRouter();
   const query = router?.query;
+  const productId = query["productId"];
   let queryExists = false;
 
   for (const key in query) {
     if ((key === "title" || key === "description" || key === "image") && query[key]) {
       queryExists = true;
+      console.log("!")
       break;
     }
   }
 
-  if (queryExists) return router.replace(router.pathname);
+  if (queryExists) return router.replace(`/product/${productId}`);
  
   const newDetails = details.data; 
   const similarProductDetails = details.similarProducts; 
