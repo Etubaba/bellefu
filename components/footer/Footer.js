@@ -48,18 +48,15 @@ function Footer() {
 
           <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
             {/* communication starts here */}
-            <li className="flex items-center">
+            <li
+              className="flex items-center cursor-pointer"
+              onClick={() => setOpenComm(!openComm)}
+            >
               <span className="link ">Communication</span>
               {!openComm ? (
-                <MdKeyboardArrowRight
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenComm(!openComm)}
-                />
+                <MdKeyboardArrowRight className="w-6 h-6 text-gray-500 " />
               ) : (
-                <MdOutlineKeyboardArrowDown
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenComm(!openComm)}
-                />
+                <MdOutlineKeyboardArrowDown className="w-6 h-6 text-gray-500 " />
               )}
             </li>
             {openComm && (
@@ -78,18 +75,15 @@ function Footer() {
             )}
 
             {/* academy starts here */}
-            <li className="flex items-center">
+            <li
+              className="flex items-center cursor-pointer"
+              onClick={() => setOpenAcademy(!openAcademy)}
+            >
               <span className="link ">Academy</span>
               {!openAcademy ? (
-                <MdKeyboardArrowRight
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenAcademy(!openAcademy)}
-                />
+                <MdKeyboardArrowRight className="w-6 h-6 text-gray-500 " />
               ) : (
-                <MdOutlineKeyboardArrowDown
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenAcademy(!openAcademy)}
-                />
+                <MdOutlineKeyboardArrowDown className="w-6 h-6 text-gray-500 " />
               )}
             </li>
             {openAcademy && (
