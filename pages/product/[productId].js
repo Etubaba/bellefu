@@ -47,9 +47,20 @@ const Product = ({ details, title, description, image }) => {
   return ( 
     <>
     <Head>
+      {/* GENERAL META */}
+      <meta name="title" content={title} />
+      <meta name="description" content={description} />
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+
+      {/* FACEBOOK META */}
       <meta name="og:title" content={title} />
       <meta name="og:description" content={description} />
       <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
+
+      {/* TWITTER META */}
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`} />
     </Head>
     <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20"> 
       {/* header section */} 
