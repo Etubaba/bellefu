@@ -1,6 +1,6 @@
 import React from "react"; 
 import Head from "next/head";
-//import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import HeaderSearch from "../../components/HeaderSearch"; 
 import SingleProductBody from "../../components/SingleProduct/SingleProductBody"; 
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar"; 
