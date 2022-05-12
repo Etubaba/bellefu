@@ -47,14 +47,14 @@ const SingleProductDescription = ({ productDetails }) => {
   const [report, setReport] = useState("");
   const [watch, setWatch] = useState(false)
 
-  const receiverId = productDetails[0]?.userId;
+  const receiverId = productDetails[0]?.productOwnerId;
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
   const dispatch = useDispatch();
   // check if product is among favorite
 
-  // console.log("single details =>", productDetails);
-  // console.log("image => ", productDetails[0].images[0]);
+  console.log("single details =>", productDetails);
+  console.log("image => ", productDetails[0].images[0]);
 
   // handle message open
   const handleMessage = () => {
@@ -169,7 +169,7 @@ const SingleProductDescription = ({ productDetails }) => {
           if (res.data.status) {
             setFavStatus(!favStatus);
             toast.success(
-              `${productDetails[0]?.title.substring(
+              `${productDetails[0]?.productTitle.substring(
                 0,
                 20
               )} added to favourite`
@@ -197,7 +197,7 @@ const SingleProductDescription = ({ productDetails }) => {
           );
           setClean(cleanArr);
           toast.error(
-            `${productDetails[0]?.title.substring(
+            `${productDetails[0]?.productTitle.substring(
               0,
               20
             )} removed from favorite product`,
@@ -209,7 +209,7 @@ const SingleProductDescription = ({ productDetails }) => {
       });
   };
 
-  // PASS PRODUCT DESCRIPTION
+  // PARSE PRODUCT DESCRIPTION
   const parser = new DOMParser();
   const doc = parser.parseFromString(`${productDetails[0].description}`, "text/html");
   //console.log(doc);
@@ -231,11 +231,11 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
-  //const image = window.location.href;
+  const image = `${window.location.href}?mage=${productDetails[0]?.images[0]}&title=${productDetails[0]?.title}&description=${description}`;
 
 
 
-  const video = 'https://bellefu.inmotionhub.xyz/get/video/'
+  const video = 'https://bellefu.inmotionhub.xyz/get/video/';
 
 
   const style = {
@@ -266,16 +266,16 @@ const SingleProductDescription = ({ productDetails }) => {
     <>
       <Head>
         <title>{productDetails[0]?.title}</title>
-        <meta name="description" content={description} />
-        <meta name="og:title" content={productDetails[0]?.title} />
-        <meta name="og:description" content={description} />
-        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
+        {/* <meta name="description" content={description} />
+      <meta name="og:title" content={productDetails[0]?.title} />
+      <meta name="og:description" content={description} />
+      <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} /> */}
       </Head>
       <div className="bg-bellefuWhite rounded-t-md">
         {/* title section */}
         <div className="flex items-center justify-between lg:px-7 px-3">
           <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
-            {productDetails[0]?.title}
+            {productDetails[0]?.productTitle}
           </p>
           {favStatus ||
             (clean?.includes(productDetails[0]?.productId) &&
@@ -299,7 +299,7 @@ const SingleProductDescription = ({ productDetails }) => {
               <BsClockFill className="w-4 h-4 text-gray-500" />
               <p className="text-bellefuBlack1 text-sm">
                 Posted on{" "}
-                {moment(productDetails[0]?.createdAt).format("MMM Do YYYY")}
+                {moment(productDetails[0]?.productPostedOn).format("MMM Do YYYY")}
               </p>
             </div>
             <div className="flex items-center space-x-2 -ml-1">
@@ -313,7 +313,7 @@ const SingleProductDescription = ({ productDetails }) => {
           <div className="flex items-center space-x-1">
             <AiFillEye className="w-4 h-4 text-gray-500 " />
             <p className="text-bellefuBlack1 text-sm">
-              {productDetails[0]?.inorganicViews} Views
+              {productDetails[0]?.inorganic_views} Views
             </p>
           </div>
         </div>
@@ -330,7 +330,7 @@ const SingleProductDescription = ({ productDetails }) => {
           <p
             className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4 capitalize"
             dangerouslySetInnerHTML={{
-              __html: productDetails[0]?.description,
+              __html: productDetails[0]?.productDescription,
             }}
           />
         </div>
@@ -541,34 +541,34 @@ const SingleProductDescription = ({ productDetails }) => {
                 </p>
                 <div className="flex items-center justify-center border lg:px-24 px-14 lg:py-6 py-3 rounded-md space-x-4 lg:space-x-7 bg-bellefuBackground ">
                   <FacebookShareButton
-                    url={shareUrl}
+                    url={image}
                     quote={title}
-                    className="Demo__some-network__share-button"
+                    className="Demo_some-network_share-button"
                   >
                     <BsFacebook className="w-7 h-7 text-[#4267B2] cursor-pointer" />
                   </FacebookShareButton>
                   <TwitterShareButton
-                    url={shareUrl}
+                    url={image}
                     title={title}
                     hashtags={["bellefu", "Agriculture", "Agribusiness"]}
-                    className="Demo__some-network__share-button"
+                    className="Demo_some-network_share-button"
                   >
                     <BsTwitter className="w-7 h-7 text-[#1DA1F2] cursor-pointer" />
                   </TwitterShareButton>
 
                   <WhatsappShareButton
-                    url={shareUrl}
+                    url={image}
                     title={title}
-                    className="Demo__some-network__share-button"
+                    className="Demo_some-network_share-button"
                   >
                     <BsWhatsapp className="w-7 h-7 text-[#25D366] cursor-pointer" />
                   </WhatsappShareButton>
 
                   <EmailShareButton
                     subject={`Check out ${productDetails[0]?.title} from`}
-                    url={shareUrl}
+                    url={image}
                     body={`Check out ${productDetails[0]?.title} from`}
-                    className="Demo__some-network__share-button"
+                    className="Demo_some-network_share-button"
                   >
                     <AiOutlineMail className="w-7 h-7 text-[#F5222D] cursor-pointer" />
                   </EmailShareButton>
