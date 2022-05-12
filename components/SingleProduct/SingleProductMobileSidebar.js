@@ -35,7 +35,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
   const [review, setReview] = useState(false);
   const [reportmsg, setReportmsg] = useState("");
 
-  const receiverId = mobileDetails[0]?.productOwnerId;
+  const receiverId = mobileDetails[0]?.userId;
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
   const handleMessage = () => {
@@ -162,7 +162,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
                 }}
               />
 
-              {mobileDetails[0]?.productPrice}
+              {mobileDetails[0]?.price}
             </p>
           </div>
           {/* border line */}
@@ -171,7 +171,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
           <div className="mt-2 flex flex-col items-center justify-center">
             <div className="">
               <Image
-                src={`https://bellefu.inmotionhub.xyz/get/user/images/${mobileDetails[0]?.userAvatar}`}
+                src={`https://bellefu.inmotionhub.xyz/get/user/images/${mobileDetails[0]?.avatar}`}
                 alt="UserImage"
                 width={70}
                 height={70}
@@ -181,7 +181,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
             <div className="flex items-center space-x-2 mt-1">
               <p className="text-bellefuTitleBlack font-semibold">
                 {" "}
-                {mobileDetails[0]?.productOwner}
+                {mobileDetails[0]?.username}
               </p>
               <GoVerified className="w-3 h-3 text-bellefuGreen" />
             </div>
@@ -291,7 +291,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
             {/* my shop */}
             <div
               onClick={() =>
-                router.push(`/shop/${mobileDetails[0]?.productOwnerId}`)
+                router.push(`/shop/${mobileDetails[0]?.userId}`)
               }
               className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-gradient-to-r from-bellefuGreen to-bellefuOrange justify-center cursor-pointer"
             >
