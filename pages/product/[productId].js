@@ -1,6 +1,6 @@
 import React from "react"; 
 import Head from "next/head";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
 import HeaderSearch from "../../components/HeaderSearch"; 
 import SingleProductBody from "../../components/SingleProduct/SingleProductBody"; 
 import SingleProductSidebar from "../../components/SingleProduct/SingleProductSidebar"; 
@@ -14,18 +14,18 @@ import { useSelector, useDispatch } from "react-redux";
  
 const Product = ({ details, title, description, image }) => { 
   const [loading, setLoading] = useState(false); 
-  const router = useRouter();
-  const query = router?.query;
-  let queryExists = false;
+  // const router = useRouter();
+  // const query = router?.query;
+  // let queryExists = false;
 
-  for (const key in query) {
-    if ((key === "title" || key === "description" || key === "image") && query[key]) {
-      queryExists = true;
-      break;
-    }
-  }
+  // for (const key in query) {
+  //   if ((key === "title" || key === "description" || key === "image") && query[key]) {
+  //     queryExists = true;
+  //     break;
+  //   }
+  // }
 
-  if (queryExists) return router.replace(router.pathname);
+  // if (queryExists) return router.replace(router.pathname);
  
   const newDetails = details.data; 
   const similarProductDetails = details.similarProducts; 
