@@ -18,6 +18,8 @@ function Mobilefooter() {
 
   const [openComm, setOpenComm] = useState(false);
   const [openAcademy, setOpenAcademy] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
+  const [openAddress, setOpenAddress] = useState(false);
 
   return (
     <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-3 ">
@@ -114,28 +116,56 @@ function Mobilefooter() {
             <p className="text-[#F9FDF5]">
               <strong>Information</strong>
             </p>
-
-            <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-              <li>
-                {" "}
-                <a href="https://linktr.ee/bellefu">linktree</a>
-              </li>
-              <li onClick={() => router.push("/policy")}>Legal</li>
-              <li onClick={() => router.push("/feedback")}>Feedback</li>
-              <li onClick={() => router.push("/contact")}>Contact</li>
-            </ul>
+            <li
+              className="flex items-center cursor-pointer"
+              onClick={() => setOpenInfo(!openInfo)}
+            >
+              <span className="link text-gray-300">Info</span>
+              <span>
+                {!openInfo ? (
+                  <MdKeyboardArrowRight className="w-6 h-6 text-gray-500 " />
+                ) : (
+                  <MdOutlineKeyboardArrowDown className="w-6 h-6 text-gray-500 " />
+                )}
+              </span>
+            </li>
+            {openInfo && (
+              <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm ml-2">
+                <li>
+                  {" "}
+                  <a href="https://linktr.ee/bellefu">linktree</a>
+                </li>
+                <li onClick={() => router.push("/policy")}>Legal</li>
+                <li onClick={() => router.push("/feedback")}>Feedback</li>
+                <li onClick={() => router.push("/contact")}>Contact</li>
+              </ul>
+            )}
           </div>
 
           <div className="space-y-2 flex flex-col ">
             <p className="text-[#F9FDF5]">
               <strong>Head Office</strong>
             </p>
-
-            <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-sm">
-              <li> 9550 Forest Lane</li>
-              <li>Dallas TX, 75243,</li>
-              <li>United State</li>
-            </ul>
+            <li
+              className="flex items-center cursor-pointer"
+              onClick={() => setOpenAddress(!openAddress)}
+            >
+              <span className="link text-gray-300">Address</span>
+              <span>
+                {!openAddress ? (
+                  <MdKeyboardArrowRight className="w-6 h-6 text-gray-500 " />
+                ) : (
+                  <MdOutlineKeyboardArrowDown className="w-6 h-6 text-gray-500 " />
+                )}
+              </span>
+            </li>
+            {openAddress && (
+              <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-sm ">
+                <li> 9550 Forest Lane</li>
+                <li>Dallas TX, 75243,</li>
+                <li>United State</li>
+              </ul>
+            )}
           </div>
         </div>
       </div>
