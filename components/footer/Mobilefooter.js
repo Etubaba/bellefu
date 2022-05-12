@@ -18,22 +18,23 @@ function Mobilefooter() {
 
   const [openComm, setOpenComm] = useState(false);
   const [openAcademy, setOpenAcademy] = useState(false);
+
   return (
     <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-3 ">
-      <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 md:items-center md:justify-between">
-        <div className="-mt-1 md:-mt-0">
+      <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 mt-3">
+        <div className="-mt-1 md:-mt-0 md:w-2/5 flex items-center justify-center md:justify-start">
           <img
             alt="logo"
             src="https://www.linkpicture.com/q/bellefulogo_1_-removebg-preview.png"
-            className="w-full mt-5 h-10 object-contain cursor-pointer"
+            className=" mt-2 h-10 object-contain cursor-pointer "
           />
         </div>
 
         <NewsletterSub />
       </div>
 
-      <div className="flex justify-evenly md:justify-between md:items-center space-x-3 mb-3">
-        <p className="text-[#D4D7D1] hidden w-1/3 md:inline-block text-justify font-light text-base">
+      <div className="flex space-x-3 mb-3">
+        <p className="text-[#D4D7D1] hidden w-3/5 md:inline-block text-justify font-light text-base">
           Bellefu.com is a dynamic online marketplace dedicated to
           agriculture-related activities ensuring farmers, buyers, and sellers
           of agricultural products have direct contact with other agro-allied
@@ -41,117 +42,101 @@ function Mobilefooter() {
           designed to make searching for agro products available at your
           fingertips.
         </p>
-        <div className="space-y-2 flex flex-col items-center justify-center -mt-12">
-          <p className="text-[#F9FDF5] text-center">
-            <strong>Resources</strong>
-          </p>
 
-          {/* <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
-            <li>
-              <a href="https://www.radio.bellefu.com ">Online Radio</a>
-            </li>
-            <li href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV">
-              Training Group
-            </li>
-            <li href="https://www.webinar.bellefu.com">Webinar</li>
-            <li href="https://www.blog.bellefu.com ">Blog</li>
-          </ul> */}
-          <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
-            {/* communication starts here */}
-            <li className="flex items-center">
-              <span className="">Communication</span>
-              {!openComm ? (
-                <MdKeyboardArrowRight
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenComm(!openComm)}
-                />
-              ) : (
-                <MdOutlineKeyboardArrowDown
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenComm(!openComm)}
-                />
+        <div className="flex justify-evenly w-full mt-3">
+          <div className="space-y-2 flex flex-col  ">
+            <p className="text-[#F9FDF5] ">
+              <strong>Resources</strong>
+            </p>
+            <ul className="list-none space-y-2  font-light text-[#D4D7D1] text-sm">
+              {/* communication starts here */}
+              <li
+                className="flex items-center cursor-pointer"
+                onClick={() => setOpenComm(!openComm)}
+              >
+                <span className="link">Communication</span>
+                <span>
+                  {!openComm ? (
+                    <MdKeyboardArrowRight className="w-6 h-6 text-gray-500 " />
+                  ) : (
+                    <MdOutlineKeyboardArrowDown className="w-6 h-6 text-gray-500 " />
+                  )}
+                </span>
+              </li>
+              {openComm && (
+                <ul className=" ml-2 -mt-2 space-y-1">
+                  <li>
+                    <a href="https://www.radio.bellefu.com " className="">
+                      Online Radio
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.blog.bellefu.com" className="">
+                      Blog
+                    </a>
+                  </li>
+                </ul>
               )}
-            </li>
-            {openComm && (
-              <ul className="ml-2 -mt-2 space-y-1">
-                <li>
-                  <a href="https://www.radio.bellefu.com " className="">
-                    Online Radio
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.blog.bellefu.com"
-                    className="
-                  "
-                  >
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            )}
 
-            {/* academy starts here */}
-            <li className="flex items-center">
-              <span className="link ">Academy</span>
-              {!openAcademy ? (
-                <MdKeyboardArrowRight
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenAcademy(!openAcademy)}
-                />
-              ) : (
-                <MdOutlineKeyboardArrowDown
-                  className="w-6 h-6 text-gray-500 "
-                  onClick={() => setOpenAcademy(!openAcademy)}
-                />
+              {/* academy starts here */}
+              <li
+                className="flex items-center cursor-pointer"
+                onClick={() => setOpenAcademy(!openAcademy)}
+              >
+                <span className="link">Academy</span>
+                {!openAcademy ? (
+                  <MdKeyboardArrowRight className="w-6 h-6 text-gray-500 " />
+                ) : (
+                  <MdOutlineKeyboardArrowDown className="w-6 h-6 text-gray-500 " />
+                )}
+              </li>
+              {openAcademy && (
+                <ul className="ml-2 -mt-2 space-y-1">
+                  <li>
+                    <a href="https://www.webinar.bellefu.com" className="link">
+                      Webinar
+                    </a>{" "}
+                  </li>
+                  <li>
+                    <a
+                      href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV"
+                      className="link"
+                    >
+                      Training Group
+                    </a>{" "}
+                  </li>
+                </ul>
               )}
-            </li>
-            {openAcademy && (
-              <ul className="ml-2 -mt-2 space-y-1">
-                <li>
-                  <a href="https://www.webinar.bellefu.com" className="link">
-                    Webinar
-                  </a>{" "}
-                </li>
-                <li>
-                  <a
-                    href="https://chat.whatsapp.com/IJW6VM4aVnG6AOASxx9VIV"
-                    className="link"
-                  >
-                    Training Group
-                  </a>{" "}
-                </li>
-              </ul>
-            )}
-          </ul>
-        </div>
+            </ul>
+          </div>
 
-        <div className="space-y-2 lex flex-col items-center justify-center">
-          <p className="text-[#F9FDF5] text-center">
-            <strong>Information</strong>
-          </p>
+          <div className="space-y-2 flex flex-col ">
+            <p className="text-[#F9FDF5]">
+              <strong>Information</strong>
+            </p>
 
-          <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li>
-              {" "}
-              <a href="https://linktr.ee/bellefu">linktree</a>
-            </li>
-            <li onClick={() => router.push("/policy")}>Legal</li>
-            <li onClick={() => router.push("/feedback")}>Feedback</li>
-            <li onClick={() => router.push("/contact")}>Contact</li>
-          </ul>
-        </div>
+            <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
+              <li>
+                {" "}
+                <a href="https://linktr.ee/bellefu">linktree</a>
+              </li>
+              <li onClick={() => router.push("/policy")}>Legal</li>
+              <li onClick={() => router.push("/feedback")}>Feedback</li>
+              <li onClick={() => router.push("/contact")}>Contact</li>
+            </ul>
+          </div>
 
-        <div className="space-y-2 lex flex-col items-center justify-center">
-          <p className="text-[#F9FDF5] text-center">
-            <strong>Head Office</strong>
-          </p>
+          <div className="space-y-2 flex flex-col ">
+            <p className="text-[#F9FDF5]">
+              <strong>Head Office</strong>
+            </p>
 
-          <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-sm">
-            <li> 9550 Forest Lane</li>
-            <li>Dallas TX, 75243,</li>
-            <li>United State</li>
-          </ul>
+            <ul className="list-none space-y-2  font-light  text-[#D4D7D1] text-sm">
+              <li> 9550 Forest Lane</li>
+              <li>Dallas TX, 75243,</li>
+              <li>United State</li>
+            </ul>
+          </div>
         </div>
       </div>
 
