@@ -231,7 +231,8 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
-  const image = `${window.location.href}?mage=${productDetails[0]?.images[0]}&title=${productDetails[0]?.title}&description=${description}`;
+  const image = `${window.location.href}?mage=${productDetails[0]?.images[0]}&title=${productDetails[0]?.title?.replace(/ /g, "+")}&description=${description.replace(/ /g, "+")}`;
+  
 
 
 
