@@ -59,7 +59,7 @@ const initialState = {
 
     lganame: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userLga")) : null,
   },
-  countryProductSearch: "",
+  countryProductSearchEmpty: false,
   searchCountry: "",
 };
 
@@ -218,8 +218,8 @@ export const bellefuSlice = createSlice({
         localStorage.setItem("details", JSON.stringify(state.userDetails));
       }
     },
-    countryProductSearch: (state, action) => {
-      state.countryProductSearch = action.payload;
+    countryProductSearchEmpty: (state, action) => {
+      state.countryProductSearchEmpty = action.payload;
     },
     searchCountry: (state, action) => {
       state.searchCountry = action.payload;
@@ -263,7 +263,7 @@ export const {
   handleLganame, kycpending,
   handleStatesname,
   handleVideoUpdate,
-  countryProductSearch,
+  countryProductSearchEmpty,
   searchCountry,
 } = bellefuSlice.actions;
 
@@ -275,8 +275,8 @@ export const homeData = (state) => state.bellefu.indexData;
 export const changeId = (state) => state.bellefu.catId;
 export const userDId = (state) => state.bellefu.userDetails;
 export const verified = (state) => state.bellefu.verificationStatus;
-export const prouductSearch = (state) => state.bellefu.countryProductSearch;
 export const country = (state) => state.bellefu.searchCountry;
+// export const prouductSearch = (state) => state.bellefu.countryProductSearch;
 // export const selectLogin = (state) => {
 //   state.bellefu.login;
 // };

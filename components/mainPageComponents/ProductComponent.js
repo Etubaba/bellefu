@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import classNames from "classnames";
 import Loader, { apiData } from "../../constant";
-import { countryProductSearch, country } from "../../features/bellefuSlice";
+import { countryProductSearchEmpty, country } from "../../features/bellefuSlice";
 import Skeleton from "@mui/material/Skeleton";
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
@@ -33,7 +33,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     setCountryData([]);
 
     const newProducts = async () => {
-      //if (searchCountry) setSearching(true);
+      if (searchCountry) setSearching(true);
 
       axios
         .get(
@@ -41,6 +41,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
         )
         .then((res) => {
           console.log(res.data.data);
+          
+          if (!res.data.data.length) initialRender.current = 1;
+          else if (res.data.data.length) initialRender.current = 2;
+
           setCountryData(res.data.data);
           setInitialData(res.data.data);
           setSearching(false);
@@ -66,10 +70,11 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     getFav();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(initialRender);
-  //   if (initialRender.current > 1) dispatch(countryProductSearch("empty"));
-  // }, [countryData])
+  useEffect(() => {
+    console.log(initialRender);
+    if (initialRender.current === 1) dispatch(countryProductSearchEmpty(true))
+    if (initialRender.current === 2) dispatch(countryProductSearchEmpty(false));
+  }, [countryData])
 
   const favId = fav?.map((item) => item.productId);
   // const favdelete = fav?.map(item => item.favId)
@@ -146,9 +151,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           ) : main?.length === 0?(
             <div className="mt-8">
               <p className="text-center font-bold text-base md:text-3xl mb-8">We don't have product in {searchCountry}</p>
-              <div className="flex flex-col md:flex-row space-x-10 items-center justify-center">
-                <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500"><button className="w-full p-4 text-2xl text-bellefuWhite">Make Custom Request</button></p>
-                <p className="bg-bellefuGreen rounded-lg hover:bg-green-500"><button className="w-full p-4 text-2xl text-bellefuWhite">Be The First To Post Product</button></p>
+              <div className="flex flex-col md:flex-row md:space-x-10 items-center justify-center">
+                <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500 mb-5 md:mb-0 w-full md:w-1/2"><button className="w-full p-4 text-2xl text-bellefuWhite">Make Custom Request</button></p>
+                <p className="bg-bellefuGreen rounded-lg hover:bg-green-500 w-full md:w-1/2"><button className="w-full p-4 text-2xl text-bellefuWhite">Be The First To Post Product</button></p>
               </div>
             </div>
           ): (
