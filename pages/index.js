@@ -46,20 +46,19 @@ export default function Home({ data }) {
       </Head>
       {/* Overall container */}
       <main className="bg-bellefuBackground ">
-        <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
+        <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-24">
           {/* second nav bar */}
           <HeaderSearch
-                dialet={data.defaultLanguage}
-                state={data.countryStates}
-                defaultCountry={data.defaultCountryName}
-                languages={data.languages}
-                countries={data.countries}
-                location={data.defaultCountry}
-              />
-              <div className="block  md:hidden lg:hidden mt-3">
-                <Slider slider={data.slider} />
-              </div>
-      
+            dialet={data.defaultLanguage}
+            state={data.countryStates}
+            defaultCountry={data.defaultCountryName}
+            languages={data.languages}
+            countries={data.countries}
+            location={data.defaultCountry}
+          />
+          <div className="block  md:hidden lg:hidden mt-3">
+            <Slider slider={data.slider} />
+          </div>
 
           {/* mobile header search */}
           {/* <div className="md:hidden">
@@ -70,17 +69,17 @@ export default function Home({ data }) {
           <div className="flex flex-col lg:flex-row">
             {/* category side bar */}
             <div className=" hidden lg:inline w-[20%] h-auto rounded-md mr-3">
-            <CategorySideBar categories={data.categories} />
+              <CategorySideBar categories={data.categories} />
             </div>
             {search === "" ? (
               <div className=" h-auto lg:hidden my-4 rounded-sm">
-               <div>
-                    <h3 className=" block lg:hidden font-bold text-[1rem] sm:text-[1rem] m-5 lg:text-[1.2rem]">
-                      Search by categories
-                    </h3>
+                <div>
+                  <h3 className=" block lg:hidden font-bold text-[1rem] sm:text-[1rem] m-5 lg:text-[1.2rem]">
+                    Search by categories
+                  </h3>
 
-                    <MobileCategoryBar categories={data.categories} />
-                  </div>
+                  <MobileCategoryBar categories={data.categories} />
+                </div>
               </div>
             ) : null}
             {/* list of products & slider */}
@@ -89,7 +88,7 @@ export default function Home({ data }) {
                 location={data.defaultCountry}
                 currency={data.defaultCurrency}
                 currencyCode={data.defaultCurrencyCode}
-                products={data.products}
+                products={data.products.data}
                 slider={data.slider}
               />
             </div>

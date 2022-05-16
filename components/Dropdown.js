@@ -16,7 +16,7 @@ const Dropdown = ({ category }) => {
   const dispatch = useDispatch();
 
   const catId = useSelector(changeId);
-  console.log("catId: ", catId);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,7 +47,7 @@ const Dropdown = ({ category }) => {
                 <img
                   src={`https://bellefu.inmotionhub.xyz/get/category/image/${category?.image}`}
                   alt="icons"
-                  className="w-7 h-7"
+                  className="w-10 h-10"
                 />
                 <h5 className="text-bellefuBlack1 font-medium text-normal whitespace-nowrap">
                   {category?.name.charAt(0).toUpperCase() +
