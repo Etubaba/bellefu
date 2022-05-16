@@ -39,11 +39,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
 
 
 
-  setTimeout(() => {
-    setTotalPage(defaultPageCount)
-  }, 3000)
 
 
+  if (getCountry === null && search === '') setTotalPage(defaultPageCount)
 
 
 
@@ -244,7 +242,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
 
       {/* pagination goes here  */}
 
-      {(main.length !== 0) &&
+      {(main.length !== 0 && totalPage > 1) &&
         <div className='flex justify-center mt-10 items-center'>
           <button
             onClick={() => {
