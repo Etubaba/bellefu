@@ -59,7 +59,7 @@ const BottomNav = () => {
 
   return (
     <div className="md:hidden fixed z-50 bottom-0  bg-bellefuGreen w-full h-16 p-3 justify-center items-center flex  ">
-      <div className="flex space-x-24 ">
+      <div className="flex space-x-20 md:space-x-24 ">
         <AiFillHome className="text-2xl text-white" onClick={() => router.push("/")} />
         <FaHeart className="text-white text-2xl" onClick={handlefav} />
       </div>
@@ -80,7 +80,7 @@ const BottomNav = () => {
         </div>
       </div>
 
-      <div className="flex space-x-24">
+      <div className="flex space-x-20 md:space-x-24">
         <MdMessage className="text-white text-2xl" onClick={handleMsg} />
         <BsPersonFill className="text-white text-2xl" onClick={handleProfile} />
       </div>

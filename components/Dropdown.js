@@ -16,7 +16,7 @@ const Dropdown = ({ category }) => {
   const dispatch = useDispatch();
 
   const catId = useSelector(changeId);
-  console.log("catId: ", catId);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
