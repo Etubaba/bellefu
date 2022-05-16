@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import { AiFillCaretDown } from "react-icons/ai";
 
@@ -11,7 +11,6 @@ const ProductUpload = () => {
     sellCondition: "",
 
   });
-  const selectRef = useRef();
   const onChange = (input) => (evt) => {
     if (formFields[input]) return;
     if ((input === "normalPrice" || input === "promoPrice" || input === "weight") && isNaN(evt.target.value)) return ;
@@ -21,11 +20,6 @@ const ProductUpload = () => {
       [input]: evt.target.value,
     })
   };
-  const onSelect = () => {
-    console.log(selectRef);
-    const elemSelect = document.getElementById("select");
-    elemSelect.click();
-  }
   const onClick = (input) => () => {
     const elem = document.getElementById(input);
     
