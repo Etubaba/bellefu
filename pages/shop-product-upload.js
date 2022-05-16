@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import Head from "next/head";
+import { AiFillCaretDown } from "react-icons/ai";
 
 const ProductUpload = () => {
   const [formFields, setFormFields] = useState({
@@ -10,6 +11,7 @@ const ProductUpload = () => {
     sellCondition: "",
 
   });
+  const selectRef = useRef();
   const onChange = (input) => (evt) => {
     if (formFields[input]) return;
     if ((input === "normalPrice" || input === "promoPrice" || input === "weight") && isNaN(evt.target.value)) return ;
@@ -19,6 +21,11 @@ const ProductUpload = () => {
       [input]: evt.target.value,
     })
   };
+  const onSelect = () => {
+    console.log(selectRef);
+    const elemSelect = document.getElementById("select");
+    elemSelect.click();
+  }
   const onClick = (input) => () => {
     const elem = document.getElementById(input);
     
@@ -36,8 +43,9 @@ const ProductUpload = () => {
       <title>Shop: Product Upload</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-    <div className="mt-10">
-      <form className="w-[50%] mx-auto mt-24" onSubmit={handleSubmit}>
+    <div className="mt-24">
+      <h1 className="text-center text-2xl font-bold ">Upload Product</h1>
+      <form className="w-[90%] md:w-[60%] lg:w-[50%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
         <div className="mb-3">
           <p><label htmlFor="normal-price" className="text-lg font-semibold">Normal Price</label></p>
           <p><input type="text" id="normal-price" placeholder="200" value={formFields.normalPrice} onChange={onChange("normalPrice")} className="pl-2 py-2 border-2 w-full rounded-md" /></p>
@@ -48,13 +56,14 @@ const ProductUpload = () => {
         </div>
         <div className="mb-3">
           <p><label htmlFor="size" className="text-lg font-semibold">Size or Dimension (optional)</label></p>
-          <p>
-            <select value={formFields.size} onChange={onChange("size")} className="pl-2 py-2 border-2 w-full rounded-md appearance-none">
+          <p className="relative">
+            <select id="select" value={formFields.size} onChange={onChange("size")} className="pl-2 py-2 border-2 w-full rounded-md appearance-none hover:cursor-pointer">
               <option>select size</option>
               <option value="small" className="text-lg">small</option>
               <option value="medium" className="text-lg">medium</option>
               <option value="large" className="text-lg">large</option>
             </select>
+            <AiFillCaretDown className="absolute right-2 top-4 hover:cursor-text" />
           </p>
         </div>
         <div className="mb-4">
