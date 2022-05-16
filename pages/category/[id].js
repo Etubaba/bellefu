@@ -760,7 +760,7 @@ const Product = () => {
       {/* pagination goes here */}
 
       {(product.length !== 0 && totalPage > 1) &&
-        <div className='flex justify-center mt-10 items-center'>
+        <div className='flex justify-center md:mb-0 mb-8 md:mt-10 mt-7 items-center'>
           <button
             onClick={() => {
               if (page > 1) {

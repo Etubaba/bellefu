@@ -60,7 +60,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   }, [page])
 
 
-  console.log('index', productIndex)
+
 
   // fetch product by country select
 
@@ -107,7 +107,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   }, []);
 
   useEffect(() => {
-    console.log(initialRender);
+
     if (initialRender.current === 1) dispatch(countryProductSearchEmpty(true))
     if (initialRender.current === 2) dispatch(countryProductSearchEmpty(false));
   }, [countryData])
@@ -243,7 +243,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       {/* pagination goes here  */}
 
       {(main.length !== 0 && totalPage > 1) &&
-        <div className='flex justify-center mt-10 items-center'>
+        <div className='flex justify-center md:mb-0 mb-8 md:mt-10 mt-7 items-center'>
           <button
             onClick={() => {
               if (page > 1) {
