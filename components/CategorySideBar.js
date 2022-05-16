@@ -37,9 +37,9 @@ const CategorySideBar = ({ categories, indexData }) => {
                   <div>
                     <img
                       onClick={() => router.push("/custom")}
-                      src={`https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
+                      src='/cr.png'
                       alt="icons"
-                      className="w-8 h-8"
+                      className="w-10 h-12"
                     />
                   </div>
                   <h5
