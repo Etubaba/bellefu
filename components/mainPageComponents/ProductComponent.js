@@ -37,11 +37,11 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
 
 
 
+  setTimeout(() => {
+    if (getCountry === null && search === '') setTotalPage(defaultPageCount)
+  }, 3000)
 
 
-
-
-  if (getCountry === null && search === '') setTotalPage(defaultPageCount)
 
 
 
