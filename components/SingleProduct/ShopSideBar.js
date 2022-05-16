@@ -27,7 +27,7 @@ const ShopSideBar = ({ userDetails }) => {
   const [rating, setRating] = useState(0);
 
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
-  const receiverId = userDetails[0]?.productOwnerId;
+  const receiverId = userDetails[0]?.useId;
   const isLoggedIn = useSelector(login);
 
   const openMessage = () => {
@@ -134,7 +134,7 @@ const ShopSideBar = ({ userDetails }) => {
         {/* user brief info */}
         <div className="mt-5 flex flex-col items-center justify-center">
           <Image
-            src={`https://bellefu.inmotionhub.xyz/get/user/images/${userDetails[0]?.userAvatar}`}
+            src={`https://bellefu.inmotionhub.xyz/get/user/images/${userDetails[0]?.avatar}`}
             width={150}
             height={150}
             alt=""
@@ -142,7 +142,7 @@ const ShopSideBar = ({ userDetails }) => {
           />
           <div className="flex items-center space-x-2 mt-2">
             <p className="text-bellefuTitleBlack font-semibold">
-              {userDetails[0]?.productOwner}
+              {userDetails[0]?.username}
             </p>
             <GoVerified className="w-3 h-3 text-bellefuGreen" />
           </div>

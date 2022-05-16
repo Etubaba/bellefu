@@ -162,7 +162,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
               __html: userDetails[0]?.currencySymbol,
             }}
           />
-          {userDetails[0]?.productPrice}
+          {userDetails[0]?.price}
         </p>
       </div>
       {/* border line */}
@@ -170,7 +170,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
       {/* user brief info */}
       <div className="mt-5 flex flex-col items-center justify-center">
         <Image
-          src={`https://bellefu.inmotionhub.xyz/get/user/images/${userDetails[0]?.userAvatar}`}
+          src={`https://bellefu.inmotionhub.xyz/get/user/images/${userDetails[0]?.avatar}`}
           alt="UserImage"
           width={150}
           height={150}
@@ -178,7 +178,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
         />
         <div className="flex items-center space-x-2 mt-2">
           <p className="text-bellefuTitleBlack font-semibold">
-            {userDetails[0]?.productOwner}
+            {userDetails[0]?.username}
           </p>
           <span className="flex">
             <GoVerified
@@ -323,7 +323,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
         )}
         {/* my shop */}
         <div
-          onClick={() => router.push(`/shop/${userDetails[0]?.productOwnerId}`)}
+          onClick={() => router.push(`/shop/${userDetails[0]?.userId}`)}
           className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-gradient-to-r from-bellefuGreen to-bellefuOrange justify-center cursor-pointer"
         >
           <RiShoppingCart2Fill className="w-4 h-4 text-white" />

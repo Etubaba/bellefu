@@ -1,6 +1,6 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
-import { FcHome } from "react-icons/fc";
+import { AiFillHome } from "react-icons/ai";
 import { MdMessage } from "react-icons/md";
 import { BsPersonFill } from "react-icons/bs";
 import { useRouter } from "next/router";
@@ -59,8 +59,8 @@ const BottomNav = () => {
 
   return (
     <div className="md:hidden fixed z-50 bottom-0  bg-bellefuGreen w-full h-16 p-3 justify-center items-center flex  ">
-      <div className="flex space-x-14 ">
-        <FcHome className="text-2xl" onClick={() => router.push("/")} />
+      <div className="flex space-x-24 ">
+        <AiFillHome className="text-2xl text-white" onClick={() => router.push("/")} />
         <FaHeart className="text-white text-2xl" onClick={handlefav} />
       </div>
 
@@ -80,7 +80,7 @@ const BottomNav = () => {
         </div>
       </div>
 
-      <div className="flex space-x-14">
+      <div className="flex space-x-24">
         <MdMessage className="text-white text-2xl" onClick={handleMsg} />
         <BsPersonFill className="text-white text-2xl" onClick={handleProfile} />
       </div>
