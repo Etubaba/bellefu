@@ -23,6 +23,7 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [unseen, setUnseen] = useState(0);
   const [unread, setUnread] = useState(0);
+  const [announcement, setAnnouncement] = useState([]);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -31,9 +32,7 @@ const NavBar = () => {
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
 
-
-
-  console.log('hhhhhh')
+  console.log("hhhhhh");
 
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
@@ -114,9 +113,32 @@ const NavBar = () => {
     };
   }
 
+  //getting the announcements
+  // handling getting the addresses of a user
+  useEffect(() => {
+    const getAnnouncement = async () => {
+      const resAnnouncement = await fetch(
+        "https://bellefu.inmotionhub.xyz/api/v3/list/announcement"
+      );
+      const announcementList = await resAnnouncement.json();
+      if (!announcementList) return;
+      setAnnouncement(await announcementList?.data);
+    };
+    setAnnouncement([]);
+    getAnnouncement();
+  }, []);
+
   return (
     <div className="fixed top-0 z-50 w-full ">
-      <div className=" bg-black h-6">hello</div>
+      <div className=" bg-[#2C3422] h-8 flex items-center justify-center space-x-3">
+        <img
+          src={`https://bellefu.inmotionhub.xyz/get/custom/image/${announcement[1]}`}
+          alt=""
+          className="w-10 h-6 rounded-md object-cover border"
+        />
+        <p className="text-white text-sm italic">{announcement[0]}!!</p>
+      </div>
+
       <nav className="flex px-2 py-2 lg:px-12 bg-bellefuGreen items-center justify-between  ">
         {/* left side */}
         <div className="flex items-center">
@@ -161,7 +183,7 @@ const NavBar = () => {
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
                 className="hover:text-gray-200"
-              // href="https://webinar.bellefu.com/"
+                // href="https://webinar.bellefu.com/"
               >
                 Create Shop
               </a>
