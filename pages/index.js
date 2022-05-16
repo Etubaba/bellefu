@@ -88,7 +88,7 @@ export default function Home({ data }) {
                 location={data.defaultCountry}
                 currency={data.defaultCurrency}
                 currencyCode={data.defaultCurrencyCode}
-                products={data.products}
+                products={data.products.data}
                 slider={data.slider}
               />
             </div>
