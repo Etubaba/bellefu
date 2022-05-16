@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import classNames from "classnames";
 import Loader, { apiData } from "../../constant";
-import { countryProductSearchEmpty, country } from "../../features/bellefuSlice";
+import { countryProductSearchEmpty, country, homeData } from "../../features/bellefuSlice";
 import Skeleton from "@mui/material/Skeleton";
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
@@ -20,10 +20,12 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [fav, setFav] = useState([]);
   const [grid, setGrid] = useState(false);
   const [page, setPage] = useState(1);
+  const [productIndex, setProductIndex] = useState([])
   const [totalPage, setTotalPage] = useState(1);
 
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
   const getState = useSelector((state) => state.bellefu.stateSelected);
+  const indexProduct = useSelector(homeData);
 
   const subCatClicked = useSelector((state) => state.bellefu.subcatselected);
   const search = useSelector((state) => state.bellefu.searchFilter);
@@ -31,16 +33,36 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const initialRender = useRef(0);
   const dispatch = useDispatch();
 
+  const defaultPageCount = indexProduct?.products.last_page
+
+
+
+
+
+  setTimeout(() => {
+    setTotalPage(defaultPageCount)
+  }, 3000)
 
 
 
 
 
 
-  // 
+  //fetch  index product at page change 
 
 
+  useEffect(() => {
+    if (page > 1) {
+      axios.get(`https://bellefu.inmotionhub.xyz/api/web30/get/web/index?page=${page}`)
+        .then((res) => {
+          setProductIndex(res.data?.products?.data)
+          setTotalPage(res.data?.products?.last_page)
+        })
+    }
+  }, [page])
 
+
+  console.log('index', productIndex)
 
   // fetch product by country select
 
@@ -55,7 +77,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           `https://bellefu.inmotionhub.xyz/api/general/get/product/${getCountry}?page=${page}`
         )
         .then((res) => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
 
           if (!res.data.data.length) initialRender.current = 1;
           else if (res.data.data.length) initialRender.current = 2;
@@ -71,7 +93,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
         });
     };
     newProducts();
-  }, [getCountry]);
+  }, [getCountry, page]);
 
   // get fav products
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
@@ -117,7 +139,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     } else {
       setCountryData(main);
     }
-  }, [search]);
+  }, [search, page]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -127,7 +149,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   }, []);
 
   const main =
-    getCountry !== null ? countryData : search !== "" ? searchResult : products;
+    getCountry !== null && search === '' ? countryData :
+      search !== "" ? searchResult :
+        page !== 1 && search === '' && getCountry === null ? productIndex :
+          products;
 
   const skeleMapper = [
     <Skeleto />,
@@ -145,12 +170,19 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   ];
 
 
+
+
+
+
+
+
+
   const pageNumber = []
   for (let i = 1; i <= totalPage; i++) {
     pageNumber.push(i)
   }
 
-  console.log('total=>', pageNumber);
+
   return (
     <div>
       {loading ? (
@@ -212,7 +244,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
 
       {/* pagination goes here  */}
 
-      {main.length >= 32 &&
+      {(main.length !== 0) &&
         <div className='flex justify-center mt-10 items-center'>
           <button
             onClick={() => {
@@ -220,24 +252,25 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
                 setPage(prev => prev - 1)
               }
             }}
-            className='flex bg-bellefuOrange text-white px-4 py-2 rounded-lg space-x-2'>
+            className='flex bg-bellefuOrange hover:bg-orange-500 text-white px-4 py-2 rounded-lg space-x-2'>
             <MdOutlineArrowBackIosNew className='mt-1' />       <span> Prev</span>
           </button>
 
           <span className='justify-center items-center mx-4 px-4 flex space-x-6'>
-            {pageNumber?.map((item, index) => <p onClick={() => setPage(item)} className={page === item ? 'bg-bellefuGreen p-1 px-2 rounded-full text-white' : null} key={index}>{item}</p>)}
+            {pageNumber?.map((item, index) => <p onClick={() => setPage(item)} className={page === item ? 'bg-bellefuGreen p-1 px-2 rounded-full text-white' : 'cursor-pointer'} key={index}>{item}</p>)}
 
           </span>
 
-          <button
-            onClick={() => {
-              if (page < totalPage) {
-                { setPage(prev => prev + 1) }
-              }
-            }}
-            className='flex bg-bellefuGreen text-white px-4 py-2 rounded-lg space-x-2'>
-            <span> Next</span> <MdOutlineArrowForwardIos className='mt-1' />
-          </button>
+          {(main.length === 32) &&
+            <button
+              onClick={() => {
+                if (page < totalPage) {
+                  { setPage(prev => prev + 1) }
+                }
+              }}
+              className='flex bg-bellefuGreen hover:bg-green-400 text-white px-4 py-2 rounded-lg space-x-2'>
+              <span> Next</span> <MdOutlineArrowForwardIos className='mt-1' />
+            </button>}
 
 
         </div>}
