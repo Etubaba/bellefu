@@ -3,81 +3,89 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
-import { AiOutlineCaretRight, AiOutlineCaretDown } from 'react-icons/ai'
+import { MdDeleteForever } from "react-icons/md";
 import { apiData } from "../constant";
 //   import {handleCatUpdate} from "../../features/bellefuSlice";
 //   import { useSelector, useDispatch } from "react-redux";
 
-
-
-const optionSelect = [
-  { value: 'Ads' },
-  { value: 'Customer service' },
-  { value: 'Custom request' },
-  { value: ' Feature request' },
-  { value: 'others' }];
-
 export default function Custom() {
   const [loading, setLoading] = useState(false);
   const [open1, setOpen1] = useState(false);
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [dept, setDept] = useState(null);
-  const [comment, setComment] = useState('');
+  const [fname, setFname] = useState("");
+  const [emaile, setEmaile] = useState("");
+  const [phone, setPhone] = useState("");
+  const [comments, setComments] = useState("");
+  const [sampleimagename, setSampleImageName] = useState([]);
+  const [sampleimagefile, setSampleImageFile] = useState([]);
 
-
-
-
-
-
+  // console.log(sampleimagefile);
+  const handleImage = (e) => {
+    const file = e.target.files;
+    for (let i = 0; i < file.length; i++) {
+      let file1 = file[i];
+      console.log(file1.name);
+      setSampleImageFile((prevState) => [...prevState, file1]);
+      setSampleImageName((prevState) => [...prevState, file1.name]);
+    }
+  };
+  const handleRemovetag = (tags) => {
+    const newArr = sampleimagename.filter((tag) => tag !== tags);
+    const newArr2 = sampleimagefile.filter((tag) => tag.name !== tags);
+    setSampleImageName(newArr);
+    setSampleImageFile(newArr2);
+  };
   const handleSubmit = (e) => {
-    if (fname === '' || lname === '' || email === '' || phone === '' || dept === null || comment === '') {
+    if (
+      fname === "" ||
+      emaile === "" ||
+      phone === "" ||
+      comments === "" ||
+      sampleimagefile.length === 0
+    ) {
       toast.error("Please fill all the fields");
     } else {
-
       e.preventDefault();
-      const data = {
-        firstname: fname,
-        lastname: lname,
-        email: email,
-        phone: phone,
-        department: dept,
-        comment: comment
-      };
-      fetch(`${apiData}send/feedback/mail`, {
+      const formdata = new FormData();
+
+      formdata.append('fullname', fname);
+      formdata.append("email", emaile);
+      formdata.append("number", phone);
+      formdata.append("comment", comments);
+      formdata.append(
+        "image1",
+        sampleimagefile[0] === undefined ? "" : sampleimagefile[0]
+      );
+      formdata.append(
+        "image2",
+        sampleimagefile[1] === undefined ? "" : sampleimagefile[1]
+      );
+      formdata.append(
+        "image3",
+        sampleimagefile[2] === undefined ? "" : sampleimagefile[2]
+      );
+
+      axios({
         method: "POST",
+        url: `https://bellefu.inmotionhub.xyz/api/general/create/custom/request`,
+        data: formdata,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(data),
       }).then((res) => {
         if (res.status === 200) {
-          toast.success("Feedback submitted successfully");
-          setFname('');
-          setLname('');
-          setEmail('');
-          setPhone('');
-          setDept(null);
-          setComment('');
+          toast.success("Request submitted successfully");
+          setFname("");
+          setEmaile("");
+          setPhone("");
+          setComments("");
+          setSampleImageFile([]);
+          setSampleImageName([]);
         } else {
           toast.error("Something went wrong");
-
         }
       });
-
     }
-
-
-
-
-
-
-
-
-  }
-
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -93,7 +101,8 @@ export default function Custom() {
           <div className="justify-center align-middle text-center">
             <h2 className="text-2xl font-bold">CUSTOM REQUEST</h2>
             <p>
-             Do you have a custom request? Please use the form below to let us know about it.
+              Do you have a custom request? Please use the form below to let us
+              know about it.
             </p>
           </div>
 
@@ -108,7 +117,7 @@ export default function Custom() {
                           for="first-name"
                           className="block my-2 text-sm font-medium text-gray-700"
                         >
-                          First-Name
+                          Full-Name
                         </label>
                         <input
                           type="text"
@@ -121,22 +130,6 @@ export default function Custom() {
 
                       <div className="col-span-6 sm:col-span-3">
                         <label
-                          for="last-name"
-                          className="block my-2 text-sm font-medium text-gray-700"
-                        >
-                          Last-Name
-                        </label>
-                        <input
-                          type="text"
-                          id="location"
-                          onChange={(e) => setLname(e.target.value)}
-                          value={lname}
-                          // onChange={handleLocation}
-                          className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                        />
-                      </div>
-                      <div className="col-span-6 sm:col-span-3">
-                        <label
                           for="email"
                           className="block my-2 text-sm font-medium text-gray-700"
                         >
@@ -144,18 +137,15 @@ export default function Custom() {
                         </label>
                         <input
                           type="email"
-                          onChange={(e) => setEmail(e.target.value)}
-                          value={email}
+                          onChange={(e) => setEmaile(e.target.value)}
+                          value={emaile}
                           // onChange={handleLocation}
                           className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         />
                       </div>
                       <div className="col-span-6 sm:col-span-3">
-                        <label
-                          for="email"
-                          className="block my-2 text-sm font-medium text-gray-700"
-                        >
-                          Number
+                        <label className="block my-2 text-sm font-medium text-gray-700">
+                          Phone
                         </label>
                         <input
                           type="number"
@@ -165,70 +155,53 @@ export default function Custom() {
                           className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         />
                       </div>
-                      <div className="col-span-6 sm:col-span-3">
-                        {/* <label
-                          for="email"
-                          className="block my-2 text-sm font-medium text-gray-700"
-                        >
-                          Department
-                        </label> */}
-                        {/* <UnstyledSelectSimple1
-                        />{" "} */}
-                        <div className="w-full">
 
-                          <div className="flex items-center mb-2 hover:bg-bellefuBackground p-3 rounded-md border mt-4 relative">
-                            <div className="flex items-center flex-1 space-x-3 cursor-pointer select-none">
-                              <h5 className="text-bellefuBlack1 font-medium whitespace-nowrap">
-                                {dept === null ? ' Select Department' : dept}
-                              </h5>
-                            </div>
-                            {!open1 ? (
-                              <div onClick={() => setOpen1(!open1)}>
-                                <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
-                              </div>
-                            ) : (
-                              <div onClick={() => setOpen1(!open1)}>
-                                <AiOutlineCaretDown className="text-gray-300 cursor-pointer" />
-                              </div>
-                            )}
-                          </div>
-                          {open1 ? (
-                            <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in">
-                              <ul className="rounded px-5 py-4">
-                                {optionSelect?.map((item, index) => (
-                                  <li
-                                    onClick={() => {
-                                      setOpen1(!open1);
-                                      // setSubCatText(item.subCatName);
-                                      setDept(item.value);
-                                    }}
-                                    key={index}
-                                    className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
-                                  >
-                                    <span>{item.value}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ) : null}
-                        </div>
-
-                      </div>
                       <div className="col-span-6 sm:col-span-3">
                         <label
                           for="email"
                           className="block text-sm my-2 font-medium text-gray-700"
                         >
-                          Comment
+                          Description
                         </label>
                         <textarea
-                          onChange={(e) => setComment(e.target.value)}
-                          value={comment}
+                          onChange={(e) => setComments(e.target.value)}
+                          value={comments}
                           type="text"
                           col="4"
                           // onChange={handleLocation}
                           className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
                         />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3 ">
+                        <label className=" text-sm my-2 font-medium text-gray-700 flex justify-between">
+                          <p>Upload Sample Images</p>
+                          <p>{sampleimagefile.length}/3</p>
+                        </label>
+                        <div>
+                          {" "}
+                          <input
+                            className="mt-2 text-white"
+                            type="file"
+                            name="file"
+                            disabled={
+                              sampleimagefile.length === 3 ? true : false
+                            }
+                            onChange={handleImage}
+                          />
+                          {sampleimagename?.map((names, index) => (
+                            <div className="flex space-x-4">
+                              <p className="font-semibold text-bellefuGreen">
+                                {names}
+                              </p>
+                              <button
+                                onClick={() => handleRemovetag(names)}
+                                className="hover:text-red-500"
+                              >
+                                <MdDeleteForever />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>

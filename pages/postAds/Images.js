@@ -88,7 +88,7 @@ export default function Images(props) {
   // console.log(files2);
   const handleRemovetag = (tags) => {
     const newArr = files.filter((tag) => tag !== tags);
-    const newArr2 = files.filter((tag) => tag.name !== tags);
+    const newArr2 = files2.filter((tag) => tag.name !== tags);
     setFiles(newArr);
     setFiles2(newArr2);
   };
