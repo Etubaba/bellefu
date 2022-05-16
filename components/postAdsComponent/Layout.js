@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails);
 
   return (
-    <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
+    <div className="bg-bellefuBackground max-w-[95%] lg:max-w-[90%] mx-auto mt-24">
       {userId ? (
         <>
           <div className="">
