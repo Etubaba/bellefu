@@ -9,6 +9,7 @@ const Shop = ({ userProducts }) => {
   const details = useSelector(userDId);
 
   const products = userProducts.data.data;
+  console.log(products);
 
   return (
     <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-5">
