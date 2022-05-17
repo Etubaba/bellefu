@@ -264,15 +264,15 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       </div>
       {/* the ads start here */}
 
-      <div className="">
+      {/* <div className="">
         <img
           src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
           alt="ads"
           className="w-full h-96 object-cover rounded-md"
         />
-      </div>
+      </div> */}
 
-      <div
+      {/* <div
         className={classNames("bg-bellefuBackground mt-1 rounded-md", {
           "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
             main?.length,
@@ -331,7 +331,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
         ) : (
           skeleMapper.map((skele, index) => <div key={index}>{skele}</div>)
         )}
-      </div>
+      </div> */}
       {/* the ads start here */}
 
       {/* <div className="">
