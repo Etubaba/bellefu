@@ -68,7 +68,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           `https://bellefu.inmotionhub.xyz/api/web30/get/web/index?page=${page}`
         )
         .then((res) => {
-          setProductIndex(res.data?.products?.data.slice(0, 8));
+          setProductIndex(res.data?.products?.data);
           setTotalPage(res.data?.products?.last_page);
         });
     }
