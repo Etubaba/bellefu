@@ -334,13 +334,13 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
         </div>
         {/* the ads start here */}
 
-        <div className="">
+        {/* <div className="">
           <img
             src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
             alt="ads"
             className="w-full h-96 object-cover rounded-md"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* pagination goes here  */}
