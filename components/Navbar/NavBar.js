@@ -186,6 +186,7 @@ const NavBar = () => {
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
                 className="hover:text-gray-200"
+                onClick={() => router.push("/createShop")}
               // href="https://webinar.bellefu.com/"
               >
                 Create Shop
