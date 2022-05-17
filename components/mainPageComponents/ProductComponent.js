@@ -61,6 +61,8 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   // getting random ads
   const randomAdverts = adverts[Math.floor(Math.random() * adverts.length)];
 
+
+
   useEffect(() => {
     if (page > 1) {
       axios
@@ -161,10 +163,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     getCountry !== null && search === ""
       ? countryData
       : search !== ""
-      ? searchResult
-      : page !== 1 && search === "" && getCountry === null
-      ? productIndex
-      : products;
+        ? searchResult
+        : page !== 1 && search === "" && getCountry === null
+          ? productIndex
+          : products;
 
   const skeleMapper = [
     <Skeleto />,
@@ -234,7 +236,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
               </div>
             </div>
           ) : (
-            main
+            main.slice(0, 8)
               .filter((item) => {
                 if (getState === null && subCatClicked === undefined) {
                   return item;
@@ -264,15 +266,15 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       </div>
       {/* the ads start here */}
 
-      {/* <div className="">
+      <div className="my-5">
         <img
           src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
           alt="ads"
-          className="w-full h-96 object-cover rounded-md"
+          className="w-full h-80 object-cover rounded-md"
         />
-      </div> */}
+      </div>
 
-      {/* <div
+      <div
         className={classNames("bg-bellefuBackground mt-1 rounded-md", {
           "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
             main?.length,
@@ -280,67 +282,123 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           "grid-cols-1 sm:grid-cols-1": !grid,
         })}
       >
-        {loading ? (
-          main === countryData && isSearching ? (
-            <div className="flex justify-center items-center h-screen">
-              <Loader isLoading={isSearching} />
-            </div>
-          ) : main?.length === 0 ? (
-            <div className="mt-8">
-              <p className="text-center font-bold text-base md:text-3xl mb-8">
-                We don't have product in {searchCountry}
-              </p>
-              <div className="flex flex-col md:flex-row md:space-x-10 items-center justify-center">
-                <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500 mb-5 md:mb-0 w-full md:w-1/2">
-                  <button className="w-full p-4 text-2xl text-bellefuWhite">
-                    Make Custom Request
-                  </button>
-                </p>
-                <p className="bg-bellefuGreen rounded-lg hover:bg-green-500 w-full md:w-1/2">
-                  <button className="w-full p-4 text-2xl text-bellefuWhite">
-                    Be The First To Post Product
-                  </button>
-                </p>
+        {
+
+          main.slice(8, 16)
+            .filter((item) => {
+              if (getState === null && subCatClicked === undefined) {
+                return item;
+              } else if (item.stateCode === getState) {
+                return item;
+              } else if (item.subcatid === subCatClicked) {
+                return item;
+              }
+            })
+            .map((product) => (
+              <div key={product?.productId}>
+                <ProductList
+                  key={product?.productId}
+                  view={grid}
+                  currency={currency}
+                  product={product}
+                  fav={favId}
+                  favdata={fav}
+                  currencyCode={currencyCode}
+                />
               </div>
-            </div>
-          ) : (
-            main
-              .filter((item) => {
-                if (getState === null && subCatClicked === undefined) {
-                  return item;
-                } else if (item.stateCode === getState) {
-                  return item;
-                } else if (item.subcatid === subCatClicked) {
-                  return item;
-                }
-              })
-              .map((product) => (
-                <div key={product?.productId}>
-                  <ProductList
-                    key={product?.productId}
-                    view={grid}
-                    currency={currency}
-                    product={product}
-                    fav={favId}
-                    favdata={fav}
-                    currencyCode={currencyCode}
-                  />
-                </div>
-              ))
-          )
-        ) : (
-          skeleMapper.map((skele, index) => <div key={index}>{skele}</div>)
-        )}
-      </div> */}
+            ))
+
+        }
+      </div>
       {/* the ads start here */}
 
-      {/* <div className="">
-          <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
-            alt="ads"
-            className="w-full h-96 object-cover rounded-md"
-          />
-        </div> */}
+      {main.length > 8 && <div className="my-5">
+        <img
+          src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
+          alt="ads"
+          className="w-full h-80 object-cover rounded-md"
+        />
+      </div>}
+
+      <div
+        className={classNames("bg-bellefuBackground mt-1 rounded-md", {
+          "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
+            main?.length,
+          "grid-cols-2 sm:grid-cols-2": grid,
+          "grid-cols-1 sm:grid-cols-1": !grid,
+        })}
+      >
+        {main.slice(16, 24)
+          .filter((item) => {
+            if (getState === null && subCatClicked === undefined) {
+              return item;
+            } else if (item.stateCode === getState) {
+              return item;
+            } else if (item.subcatid === subCatClicked) {
+              return item;
+            }
+          })
+          .map((product) => (
+            <div key={product?.productId}>
+              <ProductList
+                key={product?.productId}
+                view={grid}
+                currency={currency}
+                product={product}
+                fav={favId}
+                favdata={fav}
+                currencyCode={currencyCode}
+              />
+            </div>
+          ))}
+
+      </div>
+
+
+
+      {main.length > 16 && <div className=" my-5">
+        <img
+          src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
+          alt="ads"
+          className="w-full h-80 object-cover rounded-md"
+        />
+      </div>}
+
+
+      <div
+        className={classNames("bg-bellefuBackground mt-1 rounded-md", {
+          "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
+            main?.length,
+          "grid-cols-2 sm:grid-cols-2": grid,
+          "grid-cols-1 sm:grid-cols-1": !grid,
+        })}
+      >
+
+        {main.slice(24, 32)
+          .filter((item) => {
+            if (getState === null && subCatClicked === undefined) {
+              return item;
+            } else if (item.stateCode === getState) {
+              return item;
+            } else if (item.subcatid === subCatClicked) {
+              return item;
+            }
+          })
+          .map((product) => (
+            <div key={product?.productId}>
+              <ProductList
+                key={product?.productId}
+                view={grid}
+                currency={currency}
+                product={product}
+                fav={favId}
+                favdata={fav}
+                currencyCode={currencyCode}
+              />
+            </div>
+          ))}
+      </div>
+
 
       {/* pagination goes here  */}
 
