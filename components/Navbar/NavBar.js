@@ -77,6 +77,9 @@ const NavBar = () => {
       .then((res) => setUnseen(res.data.unseen));
   }, [msgRead]);
 
+
+  console.log("unseen", unseen);
+
   //new notification
   useEffect(() => {
     axios
@@ -183,7 +186,7 @@ const NavBar = () => {
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
                 className="hover:text-gray-200"
-                // href="https://webinar.bellefu.com/"
+              // href="https://webinar.bellefu.com/"
               >
                 Create Shop
               </a>
