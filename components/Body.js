@@ -6,7 +6,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { useSelector } from "react-redux";
 
 const Body = ({ productsData, slider, currency, location, currencyCode }) => {
-  const products = productsData.slice(0, 8);
+  const products = productsData;
   const [loading, setLoading] = useState(false);
 
   const search = useSelector((state) => state.bellefu?.searchFilter);
