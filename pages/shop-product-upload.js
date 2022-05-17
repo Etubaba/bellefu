@@ -37,9 +37,13 @@ const ProductUpload = () => {
       <title>Shop: Product Upload</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-    <div className="mt-24">
+    <div className="mt-32">
       <h1 className="text-center text-2xl font-bold ">Upload Product</h1>
       <form className="w-[90%] md:w-[60%] lg:w-[50%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <p><label htmlFor="product" className="text-lg font-semibold">Product</label></p>
+          <div></div>
+        </div>
         <div className="mb-3">
           <p><label htmlFor="normal-price" className="text-lg font-semibold">Normal Price</label></p>
           <p><input type="text" id="normal-price" placeholder="200" value={formFields.normalPrice} onChange={onChange("normalPrice")} className="pl-2 py-2 border-2 w-full rounded-md" /></p>
