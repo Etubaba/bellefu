@@ -3,13 +3,20 @@ import { productData } from "../../productData";
 import MainProductHeader from "./MainProductHeader";
 import ProductList from "./ProductList";
 import Skeleto from "./Skeleton";
-import { MdOutlineArrowForwardIos, MdOutlineArrowBackIosNew } from 'react-icons/md'
+import {
+  MdOutlineArrowForwardIos,
+  MdOutlineArrowBackIosNew,
+} from "react-icons/md";
 // import { countryChoice } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import classNames from "classnames";
 import Loader, { apiData } from "../../constant";
-import { countryProductSearchEmpty, country, homeData } from "../../features/bellefuSlice";
+import {
+  countryProductSearchEmpty,
+  country,
+  homeData,
+} from "../../features/bellefuSlice";
 import Skeleton from "@mui/material/Skeleton";
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
@@ -20,8 +27,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [fav, setFav] = useState([]);
   const [grid, setGrid] = useState(false);
   const [page, setPage] = useState(1);
-  const [productIndex, setProductIndex] = useState([])
+  const [productIndex, setProductIndex] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
+  const [adverts, setAdverts] = useState([]);
 
   const getCountry = useSelector((state) => state.bellefu.countrySelected);
   const getState = useSelector((state) => state.bellefu.stateSelected);
@@ -33,34 +41,38 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const initialRender = useRef(0);
   const dispatch = useDispatch();
 
-  const defaultPageCount = indexProduct?.products.last_page
-
-
+  const defaultPageCount = indexProduct?.products.last_page;
 
   setTimeout(() => {
-    if (getCountry === null && search === '') setTotalPage(defaultPageCount)
-  }, 3000)
+    if (getCountry === null && search === "") setTotalPage(defaultPageCount);
+  }, 3000);
 
+  //fetching the adverts
+  useEffect(() => {
+    const getAdverts = async () => {
+      await axios
+        .get(`https://bellefu.inmotionhub.xyz/api/general/get/all/commercial`)
+        .then((res) => setAdverts(res.data.data))
+        .catch((err) => console.log(err));
+    };
+    getAdverts();
+  }, []);
 
-
-
-
-
-  //fetch  index product at page change 
-
+  // getting random ads
+  const randomAdverts = adverts[Math.floor(Math.random() * adverts.length)];
 
   useEffect(() => {
     if (page > 1) {
-      axios.get(`https://bellefu.inmotionhub.xyz/api/web30/get/web/index?page=${page}`)
+      axios
+        .get(
+          `https://bellefu.inmotionhub.xyz/api/web30/get/web/index?page=${page}`
+        )
         .then((res) => {
-          setProductIndex(res.data?.products?.data)
-          setTotalPage(res.data?.products?.last_page)
-        })
+          setProductIndex(res.data?.products?.data.slice(0, 8));
+          setTotalPage(res.data?.products?.last_page);
+        });
     }
-  }, [page])
-
-
-
+  }, [page]);
 
   // fetch product by country select
 
@@ -107,10 +119,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   }, []);
 
   useEffect(() => {
-
-    if (initialRender.current === 1) dispatch(countryProductSearchEmpty(true))
+    if (initialRender.current === 1) dispatch(countryProductSearchEmpty(true));
     if (initialRender.current === 2) dispatch(countryProductSearchEmpty(false));
-  }, [countryData])
+  }, [countryData]);
 
   const favId = fav?.map((item) => item.productId);
   // const favdelete = fav?.map(item => item.favId)
@@ -147,10 +158,13 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   }, []);
 
   const main =
-    getCountry !== null && search === '' ? countryData :
-      search !== "" ? searchResult :
-        page !== 1 && search === '' && getCountry === null ? productIndex :
-          products;
+    getCountry !== null && search === ""
+      ? countryData
+      : search !== ""
+      ? searchResult
+      : page !== 1 && search === "" && getCountry === null
+      ? productIndex
+      : products;
 
   const skeleMapper = [
     <Skeleto />,
@@ -167,19 +181,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     <Skeleto />,
   ];
 
-
-
-
-
-
-
-
-
-  const pageNumber = []
+  const pageNumber = [];
   for (let i = 1; i <= totalPage; i++) {
-    pageNumber.push(i)
+    pageNumber.push(i);
   }
-
 
   return (
     <div>
@@ -194,93 +199,197 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           height={70}
         />
       )}
-      <div
-        className={classNames("bg-bellefuBackground mt-1 rounded-md", { "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense": main?.length, "grid-cols-2 sm:grid-cols-2": grid, "grid-cols-1 sm:grid-cols-1": !grid })}
-      >
-        {loading ? (
-          main === countryData && isSearching ? (
-            <div className="flex justify-center items-center h-screen">
-              <Loader isLoading={isSearching} />
-            </div>
-          ) : main?.length === 0 ? (
-            <div className="mt-8">
-              <p className="text-center font-bold text-base md:text-3xl mb-8">We don't have product in {searchCountry}</p>
-              <div className="flex flex-col md:flex-row md:space-x-10 items-center justify-center">
-                <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500 mb-5 md:mb-0 w-full md:w-1/2"><button className="w-full p-4 text-2xl text-bellefuWhite">Make Custom Request</button></p>
-                <p className="bg-bellefuGreen rounded-lg hover:bg-green-500 w-full md:w-1/2"><button className="w-full p-4 text-2xl text-bellefuWhite">Be The First To Post Product</button></p>
+
+      {/* second set of 8 */}
+      <div>
+        <div
+          className={classNames("bg-bellefuBackground mt-1 rounded-md", {
+            "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
+              main?.length,
+            "grid-cols-2 sm:grid-cols-2": grid,
+            "grid-cols-1 sm:grid-cols-1": !grid,
+          })}
+        >
+          {loading ? (
+            main === countryData && isSearching ? (
+              <div className="flex justify-center items-center h-screen">
+                <Loader isLoading={isSearching} />
               </div>
-            </div>
-          ) : (
-            main
-              .filter((item) => {
-                if (getState === null && subCatClicked === undefined) {
-                  return item;
-                } else if (item.stateCode === getState) {
-                  return item;
-                } else if (item.subcatid === subCatClicked) {
-                  return item;
-                }
-              })
-              .map((product) => (
-                <div key={product?.productId}>
-                  <ProductList
-                    key={product?.productId}
-                    view={grid}
-                    currency={currency}
-                    product={product}
-                    fav={favId}
-                    favdata={fav}
-                    currencyCode={currencyCode}
-                  />
+            ) : main?.length === 0 ? (
+              <div className="mt-8">
+                <p className="text-center font-bold text-base md:text-3xl mb-8">
+                  We don't have product in {searchCountry}
+                </p>
+                <div className="flex flex-col md:flex-row md:space-x-10 items-center justify-center">
+                  <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500 mb-5 md:mb-0 w-full md:w-1/2">
+                    <button className="w-full p-4 text-2xl text-bellefuWhite">
+                      Make Custom Request
+                    </button>
+                  </p>
+                  <p className="bg-bellefuGreen rounded-lg hover:bg-green-500 w-full md:w-1/2">
+                    <button className="w-full p-4 text-2xl text-bellefuWhite">
+                      Be The First To Post Product
+                    </button>
+                  </p>
                 </div>
-              ))
-          )
-        ) : (
-          skeleMapper.map((skele, index) => <div key={index}>{skele}</div>)
-        )}
+              </div>
+            ) : (
+              main
+                .filter((item) => {
+                  if (getState === null && subCatClicked === undefined) {
+                    return item;
+                  } else if (item.stateCode === getState) {
+                    return item;
+                  } else if (item.subcatid === subCatClicked) {
+                    return item;
+                  }
+                })
+                .map((product) => (
+                  <div key={product?.productId}>
+                    <ProductList
+                      key={product?.productId}
+                      view={grid}
+                      currency={currency}
+                      product={product}
+                      fav={favId}
+                      favdata={fav}
+                      currencyCode={currencyCode}
+                    />
+                  </div>
+                ))
+            )
+          ) : (
+            skeleMapper.map((skele, index) => <div key={index}>{skele}</div>)
+          )}
+        </div>
+        {/* the ads start here */}
+
+        <div className="">
+          <img
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
+            alt="ads"
+            className="w-full h-96 object-cover rounded-md"
+          />
+        </div>
+
+        <div
+          className={classNames("bg-bellefuBackground mt-1 rounded-md", {
+            "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
+              main?.length,
+            "grid-cols-2 sm:grid-cols-2": grid,
+            "grid-cols-1 sm:grid-cols-1": !grid,
+          })}
+        >
+          {loading ? (
+            main === countryData && isSearching ? (
+              <div className="flex justify-center items-center h-screen">
+                <Loader isLoading={isSearching} />
+              </div>
+            ) : main?.length === 0 ? (
+              <div className="mt-8">
+                <p className="text-center font-bold text-base md:text-3xl mb-8">
+                  We don't have product in {searchCountry}
+                </p>
+                <div className="flex flex-col md:flex-row md:space-x-10 items-center justify-center">
+                  <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500 mb-5 md:mb-0 w-full md:w-1/2">
+                    <button className="w-full p-4 text-2xl text-bellefuWhite">
+                      Make Custom Request
+                    </button>
+                  </p>
+                  <p className="bg-bellefuGreen rounded-lg hover:bg-green-500 w-full md:w-1/2">
+                    <button className="w-full p-4 text-2xl text-bellefuWhite">
+                      Be The First To Post Product
+                    </button>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              main
+                .filter((item) => {
+                  if (getState === null && subCatClicked === undefined) {
+                    return item;
+                  } else if (item.stateCode === getState) {
+                    return item;
+                  } else if (item.subcatid === subCatClicked) {
+                    return item;
+                  }
+                })
+                .map((product) => (
+                  <div key={product?.productId}>
+                    <ProductList
+                      key={product?.productId}
+                      view={grid}
+                      currency={currency}
+                      product={product}
+                      fav={favId}
+                      favdata={fav}
+                      currencyCode={currencyCode}
+                    />
+                  </div>
+                ))
+            )
+          ) : (
+            skeleMapper.map((skele, index) => <div key={index}>{skele}</div>)
+          )}
+        </div>
+        {/* the ads start here */}
+
+        <div className="">
+          <img
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
+            alt="ads"
+            className="w-full h-96 object-cover rounded-md"
+          />
+        </div>
       </div>
 
       {/* pagination goes here  */}
 
-      {(main.length !== 0 && totalPage > 1) &&
-        <div className='flex justify-center md:mb-0 mb-8 md:mt-10 mt-7 items-center'>
+      {main.length !== 0 && totalPage > 1 && (
+        <div className="flex justify-center md:mb-0 mb-8 md:mt-10 mt-7 items-center">
           <button
             onClick={() => {
               if (page > 1) {
-                setPage(prev => prev - 1)
+                setPage((prev) => prev - 1);
               }
             }}
-            className='flex bg-bellefuOrange hover:bg-orange-500 text-white px-4 py-2 rounded-lg space-x-2'>
-            <MdOutlineArrowBackIosNew className='mt-1' />       <span> Prev</span>
+            className="flex bg-bellefuOrange hover:bg-orange-500 text-white px-4 py-2 rounded-lg space-x-2"
+          >
+            <MdOutlineArrowBackIosNew className="mt-1" /> <span> Prev</span>
           </button>
 
-          <span className='justify-center items-center mx-4 px-4 flex space-x-6'>
-            {pageNumber?.map((item, index) => <p onClick={() => setPage(item)} className={page === item ? 'bg-bellefuGreen p-1 px-2 rounded-full text-white' : 'cursor-pointer'} key={index}>{item}</p>)}
-
+          <span className="justify-center items-center mx-4 px-4 flex space-x-6">
+            {pageNumber?.map((item, index) => (
+              <p
+                onClick={() => setPage(item)}
+                className={
+                  page === item
+                    ? "bg-bellefuGreen p-1 px-2 rounded-full text-white"
+                    : "cursor-pointer"
+                }
+                key={index}
+              >
+                {item}
+              </p>
+            ))}
           </span>
 
-          {(main.length === 32) &&
+          {main.length === 32 && (
             <button
               onClick={() => {
                 if (page < totalPage) {
-                  { setPage(prev => prev + 1) }
+                  {
+                    setPage((prev) => prev + 1);
+                  }
                 }
               }}
-              className='flex bg-bellefuGreen hover:bg-green-400 text-white px-4 py-2 rounded-lg space-x-2'>
-              <span> Next</span> <MdOutlineArrowForwardIos className='mt-1' />
-            </button>}
-
-
-        </div>}
-
-
-
-
-
-
-
-
-
+              className="flex bg-bellefuGreen hover:bg-green-400 text-white px-4 py-2 rounded-lg space-x-2"
+            >
+              <span> Next</span> <MdOutlineArrowForwardIos className="mt-1" />
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
