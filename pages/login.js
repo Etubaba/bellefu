@@ -161,7 +161,7 @@ const Login = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <RegisterHeader />
-      <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-20">
+      <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-28">
         <h1 className="text-center font-bold py-4">
           Welcome Back! Login To Your Account
         </h1>
@@ -269,7 +269,10 @@ const Login = () => {
         <hr />
         <p className="text-center mt-11 mb-8">OR</p>
         <div className="flex flex-col md:flex-row items-center md:justify-center mb-12 px-2 py-4 md:px-4 md:py-4">
-          <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]" onClick={() => signIn("google")}>
+          <p
+            className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]"
+            onClick={() => signIn("google")}
+          >
             <button
               type="button"
               className="flex items-center border-2 rounded-lg py-3 pl-4 pr-6 bg-white hover:bg-[#F2F2F2] w-full"
@@ -280,7 +283,10 @@ const Login = () => {
               </strong>
             </button>
           </p>
-          <p className="text-white w-[100%] md:w-[75%]" onClick={() => signIn("facebook")}>
+          <p
+            className="text-white w-[100%] md:w-[75%]"
+            onClick={() => signIn("facebook")}
+          >
             <button
               type="button"
               className="flex border-2 rounded-lg py-3 items-center pl-4 pr-6 bg-blue-500 hover:bg-blue-600 w-full"

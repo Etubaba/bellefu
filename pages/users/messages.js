@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Layout from "../../components/Layout";
 import { FaEye } from "react-icons/fa";
+import { Modal, Fade, Box, Backdrop } from '@mui/material'
 import { IoMdCall } from "react-icons/io";
 import { BsCheck2All } from "react-icons/bs";
 import { MdDeleteForever, MdSend, MdClose } from "react-icons/md";
@@ -30,6 +31,8 @@ const messages = ({ data1 }) => {
   const [sent, setSent] = useState(false);
   const [unread, setUnread] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [attachments, setAttachments] = useState(null);
 
   const theRef = useRef();
 
@@ -77,7 +80,7 @@ const messages = ({ data1 }) => {
     getMessages();
   }, []);
 
-  console.log(contact);
+
 
   // get chat between two people
 
@@ -99,18 +102,12 @@ const messages = ({ data1 }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // const getChat = async () => {
-  //   // senderId/receiverId
-  //   await axios
-  //     .get(`${apiData}single/contact/${senderId}/${receiverId}`)
-  //     .then((res) => setChat(res.data.data));
-  // };
-
-  // setTimeout(() => {
-  //   getChat();
-  // }, 5000)
-
-  //automatic scroll to the bottom in chat
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  };
 
   useEffect(() => {
     theRef.current?.scrollIntoView({
@@ -187,8 +184,6 @@ const messages = ({ data1 }) => {
                     .catch((err) => console.log("wahala =>", err));
 
                   checkRead(msgRead());
-                } else {
-                  return;
                 }
               }}
               key={index}
@@ -307,10 +302,14 @@ const messages = ({ data1 }) => {
                       </div> :
 
                       <div
+                        onClick={() => {
+                          setAttachments(item.attachment);
+                          setModal(true)
+                        }}
                         className={
                           item.from_id !== senderId
-                            ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-2 py-1 md:px-4 md:py-2 text-gray-700 bg-gray-100 rounded shadow"
-                            : "relative max-w-xl mb-4 px-1 py-1 md:px-4 md:py-2 text-gray-100 bg-bellefuGreen rounded shadow"
+                            ? "after:content-[''] after:absolute after:right-[100%] after:top-[0] after:border-l-gray-100  relative max-w-xl mb-4 px-2 py-1 md:px-4 md:py-2 text-gray-700 hover:bg-gray-200 bg-gray-100 rounded shadow"
+                            : "relative max-w-xl mb-4 px-1 py-1 md:px-4 md:py-2 text-gray-100 hover:bg-[#4CAF50] bg-bellefuGreen rounded shadow"
                         }>
                         <img
                           src={`https://bellefu.inmotionhub.xyz/get/chat/image/${item.attachment}`}
@@ -419,6 +418,35 @@ const messages = ({ data1 }) => {
           </div>
         </div>
       )}
+
+      {/* image modal goes here  */}
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={modal}
+        onClose={() => setModal(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={modal}>
+          <Box sx={style}>
+            <img
+              src={`https://bellefu.inmotionhub.xyz/get/chat/image/${attachments}`}
+              alt='error'
+              className=' md:w-full md:h-[60vh] w-full h-[40vh] object-fill rounded-md'
+            />
+          </Box>
+        </Fade>
+      </Modal>
+
+
+
+
+
+
     </div>
   );
 };

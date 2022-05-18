@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import ShopComponents from "../../components/shopComponents/ShopComponents";
 import MobileShopSideBar from "../../components/SingleProduct/MobileShopSidebar";
+import Head from "next/head";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
 import { userDId } from "../../features/bellefuSlice";
 
@@ -9,8 +10,13 @@ const Shop = ({ userProducts }) => {
   const details = useSelector(userDId);
 
   const products = userProducts.data.data;
+  console.log(products);
 
   return (
+    <>
+    <Head>
+      <title>{products[0].title}</title>
+    </Head>
     <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-5">
       <ShopSideBar userDetails={details} />
       <div className="flex-1">
@@ -18,6 +24,7 @@ const Shop = ({ userProducts }) => {
         <MobileShopSideBar userDetails={details} />
       </div>
     </div>
+    </>
   );
 };
 

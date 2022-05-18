@@ -18,7 +18,7 @@ const User = () => {
     );
 
   return (
-    <div className="flex mt-20">
+    <div className="flex mt-28">
       <div className="side-bar bg-white h-screen ml-12 mr-8 overflow-auto rounded-lg">
         <h3 className="flex m-4 cursor-pointer hover:bg-red-50 hover:rounded-lg py-1.5">
           <span className="pt-1 px-3">

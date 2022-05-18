@@ -6,23 +6,48 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
-import { useSelector } from "react-redux";
-import { login } from "../../features/bellefuSlice";
+import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { login, msgScroll } from "../../features/bellefuSlice";
 import { apiData } from "../../constant";
 
 const SingleProductList = ({ similarProductDetail }) => {
-  const [fav2, setFav2] = useState(false)
+  const [fav2, setFav2] = useState(false);
 
   const isLoggedIn = useSelector(login);
-  const userId = useSelector(state => state.bellefu?.profileDetails?.id)
-  const favArr = useSelector(state => state.bellefu?.favArr)
+  const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
+  const favArr = useSelector((state) => state.bellefu?.favArr);
   const router = useRouter();
+  const dispatch = useDispatch();
 
-
+  const actionFav = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "favorite",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const actionCall = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "call",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const removeFav = () => {
-
     axios
       .post(`${apiData}delete/favorite/webindex`, {
         productId: similarProductDetail.productId,
@@ -46,10 +71,7 @@ const SingleProductList = ({ similarProductDetail }) => {
           );
         }
       });
-
-  }
-
-
+  };
 
   const addFav = (e) => {
     e.stopPropagation();
@@ -69,10 +91,11 @@ const SingleProductList = ({ similarProductDetail }) => {
                 20
               )} added to favourite`
             );
+            actionFav();
           }
         });
     }
-  }
+  };
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
@@ -102,34 +125,45 @@ const SingleProductList = ({ similarProductDetail }) => {
           <p className="mr-1">$</p>
           {similarProductDetail.price}
         </p>
-        {fav2 || favArr?.includes(similarProductDetail.productId) ?
+        {fav2 || favArr?.includes(similarProductDetail.productId) ? (
           <div onClick={removeFav} className="cursor-pointer">
             <BsSuitHeartFill className="w-4 h-4 text-bellefuOrange" />
-          </div> :
+          </div>
+        ) : (
           <div onClick={addFav} className="cursor-pointer">
             <BsHeart className="w-4 h-4 text-bellefuOrange" />
-          </div>}
+          </div>
+        )}
       </div>
       <div className="flex items-center mt-2 space-x-3">
-        <button onClick={() => {
-          if (isLoggedIn) {
-            router.push(`/product/${similarProductDetail.productId}`)
-          } else {
-            toast.error('Please login to contact seller', { position: 'top-right' })
-          }
-        }}
-          className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4 cursor-pointer">
+        <button
+          onClick={() => {
+            if (isLoggedIn) {
+              router.push(`/product/${similarProductDetail.productId}`);
+              dispatch(msgScroll(1));
+            } else {
+              toast.error("Please login to contact seller", {
+                position: "top-right",
+              });
+            }
+          }}
+          className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4 cursor-pointer"
+        >
           <MdOutlineMessage className="!text-white" />
         </button>
         <button
           onClick={() => {
             if (isLoggedIn) {
-              window.open(`tel:${similarProductDetail.phone}`)
+              window.open(`tel:${similarProductDetail.phone}`);
+              actionCall();
             } else {
-              toast.error('Please login to contact seller', { position: 'top-right' })
+              toast.error("Please login to contact seller", {
+                position: "top-right",
+              });
             }
           }}
-          className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4 cursor-pointer">
+          className="bg-bellefuGreen  rounded-md w-full flex items-center justify-center py-4 cursor-pointer"
+        >
           <MdCall className="text-white " />
         </button>
       </div>

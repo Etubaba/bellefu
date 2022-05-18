@@ -20,9 +20,9 @@ const MobileCategoryBar = ({ categories }) => {
   return (
     <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-1 grid-flow-row-dense">
       {categories?.map((category, index) => (
-        <>
-          <MobileCategory key={index} category={category} />
-        </>
+        <div key={index}>
+          <MobileCategory category={category} />
+        </div>
       ))}
       <div className="">
         <div className="flex items-center mb-1 bg-gray-100 px-1 py-2 rounded-md h-24">
@@ -31,31 +31,31 @@ const MobileCategoryBar = ({ categories }) => {
             onClick={() => router.push("/custom")}
           >
             {loading ? (
-              
-                <img
-                  src={`	https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
-                  alt="icons"
-                  className="w-14 h-14 object-fill"
-                />
-              
+
+              <img
+                src={`	https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
+                alt="icons"
+                className="w-14 h-14 object-fill"
+              />
+
             ) : (
               <Skeleton
-            variant="circular"
-            animation="wave"
-            width={"55%"}
-            height={60} 
-            />
-            )}
-            {loading?<h5 className="text-bellefuBlack1 text-xs text-center font-medium">
-              custom request
-            </h5>:<Skeleton
-                  className="rounded-md mt-2"
-
-                variant="rectangular"
+                variant="circular"
                 animation="wave"
-                width={"70%"}
-                height={10}
-              />}
+                width={"55%"}
+                height={60}
+              />
+            )}
+            {loading ? <h5 className="text-bellefuBlack1 text-xs text-center font-medium">
+              custom request
+            </h5> : <Skeleton
+              className="rounded-md mt-2"
+
+              variant="rectangular"
+              animation="wave"
+              width={"70%"}
+              height={10}
+            />}
           </div>
         </div>
       </div>

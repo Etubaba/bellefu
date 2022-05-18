@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
-import { AiFillCaretDown } from "react-icons/ai";
+import classNames from "classnames";
+import { AiFillCaretDown, AiOutlineCaretRight } from "react-icons/ai";
+
 
 const ProductUpload = () => {
   const [formFields, setFormFields] = useState({
@@ -11,6 +13,9 @@ const ProductUpload = () => {
     sellCondition: "",
 
   });
+  const [rotateCaret, setRotateCaret] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState("select product want to upload.");
   const onChange = (input) => (evt) => {
     if (formFields[input]) return;
     if ((input === "normalPrice" || input === "promoPrice" || input === "weight") && isNaN(evt.target.value)) return ;
@@ -37,9 +42,53 @@ const ProductUpload = () => {
       <title>Shop: Product Upload</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-    <div className="mt-24">
+    <div className="mt-32">
       <h1 className="text-center text-2xl font-bold ">Upload Product</h1>
       <form className="w-[90%] md:w-[60%] lg:w-[50%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
+        <div className="text-right">
+          <button className="text-lg font-semibold bg-bellefuOrange hover:bg-orange-400 rounded-lg p-2 text-bellefuWhite">Create New Product</button>
+        </div>
+        <div className="mb-3 relative">
+          {/* <div className=""> */}
+          <p className="text-lg font-semibold">Select Product</p>
+          <div className="flex items-center justify-between mb-2 bg-white hover:bg-bellefuBackground p-2 rounded-md border-2 cursor-pointer" onClick={() => setRotateCaret(prevState => !prevState)}>
+            <div className="">
+              {product}
+            </div>
+            <div>
+              <AiOutlineCaretRight className={classNames("text-gray-300", {"rotate-90": rotateCaret})} />
+            </div>
+            {/* {!open1 ? (
+              <div onClick={() => setOpen1(!open1)}>
+                <AiOutlineCaretRight className="text-gray-300 cursor-pointer" />
+              </div>
+            ) : (
+              <div onClick={() => setOpen1(!open1)}>
+                <AiOutlineCaretDown className="text-gray-300 cursor-pointer" />
+              </div>
+            )} */}
+          </div>
+          {rotateCaret && 
+            <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
+              <ul className="rounded px-5 py-4">
+                {products.map((item, index) => (
+                  <li
+                    onClick={() => {
+                      setRotateCaret(prevState => !prevState);
+                      // setSubCatText(item.subCatName);
+                      setProduct(item.value);
+                    }}
+                    key={index}
+                    className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
+                  >
+                    <span>{item.value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          }
+          {/* </div> */}
+        </div>
         <div className="mb-3">
           <p><label htmlFor="normal-price" className="text-lg font-semibold">Normal Price</label></p>
           <p><input type="text" id="normal-price" placeholder="200" value={formFields.normalPrice} onChange={onChange("normalPrice")} className="pl-2 py-2 border-2 w-full rounded-md" /></p>

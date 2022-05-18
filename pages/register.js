@@ -19,7 +19,7 @@ export const getStaticProps = async () => {
     `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
   );
   const data = await res.json();
-  
+
   const response = await fetch(`${apiData}get/countries`);
   const { data: resData } = await response.json();
 
@@ -235,7 +235,7 @@ const Register = ({ data, countries, countries1 }) => {
       {!session && <RegisterHeader />}
       <div
         className={classNames(
-          "w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-20",
+          "w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-28",
           { "mt-9": session }
         )}
       >
@@ -553,7 +553,10 @@ const Register = ({ data, countries, countries1 }) => {
             {/* <hr /> */}
             {/* <p className="text-center mt-11 mb-8">OR</p> */}
             <div className="flex flex-col md:flex-row items-center justify-center mb-12 px-6 py-4 md:px-12 md:py-4">
-              <p className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]" onClick={() => signIn("google")}>
+              <p
+                className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]"
+                onClick={() => signIn("google")}
+              >
                 <button
                   type="button"
                   className="flex justify-center items-center border-2 rounded-lg py-3 pl-4 pr-10 bg-white hover:bg-[#F2F2F2] w-full"
@@ -564,7 +567,10 @@ const Register = ({ data, countries, countries1 }) => {
                   </strong>
                 </button>
               </p>
-              <p className="text-white w-[100%] md:w-[75%]" onClick={() => signIn("facebook")}>
+              <p
+                className="text-white w-[100%] md:w-[75%]"
+                onClick={() => signIn("facebook")}
+              >
                 <button
                   type="button"
                   className="flex items-center border-2 rounded-lg py-3 pl-4 pr-10 md:pr-14 bg-blue-500 hover:bg-blue-600 w-full"

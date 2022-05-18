@@ -37,7 +37,7 @@ const CategorySideBar = ({ categories, indexData }) => {
                   <div>
                     <img
                       onClick={() => router.push("/custom")}
-                      src='/cr.png'
+                      src="/CR.png"
                       alt="icons"
                       className="w-10 h-12"
                     />

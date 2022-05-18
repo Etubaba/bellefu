@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { BsHeart } from "react-icons/bs";
 import { AiFillEye, AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
@@ -29,7 +29,7 @@ import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { login, userFav } from "../../features/bellefuSlice";
+import { login, userFav, msgScroll } from "../../features/bellefuSlice";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
@@ -45,16 +45,66 @@ const SingleProductDescription = ({ productDetails }) => {
   const [fav, setFav] = useState([]);
   const [favStatus, setFavStatus] = useState(false);
   const [report, setReport] = useState("");
-  const [watch, setWatch] = useState(false)
+  const [watch, setWatch] = useState(false);
 
   const receiverId = productDetails[0]?.productOwnerId;
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
   const dispatch = useDispatch();
-  // check if product is among favorite
+  const scroll = useSelector((state) => state.bellefu?.msgScroll);
+  const ref = useRef(null);
+  // const scrollToTop = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
-  console.log("single details =>", productDetails);
-  console.log("image => ", productDetails[0].images[0]);
+  // scroll to message
+  useEffect(() => {
+    if (scroll !== 0) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+      dispatch(msgScroll(0));
+    }
+  }, [scroll]);
+
+  const actionMessage = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "message",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //action on favourite and call
+
+  const actionFav = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "favorite",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const actionCall = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "call",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   // handle message open
   const handleMessage = () => {
@@ -87,6 +137,7 @@ const SingleProductDescription = ({ productDetails }) => {
           toast.success("Your message has been sent successfully.", {
             position: "top-right",
           });
+          actionMessage();
         }
       });
     }
@@ -151,6 +202,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const handleCall = () => {
     if (isLoggedIn) {
       window.open(`tel:${productDetails[0]?.advertiserNumber}`);
+      actionCall();
     } else {
       setModalOpen(true);
       toast.info("please login to contact seller", { position: "top-center" });
@@ -174,6 +226,7 @@ const SingleProductDescription = ({ productDetails }) => {
                 20
               )} added to favourite`
             );
+            actionFav();
           }
         });
     } else {
@@ -211,7 +264,10 @@ const SingleProductDescription = ({ productDetails }) => {
 
   // PARSE PRODUCT DESCRIPTION
   const parser = new DOMParser();
-  const doc = parser.parseFromString(`${productDetails[0].description}`, "text/html");
+  const doc = parser.parseFromString(
+    `${productDetails[0]?.description}`,
+    "text/html"
+  );
   //console.log(doc);
   const paras = doc.getElementsByTagName("p");
   //console.log(paras);
@@ -219,7 +275,6 @@ const SingleProductDescription = ({ productDetails }) => {
   let description = "";
 
   if (paras.length) {
-
     for (let index = 0; index < paras.length; index++) {
       description += `${paras[index]?.firstChild?.nodeValue} `;
     }
@@ -230,39 +285,38 @@ const SingleProductDescription = ({ productDetails }) => {
   //console.log(description)
 
   const title = `${productDetails[0]?.title}`;
-  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
-  const image = `${window.location.href}?mage=${productDetails[0]?.images[0]}&title=${title}&description=${description.trim()}&type=image`;
-  
+  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0]?.productId}`;
+  const image = `${window.location.href}?mage=${productDetails[0]?.images[0]
+    }&title=${title}&description=${description?.trim()}&type=image`;
 
-
-
-  const video = 'https://bellefu.inmotionhub.xyz/get/video/';
-
+  const video = "https://bellefu.inmotionhub.xyz/get/video/";
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 'auto',
-    bgcolor: 'background.paper',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "auto",
+    bgcolor: "background.paper",
     borderRadius: 3,
     boxShadow: 24,
     p: 2,
   };
   const style2 = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '70%',
-    height: '50%',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "70%",
+    height: "50%",
     borderRadius: 3,
     boxShadow: 24,
     p: 2,
   };
 
 
+
+  console.log('product=>', productDetails)
   return (
     <>
       <Head>
@@ -276,7 +330,7 @@ const SingleProductDescription = ({ productDetails }) => {
         {/* title section */}
         <div className="flex items-center justify-between lg:px-7 px-3">
           <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
-            {productDetails[0]?.productTitle}
+            {productDetails[0]?.title}
           </p>
           {favStatus ||
             (clean?.includes(productDetails[0]?.productId) &&
@@ -300,7 +354,9 @@ const SingleProductDescription = ({ productDetails }) => {
               <BsClockFill className="w-4 h-4 text-gray-500" />
               <p className="text-bellefuBlack1 text-sm">
                 Posted on{" "}
-                {moment(productDetails[0]?.productPostedOn).format("MMM Do YYYY")}
+                {moment(productDetails[0]?.productPostedOn).format(
+                  "MMM Do YYYY"
+                )}
               </p>
             </div>
             <div className="flex items-center space-x-2 -ml-1">
@@ -314,30 +370,36 @@ const SingleProductDescription = ({ productDetails }) => {
           <div className="flex items-center space-x-1">
             <AiFillEye className="w-4 h-4 text-gray-500 " />
             <p className="text-bellefuBlack1 text-sm">
-              {productDetails[0]?.inorganic_views} Views
+              {productDetails[0]?.inorganicViews} Views
             </p>
           </div>
         </div>
 
         {/* description section */}
         <div>
-          <div className='flex justify-between'>
+          <div className="flex justify-between">
             <p className="lg:px-7 px-3 mt-4 lg:mt-6 text-xl lg:text-2xl text-bellefuBlack1 font-medium">
               Ads Description
             </p>
-            {productDetails[0]?.video !== null && <FcVideoCall onClick={() => setWatch(true)} className="md:text-5xl text-3xl m-3 " />}
+            {productDetails[0]?.video !== null && (
+              <FcVideoCall
+                onClick={() => setWatch(true)}
+                className="md:text-5xl text-3xl m-3 "
+              />
+            )}
           </div>
           <div className="border-b lg:mt-6 mt-4" />
           <p
             className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4 capitalize"
             dangerouslySetInnerHTML={{
-              __html: productDetails[0]?.productDescription,
+              __html: productDetails[0]?.description,
             }}
           />
         </div>
         {/* product owner profile details */}
 
         <div className="py-3 px-3 lg:hidden">
+          <div ref={ref} />
           <SingleProductMobileSidebar mobileDetails={productDetails} />
         </div>
 
@@ -347,6 +409,7 @@ const SingleProductDescription = ({ productDetails }) => {
           <p className="lg:px-7 px-3 text-2xl text-bellefuBlack1 font-medium hidden lg:block">
             Contact
           </p>
+          <div ref={ref} />
           {/* divider */}
           <div className="border-b mt-6" />
 
@@ -380,13 +443,14 @@ const SingleProductDescription = ({ productDetails }) => {
                   open={watch}
                   onClose={() => setWatch(false)}
                   aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description">
-
-                  <Box
-                    style={style2}
-                  >
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box style={style2}>
                     <video width="650" height="540" controls>
-                      <source src={`${video}get/video/${productDetails[0]?.video}`} type="video/mp4" />
+                      <source
+                        src={`${video}get/video/${productDetails[0]?.video}`}
+                        type="video/mp4"
+                      />
                       <source src="movie.ogg" type="video/ogg" />
                       Your browser does not support the video.
                     </video>
@@ -481,7 +545,9 @@ const SingleProductDescription = ({ productDetails }) => {
             <div className="flex items-center justify-between">
               <button
                 className=" text-sm lg:text-lg font-medium capitalize text-gray-400 active:text-bellefuTitleBlack cursor-pointer"
-                onClick={() => (setOpen(!open), setOpen1(false), setOpen2(false))}
+                onClick={() => (
+                  setOpen(!open), setOpen1(false), setOpen2(false)
+                )}
               >
                 Safety tips
               </button>
@@ -525,11 +591,16 @@ const SingleProductDescription = ({ productDetails }) => {
               <div className="flex items-center space-x-4">
                 <BsFillCheckSquareFill className="lg:w-3 lg:h-3 w-3 h-3 text-bellefuOrange rounded-sm" />
                 <p className="text-xs sm:text-sm whitespace-pre-wrap">
-                  Contact support@bellefu.com if you require verification of buyer
-                  or seller (Terms & Conditions apply)
+                  Contact support@bellefu.com if you require verification of
+                  buyer or seller (Terms & Conditions apply)
                 </p>
               </div>
-              <p onClick={() => router.push('/tips')} className='hover:text-orange-500 cursor-pointer text-bellefuOrange mt-4'>Read More...</p>
+              <p
+                onClick={() => router.push("/tips")}
+                className="hover:text-orange-500 cursor-pointer text-bellefuOrange mt-4"
+              >
+                Read More...
+              </p>
             </div>
           )}
 

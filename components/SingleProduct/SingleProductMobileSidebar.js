@@ -38,6 +38,20 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
   const receiverId = mobileDetails[0]?.userId;
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
+  const actionMessage = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: senderId,
+        action: "message",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const handleMessage = () => {
     if (isLoggedIn) {
       setOpen(!open);
@@ -119,6 +133,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
           toast.success("Your message has been sent successfully.", {
             position: "top-right",
           });
+          actionMessage();
           setMessage("");
         }
       });
@@ -290,9 +305,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
             )}
             {/* my shop */}
             <div
-              onClick={() =>
-                router.push(`/shop/${mobileDetails[0]?.userId}`)
-              }
+              onClick={() => router.push(`/shop/${mobileDetails[0]?.userId}`)}
               className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-gradient-to-r from-bellefuGreen to-bellefuOrange justify-center cursor-pointer"
             >
               <RiShoppingCart2Fill className="w-4 h-4 text-white" />

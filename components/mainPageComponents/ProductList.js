@@ -11,10 +11,11 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { apiData } from "../../constant";
-import { login } from "../../features/bellefuSlice";
+import { login, msgScroll } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useDispatch } from "react-redux";
 
 const ProductList = ({
   product,
@@ -32,11 +33,13 @@ const ProductList = ({
   const [clean, setClean] = useState(fav);
 
   const router = useRouter();
+  const dispatch = useDispatch();
   const getIsLoggedIn = useSelector(login);
 
   const handleMessage = () => {
     if (getIsLoggedIn) {
-      router.push("/messages");
+      router.push(`/product/${product.productId}`);
+      dispatch(msgScroll(1));
     } else {
       // router.push("/login");
       setOpen(true);
@@ -44,14 +47,7 @@ const ProductList = ({
     }
   };
 
-  const handleCall = () => {
-    if (getIsLoggedIn) {
-      window.open(`tel:${product.phone}`);
-    } else {
-      setOpen(true);
-      toast.info("please login to contact seller", { position: "top-center" });
-    }
-  };
+
 
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
 
@@ -69,6 +65,53 @@ const ProductList = ({
     boxShadow: 24,
     p: 2,
   };
+
+
+
+  const actionFav = () => {
+    axios.post(`${apiData}monitor/user/action`, {
+      userId: userId,
+      action: 'favorite',
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  const actionCall = () => {
+    axios.post(`${apiData}monitor/user/action`, {
+      userId: userId,
+      action: 'call',
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
+
+
+
+  const handleCall = () => {
+    if (getIsLoggedIn) {
+      window.open(`tel:${product.phone}`);
+      actionCall();
+
+    } else {
+      setOpen(true);
+      toast.info("please login to contact seller", { position: "top-center" });
+    }
+  };
+
+
+
+
+
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
@@ -199,6 +242,7 @@ const ProductList = ({
                               20
                             )} added to favourite`
                           );
+                          actionFav()
                         }
                       });
                   } else {
