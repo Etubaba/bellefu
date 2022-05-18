@@ -17,6 +17,33 @@ const CategoryProductList = ({ product }) => {
   const isLoggedIn = useSelector(login);
   const router = useRouter();
 
+  const actionFav = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "favorite",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const actionCall = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "call",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const addFav = (e) => {
     e.stopPropagation();
     if (isLoggedIn) {
@@ -32,6 +59,7 @@ const CategoryProductList = ({ product }) => {
             toast.success(
               `${product?.title.substring(0, 20)} added to favourite`
             );
+            actionFav();
           }
         });
     }
@@ -58,6 +86,17 @@ const CategoryProductList = ({ product }) => {
           );
         }
       });
+  };
+
+  //handle call
+  const handleCall = () => {
+    if (isLoggedIn) {
+      window.open(`tel:${product.phone}`);
+      actionCall();
+    } else {
+      setOpen(true);
+      toast.info("please login to contact seller", { position: "top-center" });
+    }
   };
 
   // console.log(product)
@@ -101,7 +140,10 @@ const CategoryProductList = ({ product }) => {
         <button className="bg-bellefuOrange w-full  rounded-md py-3 flex items-center justify-center">
           <MdOutlineMessage className="!text-white w-5 h-5" />
         </button>
-        <button className="bg-bellefuGreen w-full rounded-md py-3 flex items-center justify-center">
+        <button
+          className="bg-bellefuGreen w-full rounded-md py-3 flex items-center justify-center"
+          onClick={handleCall}
+        >
           <MdCall className="text-white w-5 h-5" />
         </button>
       </div>
