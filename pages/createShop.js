@@ -20,7 +20,7 @@ import GovId from "../components/GovId";
 // import Skeleton from "@mui/material/Skeleton";
 // import { useRouter } from 'next/router'
 
-export default function createShop() {
+export default function CreateShop() {
   const userThings = useSelector((state) => state.bellefu.profileDetails);
   const idchecker = useSelector((state) => state.bellefu.verificationStatus);
   const dispatch = useDispatch();
