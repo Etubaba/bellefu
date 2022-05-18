@@ -17,11 +17,35 @@ const ShopComponent = ({ product }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
 
+  console.log("shop=>", product);
 
-  console.log('shop=>', product)
-
-
-
+  //action for favourite and call
+  const actionFav = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "favorite",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const actionCall = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "call",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const addFav = (e) => {
     e.stopPropagation();
@@ -38,11 +62,11 @@ const ShopComponent = ({ product }) => {
             toast.success(
               `${product.title.substring(0, 20)} added to favourite`
             );
+            actionFav();
           }
         });
     }
   };
-
 
   const removeFav = () => {
     axios
@@ -65,6 +89,17 @@ const ShopComponent = ({ product }) => {
           );
         }
       });
+  };
+
+  //handle call
+  const handleCall = () => {
+    if (isLoggedIn) {
+      window.open(`tel:${product.phone}`);
+      actionCall();
+    } else {
+      setOpen(true);
+      toast.info("please login to contact seller", { position: "top-center" });
+    }
   };
 
   return (
@@ -104,7 +139,10 @@ const ShopComponent = ({ product }) => {
         <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
           <BsCart3 className="text-white" />
         </button>
-        <button className="bg-bellefuGreen w-full flex items-center justify-center py-4 rounded-md">
+        <button
+          className="bg-bellefuGreen w-full flex items-center justify-center py-4 rounded-md"
+          onClick={handleCall}
+        >
           <MdCall className="text-white" />
         </button>
       </div>
