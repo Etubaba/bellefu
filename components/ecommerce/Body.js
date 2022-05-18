@@ -9,7 +9,7 @@ const Body = ({ shops }) => {
 
 
     return (
-        <div className="max-w-7xl mx-auto z-40 mt-32">
+        <div className="max-w-6xl mx-auto z-40 mt-32">
 
 
             <div className="flex items-center justify-between mb-5">
