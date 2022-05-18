@@ -354,6 +354,7 @@ const SingleProductDescription = ({ productDetails }) => {
         {/* product owner profile details */}
 
         <div className="py-3 px-3 lg:hidden">
+          <div ref={ref} />
           <SingleProductMobileSidebar mobileDetails={productDetails} />
         </div>
 
@@ -363,6 +364,7 @@ const SingleProductDescription = ({ productDetails }) => {
           <p className="lg:px-7 px-3 text-2xl text-bellefuBlack1 font-medium hidden lg:block">
             Contact
           </p>
+          <div ref={ref} />
           {/* divider */}
           <div className="border-b mt-6" />
 
@@ -389,7 +391,7 @@ const SingleProductDescription = ({ productDetails }) => {
                     <p className="text-white">Call</p>
                   </div>
                 )}
-                <div ref={ref} />
+
 
                 {/* Watching video modal  */}
 
