@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { BsHeart } from "react-icons/bs";
 import { AiFillEye, AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
@@ -29,7 +29,7 @@ import SingleProductMobileSidebar from "./SingleProductMobileSidebar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { login, userFav } from "../../features/bellefuSlice";
+import { login, userFav, msgScroll } from "../../features/bellefuSlice";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
@@ -51,10 +51,24 @@ const SingleProductDescription = ({ productDetails }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
   const dispatch = useDispatch();
-  // check if product is among favorite
+  const scroll = useSelector(state => state.bellefu?.msgScroll)
+  const ref = useRef(null);
+  // const scrollToTop = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
-  console.log("single details =>", productDetails);
-  console.log("image => ", productDetails[0].images[0]);
+
+
+
+  // scroll to message
+  useEffect(() => {
+    if (scroll !== 0) {
+      ref.current.scrollIntoView({ behavior: 'smooth' })
+      dispatch(msgScroll(0))
+    }
+  }, [scroll]);
+
+
+
+
 
   // handle message open
   const handleMessage = () => {
@@ -64,6 +78,8 @@ const SingleProductDescription = ({ productDetails }) => {
       setModalOpen(true);
     }
   };
+
+
 
   //handle sending messages
   const sendMessage = () => {
@@ -232,7 +248,7 @@ const SingleProductDescription = ({ productDetails }) => {
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
   const image = `${window.location.href}?mage=${productDetails[0]?.images[0]}&title=${title}&description=${description.trim()}&type=image`;
-  
+
 
 
 
@@ -373,6 +389,7 @@ const SingleProductDescription = ({ productDetails }) => {
                     <p className="text-white">Call</p>
                   </div>
                 )}
+                <div ref={ref} />
 
                 {/* Watching video modal  */}
 

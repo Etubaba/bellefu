@@ -11,7 +11,7 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { apiData } from "../../constant";
-import { login } from "../../features/bellefuSlice";
+import { login, msgScroll } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -39,7 +39,7 @@ const ProductList = ({
   const handleMessage = () => {
     if (getIsLoggedIn) {
       router.push(`/product/${product.productId}`);
-      dispatch(msgScroll());
+      dispatch(msgScroll(1));
     } else {
       // router.push("/login");
       setOpen(true);

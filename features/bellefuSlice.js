@@ -89,8 +89,8 @@ export const bellefuSlice = createSlice({
       state.messageRead += 1;
       // localStorage.setItem('msg', state.messageRead)
     },
-    msgScroll: (state) => {
-      state.messageRead += 1;
+    msgScroll: (state, action) => {
+      state.msgScroll = action.payload;
       // localStorage.setItem('msg', state.messageRead)
     },
     kycpending: (state, action) => {
