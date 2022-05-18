@@ -250,7 +250,7 @@ const SingleProductDescription = ({ productDetails }) => {
   // PARSE PRODUCT DESCRIPTION
   const parser = new DOMParser();
   const doc = parser.parseFromString(
-    `${productDetails[0].description}`,
+    `${productDetails[0]?.description}`,
     "text/html"
   );
   //console.log(doc);
@@ -270,10 +270,10 @@ const SingleProductDescription = ({ productDetails }) => {
   //console.log(description)
 
   const title = `${productDetails[0]?.title}`;
-  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
+  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0]?.productId}`;
   const image = `${window.location.href}?mage=${
     productDetails[0]?.images[0]
-  }&title=${title}&description=${description.trim()}&type=image`;
+  }&title=${title}&description=${description?.trim()}&type=image`;
 
   const video = "https://bellefu.inmotionhub.xyz/get/video/";
 

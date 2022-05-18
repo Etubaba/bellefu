@@ -7,8 +7,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { login } from "../../features/bellefuSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { login, msgScroll } from "../../features/bellefuSlice";
 import { apiData } from "../../constant";
 
 const SingleProductList = ({ similarProductDetail }) => {
@@ -18,6 +18,7 @@ const SingleProductList = ({ similarProductDetail }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const favArr = useSelector((state) => state.bellefu?.favArr);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const actionFav = () => {
     axios
@@ -139,6 +140,7 @@ const SingleProductList = ({ similarProductDetail }) => {
           onClick={() => {
             if (isLoggedIn) {
               router.push(`/product/${similarProductDetail.productId}`);
+              dispatch(msgScroll(1));
             } else {
               toast.error("Please login to contact seller", {
                 position: "top-right",
