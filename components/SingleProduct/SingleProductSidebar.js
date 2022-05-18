@@ -56,6 +56,20 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
     }
   };
 
+  const actionMessage = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: senderId,
+        action: "message",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const sendMessage = () => {
     if (message === "") {
       toast.error("You can not send an empty field", { position: "top-right" });
@@ -77,6 +91,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           toast.success("Your message has been sent successfully.", {
             position: "top-right",
           });
+          actionMessage();
           setMessage("");
         }
       });
@@ -139,14 +154,13 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
     }
   };
 
-
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 'auto',
-    bgcolor: 'background.paper',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "auto",
+    bgcolor: "background.paper",
     borderRadius: 3,
     boxShadow: 24,
     p: 2,
@@ -186,18 +200,18 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 verified?.phone && !verified?.id && !verified?.kyc
                   ? "text-black/70 w-3 h-3"
                   : !verified?.kyc && verified?.id && verified?.phone
-                    ? "w-3 h-3 text-bellefuOrange"
-                    : verified?.id && verified?.phone && verified?.kyc
-                      ? "w-3 h-3 text-bellefuGreen"
-                      : "w-3 h-3 text-[#A6A6A6]"
+                  ? "w-3 h-3 text-bellefuOrange"
+                  : verified?.id && verified?.phone && verified?.kyc
+                  ? "w-3 h-3 text-bellefuGreen"
+                  : "w-3 h-3 text-[#A6A6A6]"
               }
             />
             <i className="text-[10px] ml-2">
               {verified?.phone && !verified?.id && !verified?.kyc
                 ? "Phone verified"
                 : verified?.phone && verified?.id && !verified?.kyc
-                  ? "ID verified"
-                  : "KYC verified"}
+                ? "ID verified"
+                : "KYC verified"}
             </i>
           </span>
         </div>
@@ -272,7 +286,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           onClose={() => setModalOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-        // sx={{ opacity: 0.5 }}
+          // sx={{ opacity: 0.5 }}
         >
           <Box sx={style}>
             <strong className="ml-4 mb-8 text-sm md:text-md"> Sign in </strong>
@@ -280,11 +294,15 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
             <div className="flex space-x-4 justify-center items-center my-4">
               <button className=" flex py-3 px-8 md:px-10 border-2 hover:bg-gray-200  rounded-lg  ">
                 <FcGoogle className="md:text-3xl text-xl mr-5" />{" "}
-                <strong className="text-[#303A4B] text-sm md:text-xl">Google</strong>
+                <strong className="text-[#303A4B] text-sm md:text-xl">
+                  Google
+                </strong>
               </button>
               <button className="hover:bg-blue-700 flex py-3 px-7 md:px-10 bg-[#3B5998] rounded-lg ">
                 <ImFacebook className="md:text-3xl text-xl text-white mr-5 " />
-                <strong className="text-white text-sm md:text-xl">Facebook</strong>
+                <strong className="text-white text-sm md:text-xl">
+                  Facebook
+                </strong>
               </button>
             </div>
             <div className="flex justify-center items-center">
@@ -292,7 +310,6 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 onClick={() => router.push("/login")}
                 className="py-3 text-xs md:text-md px-8  lg:px-44 mb-4  rounded-md text-white hover:bg-green-600 bg-bellefuGreen "
               >
-
                 Email or Phone
               </button>
             </div>

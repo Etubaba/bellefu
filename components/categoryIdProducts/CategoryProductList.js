@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { login } from "../../features/bellefuSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { login, msgScroll } from "../../features/bellefuSlice";
 
 const CategoryProductList = ({ product }) => {
   const [fav2, setFav2] = useState(false);
@@ -16,6 +16,7 @@ const CategoryProductList = ({ product }) => {
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const actionFav = () => {
     axios
@@ -99,6 +100,18 @@ const CategoryProductList = ({ product }) => {
     }
   };
 
+  //handle message
+  const handleMessage = () => {
+    if (isLoggedIn) {
+      router.push(`/product/${product.productId}`);
+      dispatch(msgScroll(1));
+    } else {
+      // router.push("/login");
+      setOpen(true);
+      toast.info("Please login to contact seller", { position: "top-center" });
+    }
+  };
+
   // console.log(product)
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md cursor-pointer">
@@ -137,7 +150,10 @@ const CategoryProductList = ({ product }) => {
         )}
       </div>
       <div className="flex items-center space-x-3 mt-2">
-        <button className="bg-bellefuOrange w-full  rounded-md py-3 flex items-center justify-center">
+        <button
+          className="bg-bellefuOrange w-full  rounded-md py-3 flex items-center justify-center"
+          onClick={handleMessage}
+        >
           <MdOutlineMessage className="!text-white w-5 h-5" />
         </button>
         <button

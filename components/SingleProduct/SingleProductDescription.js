@@ -63,6 +63,20 @@ const SingleProductDescription = ({ productDetails }) => {
     }
   }, [scroll]);
 
+  const actionMessage = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "message",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   //action on favourite and call
 
   const actionFav = () => {
@@ -123,6 +137,7 @@ const SingleProductDescription = ({ productDetails }) => {
           toast.success("Your message has been sent successfully.", {
             position: "top-right",
           });
+          actionMessage();
         }
       });
     }
@@ -250,7 +265,7 @@ const SingleProductDescription = ({ productDetails }) => {
   // PARSE PRODUCT DESCRIPTION
   const parser = new DOMParser();
   const doc = parser.parseFromString(
-    `${productDetails[0].description}`,
+    `${productDetails[0]?.description}`,
     "text/html"
   );
   //console.log(doc);
@@ -270,10 +285,10 @@ const SingleProductDescription = ({ productDetails }) => {
   //console.log(description)
 
   const title = `${productDetails[0]?.title}`;
-  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0].productId}`;
+  const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0]?.productId}`;
   const image = `${window.location.href}?mage=${
     productDetails[0]?.images[0]
-  }&title=${title}&description=${description.trim()}&type=image`;
+  }&title=${title}&description=${description?.trim()}&type=image`;
 
   const video = "https://bellefu.inmotionhub.xyz/get/video/";
 
@@ -419,7 +434,6 @@ const SingleProductDescription = ({ productDetails }) => {
                     <p className="text-white">Call</p>
                   </div>
                 )}
-
 
                 {/* Watching video modal  */}
 
