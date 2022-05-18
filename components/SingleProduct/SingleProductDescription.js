@@ -221,7 +221,7 @@ const SingleProductDescription = ({ productDetails }) => {
           if (res.data.status) {
             setFavStatus(!favStatus);
             toast.success(
-              `${productDetails[0]?.productTitle.substring(
+              `${productDetails[0]?.title.substring(
                 0,
                 20
               )} added to favourite`
@@ -250,7 +250,7 @@ const SingleProductDescription = ({ productDetails }) => {
           );
           setClean(cleanArr);
           toast.error(
-            `${productDetails[0]?.productTitle.substring(
+            `${productDetails[0]?.title.substring(
               0,
               20
             )} removed from favorite product`,
@@ -315,8 +315,8 @@ const SingleProductDescription = ({ productDetails }) => {
   };
 
 
-
   console.log('product=>', productDetails)
+
   return (
     <>
       <Head>
