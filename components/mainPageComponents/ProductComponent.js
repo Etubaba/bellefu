@@ -61,8 +61,6 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   // getting random ads
   const randomAdverts = adverts[Math.floor(Math.random() * adverts.length)];
 
-
-
   useEffect(() => {
     if (page > 1) {
       axios
@@ -163,10 +161,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     getCountry !== null && search === ""
       ? countryData
       : search !== ""
-        ? searchResult
-        : page !== 1 && search === "" && getCountry === null
-          ? productIndex
-          : products;
+      ? searchResult
+      : page !== 1 && search === "" && getCountry === null
+      ? productIndex
+      : products;
 
   const skeleMapper = [
     <Skeleto />,
@@ -236,7 +234,8 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
               </div>
             </div>
           ) : (
-            main.slice(0, 8)
+            main
+              .slice(0, 8)
               .filter((item) => {
                 if (getState === null && subCatClicked === undefined) {
                   return item;
@@ -267,11 +266,15 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       {/* the ads start here */}
 
       <div className="my-5">
-        <img
-          src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
-          alt="ads"
-          className="w-full h-80 object-cover rounded-md"
-        />
+        <a href={randomAdverts?.action} target="_blank">
+          <img
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${
+              adverts[Math.floor(Math.random() * adverts.length)]?.image
+            }`}
+            alt="ads"
+            className="w-full h-80 object-cover rounded-md"
+          />
+        </a>
       </div>
 
       <div
@@ -282,43 +285,44 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           "grid-cols-1 sm:grid-cols-1": !grid,
         })}
       >
-        {
-
-          main.slice(8, 16)
-            .filter((item) => {
-              if (getState === null && subCatClicked === undefined) {
-                return item;
-              } else if (item.stateCode === getState) {
-                return item;
-              } else if (item.subcatid === subCatClicked) {
-                return item;
-              }
-            })
-            .map((product) => (
-              <div key={product?.productId}>
-                <ProductList
-                  key={product?.productId}
-                  view={grid}
-                  currency={currency}
-                  product={product}
-                  fav={favId}
-                  favdata={fav}
-                  currencyCode={currencyCode}
-                />
-              </div>
-            ))
-
-        }
+        {main
+          .slice(8, 16)
+          .filter((item) => {
+            if (getState === null && subCatClicked === undefined) {
+              return item;
+            } else if (item.stateCode === getState) {
+              return item;
+            } else if (item.subcatid === subCatClicked) {
+              return item;
+            }
+          })
+          .map((product) => (
+            <div key={product?.productId}>
+              <ProductList
+                key={product?.productId}
+                view={grid}
+                currency={currency}
+                product={product}
+                fav={favId}
+                favdata={fav}
+                currencyCode={currencyCode}
+              />
+            </div>
+          ))}
       </div>
       {/* the ads start here */}
 
-      {main.length > 8 && <div className="my-5">
-        <img
-          src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
-          alt="ads"
-          className="w-full h-80 object-cover rounded-md"
-        />
-      </div>}
+      {main.length > 8 && (
+        <div className="my-5">
+          <img
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${
+              adverts[Math.floor(Math.random() * adverts.length)]?.image
+            }`}
+            alt="ads"
+            className="w-full h-80 object-cover rounded-md"
+          />
+        </div>
+      )}
 
       <div
         className={classNames("bg-bellefuBackground mt-1 rounded-md", {
@@ -328,53 +332,8 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           "grid-cols-1 sm:grid-cols-1": !grid,
         })}
       >
-        {main.slice(16, 24)
-          .filter((item) => {
-            if (getState === null && subCatClicked === undefined) {
-              return item;
-            } else if (item.stateCode === getState) {
-              return item;
-            } else if (item.subcatid === subCatClicked) {
-              return item;
-            }
-          })
-          .map((product) => (
-            <div key={product?.productId}>
-              <ProductList
-                key={product?.productId}
-                view={grid}
-                currency={currency}
-                product={product}
-                fav={favId}
-                favdata={fav}
-                currencyCode={currencyCode}
-              />
-            </div>
-          ))}
-
-      </div>
-
-
-
-      {main.length > 16 && <div className=" my-5">
-        <img
-          src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image}`}
-          alt="ads"
-          className="w-full h-80 object-cover rounded-md"
-        />
-      </div>}
-
-
-      <div
-        className={classNames("bg-bellefuBackground mt-1 rounded-md", {
-          "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
-            main?.length,
-          "grid-cols-2 sm:grid-cols-2": grid,
-          "grid-cols-1 sm:grid-cols-1": !grid,
-        })}
-      >
-
-        {main.slice(24, 32)
+        {main
+          .slice(16, 24)
           .filter((item) => {
             if (getState === null && subCatClicked === undefined) {
               return item;
@@ -399,23 +358,68 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           ))}
       </div>
 
+      {main.length > 16 && (
+        <div className=" my-5">
+          <img
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${
+              adverts[Math.floor(Math.random() * adverts.length)]?.image
+            }`}
+            alt="ads"
+            className="w-full h-80 object-cover rounded-md"
+          />
+        </div>
+      )}
+
+      <div
+        className={classNames("bg-bellefuBackground mt-1 rounded-md", {
+          "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense":
+            main?.length,
+          "grid-cols-2 sm:grid-cols-2": grid,
+          "grid-cols-1 sm:grid-cols-1": !grid,
+        })}
+      >
+        {main
+          .slice(24, 32)
+          .filter((item) => {
+            if (getState === null && subCatClicked === undefined) {
+              return item;
+            } else if (item.stateCode === getState) {
+              return item;
+            } else if (item.subcatid === subCatClicked) {
+              return item;
+            }
+          })
+          .map((product) => (
+            <div key={product?.productId}>
+              <ProductList
+                key={product?.productId}
+                view={grid}
+                currency={currency}
+                product={product}
+                fav={favId}
+                favdata={fav}
+                currencyCode={currencyCode}
+              />
+            </div>
+          ))}
+      </div>
 
       {/* pagination goes here  */}
 
       {main.length !== 0 && totalPage > 1 && (
-        <div className="flex justify-center md:mb-0 mb-8 md:mt-10 mt-7 items-center">
+        <div className="flex justify-center md:mb-0 mb-8 md:mt-10 mt-7 items-center w-full ">
           <button
             onClick={() => {
               if (page > 1) {
                 setPage((prev) => prev - 1);
               }
             }}
-            className="flex bg-bellefuOrange hover:bg-orange-500 text-white px-4 py-2 rounded-lg space-x-2"
+            className="flex bg-bellefuOrange hover:bg-orange-500 text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
           >
             <MdOutlineArrowBackIosNew className="mt-1" /> <span> Prev</span>
           </button>
 
-          <span className="justify-center items-center mx-4 px-4 flex space-x-6">
+          <span className="justify-center items-center mx-2 md:mx-4 px-2 md:px-4 flex space-x-2 md:space-x-6">
             {pageNumber?.map((item, index) => (
               <p
                 onClick={() => setPage(item)}
@@ -440,7 +444,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
                   }
                 }
               }}
-              className="flex bg-bellefuGreen hover:bg-green-400 text-white px-4 py-2 rounded-lg space-x-2"
+              className="flex bg-bellefuGreen hover:bg-green-400 text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
             >
               <span> Next</span> <MdOutlineArrowForwardIos className="mt-1" />
             </button>
