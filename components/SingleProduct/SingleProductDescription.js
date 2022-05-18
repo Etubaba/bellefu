@@ -63,6 +63,20 @@ const SingleProductDescription = ({ productDetails }) => {
     }
   }, [scroll]);
 
+  const actionMessage = () => {
+    axios
+      .post(`${apiData}monitor/user/action`, {
+        userId: userId,
+        action: "message",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   //action on favourite and call
 
   const actionFav = () => {
@@ -123,6 +137,7 @@ const SingleProductDescription = ({ productDetails }) => {
           toast.success("Your message has been sent successfully.", {
             position: "top-right",
           });
+          actionMessage();
         }
       });
     }
@@ -419,7 +434,6 @@ const SingleProductDescription = ({ productDetails }) => {
                     <p className="text-white">Call</p>
                   </div>
                 )}
-
 
                 {/* Watching video modal  */}
 
