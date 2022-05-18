@@ -64,9 +64,9 @@ const BottomNav = () => {
         <FaHeart className="text-white text-2xl" onClick={handlefav} />
       </div>
 
-      <div class="relative flex -mt-4 justify-center items-center h-screen w-screen">
+      <div className="relative flex -mt-4 justify-center items-center h-screen w-screen">
         <div
-          class="h-12 w-24 bg-bellefuBackground 
+          className="h-12 w-24 bg-bellefuBackground 
                                    rounded-bl-full rounded-br-full "
         >
           <div

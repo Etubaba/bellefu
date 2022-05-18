@@ -131,6 +131,22 @@ const NavBar = () => {
     getAnnouncement();
   }, []);
 
+  const handleCreateShop = () => {
+    if (getIsLoggedIn && username.avatar !== "useravatar.jpg") {
+      router.push("/createShop");
+    } else if (!getIsLoggedIn) {
+      toast.info("Login to create shop", { position: "top-right" });
+      router.push("/login");
+    } else if (username.avatar === "useravatar.jpg") {
+      toast.info("Update your profile details to create shop", { position: "top-right" });
+      router.push("/users/profile");
+    }
+  }
+
+
+
+
+
   return (
     <div className="fixed top-0 z-50 w-full ">
       <div className=" bg-[#2C3422] h-8 flex items-center justify-center space-x-3">
@@ -185,8 +201,15 @@ const NavBar = () => {
           <div className="flex space-x-4 items-center">
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
-                className="hover:text-gray-200"
-                onClick={() => router.push("/createShop")}
+                className="hover:text-gray-200 cursor-pointer"
+                onClick={() => router.push("/shops")}
+              // href="https://webinar.bellefu.com/"
+              >
+                Shops
+              </a>
+              <a
+                className="hover:text-gray-200 cursor-pointer"
+                onClick={handleCreateShop}
               // href="https://webinar.bellefu.com/"
               >
                 Create Shop

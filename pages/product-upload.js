@@ -1,10 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import classNames from "classnames";
 import { AiFillCaretDown, AiOutlineCaretRight } from "react-icons/ai";
+import CreateProduct from "../components/CreateProduct";
+
+export async function getStaticProps() {
+  console.log("!")
+  const res = await Promise.all([
+    fetch("https://bellefu.inmotionhub.xyz/api/web30/get/postadd"),
+    fetch("https://bellefu.inmotionhub.xyz/api/web30/get/web/index")
+  ]);
+
+  // const res1 = await fetch("https://bellefu.inmotionhub.xyz/api/web30/get/postadd");
+  // const res2 = await fetch("https://bellefu.inmotionhub.xyz/api/web30/get/web/index");
+  // const categoryData = await res1.json();
+  // const countryData = await res2.json();
+
+  const data = await Promise.all([res[0].json(), res[1].json()])
+  const [countryData, categoryData] = data;
+  // console.log("category =>", categoryData)
+  console.log("countries =>", countryData)
+
+  return {
+    props: {
+      countries: countryData.countries,
+      categories: categoryData.categories
+    }
+  }
+}
 
 
-const ProductUpload = () => {
+const ProductUpload = ({categories, countries}) => {
   const [formFields, setFormFields] = useState({
     normalPrice: "",
     promoPrice: "",
@@ -16,6 +42,7 @@ const ProductUpload = () => {
   const [rotateCaret, setRotateCaret] = useState(false);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState("select product want to upload.");
+  const [isNewProduct, setNewProduct] = useState(false);
   const onChange = (input) => (evt) => {
     if (formFields[input]) return;
     if ((input === "normalPrice" || input === "promoPrice" || input === "weight") && isNaN(evt.target.value)) return ;
@@ -36,6 +63,7 @@ const ProductUpload = () => {
     //console.log(formFields);
   }
 
+  console.log(isNewProduct);
   return (
     <>
     <Head>
@@ -43,6 +71,7 @@ const ProductUpload = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
     <div className="mt-32">
+      {isNewProduct ? <>
       <h1 className="text-center text-2xl font-bold ">Upload Product</h1>
       <form className="w-[90%] md:w-[60%] lg:w-[50%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
         <div className="text-right">
@@ -132,6 +161,8 @@ const ProductUpload = () => {
           <button type="submit" className="w-full">Submit</button>
         </div>
       </form>
+      </>: <CreateProduct categories={categories} countries={countries} />
+      }
     </div>
     </>
   )
