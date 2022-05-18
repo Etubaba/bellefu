@@ -9,7 +9,7 @@ import { apiData } from '../../../constant'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
-import { favUpdated } from "../../../features/bellefuSlice";
+import { favUpdated, login, msgScroll } from "../../../features/bellefuSlice";
 import { Box, margin } from "@mui/system";
 
 
@@ -20,7 +20,36 @@ const FavouriteProduct = ({ product }) => {
   const [favUpdate, setFavUpdate] = useState(false)
 
 
-  const dispatch = useDispatch();
+  const userId = useSelector(state => state.bellefu.userDetails?.id)
+  const dispatch = useDispatch()
+
+
+  const handleMessage = () => {
+    router.push(`/product/${product.productId}`);
+    dispatch(msgScroll(1));
+
+  }
+
+
+  const actionCall = () => {
+    axios.post(`${apiData}monitor/user/action`, {
+      userId: userId,
+      action: 'call',
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
+  const handleCall = () => {
+    const { phone } = product;
+    window.open(`tel:${phone}`);
+    actionCall()
+  }
   const router = useRouter()
   const details = useSelector(state => state.bellefu.indexData)
 
@@ -121,10 +150,14 @@ const FavouriteProduct = ({ product }) => {
 
       </div>
       <div className="flex items-center space-x-3 mt-2">
-        <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
+        <button
+          onClick={handleMessage}
+          className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
           <MdOutlineMessage className="text-white" />
         </button>
-        <button className="bg-bellefuGreen w-full flex items-center justify-center py-4 rounded-md">
+        <button
+          onClick={handleCall}
+          className="bg-bellefuGreen w-full flex items-center justify-center py-4 rounded-md">
           <MdCall className="text-white" />
         </button>
       </div>
