@@ -286,9 +286,8 @@ const SingleProductDescription = ({ productDetails }) => {
 
   const title = `${productDetails[0]?.title}`;
   const shareUrl = `https://bellefu30web.herokuapp.com/shared?image=${productDetails[0]?.images[0]}&name=${productDetails[0]?.title}&description=${description}&type=image&id=${productDetails[0]?.productId}`;
-  const image = `${window.location.href}?mage=${
-    productDetails[0]?.images[0]
-  }&title=${title}&description=${description?.trim()}&type=image`;
+  const image = `${window.location.href}?mage=${productDetails[0]?.images[0]
+    }&title=${title}&description=${description?.trim()}&type=image`;
 
   const video = "https://bellefu.inmotionhub.xyz/get/video/";
 
@@ -315,6 +314,9 @@ const SingleProductDescription = ({ productDetails }) => {
     p: 2,
   };
 
+
+
+  console.log('product=>', productDetails)
   return (
     <>
       <Head>
@@ -328,11 +330,11 @@ const SingleProductDescription = ({ productDetails }) => {
         {/* title section */}
         <div className="flex items-center justify-between lg:px-7 px-3">
           <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">
-            {productDetails[0]?.productTitle}
+            {productDetails[0]?.title}
           </p>
           {favStatus ||
-          (clean?.includes(productDetails[0]?.productId) &&
-            favArr?.includes(productDetails[0]?.productId)) ? (
+            (clean?.includes(productDetails[0]?.productId) &&
+              favArr?.includes(productDetails[0]?.productId)) ? (
             <BsSuitHeartFill
               onClick={removeFav}
               className="lg:w-6 lg:h-6 text-bellefuOrange cursor-pointer"
@@ -368,7 +370,7 @@ const SingleProductDescription = ({ productDetails }) => {
           <div className="flex items-center space-x-1">
             <AiFillEye className="w-4 h-4 text-gray-500 " />
             <p className="text-bellefuBlack1 text-sm">
-              {productDetails[0]?.inorganic_views} Views
+              {productDetails[0]?.inorganicViews} Views
             </p>
           </div>
         </div>
@@ -390,7 +392,7 @@ const SingleProductDescription = ({ productDetails }) => {
           <p
             className="lg:px-7 px-3 text-justify lg:mt-5 mt-3 text-gray-500 text-sm lg:text-lg mb-4 capitalize"
             dangerouslySetInnerHTML={{
-              __html: productDetails[0]?.productDescription,
+              __html: productDetails[0]?.description,
             }}
           />
         </div>
@@ -461,7 +463,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   onClose={() => setModalOpen(false)}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
-                  // sx={{ opacity: 0.5 }}
+                // sx={{ opacity: 0.5 }}
                 >
                   <Box sx={style}>
                     {/* <div> <MdOutlineCancel onClick={() => setOpen(false)} className='relative text-3xl text-gray-300 justify-end top-0 left-[100%] ' /></div> */}
