@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-const CreateProductCategory = () => {
-  const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
-  const [countries, setCountries] = useState([]);
+const CreateProductCategory = ({categories, countries}) => {
+  const [categoryId, setCategoryId] = useState(0);
+  const [categoryIndex, setCategoryIndex] = useState(0);
+  const [subCategoryId, setSubCategoryId] = useState(0);
+  const [countryCode, setCountryCode] = useState([]);
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
   const [location, setLocation] = useState("");
@@ -37,16 +38,17 @@ const CreateProductCategory = () => {
           {openCat && 
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded px-5 py-4">
-                {products.map((item, index) => (
+                {categories.map((category, index) => (
                   <li
                     onClick={() => {
                       setOpenCat(prevState => !prevState);
-                      setProduct(item.value);
+                      setCategoryIndex(index);
+                      setCategoryId(category.id);
                     }}
                     key={index}
                     className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                   >
-                    <span>{item.value}</span>
+                    {category.name}
                   </li>
                 ))}
               </ul>
@@ -66,16 +68,16 @@ const CreateProductCategory = () => {
           {openSubCat && 
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded px-5 py-4">
-                {products.map((item, index) => (
+                {categories[categoryIndex].map((subCategory, index) => (
                   <li
                     onClick={() => {
                       setOpenSubCat(prevState => !prevState);
-                      setProduct(item.value);
+                      setSubCategoryId(subCategory.subCatId);
                     }}
                     key={index}
                     className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                   >
-                    <span>{item.value}</span>
+                    {subCategory.subCatName}
                   </li>
                 ))}
               </ul>
@@ -97,16 +99,16 @@ const CreateProductCategory = () => {
           {openCountry && 
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded px-5 py-4">
-                {products.map((item, index) => (
+                {countries.map((country, index) => (
                   <li
                     onClick={() => {
                       setOpenCountry(prevState => !prevState);
-                      setProduct(item.value);
+                      setCountry(country.name);
                     }}
                     key={index}
                     className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                   >
-                    <span>{item.value}</span>
+                    {country.name}
                   </li>
                 ))}
               </ul>
@@ -208,3 +210,5 @@ const CreateProductCategory = () => {
   )
 
 }
+
+export default CreateProductCategory;
