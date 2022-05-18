@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 // import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Layout from "../../components/postAdsComponent/Layout";
 import UnstyledSelectSimple1 from "../../components/postAdsComponent/CatInput";
 import UnstyledSelectSimple2 from "../../components/postAdsComponent/SubCatInput";
@@ -9,18 +9,15 @@ import UnstyledSelectSimple3 from "../../components/postAdsComponent/CountrySele
 import UnstyledSelectSimple4 from "../../components/postAdsComponent/State";
 import UnstyledSelectSimple5 from "../../components/postAdsComponent/City";
 import { useDispatch } from "react-redux";
-import {handleLocationUpdate} from "../../features/bellefuSlice";
+import { handleLocationUpdate } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
-
 function Index({ data1, data2 }) {
   const [loading, setLoading] = useState(false);
 
-
   const router = useRouter();
-
 
   const [subcat, setSubcat] = useState([]);
   const [checker, setChecker] = useState("");
@@ -37,14 +34,13 @@ function Index({ data1, data2 }) {
     setSubcat(e);
     setChecker(e2);
   };
-  const handleStateCatch = (e, e2,e3) => {
+  const handleStateCatch = (e, e2, e3) => {
     console.log(e);
-    console.log(e2);    
+    console.log(e2);
     console.log(e3);
     setStates(e);
-    setChecker2(e2);   
-   setSymbolcatcher(e3)
-
+    setChecker2(e2);
+    setSymbolcatcher(e3);
   };
   const handleLgacatch = (localgvt, e2) => {
     console.log(localgvt + "lga is here");
@@ -53,31 +49,30 @@ function Index({ data1, data2 }) {
     setChecker3(e2);
   };
 
+  const handleLocation = (e) => {
+    setAddress(e.target.value);
+  };
 
- const  handleLocation =(e)=>{
-  setAddress(e.target.value)
- }
- 
- const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
- const handleSubmit =(e)=>{
-   e.preventDefault();
-   if(address!==""){
-         dispatch(handleLocationUpdate(address));
-         router.push('/postAds/Details')
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (address !== "") {
+      dispatch(handleLocationUpdate(address));
+      router.push("/postAds/Details");
+    } else {
+      toast.error("All fields are required", {
+        position: "top-center",
+      });
+    }
+  };
 
-   }else{
-    toast.error("All fields are required", {
-      position: 'top-center'    })   }
- }
-
-
- useEffect(() => {
-  const timer = setTimeout(() => {
-    setLoading(true);
-  }, 3000);
-  return () => clearTimeout(timer);
-}, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
@@ -87,133 +82,135 @@ function Index({ data1, data2 }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Overall container */}
-     {loading? <div className=" shadow bg-bellefuWhite rounded-md  p-5">
-        <div className="border  p-5 mt-7 ">
-          <div>
-            <form action="#" method="POST">
-              <div className=" overflow-hidden sm:rounded-md">
-                <div className="px-4 py-5 sm:p-6">
-                  <div className="grid grid-cols-6 gap-6">
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        for="first-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Category
-                      </label>
-                      <UnstyledSelectSimple1
-                        category={data2}
-                        subcatCatcher={handleCatching}
-                      />
-                    </div>
+      {loading ? (
+        <div className=" shadow bg-bellefuWhite rounded-md  p-5">
+          <div className="border  p-5 mt-7 ">
+            <div>
+              <form action="#" method="POST">
+                <div className=" overflow-hidden sm:rounded-md">
+                  <div className="px-4 py-5 sm:p-6">
+                    <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label
+                          for="first-name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Category
+                        </label>
+                        <UnstyledSelectSimple1
+                          category={data2}
+                          subcatCatcher={handleCatching}
+                        />
+                      </div>
 
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        for="last-name"
-                        className="block  text-sm font-medium text-gray-700"
-                      >
-                        Sub-Category
-                      </label>
-                      <UnstyledSelectSimple2
-                        subCategory={subcat}
-                        checker={checker}
-                      />
-                    </div>
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        for="email"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Country
-                      </label>
-                      <UnstyledSelectSimple3
-                        countryStuffs={data1}
-                        catchState={handleStateCatch}
-                      />
-                    </div>
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        for="email"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        State
-                      </label>
-                      <UnstyledSelectSimple4
-                        countryStuffs={data1}
-                        catchLgas={handleLgacatch}
-                        states={states}
-                        checker2={checker2}
-                      />
-                    </div>
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        for="email"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Lga/City
-                      </label>
-                      <UnstyledSelectSimple5 lga={lga} checker3={checker3} />
-                    </div>
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        for="email"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Location
-                      </label>
-                      <input
-                        type="text"
-                        name="location"
-                        id="location"
-                        onChange={handleLocation}
-                        className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                      />
+                      <div className="col-span-6 sm:col-span-3">
+                        <label
+                          for="last-name"
+                          className="block  text-sm font-medium text-gray-700"
+                        >
+                          Sub-Category
+                        </label>
+                        <UnstyledSelectSimple2
+                          subCategory={subcat}
+                          checker={checker}
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label
+                          for="email"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Country
+                        </label>
+                        <UnstyledSelectSimple3
+                          countryStuffs={data1}
+                          catchState={handleStateCatch}
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label
+                          for="email"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          State
+                        </label>
+                        <UnstyledSelectSimple4
+                          countryStuffs={data1}
+                          catchLgas={handleLgacatch}
+                          states={states}
+                          checker2={checker2}
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label
+                          for="email"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Lga/City
+                        </label>
+                        <UnstyledSelectSimple5 lga={lga} checker3={checker3} />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label
+                          for="email"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Location
+                        </label>
+                        <input
+                          type="text"
+                          name="location"
+                          id="location"
+                          onChange={handleLocation}
+                          className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="p-5 flex justify-between">
-                <button
-                  type="submit"
-                  class="flex justify-center items-center w-[19vw] lg:w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
-                >
-                  Cancel
-                </button>
-                {/* <Link href="/postAds/Details"> */}
+                <div className="p-5 flex justify-between">
                   <button
-                  // disabled={address===""?true:false}
+                    type="submit"
+                    class="flex justify-center items-center w-[19vw] lg:w-[15vw] py-2 px-4  shadow-sm text-sm font-medium rounded-md text-[black] bg-bellefuWhite  border hover:bg-[#e4e4e4] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  >
+                    Cancel
+                  </button>
+                  {/* <Link href="/postAds/Details"> */}
+                  <button
+                    // disabled={address===""?true:false}
                     type="submit"
                     onClick={handleSubmit}
                     class="flex justify-center items-center w-[19vw] lg:w-[15vw] py-2 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 "
                   >
                     Continue
                   </button>
-                {/* </Link> */}
-              </div>
-            </form>
+                  {/* </Link> */}
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>:<Skeleton
+      ) : (
+        <Skeleton
           className="rounded "
           variant="rectangular"
           animation="wave"
           width={"100%"}
           height={1000}
-        />}
+        />
+      )}
     </div>
   );
 }
 export async function getServerSideProps() {
-  const res1 = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/web30/get/web/postadd/info`
-  );
-  const res2 = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
-  );
-  const data1 = await res1.json();
-  const data2 = await res2.json();
+  const [data1Res, data2Res] = await Promise.all([
+    fetch(`https://bellefu.inmotionhub.xyz/api/web30/get/postadd`),
+    fetch(`https://bellefu.inmotionhub.xyz/api/web30/get/web/index`),
+  ]);
 
+  const [data1, data2] = await Promise.all([data1Res.json(), data2Res.json()]);
+  //  console.log(data);
   return {
     props: {
       data1,
@@ -222,18 +219,7 @@ export async function getServerSideProps() {
   };
 }
 
-// export async function getServerSideProps() {
-//   const res2 = await fetch(
-//     `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
-//   );
-//   const data2 = await res2.json();
 
-//   return {
-//     props: {
-//       data2,
-//     },
-//   };
-// }
 
 Index.Layout = Layout;
 export default Index;

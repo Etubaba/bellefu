@@ -14,16 +14,16 @@ const Shop = ({ userProducts }) => {
 
   return (
     <>
-    <Head>
-      <title>{products[0].title}</title>
-    </Head>
-    <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-5">
-      <ShopSideBar userDetails={details} />
-      <div className="flex-1">
-        <ShopComponents products={products} />
-        <MobileShopSideBar userDetails={details} />
+      <Head>
+        <title>{products[0].title}</title>
+      </Head>
+      <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
+        <ShopSideBar userDetails={details} />
+        <div className="flex-1">
+          <ShopComponents products={products} />
+          <MobileShopSideBar userDetails={details} />
+        </div>
       </div>
-    </div>
     </>
   );
 };
