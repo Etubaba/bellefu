@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const res = await Promise.all([
         fetch(
             `https://bellefu.inmotionhub.xyz/api/web30/get/web/postadd/info`
@@ -24,26 +24,26 @@ export async function getServerSideProps() {
         )
     ]);
 
-    const [res1, res2] = res;
     // const res1 = await fetch(
     //   `https://bellefu.inmotionhub.xyz/api/web30/get/web/postadd/info`
     // );
     // const res2 = await fetch(
     //   `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
     // );
+    const [res1, res2] = res;
     const data1 = await res1.json();
     const data2 = await res2.json();
   
     return {
       props: {
         data1,
-        data2,
+        categories: data2.categories
       },
     };
   }
 
 
-function CreateProduct({ data1, data2 }) {
+function CreateProduct({ data1, categories }) {
   const [loading, setLoading] = useState(false);
 
 

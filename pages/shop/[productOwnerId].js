@@ -4,7 +4,7 @@ import ShopComponents from "../../components/shopComponents/ShopComponents";
 import MobileShopSideBar from "../../components/SingleProduct/MobileShopSidebar";
 import Head from "next/head";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
-import { userDId } from "../../../features/bellefuSlice";
+import { userDId } from "../../features/bellefuSlice";
 
 const Shop = ({ userProducts }) => {
   const details = useSelector(userDId);
