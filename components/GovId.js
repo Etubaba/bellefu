@@ -34,7 +34,7 @@ const img = {
   borderRadius: 7,
 };
 
-export default function GovId(props) {
+export default function GovId({handleGovid }) {
 
 
 
@@ -43,9 +43,7 @@ export default function GovId(props) {
   const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
   const [files2, setFiles2] = useState([]);
-  // const [vidfi, setVidfi] = useState("");
-
-
+  handleGovid(files2)
 
 
 
@@ -63,7 +61,7 @@ export default function GovId(props) {
       for (let i = 0; i < acceptedFiles.length; i++) {
         let loopedFile = acceptedFiles[i];
 
-        if (files2.length >= 10) {
+        if (files2.length >= 2) {
           toast.error("Image upload can not be more than 10", {
             position: "top-center",
           });

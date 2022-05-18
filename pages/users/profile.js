@@ -29,7 +29,7 @@ import { useRouter } from "next/router";
 const profile = ({ data1 }) => {
   const [loading, setLoading] = useState(false);
 
-  const userThings = useSelector(profileDetails) || null;
+  const userThings = useSelector(profileDetails);
   const userCountrythings = useSelector(userUpdate) || null;
 
   const [lgaholder, setLgaholder] = useState([]);
@@ -124,7 +124,7 @@ const profile = ({ data1 }) => {
     })
       .then((res) => {
         const [upDateuser] = res.data.data;
-
+          console.log(upDateuser);
         localStorage.setItem("user", JSON.stringify(upDateuser));
 
         dispatch(setProfileDetails(upDateuser));
