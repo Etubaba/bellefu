@@ -7,6 +7,7 @@ const initialState = {
   favArr: [],
   video: [],
   favLoad: 0,
+  msgScroll: 0,
   messageRead: 0,
   // messageRead: typeof window !== "undefined" ? localStorage.getItem("msg") : 0,
   verificationStatus: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("verify")) : null,
@@ -85,6 +86,10 @@ export const bellefuSlice = createSlice({
       localStorage.setItem('idapply', state.idApply)
     },
     msgRead: (state) => {
+      state.messageRead += 1;
+      // localStorage.setItem('msg', state.messageRead)
+    },
+    msgScroll: (state) => {
       state.messageRead += 1;
       // localStorage.setItem('msg', state.messageRead)
     },
@@ -235,7 +240,7 @@ export const {
   chooseCountry,
   handleIndexApi,
   handleSearch,
-  updateIdpath,
+  updateIdpath, msgScroll,
   fetchData, userFav,
   Subcat, msgRead,
   selectCat, favUpdated,
