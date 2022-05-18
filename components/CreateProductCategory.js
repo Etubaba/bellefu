@@ -16,8 +16,16 @@ const CreateProductCategory = () => {
   return (
     <div>
       <div className="flex items-center justify-between">
+        {/* <div className="mb-3 relative">
+          
+        </div> */}
         <div className="mb-3 relative">
-          <p className="text-lg font-semibold">Product Category</p>
+          <p><label htmlFor="cat">Product Category:</label></p>
+          <div className="relative" onClick={() => setOpenCat(prevState => !prevState)}>
+            <p><input type="text" id="cat" placeholder="product category" classname="w-full border-2 py-3 pl-3" /></p>
+            <p><AiOutlineCaretRight className={classNames("text-gray-300 absolute right-2", {"rotate-90": openCat, "text-bellefuOrange": openCat})} /></p>
+          </div>
+          {/* <p className="text-lg font-semibold">Product Category</p>
           <div className="flex items-center justify-between mb-2 bg-white hover:bg-bellefuBackground p-2 rounded-md border-2 cursor-pointer" onClick={() => setOpenCat(prevState => !prevState)}>
             <div className="">
               {product}
@@ -25,7 +33,7 @@ const CreateProductCategory = () => {
             <div>
               <AiOutlineCaretRight className={classNames("text-gray-300", {"rotate-90": openCat, "text-bellefuOrange": openCat})} />
             </div>
-          </div>
+          </div> */}
           {openCat && 
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded px-5 py-4">
