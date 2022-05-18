@@ -3,12 +3,13 @@ import Slider from "./mainPageComponents/slider/Slider";
 import ProductComponent from "./mainPageComponents/ProductComponent";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
-const Body = ({ products, slider, currency, location, currencyCode }) => {
+const Body = ({ productsData, slider, currency, location, currencyCode }) => {
+  const products = productsData;
   const [loading, setLoading] = useState(false);
 
-  const search = useSelector(state => state.bellefu?.searchFilter);
+  const search = useSelector((state) => state.bellefu?.searchFilter);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,13 +20,11 @@ const Body = ({ products, slider, currency, location, currencyCode }) => {
   // console.log("The products here :", products);
   return (
     <div className="">
-
-      {search === '' ?
+      {search === "" ? (
         <div className="mb-2">
           {loading ? (
-            <div  className="hidden md:block lg:block">
-            <Slider slider={slider} />
-
+            <div className="hidden md:block lg:block">
+              <Slider slider={slider} />
             </div>
           ) : (
             <Skeleton
@@ -36,16 +35,16 @@ const Body = ({ products, slider, currency, location, currencyCode }) => {
               height={320}
             />
           )}
-        </div> : null}
+        </div>
+      ) : null}
       {/* product component session */}
-    
-        <ProductComponent
-          currency={currency}
-          currencyCode={currencyCode}
-          location={location}
-          products={products}
-        />
-      
+
+      <ProductComponent
+        currency={currency}
+        currencyCode={currencyCode}
+        location={location}
+        products={products}
+      />
     </div>
   );
 };
