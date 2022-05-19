@@ -47,7 +47,7 @@ function Mobilefooter() {
           fingertips.
         </p>
 
-        <div className="flex justify-evenly w-full mt-3">
+        <div className="flex justify-evenly w-full mt-7">
           <div className="space-y-2 flex flex-col  ">
             <p className="text-[#F9FDF5] ">
               <strong>Resources</strong>
