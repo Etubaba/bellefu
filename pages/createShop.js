@@ -62,6 +62,9 @@ export default function CreateShop() {
     }).then((res)=>{
       if(res.data.status===true){
         setCheckPass(true)
+        toast.error("Shop Name Alreay exist", {
+          position: "top-center",
+        })
       }else{
         setCheckPass(false)
 
@@ -145,25 +148,22 @@ export default function CreateShop() {
             setAccountType("");
             setNextOfKin("");
             setDescription("");
-            setSubmitChecker(true);
 
             setAddress("");
             setFiles(null);
             setFiles2(null);
             setGovid([]);
 
-            setTimeout(() => {
-              router.reload();
-            }, 2000);
-          } 
+            // setTimeout(() => {
+              window.location.reload();
+            // }, 2000);
+          } else{
+            toast.error("Something happend. Try again", {
+              position: "top-center",
+            })
+          }
         })
-        .catch((err) =>
-          err
-            ? toast.error("Something happend. Try again", {
-                position: "top-center",
-              })
-            : null
-        );
+        
     }
   };
 
@@ -239,7 +239,7 @@ export default function CreateShop() {
                             <p>Shop Name</p>
                             {checkpass ? (
                             <p className="text-red-600 relative right-6">
-                              Shop name Already exist ❌
+                              Name Already exist ❌
                             </p>
                           ) : null}
                           </label>
