@@ -6,23 +6,23 @@ import Head from "next/head";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
 import { userDId } from "../../features/bellefuSlice";
 
-const Shop = ({ userProducts }) => {
+const Shop = ({ shopProducts }) => {
 
-  console.log('shop product', userProducts);
+  console.log('shop product', shopProducts);
 
   return (
     <>
-      dsfn
+
       {/* <Head>
         <title>{products[0].title}</title>
-      </Head>
+      </Head> */}
       <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
-        <ShopSideBar userDetails={details} />
+        <ShopSideBar userDetails={shopProducts} />
         <div className="flex-1">
-          <ShopComponents products={products} />
-          <MobileShopSideBar userDetails={details} />
+          <ShopComponents products={shopProducts} />
+          <MobileShopSideBar userDetails={shopProducts} />
         </div>
-      </div> */}
+      </div>
     </>
   );
 };
@@ -34,12 +34,12 @@ export async function getServerSideProps(context) {
   const { slug } = context.query;
 
   const requests = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/general/list/user/product/${slug}`
+    `https://bellefu.inmotionhub.xyz/api/shop/view/single/${slug}`
   ).then((res) => res.json());
 
   return {
     props: {
-      userProducts: requests,
+      shopProducts: requests,
     },
   };
 }

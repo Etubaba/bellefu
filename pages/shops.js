@@ -5,6 +5,7 @@ import Head from 'next/head'
 
 const Shops = ({ shops }) => {
 
+    const shop = shops.data
 
     console.log('shop=>', shops)
     return (
@@ -16,7 +17,7 @@ const Shops = ({ shops }) => {
             </Head>
             <div className="px-2">
                 <Body
-                    shops={shops}
+                    shops={shop}
                 />
             </div>
 
