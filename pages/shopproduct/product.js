@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const ShopProduct = () => {
-  const [productDetails, setProductDetails] = useState([]);
+  const pDetails = useSelector((state) => state.bellefu?.favArr);
+
+  const [productDetails, setProductDetails] = useState();
 
   // handling getting the product details of a user
   useEffect(() => {
