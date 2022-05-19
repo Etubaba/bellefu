@@ -31,7 +31,7 @@ const ProductItem = ({ item }) => {
 
             <button
                 className="bg-bellefuGreen px-6 py-2  rounded-full  w-full mt-2"
-
+                onClick={() => router.push(`/shop/${item.slug}`)}
             >
                 <div className="flex items-center space-x-3 justify-center">
                     <p className="tracking-wider font-semibold text-white text-base">
