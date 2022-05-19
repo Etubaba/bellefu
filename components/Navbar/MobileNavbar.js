@@ -142,25 +142,25 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
             Dashboard
           </p>
         )}
-        {getIsLoggedIn && (
+        {/* {getIsLoggedIn && (
           <p
             className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
             onClick={() => (router.push("/users/profile"), setIsOpen(false))}
           >
             Profile
           </p>
-        )}
+        )} */}
 
-        {getIsLoggedIn && (
+        {/* {getIsLoggedIn && (
           <p
             className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
             onClick={() => (router.push("/users/messages"), setIsOpen(false))}
           >
             Message
           </p>
-        )}
+        )} */}
 
-        {getIsLoggedIn && (
+        {/* {getIsLoggedIn && (
           <p
             className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
             onClick={() => (
@@ -169,7 +169,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
           >
             Favourite Products
           </p>
-        )}
+        )} */}
 
         <p
           className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
@@ -214,7 +214,10 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         {getIsLoggedIn && (
           <p
             className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              router.push("/createShop")
+              setIsOpen(false)
+            }}
           >
             <FcShop className="w-6 h-6" />
             <a href="#" target="_blank">
@@ -222,6 +225,17 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
             </a>
           </p>
         )}
+
+        <p
+          className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
+          onClick={() => { setIsOpen(false); router.push("/shops") }}
+        >
+          <FcShop className="w-6 h-6" />
+          <a href="#" target="_blank">
+            Shops
+          </a>
+        </p>
+
         {getIsLoggedIn && (
           <div
             className="flex items-center space-x-1 px-2 py-1  bg-[#343a40] font-bold tracking-wider justify-center rounded"
