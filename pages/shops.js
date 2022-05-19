@@ -3,7 +3,11 @@ import Body from '../components/ecommerce/Body'
 import Head from 'next/head'
 
 
-const Shops = ({ shops,kkk }) => {
+const Shops = ({ shops }) => {
+
+    const shop = shops.data
+
+    console.log('shop=>', shops)
     return (
         <div>
             <Head>
@@ -13,7 +17,7 @@ const Shops = ({ shops,kkk }) => {
             </Head>
             <div className="px-2">
                 <Body
-                    shops={shops}
+                    shops={shop}
                 />
             </div>
 
