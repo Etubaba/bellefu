@@ -8,7 +8,8 @@ import { useSelector } from "react-redux";
 import { apiData } from "../../constant";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { login } from "../../features/bellefuSlice";
+import { login, shop } from "../../features/bellefuSlice";
+import { useDispatch } from "react-redux";
 
 const ShopComponent = ({ product }) => {
   const [fav2, setFav2] = useState(false);
@@ -16,6 +17,7 @@ const ShopComponent = ({ product }) => {
   const favArr = useSelector((state) => state.bellefu?.favArr);
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
+  const dispatch = useDispatch();
 
 
 
@@ -79,12 +81,19 @@ const ShopComponent = ({ product }) => {
       });
   };
 
-  console.log('shop=>', product)
+
+  const viewDetails = () => {
+    dispatch(shop(`${product?.slug}/${product?.productSlug}`));
+    router.push(`/shopproduct/product`)
+  }
+
+
+
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
-        onClick={() => router.push(`/shopproduct/${product?.slug}/${product?.productSlug}`)}
+        onClick={viewDetails}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
       />
