@@ -171,7 +171,7 @@ export default function CreateShop() {
         </div>
       </Modal>
 
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mt-[10%] md:mt-[5%] lg:mt-0">
         <div className="w-[90%] lg:w-[60%] mt-[10%]">
           <div className="bg-[#f8f8f8]   rounded-md border border-[#bbb9bb]  mb-5">
             <div className="p-5 flex  items-center justify-between">
