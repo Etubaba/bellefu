@@ -154,9 +154,7 @@ export default function CreateShop() {
             setFiles2(null);
             setGovid([]);
 
-            // setTimeout(() => {
-              window.location.reload();
-            // }, 2000);
+            window.location.reload();
           } else{
             toast.error("Something happend. Try again", {
               position: "top-center",
