@@ -18,7 +18,6 @@ const ShopProduct = () => {
     getProductDetails();
   }, []);
 
-  console.log("details", details);
   return (
     <div>
       <h1>hello shop product</h1>
