@@ -5,12 +5,16 @@ import MobileShopSideBar from "../../components/SingleProduct/MobileShopSidebar"
 import Head from "next/head";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
 import { userDId } from "../../features/bellefuSlice";
+import { profileDetails } from "../../features/bellefuSlice";
 
 const Shop = ({ userProducts }) => {
   const details = useSelector(userDId);
+  const profile = useSelector(profileDetails);
+
+  console.log(details)
+  console.log(profile);
 
   const products = userProducts.data.data;
-  console.log(products);
 
   return (
     <>
