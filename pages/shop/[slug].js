@@ -8,7 +8,8 @@ import { userDId } from "../../features/bellefuSlice";
 
 const Shop = ({ shopProducts }) => {
 
-  console.log('shop product', shopProducts);
+  const shopDetails = shopProducts.data[0];
+
 
   return (
     <>
@@ -17,10 +18,10 @@ const Shop = ({ shopProducts }) => {
         <title>{products[0].title}</title>
       </Head> */}
       <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
-        <ShopSideBar userDetails={shopProducts} />
+        <ShopSideBar userDetails={shopDetails} />
         <div className="flex-1">
           <ShopComponents products={shopProducts} />
-          <MobileShopSideBar userDetails={shopProducts} />
+          <MobileShopSideBar userDetails={shopDetails} />
         </div>
       </div>
     </>
