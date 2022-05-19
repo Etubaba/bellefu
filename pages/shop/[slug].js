@@ -7,25 +7,21 @@ import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
 import { userDId } from "../../features/bellefuSlice";
 import { profileDetails } from "../../features/bellefuSlice";
 
-const Shop = ({ userProducts }) => {
-  const details = useSelector(userDId);
-  const profile = useSelector(profileDetails);
+const Shop = ({ shopProducts }) => {
 
-  console.log(details)
-  console.log(profile);
-
-  const products = userProducts.data.data;
+  console.log('shop product', shopProducts);
 
   return (
     <>
-      <Head>
+
+      {/* <Head>
         <title>{products[0].title}</title>
-      </Head>
+      </Head> */}
       <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
-        <ShopSideBar userDetails={details} />
+        <ShopSideBar userDetails={shopProducts} />
         <div className="flex-1">
-          <ShopComponents products={products} />
-          <MobileShopSideBar userDetails={details} />
+          <ShopComponents products={shopProducts} />
+          <MobileShopSideBar userDetails={shopProducts} />
         </div>
       </div>
     </>
@@ -36,15 +32,15 @@ export default Shop;
 
 //server side fetching of the full product details
 export async function getServerSideProps(context) {
-  const { productOwnerId } = context.query;
+  const { slug } = context.query;
 
   const requests = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/general/list/user/product/${productOwnerId}`
+    `https://bellefu.inmotionhub.xyz/api/shop/view/single/${slug}`
   ).then((res) => res.json());
 
   return {
     props: {
-      userProducts: requests,
+      shopProducts: requests,
     },
   };
 }
