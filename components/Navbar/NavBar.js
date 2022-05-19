@@ -19,6 +19,7 @@ import Navbarsch from "./Navbarsch";
 import MobileNavbar from "./MobileNavbar";
 import axios from "axios";
 import { apiData } from "../../constant";
+
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,6 @@ const NavBar = () => {
   const username = useSelector(profileDetails);
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
-  const userDetails = useSelector(state => state.bellefu?.userDetails)
 
   console.log("hhhhhh");
   //console.log(userDetails)
@@ -212,13 +212,6 @@ const NavBar = () => {
               // href="https://webinar.bellefu.com/"
               >
                 Shops
-              </a>
-              <a
-                className="hover:text-gray-200 cursor-pointer"
-                onClick={() => router.push(`/${userDetails[0].userId}`)}
-              // href="https://webinar.bellefu.com/"
-              >
-                upload product
               </a>
               <a
                 className="hover:text-gray-200 cursor-pointer"
