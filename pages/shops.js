@@ -3,7 +3,7 @@ import Body from '../components/ecommerce/Body'
 import Head from 'next/head'
 
 
-const Shops = ({ shops }) => {
+const Shops = ({ shops,kkk }) => {
     return (
         <div>
             <Head>
