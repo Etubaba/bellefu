@@ -24,12 +24,14 @@ function Mobilefooter() {
   return (
     <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-3 ">
       <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 mt-3">
-        <div className="-mt-1 md:-mt-0 md:w-2/5 flex items-center justify-center md:justify-start">
-          <img
-            alt="logo"
-            src="https://www.linkpicture.com/q/bellefulogo_1_-removebg-preview.png"
-            className=" mt-2 h-10 object-contain cursor-pointer "
-          />
+        <div className='hidden md:inline-block'>
+          <div className="-mt-1  md:-mt-0 md:w-2/5 flex items-center justify-center md:justify-start">
+            <img
+              alt="logo"
+              src="https://www.linkpicture.com/q/bellefulogo_1_-removebg-preview.png"
+              className=" mt-2 h-10 object-contain cursor-pointer "
+            />
+          </div>
         </div>
 
         <NewsletterSub />
@@ -45,7 +47,7 @@ function Mobilefooter() {
           fingertips.
         </p>
 
-        <div className="flex justify-evenly w-full mt-3">
+        <div className="flex justify-evenly w-full mt-7">
           <div className="space-y-2 flex flex-col  ">
             <p className="text-[#F9FDF5] ">
               <strong>Resources</strong>
@@ -191,19 +193,19 @@ function Mobilefooter() {
 
       <div className="flex items-center justify-center mb-4 space-x-8">
         <a href="https://web.facebook.com/Bellefu.official">
-          <BsFacebook className="text-[#4267B2] text-2xl" />
+          <BsFacebook className="text-[#d4d7d1] text-2xl" />
         </a>
         <a href="https://twitter.com/Bellefuofficial">
-          <AiFillTwitterCircle className="text-[#00acee] text-2xl" />
+          <AiFillTwitterCircle className="text-[#d4d7d1] text-2xl" />
         </a>
         <a href="https://www.linkedin.com/company/67955966/">
-          <FaLinkedin className="text-[#0e76a8] text-2xl" />
+          <FaLinkedin className="text-[#d4d7d1] text-2xl" />
         </a>
         <a href=" https://www.instagram.com/bellefu_official/">
-          <AiOutlineInstagram className=" text-[#DF4A8E]   text-2xl" />
+          <AiOutlineInstagram className=" text-[#d4d7d1]   text-2xl" />
         </a>
         <a href="https://www.youtube.com/channel/UCOmmJSiICuspcEjyj4nFx0Q">
-          <BsYoutube className=" text-red-600   text-2xl" />
+          <BsYoutube className=" text-[#d4d7d1]   text-2xl" />
         </a>
       </div>
 

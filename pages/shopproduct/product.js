@@ -1,26 +1,28 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ShopProducts from "../../components/shopProductComponent/ShopProducts";
 
 const ShopProduct = () => {
-  const pDetails = useSelector((state) => state.bellefu?.favArr);
+  const pDetails = useSelector((state) => state.bellefu?.shopProduct);
 
-  const [productDetails, setProductDetails] = useState();
+  const [productDetails, setProductDetails] = useState([]);
 
   // handling getting the product details of a user
   useEffect(() => {
     const getProductDetails = async () => {
-      const resProductDetails = await fetch(
-        `https://bellefu.inmotionhub.xyz/api/shop/view/single/${slug}/${productSlug}`
-      );
-      const details = await resProductDetails.json();
-      setProductDetails(await details?.data);
+      await axios
+        .get(`https://bellefu.inmotionhub.xyz/api/shop/view/single/${pDetails}`)
+        .then((res) => setProductDetails(res.data.data));
     };
     getProductDetails();
   }, []);
 
+  console.log("productDetails", productDetails);
+
   return (
-    <div>
-      <h1>hello shop product</h1>
+    <div className="mt-28">
+      <ShopProducts productDetails={productDetails[0]} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ const initialState = {
   kycApply: typeof window !== "undefined" ? localStorage.getItem("kycapply") : false,
   subcatselected: undefined,
   favArr: [],
-  shopProduct: '',
+  shopProduct: typeof window !== "undefined" ? localStorage.getItem("shop") : '',
   video: [],
   favLoad: 0,
   msgScroll: 0,
@@ -96,7 +96,7 @@ export const bellefuSlice = createSlice({
     },
     shop: (state, action) => {
       state.shopProduct = action.payload;
-      // localStorage.setItem('msg', state.messageRead)
+      localStorage.setItem('shop', state.shopProduct)
     },
     kycpending: (state, action) => {
       state.kycApply = action.payload;

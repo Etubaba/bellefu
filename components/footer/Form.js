@@ -13,7 +13,7 @@ function Form({ status, message, onValidated }) {
   return (
     <div className=" flex flex-col space-y-2 items-center justify-center">
       <p className="text-[#D4D7D1] md:text-sm text-base tracking-wide  text-center lg:text-xs">
-        Subscribe to our newsletter to get updates and amazing tips
+        Subscribe to our newsletter
       </p>
       <div className="flex">
         <input
