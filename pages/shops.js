@@ -4,6 +4,9 @@ import Head from 'next/head'
 
 
 const Shops = ({ shops }) => {
+
+
+    console.log('shop=>', shops)
     return (
         <div>
             <Head>

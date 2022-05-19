@@ -10,7 +10,7 @@ const Shop = ({ userProducts }) => {
   const details = useSelector(userDId);
 
   const products = userProducts.data.data;
-  console.log(products);
+  console.log(userProducts);
 
   return (
     <>
@@ -32,10 +32,10 @@ export default Shop;
 
 //server side fetching of the full product details
 export async function getServerSideProps(context) {
-  const { productOwnerId } = context.query;
+  const { slug } = context.query;
 
   const requests = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/general/list/user/product/${productOwnerId}`
+    `https://bellefu.inmotionhub.xyz/api/general/list/user/product/${slug}`
   ).then((res) => res.json());
 
   return {
