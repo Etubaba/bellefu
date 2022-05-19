@@ -7,14 +7,13 @@ import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
 import { userDId } from "../../features/bellefuSlice";
 
 const Shop = ({ userProducts }) => {
-  const details = useSelector(userDId);
 
-  const products = userProducts.data.data;
-  console.log(userProducts);
+  console.log('shop product', userProducts);
 
   return (
     <>
-      <Head>
+      dsfn
+      {/* <Head>
         <title>{products[0].title}</title>
       </Head>
       <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
@@ -23,7 +22,7 @@ const Shop = ({ userProducts }) => {
           <ShopComponents products={products} />
           <MobileShopSideBar userDetails={details} />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
