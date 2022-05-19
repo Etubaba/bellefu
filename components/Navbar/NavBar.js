@@ -32,8 +32,10 @@ const NavBar = () => {
   const username = useSelector(profileDetails);
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
+  const userDetails = useSelector(state => state.bellefu?.userDetails)
 
   console.log("hhhhhh");
+  //console.log(userDetails)
 
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
@@ -79,7 +81,7 @@ const NavBar = () => {
   }, [msgRead]);
 
 
-  console.log("unseen", unseen);
+  //.log("unseen", unseen);
 
   //new notification
   useEffect(() => {
@@ -210,6 +212,13 @@ const NavBar = () => {
               // href="https://webinar.bellefu.com/"
               >
                 Shops
+              </a>
+              <a
+                className="hover:text-gray-200 cursor-pointer"
+                onClick={() => router.push(`/${userDetails[0].userId}`)}
+              // href="https://webinar.bellefu.com/"
+              >
+                upload product
               </a>
               <a
                 className="hover:text-gray-200 cursor-pointer"
