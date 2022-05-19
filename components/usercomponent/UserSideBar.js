@@ -7,6 +7,7 @@ import {
   MdPublishedWithChanges,
 } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
+import { BsShop } from "react-icons/bs";
 import { ImKey, ImPushpin, ImClock } from "react-icons/im";
 import { HiUser } from "react-icons/hi";
 import { FaWallet, FaHeart } from "react-icons/fa";
@@ -63,6 +64,11 @@ const UserSideBar = () => {
         icon: HiUser,
         text: "Account Verification",
         to: "/users/verify-account",
+      },
+      {
+        icon: BsShop,
+        text: "Shop",
+        to: "/users/shop",
       },
       { icon: ImKey, text: "Reset Password", to: "/users/reset-password" },
       { icon: BiLogOut, text: "Logout", to: "/users/logout" },
