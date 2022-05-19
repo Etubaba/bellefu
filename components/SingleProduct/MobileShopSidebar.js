@@ -16,6 +16,11 @@ import { useSelector } from "react-redux";
 import { login } from "../../features/bellefuSlice";
 import axios from "axios";
 
+
+
+
+const PRODUCT_IMAGE_URL = "https://bellefu.inmotionhub.xyz/get/store/image/";
+
 const MobileShopSideBar = ({ userDetails }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -27,16 +32,10 @@ const MobileShopSideBar = ({ userDetails }) => {
   const [rating, setRating] = useState(0);
 
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
-  const receiverId = userDetails[0]?.userId;
+
   const isLoggedIn = useSelector(login);
 
-  const openMessage = () => {
-    if (isLoggedIn) {
-      setOpen(!open);
-    } else {
-      toast.error("Please login to send message");
-    }
-  };
+
 
   const openReport = () => {
     if (isLoggedIn) {
@@ -46,14 +45,7 @@ const MobileShopSideBar = ({ userDetails }) => {
     }
   };
 
-  const call = (e) => {
-    e.preventDefault();
-    if (isLoggedIn) {
-      window.open(`tel:${userDetails[0]?.phone}`);
-    } else {
-      toast.error("Please login to call shop owner");
-    }
-  };
+
 
   const handleReport = () => {
     if (reportmsg === "") {
@@ -61,7 +53,7 @@ const MobileShopSideBar = ({ userDetails }) => {
     } else {
       axios
         .post(`${apiData}create/report`, {
-          productId: userDetails[0]?.productId,
+          productId: userDetails?.productId,
           userId: senderId,
           message: reportmsg,
           title: "Report Product",
@@ -77,33 +69,7 @@ const MobileShopSideBar = ({ userDetails }) => {
     }
   };
 
-  const sendMessage = () => {
-    e.preventDefault();
-    if (message === "") {
-      toast.error("You can not send an empty field", { position: "top-right" });
-    } else {
-      const formData = new FormData();
-      formData.append("messageTo", receiverId);
-      formData.append("messageFrom", senderId);
-      formData.append("image", "");
-      formData.append("message", message);
-      axios({
-        method: "POST",
-        url: `${apiData}send/messages`,
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).then((res) => {
-        if (res.data.status) {
-          toast.success("Your message has been sent successfully.", {
-            position: "top-right",
-          });
-          setMessage("");
-        }
-      });
-    }
-  };
+
 
   const handleReview = (e) => {
     e.preventDefault();
@@ -112,7 +78,7 @@ const MobileShopSideBar = ({ userDetails }) => {
     } else {
       axios
         .post(`${apiData}create/review`, {
-          productId: userDetails[0]?.productId,
+          productId: userDetails?.productId,
           userId: senderId,
           rating: rating,
           message: reviewmsg,
@@ -130,13 +96,13 @@ const MobileShopSideBar = ({ userDetails }) => {
     }
   };
 
-  console.log("userdetails=>", userDetails);
+
   return (
     <div className="bg-bellefuWhite rounded-md flex flex-col pb-5 w-full lg:hidden mt-4">
       {/* user brief info */}
       <div className="mt-5 flex flex-col items-center justify-center">
         <Image
-          src={`https://bellefu.inmotionhub.xyz/get/user/images/${userDetails[0]?.avatar}`}
+          src={`${PRODUCT_IMAGE_URL}${userDetails?.logo}`}
           width={150}
           height={150}
           alt=""
@@ -144,7 +110,7 @@ const MobileShopSideBar = ({ userDetails }) => {
         />
         <div className="flex items-center space-x-2 mt-2">
           <p className="text-bellefuTitleBlack font-semibold">
-            {userDetails[0]?.username}
+            {userDetails?.shopName}
           </p>
           <GoVerified className="w-3 h-3 text-bellefuGreen" />
         </div>
@@ -152,76 +118,15 @@ const MobileShopSideBar = ({ userDetails }) => {
           <p className="text-sm text-gray-400 font-medium">Registered :</p>
           <p className="text-xs text-bellefuBlack1 font-medium tracking-wider">
             {" "}
-            {moment(userDetails[0]?.joined).format("MMM Do YYYY")}
+            {moment(userDetails?.joined).format("MMM Do YYYY")}
           </p>
         </div>
       </div>
 
-      {/* view profile, messages and call */}
-      <div className="w-full px-5 mb-10">
-        <div className="flex items-center mt-5 border w-full py-2 space-x-3 rounded-md bg-bellefuWhite justify-center">
-          {" "}
-          <BsFillPersonFill className="w-5 h-5 text-gray-500" />
-          <p className="text-gray-400 font-medium">View Profile</p>
-        </div>
-        {/* message */}
-        {senderId !== receiverId && (
-          <div
-            className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuOrange justify-center cursor-pointer"
-            onClick={openMessage}
-          >
-            <RiMessage2Fill className="w-4 h-4 text-white" />{" "}
-            <p className="text-white font-medium text-sm">Messages</p>
-          </div>
-        )}
-        {/* message box */}
-        {open && (
-          <div className="border -mt-10 bg-bellefuBackground divide-y w-full border-orange-200 rounded-md">
-            <div className="flex items-center py-1">
-              <div className="flex items-center w-full space-x-3 rounded-md justify-end">
-                <RiMessage2Fill className="w-4 h-4 text-gray-500" />{" "}
-                <p className="text-gray-400 font-normal text-sm">Messages</p>
-              </div>
-              <RiCloseFill
-                className="ml-12 w-7 h-7 text-gray-400 pr-1 cursor-pointer"
-                onClick={() => setOpen(false)}
-              />
-            </div>
 
-            <textarea
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              rows="5"
-              className="w-full bg-transparent px-3 outline-none text-xs"
-            ></textarea>
-
-            <div className="flex items-center justify-center py-2">
-              <button
-                onClick={sendMessage}
-                className="text-white bg-bellefuOrange/60 hover:bg-bellefuOrange duration-200 transition ease-in px-4 rounded-md capitalize"
-              >
-                send
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* end of message box */}
-        {/* end of message */}
-        {/* call */}
-        {senderId !== receiverId && (
-          <div
-            onClick={call}
-            className="flex items-center mt-3 border w-full py-2 space-x-3 rounded-md bg-bellefuGreen justify-center"
-          >
-            <IoIosCall className="w-4 h-4 text-white" />
-            <p className="text-white font-medium text-sm">Call</p>
-          </div>
-        )}
-      </div>
 
       {/* border line */}
-      <div className="border-b" />
+      <div className="border-b mt-5" />
 
       {/* view Reviews */}
       <div className="px-5">

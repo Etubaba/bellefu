@@ -4,6 +4,7 @@ import BellefuLogo from "../../public/bellefulogo.png";
 import { IoMdNotifications, IoMdAddCircleOutline } from "react-icons/io";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
+import { MdShoppingCart } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import { RiMessage2Fill } from "react-icons/ri";
 import { AiFillHeart } from "react-icons/ai";
@@ -31,8 +32,10 @@ const NavBar = () => {
   const username = useSelector(profileDetails);
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
+  const userDetails = useSelector(state => state.bellefu?.userDetails)
 
   console.log("hhhhhh");
+  //console.log(userDetails)
 
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
@@ -78,7 +81,7 @@ const NavBar = () => {
   }, [msgRead]);
 
 
-  console.log("unseen", unseen);
+  //.log("unseen", unseen);
 
   //new notification
   useEffect(() => {
@@ -144,7 +147,10 @@ const NavBar = () => {
   }
 
 
+  const currentPath = router.pathname;
 
+
+  console.log('path=>', currentPath)
 
 
   return (
@@ -206,6 +212,13 @@ const NavBar = () => {
               // href="https://webinar.bellefu.com/"
               >
                 Shops
+              </a>
+              <a
+                className="hover:text-gray-200 cursor-pointer"
+                onClick={() => router.push(`/${userDetails[0].userId}`)}
+              // href="https://webinar.bellefu.com/"
+              >
+                upload product
               </a>
               <a
                 className="hover:text-gray-200 cursor-pointer"
@@ -385,15 +398,34 @@ const NavBar = () => {
               ) : null}
             </div>
 
-            <div
-              onClick={toPostAds}
-              className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1 cursor-pointer"
-            >
-              <IoMdAddCircleOutline className="text-white w-4 h-4 text-md font-semibold" />
-              <p className="text-white hover:text-gray-200 capitalize text-md font-semibold">
-                Post ads
-              </p>
-            </div>
+            {currentPath !== '/shop/[slug]' || currentPath == ! '/shop/cart' || currentPath == ! '/shop/checkout' ?
+              <div
+                onClick={toPostAds}
+                className="flex hover:bg-orange-300 items-center bg-bellefuOrange px-2 py-2 rounded-md space-x-1 cursor-pointer"
+              >
+                <IoMdAddCircleOutline className="text-white w-4 h-4 text-md font-semibold" />
+                <p className="text-white hover:text-gray-200 capitalize text-md font-semibold">
+                  Post ads
+                </p>
+              </div> :
+              <div className="relative cursor-pointer ml-5" onClick={handleNotify}>
+                <MdShoppingCart
+                  className={
+                    unread !== 0
+                      ? "text-white w-6 h-6 animate-shake"
+                      : "text-white w-6 h-6"
+                  }
+                />
+
+                {unread !== 0 ? (
+                  <p className=" bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full">
+                    <span className="text-white text-[10px] text-center ">
+                      {unread}
+                    </span>
+                  </p>
+                ) : null}
+              </div>
+            }
           </div>
         </div>
       </nav>

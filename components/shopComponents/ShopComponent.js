@@ -8,7 +8,8 @@ import { useSelector } from "react-redux";
 import { apiData } from "../../constant";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { login } from "../../features/bellefuSlice";
+import { login, shop } from "../../features/bellefuSlice";
+import { useDispatch } from "react-redux";
 
 const ShopComponent = ({ product }) => {
   const [fav2, setFav2] = useState(false);
@@ -16,8 +17,9 @@ const ShopComponent = ({ product }) => {
   const favArr = useSelector((state) => state.bellefu?.favArr);
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
+  const dispatch = useDispatch();
 
-  console.log("shop=>", product);
+
 
   //action for favourite and call
   const actionFav = () => {
@@ -33,19 +35,7 @@ const ShopComponent = ({ product }) => {
         console.log(err);
       });
   };
-  const actionCall = () => {
-    axios
-      .post(`${apiData}monitor/user/action`, {
-        userId: userId,
-        action: "call",
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
 
   const addFav = (e) => {
     e.stopPropagation();
@@ -91,21 +81,19 @@ const ShopComponent = ({ product }) => {
       });
   };
 
-  //handle call
-  // const handleCall = () => {
-  //   if (isLoggedIn) {
-  //     window.open(`tel:${product.phone}`);
-  //     actionCall();
-  //   } else {
-  //     setOpen(true);
-  //     toast.info("please login to contact seller", { position: "top-center" });
-  //   }
-  // };
+
+  const viewDetails = () => {
+    dispatch(shop(`${product?.slug}/${product?.productSlug}`));
+    router.push(`/shopproduct/product`)
+  }
+
+
+
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
-        // onClick={() => router.push(`/product/${product.productId}`)}
+        onClick={viewDetails}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
       />
@@ -113,11 +101,11 @@ const ShopComponent = ({ product }) => {
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
         <div className="flex items-center space-x-1">
-          {/* <p className="text-bellefuBlack1 text-sm capitalize">
-            {product.state},
-          </p> */}
           <p className="text-bellefuBlack1 text-sm capitalize">
-            {product.country}
+            {product.stateName},
+          </p>
+          <p className="text-bellefuBlack1 text-sm capitalize">
+            {product.countryName}
           </p>
         </div>
       </div>
@@ -136,15 +124,10 @@ const ShopComponent = ({ product }) => {
         )}
       </div>
       <div className="flex items-center space-x-3 mt-2">
-        <button className="bg-bellefuOrange rounded-md w-full flex items-center justify-center py-4">
-          <BsCart3 className="text-white" />
+        <button className="bg-bellefuOrange text-white rounded-md w-full flex items-center justify-center py-2">
+          <BsCart3 className="mr-2" /> <span>Add to Cart</span>
         </button>
-        <button
-          className="bg-bellefuGreen w-full flex items-center justify-center py-4 rounded-md"
-          onClick={handleCall}
-        >
-          <MdCall className="text-white" />
-        </button>
+
       </div>
     </div>
   );
