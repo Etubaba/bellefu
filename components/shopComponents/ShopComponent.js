@@ -92,15 +92,15 @@ const ShopComponent = ({ product }) => {
   };
 
   //handle call
-  const handleCall = () => {
-    if (isLoggedIn) {
-      window.open(`tel:${product.phone}`);
-      actionCall();
-    } else {
-      setOpen(true);
-      toast.info("please login to contact seller", { position: "top-center" });
-    }
-  };
+  // const handleCall = () => {
+  //   if (isLoggedIn) {
+  //     window.open(`tel:${product.phone}`);
+  //     actionCall();
+  //   } else {
+  //     setOpen(true);
+  //     toast.info("please login to contact seller", { position: "top-center" });
+  //   }
+  // };
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
