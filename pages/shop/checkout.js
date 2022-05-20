@@ -60,8 +60,6 @@ const Checkout = () => {
     const userFullName = userId?.first_name + " " + userId?.last_name;
     const userEmail = userId?.email;
 
-
-
     const config = {
         public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
         tx_ref: Date.now(),
