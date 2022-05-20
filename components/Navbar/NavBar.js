@@ -19,6 +19,7 @@ import Navbarsch from "./Navbarsch";
 import MobileNavbar from "./MobileNavbar";
 import axios from "axios";
 import { apiData } from "../../constant";
+
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -221,7 +222,6 @@ const NavBar = () => {
               >
                 Shops
               </a>
-
               <a
                 className="hover:text-gray-200 cursor-pointer"
                 onClick={handleCreateShop}
