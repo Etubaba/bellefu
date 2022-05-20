@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ShopComponents from "../../components/shopComponents/ShopComponents";
 import MobileShopSideBar from "../../components/SingleProduct/MobileShopSidebar";
 import Head from "next/head";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
+import Loader from "../../constant";
 
 
 const Shop = ({ shopProducts }) => {
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const shopDetails = shopProducts.data[0];
   const ifProduct = shopProducts.data.length
 
   const totalPage = shopProducts.last_page
+
+
 
 
   const pageNumber = []
