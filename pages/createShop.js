@@ -160,6 +160,10 @@ export default function CreateShop() {
               position: "top-center",
             })
           }
+        }).catch((err)=>{
+          toast.error(`${err}`, {
+            position: "top-center",
+          })
         })
         
     }

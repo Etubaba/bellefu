@@ -33,7 +33,7 @@ const NavBar = () => {
   const username = useSelector(profileDetails);
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
-  const userDetails = useSelector(state => state.bellefu?.userDetails.id)
+  // const userDetails = useSelector(state => state.bellefu?.userDetails.id)
   const cartCheck = useSelector(state => state.bellefu?.favLoad)
 
 

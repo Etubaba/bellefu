@@ -12,6 +12,8 @@ import {MdOutlineDeleteOutline} from "react-icons/md";
 import { profileDetails } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { BsShopWindow } from "react-icons/bs";
+
 
 
 import { useRouter } from "next/router";
@@ -36,7 +38,7 @@ function shop({thin}) {
   
    
   useEffect(() => {
-   axios.get(`https://bellefu.inmotionhub.xyz/api/shop/view/single/${user.shopId}`).then((res)=>{
+   axios.get(`https://bellefu.inmotionhub.xyz/api/shop/view/single/${user?.shopId}`).then((res)=>{
        setProducts(res.data.data);
    }).then((err)=>{
        console.log(err);
@@ -46,9 +48,25 @@ function shop({thin}) {
   return (
     <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite   h-auto w-full md:w-auto">
       <div className="flex justify-between  px-10 md:py-6 py-2 border-b">
-        <h1 className="font-semibold">My Profile Details</h1>
+        <h1 className="font-semibold">My Shop Details</h1>
       </div>
-      <div className="px-10 py-6 ">
+     {user?.shopId===null? 
+     <div className="h-full px-2 lg:px-0 ">
+          <div className="border mx-auto mt-2 lg:my-5 rounded-xl w-full lg:w-7/12 h-11/12 ">
+            <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+              <BsShopWindow className="text-7xl lg:text-9xl mb-5 text-gray-600" />
+              <p className="text-sm capitalize lg:text-lg text-gray-600 px-2 text-center">
+                You do not have a shop please create one
+              </p>
+
+              <button
+                onClick={() => router.back()}
+                className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
+                Go back
+              </button>
+            </div>
+          </div>
+        </div> :<div className="px-10 py-6 ">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -78,7 +96,7 @@ function shop({thin}) {
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
+      </div>}
     </div>
   );
 }
