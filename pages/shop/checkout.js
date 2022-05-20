@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import { FiArrowLeft } from "react-icons/fi";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useRouter } from "next/router";
-import Image from "next/image";
-
+import { Modal } from '@mui/material'
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 
 import { useSelector } from "react-redux";
 
@@ -21,6 +22,7 @@ const Checkout = () => {
     const [phone, setPhone] = useState("");
     const [hasPaid, setHasPaid] = useState(true);
     const [cartList, setCartList] = useState([]);
+    const [modalopen, setModalOpen] = useState(false)
 
 
 
@@ -51,6 +53,23 @@ const Checkout = () => {
 
 
 
+    const config = {
+        public_key: 'FLWPUBK-**************************-X',
+        tx_ref: Date.now(),
+        amount: 100,
+        currency: 'NGN',
+        payment_options: 'card,mobilemoney,ussd',
+        customer: {
+            email: 'user@gmail.com',
+            phonenumber: '07064586146',
+            name: 'joel ugwumadu',
+        },
+        customizations: {
+            title: 'my Payment Title',
+            description: 'Payment for items in cart',
+            logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+        },
+    };
 
 
 
@@ -60,51 +79,6 @@ const Checkout = () => {
     const totalPrice = priceSum + shippingFee
 
     const cartId = cartList?.map(item => item.cartId)
-
-
-
-
-
-
-    const orderdetails = {
-        userId: userId?.id,
-        totalAmount: totalPrice,
-        zipCode: zip,
-        address: address,
-        cityCode: city,
-        stateCode: state,
-        countryCode: country,
-        cartId: JSON.stringify(cartId),
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-    // const handleOrder = () => {
-    //     if (cartList.length > 0 && hasPaid) {
-    //         axios.post(`${cartUrl}create/order`, orderdetails, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         })
-    //             .then((res) => {
-    //                 if (res.data.status) {
-
-    //                     toast.success("Order placed successfully");
-    //                 }
-    //             })
-    //     }
-    // }
 
 
 
@@ -134,8 +108,7 @@ const Checkout = () => {
             })
                 .then((res) => {
                     if (res.data.status) {
-
-                        toast.success("Order placed successfully");
+                        setModalOpen(true);
                     }
                 })
 
@@ -147,7 +120,7 @@ const Checkout = () => {
 
 
 
-
+    const handleFlutterPayment = useFlutterwave(config);
 
 
 
@@ -237,8 +210,19 @@ const Checkout = () => {
                             <section className="px-3 py-2 mt-6">
                                 <div className=" justify-center items-center flex flex-col space-y-5 md:space-y-0 md:flex-row">
                                     <div className="md:mr-auto">
-                                        <button className="flex items-center outline outline-bellefuOrange rounded-lg px-3 py-2">
-                                            <img src='/Flutterwave.png' className='w-40' alt="visa card" />
+                                        <button
+                                            onClick={() => {
+                                                handleFlutterPayment({
+                                                    callback: (response) => {
+                                                        console.log(response);
+                                                        closePaymentModal() // this will close the modal programmatically
+                                                    },
+                                                    onClose: () => { },
+                                                });
+                                            }}
+
+                                            className="flex items-center outline outline-bellefuOrange rounded-lg px-3 py-2">
+                                            <img src='/card.png' className='w-40' alt="visa card" />
                                             {/* <span className="pl-4 md:text-base text-sm">Pay with Card</span> */}
                                         </button>
                                     </div>
@@ -293,6 +277,34 @@ const Checkout = () => {
                                         onChange={(e) => setPhone(e.target.value)}
                                         type="text" id="card-no" className="w-full  rounded-xl py-3 pl-5 outline outline-gray-300 focus:outline-bellefuOrange" /></p>
                                 </div>
+
+
+
+
+
+                                <Modal
+                                    open={modalopen}
+                                    onClose={() => setModalOpen(false)}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
+                                >
+                                    <div
+                                        className="flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   bg-bellefuWhite w-[80%] md:w-[60%] lg:w-[40%]"
+                                    // sx={edit}
+                                    >
+                                        <div className="flex justify-center items-center">
+                                            {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
+                                            <IoMdCheckmarkCircleOutline className="md:text-6xl text-bellefuGreen text-6xl mt-4 md:mb-3" />
+                                        </div>
+                                        {/* <hr className="mb-4" /> */}
+
+                                        <p className="p-1 mx-3 mb-2 md:mb-6 text-center ">
+                                            {" "}
+                                            Congratulations... Your order has been placed  sucessful
+                                        </p>
+                                    </div>
+                                </Modal>
                                 <div
 
                                     className="mt-14 flex items-end justify-end">

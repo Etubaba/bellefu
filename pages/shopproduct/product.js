@@ -19,8 +19,8 @@ const ShopProduct = () => {
     getProductDetails();
   }, []);
 
-  // console.log("productDetails", productDetails);
-  // console.log("pDetails", pDetails);
+  console.log("productDetails", productDetails);
+  console.log("pDetails", pDetails);
 
   return (
     <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">

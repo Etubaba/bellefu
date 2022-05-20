@@ -28,8 +28,6 @@ function Cart() {
 
 
 
-
-
     const clearCart = (e) => {
         e.stopPropagation()
         axios.post(`${cartUrl}clear/user/cart`, { userId: userId?.id })
