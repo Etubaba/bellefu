@@ -19,6 +19,7 @@ import Navbarsch from "./Navbarsch";
 import MobileNavbar from "./MobileNavbar";
 import axios from "axios";
 import { apiData } from "../../constant";
+
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,7 @@ const NavBar = () => {
   const username = useSelector(profileDetails);
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
-
+  // const userDetails = useSelector(state => state.bellefu?.userDetails.id)
   const cartCheck = useSelector(state => state.bellefu?.favLoad)
 
 
@@ -221,7 +222,6 @@ const NavBar = () => {
               >
                 Shops
               </a>
-
               <a
                 className="hover:text-gray-200 cursor-pointer"
                 onClick={handleCreateShop}
