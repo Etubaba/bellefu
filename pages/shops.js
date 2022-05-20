@@ -77,7 +77,7 @@ const Shops = ({ shops }) => {
                     <button
                         onClick={() => { if (page < totalPage) setPage((prev) => prev + 1) }}
 
-                        className="flex bg-bellefuGreen hover:bg-green-400 text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
+                        className="flex bg-bellefuGreen hover:bg-[#538b09] text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
                     >
                         <span> Next</span> <MdOutlineArrowForwardIos className="mt-1" />
                     </button>

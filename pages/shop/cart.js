@@ -5,7 +5,7 @@ import { BsFillCartXFill, BsCartFill } from 'react-icons/bs'
 import { IoIosArrowForward } from 'react-icons/io'
 import { GiShoppingCart } from 'react-icons/gi'
 import { useSelector, useDispatch } from 'react-redux'
-
+import Loader from '../../constant'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import axios from 'axios'
@@ -16,6 +16,7 @@ function Cart() {
     const [cartList, setCartList] = useState([])
     const [cartId, setCartId] = useState(null)
     const [qty, setQty] = useState(1)
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -26,7 +27,11 @@ function Cart() {
 
     const router = useRouter();
 
-
+    if (loading) {
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }
 
     const clearCart = (e) => {
         e.stopPropagation()
@@ -263,7 +268,7 @@ function Cart() {
                         ))}
 
 
-
+                        {loading && <Loader isLoading={loading} />}
 
                         {/* cart  prices */}
 
@@ -298,7 +303,7 @@ function Cart() {
 
                         <div className='flex justify-center m-4 md:justify-end md:m-10'>
                             <button
-                                onClick={() => router.push('/shop/checkout')}
+                                onClick={() => { router.push('/shop/checkout'); setLoading(true) }}
                                 className='bg-bellefuOrange hover:bg-orange-500 py-3 px-10 md:px-28 md:py-4 text-white flex rounded-full '><span>Procceed to Checkout</span> <IoIosArrowForward className='mt-1 ml-2' /></button>
 
                         </div>

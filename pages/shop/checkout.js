@@ -42,6 +42,7 @@ const Checkout = () => {
 
     // }
 
+
     useEffect(() => {
         const getCart = async () => {
             await axios.get(`${cartUrl}list/cart/item/${userId?.id}`)
@@ -51,37 +52,43 @@ const Checkout = () => {
 
     }, [])
 
+    const priceSum = cartList?.reduce((acc, curr) => { acc += curr.price * curr.quantity; return acc }, 0)
+    const shippingFee = 200
+    const totalPrice = priceSum + shippingFee
+
+
+    const userFullName = userId.first_name + " " + userId.last_name;
+    const userEmail = userId.email;
+
 
 
     const config = {
-        public_key: 'FLWPUBK-**************************-X',
+        public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
         tx_ref: Date.now(),
-        amount: 100,
+        amount: totalPrice,
         currency: 'NGN',
         payment_options: 'card,mobilemoney,ussd',
         customer: {
-            email: 'user@gmail.com',
-            phonenumber: '07064586146',
-            name: 'joel ugwumadu',
+            email: userEmail,
+            phonenumber: phone,
+            name: userFullName,
         },
         customizations: {
-            title: 'my Payment Title',
-            description: 'Payment for items in cart',
-            logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+            title: 'Payment for your order',
+            description: 'Payment for items in your cart',
+            logo: 'https://www.linkpicture.com/q/bellefuApplogo.jpg',
         },
     };
 
 
 
 
-    const priceSum = cartList?.reduce((acc, curr) => { acc += curr.price * curr.quantity; return acc }, 0)
-    const shippingFee = 200
-    const totalPrice = priceSum + shippingFee
+
 
     const cartId = cartList?.map(item => item.cartId)
 
 
-
+    console.log("userId", userId)
 
     const handleOrder = () => {
         if (cartList.length > 0 && hasPaid) {
