@@ -138,14 +138,14 @@ function Cart() {
                                                             setCartList(prev => [...prev])
 
 
-                                                            // axios.post(`${BASE_URL}update/cart/item/quantity`,
-                                                            //     { cartId: cart.catId, qty: item.quantity })
-                                                            //     .then(res => {
-                                                            //         if (res.data.status) {
-                                                            //             setQty(prev => prev + 1)
+                                                            axios.post(`${cartUrl}update/cart/quantity`,
+                                                                { cartId: cart.cartId, qty: item.quantity })
+                                                                .then(res => {
+                                                                    if (res.data.status) {
+                                                                        setQty(prev => prev + 1)
 
-                                                            //         }
-                                                            //     })
+                                                                    }
+                                                                })
 
                                                         }}
 
@@ -162,14 +162,14 @@ function Cart() {
                                                                 setCartList(prev => [...prev])
 
 
-                                                                // axios.post(`${BASE_URL}update/cart/item/quantity`,
-                                                                //     { cartId: cart.catId, qty: item.quantity })
-                                                                //     .then(res => {
-                                                                //         if (res.data.status) {
-                                                                //             setQty(prev => prev + 1)
+                                                                axios.post(`${cartUrl}update/cart/quantity`,
+                                                                    { cartId: cart.cartId, qty: item.quantity })
+                                                                    .then(res => {
+                                                                        if (res.data.status) {
+                                                                            setQty(prev => prev + 1)
 
-                                                                //         }
-                                                                //     })
+                                                                        }
+                                                                    })
 
 
                                                             }
@@ -215,14 +215,14 @@ function Cart() {
                                                     item.quantity += 1
                                                     setCartList(prev => [...prev])
 
-                                                    // axios.post(`${BASE_URL}update/cart/item/quantity`,
-                                                    //     { cartId: cart.catId, qty: item.quantity })
-                                                    //     .then(res => {
-                                                    //         if (res.data.status) {
-                                                    //             setQty(prev => prev + 1)
+                                                    axios.post(`${cartUrl}update/cart/quantity`,
+                                                        { cartId: cart.cartId, qty: item.quantity })
+                                                        .then(res => {
+                                                            if (res.data.status) {
+                                                                setQty(prev => prev + 1)
 
-                                                    //         }
-                                                    //     })
+                                                            }
+                                                        })
 
                                                 }}
                                                 className='text-xl cursor-pointer -mt-1 hover:text-crystamolPink'>+</span>
@@ -237,14 +237,14 @@ function Cart() {
                                                         setCartList(prev => [...prev])
 
 
-                                                        // axios.post(`${BASE_URL}update/cart/item/quantity`,
-                                                        //     { cartId: cart.catId, qty: item.quantity })
-                                                        //     .then(res => {
-                                                        //         if (res.data.status) {
-                                                        //             setQty(prev => prev + 1)
+                                                        axios.post(`${cartUrl}update/cart/quantity`,
+                                                            { cartId: cart.cartId, qty: item.quantity })
+                                                            .then(res => {
+                                                                if (res.data.status) {
+                                                                    setQty(prev => prev + 1)
 
-                                                        //         }
-                                                        //     })
+                                                                }
+                                                            })
                                                     }
                                                 }}
                                                 className='text-2xl cursor-pointer hover:text-crystamolPink -mt-2'>-</span>
@@ -300,7 +300,7 @@ function Cart() {
 
                         <div className='flex justify-center m-4 md:justify-end md:m-10'>
                             <button
-                                onClick={() => router.push('/check-out')}
+                                onClick={() => router.push('/shop/checkout')}
                                 className='bg-bellefuOrange hover:bg-orange-500 py-3 px-10 md:px-28 md:py-4 text-white flex rounded-full '><span>Procceed to Checkout</span> <IoIosArrowForward className='mt-1 ml-2' /></button>
 
                         </div>
