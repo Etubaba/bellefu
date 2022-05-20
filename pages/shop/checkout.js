@@ -57,8 +57,8 @@ const Checkout = () => {
     const totalPrice = priceSum + shippingFee
 
 
-    const userFullName = userId.first_name + " " + userId.last_name;
-    const userEmail = userId.email;
+    const userFullName = userId?.first_name + " " + userId?.last_name;
+    const userEmail = userId?.email;
 
 
 
