@@ -108,7 +108,7 @@ const ShopComponent = ({ product }) => {
         }
       });
     } else {
-      toast.info("Login to add to cart", { position: "top-right" });
+      toast.info("Login to add to cart", { position: "top-center" });
     }
   }
 
