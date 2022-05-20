@@ -13,10 +13,11 @@ const ShopProductSlider = ({ sliderDetails }) => {
         autoplay
         showStatus={false}
       >
+
         {sliderDetails?.map((image, index) => (
           <img
             loading="lazy"
-            src={`https://bellefu.inmotionhub.xyz/get/store/image/${image}`}
+            src={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`}
             key={index}
             className="rounded-md h-48 md:60 lg:h-80 w-full object-cover sm:object-fill "
           />

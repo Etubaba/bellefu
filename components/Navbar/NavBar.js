@@ -400,7 +400,7 @@ const NavBar = () => {
               ) : null}
             </div>
 
-            {currentPath === '/shops' || currentPath === '/shop/[slug]' || currentPath === '/shop/cart' || currentPath === '/shop/checkout' ?
+            {currentPath === '/shops' || currentPath === '/shopproduct/product' || currentPath === '/shop/[slug]' || currentPath === '/shop/cart' || currentPath === '/shop/checkout' ?
               <div className="relative cursor-pointer ml-10" onClick={() => router.push('/shop/cart')}>
                 <MdShoppingCart
                   className={

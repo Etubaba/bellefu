@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ShopProducts from "../../components/shopProductComponent/ShopProducts";
+import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
 
 const ShopProduct = () => {
   const pDetails = useSelector((state) => state.bellefu?.shopProduct);
@@ -18,10 +19,12 @@ const ShopProduct = () => {
     getProductDetails();
   }, []);
 
-  console.log("productDetails", productDetails);
+  // console.log("productDetails", productDetails);
+  // console.log("pDetails", pDetails);
 
   return (
-    <div className="mt-28">
+    <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
+      <ShopSideBar userDetails={productDetails[0]} />
       <ShopProducts productDetails={productDetails[0]} />
     </div>
   );
