@@ -24,6 +24,7 @@ const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [unseen, setUnseen] = useState(0);
+  const [cartCount, setCartCount] = useState([]);
   const [unread, setUnread] = useState(0);
   const [announcement, setAnnouncement] = useState([]);
 
@@ -33,9 +34,10 @@ const NavBar = () => {
   const username = useSelector(profileDetails);
   const msgRead = useSelector((state) => state.bellefu?.messageRead);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
+  const userDetails = useSelector(state => state.bellefu?.userDetails.id)
+  const cartCheck = useSelector(state => state.bellefu?.favLoad)
 
-  console.log("hhhhhh");
-  //console.log(userDetails)
+
 
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
@@ -81,7 +83,7 @@ const NavBar = () => {
   }, [msgRead]);
 
 
-  //.log("unseen", unseen);
+
 
   //new notification
   useEffect(() => {
@@ -149,8 +151,15 @@ const NavBar = () => {
 
   const currentPath = router.pathname;
 
+  const cartUrl = 'https://bellefu.inmotionhub.xyz/api/shop/list/cart/item/'
+  useEffect(() => {
+    axios.get(`${cartUrl}${username?.id}`)
+      .then(res => {
+        setCartCount(res.data.data)
+      })
 
-  console.log('path=>', currentPath)
+  }, [cartCheck])
+
 
 
   return (
@@ -401,19 +410,19 @@ const NavBar = () => {
                   Post ads
                 </p>
               </div> :
-              <div className="relative cursor-pointer ml-5" onClick={handleNotify}>
+              <div className="relative cursor-pointer ml-10" onClick={() => router.push('/shop/cart')}>
                 <MdShoppingCart
                   className={
-                    unread !== 0
+                    cartCount.length !== 0
                       ? "text-white w-6 h-6 animate-shake"
                       : "text-white w-6 h-6"
                   }
                 />
 
-                {unread !== 0 ? (
+                {cartCount.length !== 0 ? (
                   <p className=" bg-bellefuOrange -top-1 left-3 h-4 w-4 absolute flex items-center justify-center rounded-full">
                     <span className="text-white text-[10px] text-center ">
-                      {unread}
+                      {cartCount.length}
                     </span>
                   </p>
                 ) : null}

@@ -14,13 +14,18 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import GovId from "../components/GovId";
 // import Skeleton from "@mui/material/Skeleton";
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 export default function CreateShop() {
+
+  const router = useRouter();
+
+
   const userThings = useSelector((state) => state.bellefu.profileDetails);
   const idchecker = useSelector((state) => state.bellefu.verificationStatus);
   const dispatch = useDispatch();
 
+  const [checkpass, setCheckPass] = useState(false);
   const [terms, setTerms] = useState(false);
   const [modalopen, setModalOpen] = useState(false);
   const [shopname, setShopName] = useState(null);
@@ -50,6 +55,25 @@ export default function CreateShop() {
       }
     },
   });
+
+  const handleShopNameCheck=()=>{
+    axios.post(`https://bellefu.inmotionhub.xyz/api/shop/name/checker`,{
+      shopName:shopname
+    }).then((res)=>{
+      if(res.data.status===true){
+        setCheckPass(true)
+        toast.error("Shop Name Alreay exist", {
+          position: "top-center",
+        })
+      }else{
+        setCheckPass(false)
+
+      }
+
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 
   const handleCreate = (e) => {
     e.preventDefault();
@@ -113,6 +137,7 @@ export default function CreateShop() {
         },
       })
         .then((res) => {
+          console.log(res.status);
           if (res.status === 200) {
             setModalOpen(true);
             setTerms(false);
@@ -123,25 +148,20 @@ export default function CreateShop() {
             setAccountType("");
             setNextOfKin("");
             setDescription("");
-            setSubmitChecker(true);
 
             setAddress("");
             setFiles(null);
             setFiles2(null);
             setGovid([]);
-          } else {
-            toast.error("something went wrong. Try again", {
+
+            window.location.reload();
+          } else{
+            toast.error("Something happend. Try again", {
               position: "top-center",
-            });
+            })
           }
         })
-        .catch((err) =>
-          err
-            ? toast.error("Something happend. Try again", {
-                position: "top-center",
-              })
-            : null
-        );
+        
     }
   };
 
@@ -213,10 +233,16 @@ export default function CreateShop() {
                     <div className=" sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Shop Name
+                          <label className="block text-sm font-medium text-gray-700 flex justify-between">
+                            <p>Shop Name</p>
+                            {checkpass ? (
+                            <p className="text-red-600 relative right-6">
+                              Name Already exist ❌
+                            </p>
+                          ) : null}
                           </label>
                           <input
+                           onBlur={handleShopNameCheck}
                             value={shopname}
                             onChange={(e) => setShopName(e.target.value)}
                             type="text"

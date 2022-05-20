@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import useSWR from "swr";
+
 import { AiOutlineCaretRight } from "react-icons/ai";
 import classNames from "classnames";
 
-const CreateProductCategory = ({categories, countries}) => {
+const CreateProductCategory = ({ categories, countries }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [categoryIndex, setCategoryIndex] = useState(0);
@@ -24,8 +24,8 @@ const CreateProductCategory = ({categories, countries}) => {
 
   const fetcher = (url) => fetch(url).then(res => res.json());
 
-  const { data: states } = useSWR(countryCode ? `https://bellefu.inmotionhub.xyz/api/web30/get/postadd/states/${countryCode}`:null, fetcher);
-  const {data: cities} = useSWR(stateCode ? `https://bellefu.inmotionhub.xyz/api/web30/get/postadd/lgas/${stateCode}`: null, fetcher);
+  const { data: states } = useSWR(countryCode ? `https://bellefu.inmotionhub.xyz/api/web30/get/postadd/states/${countryCode}` : null, fetcher);
+  const { data: cities } = useSWR(stateCode ? `https://bellefu.inmotionhub.xyz/api/web30/get/postadd/lgas/${stateCode}` : null, fetcher);
 
   const onFocus = (stateHandler) => (evt) => {
     evt.stopPropagation()
@@ -58,9 +58,9 @@ const CreateProductCategory = ({categories, countries}) => {
           <p><label htmlFor="cat" className="text-lg font-semibold">Product Category:</label></p>
           <div className="relative">
             <p ><input type="text" id="cat" value={categoryName} onFocus={onFocus(setOpenCat)} onBlur={onBlur(setOpenCat)} placeholder="product category" className="w-full border-2 rounded-md py-2 pl-3 focus:border-bellefuOrange focus:outline-none" /></p>
-            <span onClick={onClick(openCat, setOpenCat)} className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openCat, "text-bellefuOrange": openCat})}><AiOutlineCaretRight /></span>
+            <span onClick={onClick(openCat, setOpenCat)} className={classNames("text-gray-300 absolute right-2 top-4", { "rotate-90": openCat, "text-bellefuOrange": openCat })}><AiOutlineCaretRight /></span>
           </div>
-          {openCat && 
+          {openCat &&
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40 overflow-auto h-auto">
               <ul className="rounded py-4">
                 {categories.map((category, index) => (
@@ -85,10 +85,10 @@ const CreateProductCategory = ({categories, countries}) => {
           <p><label htmlFor="subcat" className="text-lg font-semibold">Product Sub-category:</label></p>
           <div className="relative">
             <p><input type="text" id="subcat" value={subCategoryName} onFocus={onFocus(setOpenSubCat)} onBlur={onBlur(setOpenSubCat)} placeholder="product category" className="w-full border-2 rounded-md focus:border-bellefuOrange focus:outline-none py-2 pl-3" /></p>
-            <span onClick={onClick(openSubCat, setOpenSubCat)} className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openSubCat, "text-bellefuOrange": openSubCat})}><AiOutlineCaretRight /></span>
+            <span onClick={onClick(openSubCat, setOpenSubCat)} className={classNames("text-gray-300 absolute right-2 top-4", { "rotate-90": openSubCat, "text-bellefuOrange": openSubCat })}><AiOutlineCaretRight /></span>
             {/* <AiOutlineCaretRight className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openSubCat, "text-bellefuOrange": openSubCat})} /> */}
           </div>
-          {openSubCat && 
+          {openSubCat &&
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded py-4">
                 {categories[categoryIndex]?.sub_category?.map((subCategory, index) => (
@@ -113,10 +113,10 @@ const CreateProductCategory = ({categories, countries}) => {
           <p><label htmlFor="country" className="text-lg font-semibold">Country:</label></p>
           <div className="relative">
             <p><input type="text" id="country" value={countryName} placeholder="product category" className="w-full border-2 rounded-md focus:border-bellefuOrange focus:outline-none py-2 pl-3" onFocus={onFocus(setOpenCountry)} onBlur={onBlur(setOpenCountry)} /></p>
-            <span onClick={onClick(openCountry, setOpenCountry)} className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openCountry, "text-bellefuOrange": openCountry})}><AiOutlineCaretRight /></span>
+            <span onClick={onClick(openCountry, setOpenCountry)} className={classNames("text-gray-300 absolute right-2 top-4", { "rotate-90": openCountry, "text-bellefuOrange": openCountry })}><AiOutlineCaretRight /></span>
             {/* <AiOutlineCaretRight className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openCountry, "text-bellefuOrange": openCountry})} /> */}
           </div>
-          {openCountry && 
+          {openCountry &&
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded py-4">
                 {countries.map((country, index) => (
@@ -140,10 +140,10 @@ const CreateProductCategory = ({categories, countries}) => {
           <p><label htmlFor="state" className="text-lg font-semibold">State:</label></p>
           <div className="relative">
             <p><input type="text" id="state" value={stateName} placeholder="product category" className="w-full border-2 rounded-md focus:border-bellefuOrange focus:outline-none py-2 pl-3" onFocus={onFocus(setOpenState)} onBlur={onBlur(setOpenState)} /></p>
-            <span onClick={onClick(openState, setOpenState)} className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openState, "text-bellefuOrange": openState})}><AiOutlineCaretRight /></span>
+            <span onClick={onClick(openState, setOpenState)} className={classNames("text-gray-300 absolute right-2 top-4", { "rotate-90": openState, "text-bellefuOrange": openState })}><AiOutlineCaretRight /></span>
             {/* <AiOutlineCaretRight className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openState, "text-bellefuOrange": openState})} /> */}
           </div>
-          {openState && 
+          {openState &&
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded py-4">
                 {states.map((state, index) => (
@@ -169,10 +169,10 @@ const CreateProductCategory = ({categories, countries}) => {
           <p><label htmlFor="city" className="text-lg font-semibold">City:</label></p>
           <div className="relative">
             <p><input type="text" id="city" value={cityName} placeholder="product category" className="w-full border-2 rounded-md focus:border-bellefuOrange focus:outline-none py-2 pl-3" onFocus={onFocus(setOpenCity)} onBlur={onBlur(setOpenCity)} /></p>
-            <span onClick={onClick(openCity, setOpenCity)} className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openCity, "text-bellefuOrange": openCity})}><AiOutlineCaretRight /></span>
+            <span onClick={onClick(openCity, setOpenCity)} className={classNames("text-gray-300 absolute right-2 top-4", { "rotate-90": openCity, "text-bellefuOrange": openCity })}><AiOutlineCaretRight /></span>
             {/* <AiOutlineCaretRight className={classNames("text-gray-300 absolute right-2 top-4", {"rotate-90": openCity, "text-bellefuOrange": openCity})} /> */}
           </div>
-          {openCity && 
+          {openCity &&
             <div className="w-full bg-bellefuWhite rounded border transition duration-300 ease-in absolute z-40">
               <ul className="rounded py-4">
                 {cities.map((city, index) => (

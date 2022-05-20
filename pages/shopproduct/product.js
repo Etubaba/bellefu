@@ -1,0 +1,45 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import ShopProducts from "../../components/shopProductComponent/ShopProducts";
+
+const ShopProduct = () => {
+  const pDetails = useSelector((state) => state.bellefu?.shopProduct);
+
+  const [productDetails, setProductDetails] = useState([]);
+
+  // handling getting the product details of a user
+  useEffect(() => {
+    const getProductDetails = async () => {
+      await axios
+        .get(`https://bellefu.inmotionhub.xyz/api/shop/view/single/${pDetails}`)
+        .then((res) => setProductDetails(res.data.data));
+    };
+    getProductDetails();
+  }, []);
+
+  console.log("productDetails", productDetails);
+
+  return (
+    <div className="mt-28">
+      <ShopProducts productDetails={productDetails[0]} />
+    </div>
+  );
+};
+
+export default ShopProduct;
+
+// //server side fetching of the full product details
+// export async function getServerSideProps(context) {
+//   const { slug, productSlug } = context.query;
+
+//   const requests = await fetch(
+//     `https://bellefu.inmotionhub.xyz/api/shop/view/single/${slug}/${productSlug}`
+//   ).then((res) => res.json());
+
+//   return {
+//     props: {
+//       details: requests,
+//     },
+//   };
+// }

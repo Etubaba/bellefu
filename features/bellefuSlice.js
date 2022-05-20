@@ -5,6 +5,7 @@ const initialState = {
   kycApply: typeof window !== "undefined" ? localStorage.getItem("kycapply") : false,
   subcatselected: undefined,
   favArr: [],
+  shopProduct: typeof window !== "undefined" ? localStorage.getItem("shop") : '',
   video: [],
   favLoad: 0,
   msgScroll: 0,
@@ -92,6 +93,10 @@ export const bellefuSlice = createSlice({
     msgScroll: (state, action) => {
       state.msgScroll = action.payload;
       // localStorage.setItem('msg', state.messageRead)
+    },
+    shop: (state, action) => {
+      state.shopProduct = action.payload;
+      localStorage.setItem('shop', state.shopProduct)
     },
     kycpending: (state, action) => {
       state.kycApply = action.payload;
@@ -235,7 +240,7 @@ export const bellefuSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  isLoggedIn,
+  isLoggedIn, shop,
   isDisabled,
   chooseCountry,
   handleIndexApi,

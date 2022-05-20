@@ -8,7 +8,13 @@ import { useSelector } from "react-redux";
 import { apiData } from "../../constant";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { login } from "../../features/bellefuSlice";
+import { login, shop, favUpdated } from "../../features/bellefuSlice";
+import { useDispatch } from "react-redux";
+
+
+
+const shopurl = 'https://bellefu.inmotionhub.xyz/api/shop/add/cart/item'
+
 
 const ShopComponent = ({ product }) => {
   const [fav2, setFav2] = useState(false);
@@ -16,6 +22,7 @@ const ShopComponent = ({ product }) => {
   const favArr = useSelector((state) => state.bellefu?.favArr);
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
+  const dispatch = useDispatch();
 
 
 
@@ -53,6 +60,8 @@ const ShopComponent = ({ product }) => {
             actionFav();
           }
         });
+    } else {
+      toast.info("Login to add to favourite", { position: "top-right" });
     }
   };
 
@@ -79,14 +88,39 @@ const ShopComponent = ({ product }) => {
       });
   };
 
-  console.log('shop=>', product)
+
+  const viewDetails = () => {
+    dispatch(shop(`${product?.slug}/${product?.productSlug}`));
+    router.push(`/shopproduct/product`)
+  }
+
+
+
+  const addtocart = () => {
+    if (isLoggedIn) {
+      axios.post(`${shopurl}`, {
+        productId: product.productId,
+        userId: userId,
+      }).then((res) => {
+        if (res.data.status) {
+          toast.success(`${product.title.substring(0, 20)} added to cart`)
+          dispatch(favUpdated())
+        }
+      });
+    } else {
+      toast.info("Login to add to cart", { position: "top-right" });
+    }
+  }
+
+
+
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
-        onClick={() => router.push(`/shopproduct/${product?.slug}/${product?.productSlug}`)}
+        onClick={viewDetails}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
-        className="rounded-md w-full h-44 object-cover"
+        className="rounded-md w-full h-44 object-cover hover:opacity-50"
       />
       <p className="capitalize text-medium">{product.title.substring(0, 15)}</p>
       <div className="flex items-center space-x-2">
@@ -102,7 +136,7 @@ const ShopComponent = ({ product }) => {
       </div>
       <div className="flex items-center justify-between">
         <p className="text-bellefuGreen font-poppins font-semibold">
-          ₦ {product.price}
+          $ {product.price}
         </p>
         {fav2 || favArr?.includes(product.productId) ? (
           <div onClick={removeFav} className="cursor-pointer">
@@ -115,7 +149,9 @@ const ShopComponent = ({ product }) => {
         )}
       </div>
       <div className="flex items-center space-x-3 mt-2">
-        <button className="bg-bellefuOrange text-white rounded-md w-full flex items-center justify-center py-2">
+        <button
+          onClick={addtocart}
+          className="bg-bellefuOrange hover:bg-orange-300 text-white rounded-md w-full flex items-center justify-center py-2">
           <BsCart3 className="mr-2" /> <span>Add to Cart</span>
         </button>
 
