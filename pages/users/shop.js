@@ -66,7 +66,7 @@ function shop({thin}) {
               </button>
             </div>
           </div>
-        </div> :<div className="px-10 py-6 ">
+        </div> :<div className="px-2 md:px-5 lg:px-10 py-6 ">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
