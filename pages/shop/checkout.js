@@ -63,7 +63,7 @@ const Checkout = () => {
 
 
 
-    console.log(cartId)
+
 
 
     const orderdetails = {
@@ -110,34 +110,38 @@ const Checkout = () => {
 
 
     const handleOrder = () => {
+        if (cartList.length > 0 && hasPaid) {
 
+            const formData = new FormData();
 
-        const formData = new FormData();
-
-        formData.append("userId", userId?.id);
-        formData.append("totalAmount", totalPrice);
-        formData.append("zipCode", zip);
-        formData.append("address", address);
-        formData.append("cityCode", city);
-        formData.append("stateCode", state);
-        formData.append("countryCode", country);
-        formData.append("phone", phone);
-        formData.append("quantity", 3);
-        formData.append("cartId", JSON.stringify(cartId));
-        axios({
-            method: "post",
-            url: `${cartUrl}create/order`,
-            data: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
-        })
-            .then((res) => {
-                if (res.data.status) {
-
-                    toast.success("Order placed successfully");
-                }
+            formData.append("userId", userId?.id);
+            formData.append("totalAmount", totalPrice);
+            formData.append("zipCode", zip);
+            formData.append("address", address);
+            formData.append("cityCode", city);
+            formData.append("stateCode", state);
+            formData.append("countryCode", country);
+            formData.append("phone", phone);
+            formData.append("quantity", 3);
+            formData.append("cartId", JSON.stringify(cartId));
+            axios({
+                method: "post",
+                url: `${cartUrl}create/order`,
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
             })
+                .then((res) => {
+                    if (res.data.status) {
+
+                        toast.success("Order placed successfully");
+                    }
+                })
+
+        } else {
+            toast.error("Please select payment method")
+        }
     }
 
 
