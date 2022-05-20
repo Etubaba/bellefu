@@ -22,6 +22,8 @@ export default function CreateShop() {
 
 
   const userThings = useSelector((state) => state.bellefu.profileDetails);
+  //const userThings = useSelector((state) => state.bellefu.userDetails);
+  console.log(userThings)
   const idchecker = useSelector((state) => state.bellefu.verificationStatus);
   const dispatch = useDispatch();
 

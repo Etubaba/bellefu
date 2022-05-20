@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { MdPending ,MdProductionQuantityLimits} from "react-icons/md";
+import { MdPending, MdProductionQuantityLimits } from "react-icons/md";
 import { ImPushpin, ImClock } from "react-icons/im";
-import { FaWallet ,FaMoneyBillAlt} from "react-icons/fa";
+import { FaWallet, FaMoneyBillAlt } from "react-icons/fa";
 import { AiFillShopping } from "react-icons/ai";
 import Layout from "../../components/Layout";
 import { profileDetails } from "../../features/bellefuSlice";
@@ -17,7 +17,7 @@ import Skeleton from "@mui/material/Skeleton";
 const Index = () => {
   const [loading, setLoading] = useState(false);
 
-  const user = useSelector(profileDetails) || null;
+  const user = useSelector(profileDetails);
   const [productStat, setProductStat] = useState({});
 
   useEffect(() => {
@@ -237,87 +237,93 @@ const Index = () => {
                   height={400}
                 />
               )}
-               {loading ? (
-                <div className="bg-bellefuWhite rounded-[20px] mb-4">
-                  <div className="flex justify-between md:px-8 md:py-6 py-2 px-4">
-                    <h3 className="font-semibold">Shop Details</h3>
-                    <button className="text-bellefuOrange hover:underline">
-                      <Link href="/users/myads">View Shop details</Link>
-                    </button>
-                  </div>
-                  <hr />
-                  <div
-                    className="flex flex-col md:flex-row items-center md:justify-between md:px-8 md:py-5 my-3 px-3 md:space-x-4"
-                    style={{ fontFamily: "Poppins", fontWeight: "500px" }}
-                  >
-                    <div className="bg-[#f7f8f6] p-3 text-[#76BA1B] mb-3 md:mb-0 rounded-md flex-auto w-full md:w-auto ">
-                      <p
-                        id="number"
-                        className="text-center"
-                        style={{ fontSize: "50px", lineHeight: "75px" }}
-                      >
-                        <CountUp end={productStat.approved} />
-                      </p>
-                      <p
-                        id="detail"
-                        className="flex items-center justify-center"
-                        style={{ fontSize: "25px" }}
-                      >
-                        <span className="pt-1">
-                          <AiFillShopping />
-                        </span>
-                        <span className="ml-2">Total Orders</span>
-                      </p>
-                    </div>
-                    <div className="bg-[#fffbf4] text-[#FFA500] p-3 mb-3 md:mb-0 rounded-md flex-auto w-full md:w-auto">
-                      <p
-                        id="number"
-                        className="text-center"
-                        style={{ fontSize: "50px", lineHeight: "75px" }}
-                      >
-                        <CountUp end={productStat.pending} />
-                      </p>
-                      <p
-                        id="detail"
-                        className="flex items-center justify-center"
-                        style={{ fontSize: "25px" }}
-                      >
-                        <span className="pt-1">
-                          <FaMoneyBillAlt />
-                        </span>
-                        <span className="ml-2">Total Income</span>
-                      </p>
-                    </div>
-                    <div className="bg-[#fff7f7] text-[#FF0303] p-3 mb-3 md:mb-0 rounded-md flex-auto w-full md:w-auto">
-                      <p
-                        id="number"
-                        className="text-center"
-                        style={{ fontSize: "50px", lineHeight: "75px" }}
-                      >
-                        <CountUp end={productStat.expired} />
-                      </p>
-                      <p
-                        id="detail"
-                        className="flex items-center justify-center"
-                        style={{ fontSize: "25px" }}
-                      >
-                        <span className="pt-1">
-                          <MdProductionQuantityLimits />
-                        </span>
-                        <span className="ml-2">Total Products</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <Skeleton
-                  className="rounded m-2 "
-                  variant="rectangular"
-                  animation="wave"
-                  width={"100%"}
-                  height={400}
-                />
-              )}
+              <>
+                {user?.shopId === null ? null : (
+                  <>
+                    {loading ? (
+                      <div className="bg-bellefuWhite rounded-[20px] mb-4">
+                        <div className="flex justify-between md:px-8 md:py-6 py-2 px-4">
+                          <h3 className="font-semibold">Shop Details</h3>
+                          <button className="text-bellefuOrange hover:underline">
+                            <Link href="/users/myads">View Shop details</Link>
+                          </button>
+                        </div>
+                        <hr />
+                        <div
+                          className="flex flex-col md:flex-row items-center md:justify-between md:px-8 md:py-5 my-3 px-3 md:space-x-4"
+                          style={{ fontFamily: "Poppins", fontWeight: "500px" }}
+                        >
+                          <div className="bg-[#f7f8f6] p-3 text-[#76BA1B] mb-3 md:mb-0 rounded-md flex-auto w-full md:w-auto ">
+                            <p
+                              id="number"
+                              className="text-center"
+                              style={{ fontSize: "50px", lineHeight: "75px" }}
+                            >
+                              <CountUp end={productStat.approved} />
+                            </p>
+                            <p
+                              id="detail"
+                              className="flex items-center justify-center"
+                              style={{ fontSize: "25px" }}
+                            >
+                              <span className="pt-1">
+                                <AiFillShopping />
+                              </span>
+                              <span className="ml-2">Total Orders</span>
+                            </p>
+                          </div>
+                          <div className="bg-[#fffbf4] text-[#FFA500] p-3 mb-3 md:mb-0 rounded-md flex-auto w-full md:w-auto">
+                            <p
+                              id="number"
+                              className="text-center"
+                              style={{ fontSize: "50px", lineHeight: "75px" }}
+                            >
+                              <CountUp end={productStat.pending} />
+                            </p>
+                            <p
+                              id="detail"
+                              className="flex items-center justify-center"
+                              style={{ fontSize: "25px" }}
+                            >
+                              <span className="pt-1">
+                                <FaMoneyBillAlt />
+                              </span>
+                              <span className="ml-2">Total Income</span>
+                            </p>
+                          </div>
+                          <div className="bg-[#fff7f7] text-[#FF0303] p-3 mb-3 md:mb-0 rounded-md flex-auto w-full md:w-auto">
+                            <p
+                              id="number"
+                              className="text-center"
+                              style={{ fontSize: "50px", lineHeight: "75px" }}
+                            >
+                              <CountUp end={productStat.expired} />
+                            </p>
+                            <p
+                              id="detail"
+                              className="flex items-center justify-center"
+                              style={{ fontSize: "25px" }}
+                            >
+                              <span className="pt-1">
+                                <MdProductionQuantityLimits />
+                              </span>
+                              <span className="ml-2">Total Products</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <Skeleton
+                        className="rounded m-2 "
+                        variant="rectangular"
+                        animation="wave"
+                        width={"100%"}
+                        height={400}
+                      />
+                    )}
+                  </>
+                )}
+              </>
             </div>
           </div>
         )}
