@@ -61,7 +61,7 @@ const initialState = {
 
     lganame: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("userLga")) : null,
   },
-  countryProductSearchEmpty: false,
+  countryProductSearchEmpty: true,
   searchCountry: "",
 };
 

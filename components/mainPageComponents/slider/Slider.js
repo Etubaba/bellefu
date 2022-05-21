@@ -24,11 +24,11 @@ export default function Slider({ slider }) {
           <div className="relative" key={index}>
             <img
               className="h-52 md:h-64 lg:h-80 w-full rounded-xl  "
-              key={index}
+
               src={`https://bellefu.inmotionhub.xyz/get/sliders/image/${slideimage}`}
               alt={slideimage}
             />
-            <button className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-bellefuOrange shadow-md hover:bg-orange-300 p-2 rounded-md text-white" key={index}><a href={process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://bellefu30web.vercel.app/"} target="_blank" key={index}>Learn More</a></button>
+            <button className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-bellefuOrange shadow-md hover:bg-orange-300 p-2 rounded-md text-white" ><a href={process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://bellefu30web.vercel.app/"} target="_blank" >Learn More</a></button>
           </div>
         ))}
       </Carousel>
