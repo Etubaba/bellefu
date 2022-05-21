@@ -19,6 +19,7 @@ import Navbarsch from "./Navbarsch";
 import MobileNavbar from "./MobileNavbar";
 import axios from "axios";
 import { apiData } from "../../constant";
+import Loader from "../../constant";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -27,6 +28,7 @@ const NavBar = () => {
   const [cartCount, setCartCount] = useState([]);
   const [unread, setUnread] = useState(0);
   const [announcement, setAnnouncement] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -42,27 +44,32 @@ const NavBar = () => {
   const toPostAds = () => {
     if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
       router.push("/postAds");
+      setLoading(!loading);
     } else if (!getIsLoggedIn) {
       toast.info("Login to post  Ads", {
         position: "top-right",
       });
       router.push("/login");
+
     } else if (!verify.phone) {
       toast.info("Verify your phone number to post Ads", {
         position: "top-right",
       });
       router.push("/users/verify-account");
+      setLoading(!loading);
     } else if (username.avatar === "useravatar.jpg") {
       toast.info("Update your profile details to post  Ads", {
         position: "top-right",
       });
       router.push("/users/profile");
+      setLoading(!loading);
     }
   };
 
   const handleNotify = () => {
     if (getIsLoggedIn) {
       router.push("/users/notification");
+      setLoading(!loading);
       axios
         .post(`${apiData}change/notification/read`, { userId: username?.id })
         .then((res) => {
@@ -81,6 +88,16 @@ const NavBar = () => {
       .get(`${apiData}unseen/messages/count/${username?.id}`)
       .then((res) => setUnseen(res.data.unseen));
   }, [msgRead]);
+
+  //handle loading 
+
+  if (loading) {
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000);
+  }
+
+
 
 
 
@@ -118,6 +135,7 @@ const NavBar = () => {
     window.onclick = (e) => {
       e.target.className === "con";
       setOpen(false);
+      setIsOpen(false);
     };
   }
 
@@ -139,12 +157,14 @@ const NavBar = () => {
   const handleCreateShop = () => {
     if (getIsLoggedIn && username.avatar !== "useravatar.jpg") {
       router.push("/createShop");
+      setLoading(!loading);
     } else if (!getIsLoggedIn) {
       toast.info("Login to create shop", { position: "top-right" });
       router.push("/login");
     } else if (username.avatar === "useravatar.jpg") {
       toast.info("Update your profile details to create shop", { position: "top-right" });
       router.push("/users/profile");
+      setLoading(!loading);
     }
   }
 
@@ -160,14 +180,13 @@ const NavBar = () => {
 
   }, [cartCheck])
 
-
-
   return (
     <div className="fixed top-0 z-50 w-full ">
+      {loading && <Loader isLoading={loading} />}
       <div className=" bg-[#2C3422] h-8 flex items-center justify-center space-x-3">
         <img
           src={`https://bellefu.inmotionhub.xyz/get/custom/image/${announcement[1]}`}
-          alt=""
+          alt="bellefu"
           className="w-10 h-6 rounded-md object-cover border"
         />
         <p className="text-white text-sm italic">{announcement[0]}!!</p>
@@ -181,7 +200,7 @@ const NavBar = () => {
             src="/bellefulogo.png"
             alt="bellefu-logo"
             className="md:rounded-md rounded object-contain w-24 md:w-32 cursor-pointer"
-            onClick={() => router.push("/")}
+            onClick={() => { router.push("/"); setLoading(!loading); }}
           />
           {/* $$country select and language select for mobile */}
           <Navbarsch />
@@ -198,7 +217,10 @@ const NavBar = () => {
 
         {/* mobile right side */}
 
-        <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden">
+        <button onClick={(e) => {
+          e.stopPropagation()
+          setIsOpen(!isOpen)
+        }} className="lg:hidden">
           {!isOpen && <FiMenu className="w-10 h-10 text-white" />}
         </button>
 
@@ -208,6 +230,7 @@ const NavBar = () => {
           <MobileNavbar
             isOpen={isOpen}
             setIsOpen={setIsOpen}
+            setLoading={setLoading}
             username={username}
             msgRead={msgRead}
           />
@@ -217,7 +240,7 @@ const NavBar = () => {
             <div className="text-white space-x-4 capitalize text-md font-semibold">
               <a
                 className="hover:text-gray-200 cursor-pointer"
-                onClick={() => router.push("/shops")}
+                onClick={() => { router.push("/shops"), setLoading(!loading) }}
               // href="https://webinar.bellefu.com/"
               >
                 Shops
@@ -230,18 +253,21 @@ const NavBar = () => {
                 Create Shop
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://webinar.bellefu.com/"
               >
                 Webinar
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://radio.bellefu.com/"
               >
                 Online Radio
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://blog.bellefu.com/"
               >
@@ -255,7 +281,7 @@ const NavBar = () => {
               <div className="hidden md:inline-block">
                 <div className="flex items-center space-x-2 relative">
                   <div
-                    onClick={() => router.push("/users/messages")}
+                    onClick={() => { router.push("/users/messages"); setLoading(!loading) }}
                     className="relative cursor-pointer "
                   >
                     <Image
@@ -274,7 +300,7 @@ const NavBar = () => {
                     ) : null}
                   </div>
                   <p
-                    onClick={() => router.push("/users")}
+                    onClick={() => { router.push("/users"); setLoading(!loading) }}
                     className="text-white hover:text-gray-200' font-semibold"
                   >
                     Hi <span>{username?.username}</span>
@@ -314,6 +340,7 @@ const NavBar = () => {
                     onClick={() => {
                       setOpen(!open);
                       router.push("/users");
+                      setLoading(!loading);
                     }}
                     className="flex items-center space-x-4 mb-2 hover:bg-bellefuBackground px-2 rounded-md py-3"
                   >
@@ -326,6 +353,7 @@ const NavBar = () => {
                     onClick={() => {
                       setOpen(!open);
                       router.push("/users/messages");
+                      setLoading(!loading);
                     }}
                     className="px-2 hover:bg-bellefuBackground py-1  flex space-x-3 items-center cursor-pointer rounded"
                   >
@@ -336,6 +364,7 @@ const NavBar = () => {
                     onClick={() => {
                       setOpen(!open);
                       router.push("/users/favourite-items");
+                      setLoading(!loading);
                     }}
                     className="px-2 py-1 hover:bg-bellefuBackground  flex space-x-3 items-center cursor-pointer rounded"
                   >
@@ -370,13 +399,13 @@ const NavBar = () => {
               <div className="text-white flex space-x-5 capitalize text-md font-semibold">
                 <p
                   className="hover:text-gray-200"
-                  onClick={() => router.push("/register")}
+                  onClick={() => { router.push("/register"); setLoading(!loading) }}
                 >
                   Register
                 </p>
                 <p
                   className="hover:text-gray-200"
-                  onClick={() => router.push("/login")}
+                  onClick={() => { router.push("/login"); setLoading(!loading) }}
                 >
                   Login
                 </p>
@@ -401,7 +430,7 @@ const NavBar = () => {
             </div>
 
             {currentPath === '/shops' || currentPath === '/shopproduct/product' || currentPath === '/shop/[slug]' || currentPath === '/shop/cart' || currentPath === '/shop/checkout' ?
-              <div className="relative cursor-pointer ml-10" onClick={() => router.push('/shop/cart')}>
+              <div className="relative cursor-pointer ml-10" onClick={() => { router.push('/shop/cart'); setLoading(!loading); }}>
                 <MdShoppingCart
                   className={
                     cartCount.length !== 0

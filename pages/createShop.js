@@ -22,6 +22,8 @@ export default function CreateShop() {
 
 
   const userThings = useSelector((state) => state.bellefu.profileDetails);
+  //const userThings = useSelector((state) => state.bellefu.userDetails);
+  console.log(userThings)
   const idchecker = useSelector((state) => state.bellefu.verificationStatus);
   const dispatch = useDispatch();
 
@@ -56,21 +58,21 @@ export default function CreateShop() {
     },
   });
 
-  const handleShopNameCheck=()=>{
-    axios.post(`https://bellefu.inmotionhub.xyz/api/shop/name/checker`,{
-      shopName:shopname
-    }).then((res)=>{
-      if(res.data.status===true){
+  const handleShopNameCheck = () => {
+    axios.post(`https://bellefu.inmotionhub.xyz/api/shop/name/checker`, {
+      shopName: shopname
+    }).then((res) => {
+      if (res.data.status === true) {
         setCheckPass(true)
         toast.error("Shop Name Alreay exist", {
           position: "top-center",
         })
-      }else{
+      } else {
         setCheckPass(false)
 
       }
 
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err)
     })
   }
@@ -78,7 +80,7 @@ export default function CreateShop() {
   const handleCreate = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("userId", userThings?.userId);
+    formData.append("userId", userThings?.id);
     formData.append("shopName", shopname);
     formData.append("description", description);
     formData.append("countryCode", userThings?.country_code);
@@ -101,28 +103,28 @@ export default function CreateShop() {
 
     if (
       shopname === null ||
-      bankname === null ||
-      accountname === null ||
-      accountnumber === null ||
-      accounttype === null ||
-      nextofkin === null ||
-      description === null ||
-      address === null ||
-      files2 === null
+        bankname === null ||
+        accountname === null ||
+        accountnumber === null ||
+        accounttype === null ||
+        nextofkin === null ||
+        description === null ||
+        address === null ||
+        files2 === null
         ? toast.error("Shop Logo is required", {
-            position: "top-center",
-          })
+          position: "top-center",
+        })
         : null || terms === false
-        ? toast.error("Accept Terms and Condition", {
+          ? toast.error("Accept Terms and Condition", {
             position: "top-center",
           })
-        : null || idchecker === false
-        ? govid.length === 0
-          ? toast.error("Govt. Issued ID id required", {
-              position: "top-center",
-            })
-          : null
-        : null
+          : null || idchecker === false
+            ? govid.length === 0
+              ? toast.error("Govt. Issued ID id required", {
+                position: "top-center",
+              })
+              : null
+            : null
     ) {
       toast.error("All fields are required", {
         position: "top-center",
@@ -155,17 +157,17 @@ export default function CreateShop() {
             setGovid([]);
 
             window.location.reload();
-          } else{
+          } else {
             toast.error("Something happend. Try again", {
               position: "top-center",
             })
           }
-        }).catch((err)=>{
+        }).catch((err) => {
           toast.error(`${err}`, {
             position: "top-center",
           })
         })
-        
+
     }
   };
 
@@ -176,11 +178,11 @@ export default function CreateShop() {
         onClose={() => setModalOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
+      // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
       >
         <div
           className="flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   bg-bellefuWhite w-[80%] md:w-[60%] lg:w-[40%]"
-          // sx={edit}
+        // sx={edit}
         >
           <div className="flex justify-center items-center">
             {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
@@ -240,13 +242,13 @@ export default function CreateShop() {
                           <label className="block text-sm font-medium text-gray-700 flex justify-between">
                             <p>Shop Name</p>
                             {checkpass ? (
-                            <p className="text-red-600 relative right-6">
-                              Name Already exist ❌
-                            </p>
-                          ) : null}
+                              <p className="text-red-600 relative right-6">
+                                Name Already exist ❌
+                              </p>
+                            ) : null}
                           </label>
                           <input
-                           onBlur={handleShopNameCheck}
+                            onBlur={handleShopNameCheck}
                             value={shopname}
                             onChange={(e) => setShopName(e.target.value)}
                             type="text"

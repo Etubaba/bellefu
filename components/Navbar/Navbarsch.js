@@ -63,10 +63,16 @@ const HeaderSearch = () => {
       <div className="lg:hidden">
         <div className={"w-full flex rounded-md items-center "}>
           <div className="flex space-x-2 ml-4">
-            <div className="flex space-x-2 items-center justify-center py-1">
-              <div>
+            <div className="flex space-x-2 items-center justify-center ml-4 py-1">
+              <div
+                onClick={() => {
+                  setSelectlang(false);
+                  setOpen(false);
+                  setSelectCountry(!selectCountry);
+                }}>
                 <img
                   alt="error"
+                  className="w-16 h-7"
                   src={
                     flag === null
                       ? `https://flagcdn.com/32x24/${location?.toLowerCase()}.png`
@@ -82,7 +88,7 @@ const HeaderSearch = () => {
                   setSelectCountry(!selectCountry);
                 }}
                 className={
-                  selectCountry ? "text-bellefuOrange" : "text-gray-600"
+                  selectCountry ? "text-bellefuOrange text-2xl" : "text-gray-600 text-2xl"
                 }
               />
             </div>

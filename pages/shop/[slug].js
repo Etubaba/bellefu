@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ShopComponents from "../../components/shopComponents/ShopComponents";
 import MobileShopSideBar from "../../components/SingleProduct/MobileShopSidebar";
 import Head from "next/head";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
+import Loader from "../../constant";
 
 
 const Shop = ({ shopProducts }) => {
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const shopDetails = shopProducts.data[0];
   const ifProduct = shopProducts.data.length
 
   const totalPage = shopProducts.last_page
+
+
 
 
   const pageNumber = []
@@ -22,6 +26,13 @@ const Shop = ({ shopProducts }) => {
 
   return (
     <>
+      <Head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={`goods or services for ${shopDetails?.shopName}`} />
+        <title>{shopDetails?.shopName}</title>
+
+      </Head>
       <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
         {ifProduct > 0 && <ShopSideBar userDetails={shopDetails} />}
         <div className="flex-1">

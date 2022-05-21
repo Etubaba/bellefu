@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch } from "react-redux";
+import Loader from "../../constant";
 
 const ProductList = ({
   product,
@@ -31,14 +32,22 @@ const ProductList = ({
   const [productId, setProductId] = useState([]);
   const [open, setOpen] = useState(false);
   const [clean, setClean] = useState(fav);
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter();
   const dispatch = useDispatch();
   const getIsLoggedIn = useSelector(login);
 
+  if (loading) {
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000);
+  }
+
   const handleMessage = () => {
     if (getIsLoggedIn) {
       router.push(`/product/${product.productId}`);
+      setLoading(true)
       dispatch(msgScroll(1));
     } else {
       // router.push("/login");
@@ -115,9 +124,10 @@ const ProductList = ({
 
   return (
     <div className="bg-bellefuWhite p-3 rounded-b-md">
+      {loading && <Loader isLoading={loading} />}
       {product?.inStock ? (
         <>
-          <div onClick={() => router.push(`/product/${product.productId}`)}>
+          <div onClick={() => { router.push(`/product/${product.productId}`); setLoading(true) }}>
             <img
               src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
               className="rounded-md w-full h-44 hover:opacity-50 object-cover cursor-pointer"
@@ -331,6 +341,7 @@ const ProductList = ({
               <img
                 src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
                 className="rounded-md w-full h-44 object-cover "
+                alt={product.title}
               />
             </div>
             <p className="capitalize text-medium">

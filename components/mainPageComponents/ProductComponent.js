@@ -161,10 +161,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     getCountry !== null && search === ""
       ? countryData
       : search !== ""
-      ? searchResult
-      : page !== 1 && search === "" && getCountry === null
-      ? productIndex
-      : products;
+        ? searchResult
+        : page !== 1 && search === "" && getCountry === null
+          ? productIndex
+          : products;
 
   const skeleMapper = [
     <Skeleto />,
@@ -185,6 +185,11 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   for (let i = 1; i <= totalPage; i++) {
     pageNumber.push(i);
   }
+
+
+
+  const radomImage1 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
+  const radomImage2 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
 
   return (
     <div>
@@ -268,9 +273,8 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       <div className="my-5">
         <a href={randomAdverts?.action} target="_blank">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${
-              adverts[Math.floor(Math.random() * adverts.length)]?.image
-            }`}
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image
+              }`}
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
           />
@@ -313,15 +317,14 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       {/* the ads start here */}
 
       {main.length > 8 && (
-        <div className="my-5">
+        <a href={radomImage1?.action} target="_blank" className="my-5">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${
-              adverts[Math.floor(Math.random() * adverts.length)]?.image
-            }`}
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${radomImage1?.image
+              }`}
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
           />
-        </div>
+        </a>
       )}
 
       <div
@@ -359,15 +362,14 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       </div>
 
       {main.length > 16 && (
-        <div className=" my-5">
+        <a href={radomImage2?.action} target="_blank" className=" my-5">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${
-              adverts[Math.floor(Math.random() * adverts.length)]?.image
-            }`}
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${radomImage2?.image
+              }`}
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
           />
-        </div>
+        </a>
       )}
 
       <div
@@ -444,7 +446,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
                   }
                 }
               }}
-              className="flex bg-bellefuGreen hover:bg-green-400 text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
+              className="flex bg-bellefuGreen hover:bg-[#538b09] text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
             >
               <span> Next</span> <MdOutlineArrowForwardIos className="mt-1" />
             </button>

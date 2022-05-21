@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { MdLocationOn } from "react-icons/md";
-
+import CircularProgress from "@mui/material/CircularProgress";
 import { BsHeart, BsSuitHeartFill, BsCart3 } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { apiData } from "../../constant";
+import Loader, { apiData } from "../../constant";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { login, shop, favUpdated } from "../../features/bellefuSlice";
@@ -18,6 +18,8 @@ const shopurl = 'https://bellefu.inmotionhub.xyz/api/shop/add/cart/item'
 
 const ShopComponent = ({ product }) => {
   const [fav2, setFav2] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [wait, setWait] = useState(false);
   const router = useRouter();
   const favArr = useSelector((state) => state.bellefu?.favArr);
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
@@ -25,6 +27,11 @@ const ShopComponent = ({ product }) => {
   const dispatch = useDispatch();
 
 
+  if (loading) {
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000);
+  }
 
   //action for favourite and call
   const actionFav = () => {
@@ -92,18 +99,22 @@ const ShopComponent = ({ product }) => {
   const viewDetails = () => {
     dispatch(shop(`${product?.slug}/${product?.productSlug}`));
     router.push(`/shopproduct/product`)
+    setLoading(true)
   }
 
 
 
   const addtocart = () => {
+    setWait(true)
     if (isLoggedIn) {
       axios.post(`${shopurl}`, {
         productId: product.productId,
         userId: userId,
       }).then((res) => {
         if (res.data.status) {
+          setWait(false)
           toast.success(`${product.title.substring(0, 20)} added to cart`)
+
           dispatch(favUpdated())
         }
       });
@@ -121,7 +132,9 @@ const ShopComponent = ({ product }) => {
         onClick={viewDetails}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover hover:opacity-50"
+        alt={product.title}
       />
+      {loading && <Loader isLoading={loading} />}
       <p className="capitalize text-medium">{product.title.substring(0, 15)}</p>
       <div className="flex items-center space-x-2">
         <MdLocationOn className="w-4 h-4 text-bellefuBlack1" />
@@ -152,7 +165,13 @@ const ShopComponent = ({ product }) => {
         <button
           onClick={addtocart}
           className="bg-bellefuOrange hover:bg-orange-300 text-white rounded-md w-full flex items-center justify-center py-2">
-          <BsCart3 className="mr-2" /> <span>Add to Cart</span>
+          {
+            wait ?
+              <div className="p-[2px]" translate="no">
+                <CircularProgress size="1rem" color="success" />
+              </div> :
+              <>
+                <BsCart3 className="mr-2" /> <span>Add to Cart</span></>}
         </button>
 
       </div>

@@ -3,6 +3,7 @@ import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Loader from '../constant'
 
 
 const Shops = ({ shops }) => {
@@ -21,19 +22,19 @@ const Shops = ({ shops }) => {
                 })
         }
 
-    }, [])
+    }, [page])
 
 
 
 
     const shop = page === 1 ? shops.data.data : newShop
 
-
-
     const pageNumber = []
     for (let i = 1; i <= totalPage; i++) {
         pageNumber.push(i);
     }
+
+
     return (
         <div>
             <Head>
@@ -76,7 +77,7 @@ const Shops = ({ shops }) => {
                     <button
                         onClick={() => { if (page < totalPage) setPage((prev) => prev + 1) }}
 
-                        className="flex bg-bellefuGreen hover:bg-green-400 text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
+                        className="flex bg-bellefuGreen hover:bg-[#538b09] text-white px-1 md:px-4 md:py-2 rounded-md md:rounded-lg md:space-x-2 space-x-1 py-1"
                     >
                         <span> Next</span> <MdOutlineArrowForwardIos className="mt-1" />
                     </button>

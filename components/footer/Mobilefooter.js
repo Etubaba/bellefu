@@ -22,7 +22,7 @@ function Mobilefooter() {
   const [openAddress, setOpenAddress] = useState(false);
 
   return (
-    <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-3 ">
+    <div className="bg-[#191A19] lg:hidden mt-3 md:mt-7 md:px-7 px-2 w-full h-auto relative bottom-0 pb-24 ">
       <div className="flex flex-col md:flex-row space-y-2 md:space-x-2 mt-3">
         <div className='hidden md:inline-block'>
           <div className="-mt-1  md:-mt-0 md:w-2/5 flex items-center justify-center md:justify-start">
@@ -209,7 +209,7 @@ function Mobilefooter() {
         </a>
       </div>
 
-      <p className="flex text-[#9c9c9c] items-center justify-center text-base md:text-sm m-3 space-x-3">
+      <p className="flex text-[#9c9c9c] items-center justify-center text-xs md:text-sm m-3 space-x-3">
         {/* <AiOutlineCopyrightCircle className="text-xl mr-2" /> */}© 2022
         Bellefu Digital Agriculture LLC. All rights reserved.
       </p>
