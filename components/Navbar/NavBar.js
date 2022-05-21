@@ -237,21 +237,21 @@ const NavBar = () => {
         )}
         <div className="hidden lg:inline-flex">
           <div className="flex space-x-4 items-center">
-            <div className="text-white space-x-4 capitalize text-md font-semibold">
-              <a
+            <div className="text-white flex space-x-4 capitalize text-md font-semibold">
+              <p
                 className="hover:text-gray-200 cursor-pointer"
                 onClick={() => { router.push("/shops"), setLoading(!loading) }}
               // href="https://webinar.bellefu.com/"
               >
                 Shops
-              </a>
-              <a
+              </p>
+              <p
                 className="hover:text-gray-200 cursor-pointer"
                 onClick={handleCreateShop}
               // href="https://webinar.bellefu.com/"
               >
                 Create Shop
-              </a>
+              </p>
               <a
                 target="_blank"
                 className="hover:text-gray-200"
