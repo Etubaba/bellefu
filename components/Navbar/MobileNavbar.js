@@ -5,7 +5,7 @@ import { RiLogoutBoxFill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-
+import { MdShoppingCart } from "react-icons/md";
 import { isLoggedIn, login, profileDetails } from "../../features/bellefuSlice";
 import axios from "axios";
 import Loader, { apiData } from "../../constant";
@@ -15,10 +15,10 @@ import { useSelector, useDispatch } from "react-redux";
 const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
   const getIsLoggedIn = useSelector(login);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
-  const usernam = useSelector(profileDetails);
+
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const [cartCount, setCartCount] = useState(0);
   const [unseen, setUnseen] = useState(0);
   const [unread, setUnread] = useState(0);
 
@@ -45,6 +45,8 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
     }
   };
 
+  const cartCheck = useSelector(state => state.bellefu?.favLoad)
+
   // new message
   useEffect(() => {
     axios
@@ -59,8 +61,21 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
       .then((res) => setUnread(res.data.unread));
   }, []);
 
+  const cartUrl = 'https://bellefu.inmotionhub.xyz/api/shop/list/cart/item/'
+  useEffect(() => {
+    axios.get(`${cartUrl}${username?.id}`)
+      .then(res => {
+        setCartCount(res.data.data)
+      })
+
+  }, [cartCheck])
+
+  const currentPath = router.pathname;
+
   return (
-    <div className="absolute bg-black w-72 space-y-3 px-2 pt-2 pb-5 top-0 -left-1 h-[100vh] font-semibold text-white lg:hidden shadow-md animate-slide-in">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="absolute bg-black w-72 space-y-3 px-2 pt-2 pb-5 top-0 -left-1 h-[100vh] font-semibold text-white lg:hidden shadow-md animate-slide-in">
       <div
         className="-mb-2 flex items-center justify-end"
         onClick={() => setIsOpen(false)}
@@ -95,6 +110,28 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
             <p className="text-lg font-bold tracking-wide ">
               {username?.username}
             </p>
+
+            {currentPath === '/shops' || currentPath === '/shopproduct/product' || currentPath === '/shop/[slug]' || currentPath === '/shop/cart' || currentPath === '/shop/checkout' ?
+              <div className="relative cursor-pointer ml-10" onClick={() => { router.push('/shop/cart'); setLoading(true); setIsOpen(false) }}>
+                <MdShoppingCart
+                  className={
+                    cartCount.length !== 0
+                      ? "text-white w-6 h-6 animate-shake"
+                      : "text-white w-6 h-6"
+                  }
+                />
+
+                {cartCount.length !== 0 ? (
+                  <p className=" bg-bellefuOrange -top-2 left-4 h-4 w-4 absolute flex items-center justify-center rounded-full">
+                    <span className="text-white text-[10px] text-center ">
+                      {cartCount.length}
+                    </span>
+                  </p>
+                ) : null}
+              </div> : null}
+
+
+
             <div className="relative cursor-pointer" onClick={handleNotify}>
               <IoMdNotifications
                 className={

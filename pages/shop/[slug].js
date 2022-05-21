@@ -26,6 +26,13 @@ const Shop = ({ shopProducts }) => {
 
   return (
     <>
+      <Head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={`goods or services for ${shopDetails?.shopName}`} />
+        <title>{shopDetails?.shopName}</title>
+
+      </Head>
       <div className="flex max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
         {ifProduct > 0 && <ShopSideBar userDetails={shopDetails} />}
         <div className="flex-1">
