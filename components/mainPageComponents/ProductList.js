@@ -38,6 +38,12 @@ const ProductList = ({
   const dispatch = useDispatch();
   const getIsLoggedIn = useSelector(login);
 
+
+
+  console.log('product', product)
+  console.log('currency', currency)
+  console.log('currencyCode', currencyCode)
+
   if (loading) {
     setTimeout(() => {
       setLoading(false)
@@ -169,13 +175,21 @@ const ProductList = ({
               )}
 
               {!converter ? (
-                product.price
+                (product.price).toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'usd'
+                }).slice(1)
               ) : newPrice === null ? (
                 <div className="p-[2px]" translate="no">
                   <CircularProgress size="1rem" color="success" />
                 </div>
               ) : (
-                newPrice.toFixed(2)
+
+                (newPrice).toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'usd'
+                }).slice(1)
+
               )}
               {product.currency_code ? (
                 <span

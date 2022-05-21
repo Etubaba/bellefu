@@ -227,7 +227,7 @@ const Register = ({ data, countries, countries1 }) => {
   }, []);
 
   return (
-    <>
+    <div className='mt-28'>
       <Head>
         <title>Register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -235,7 +235,7 @@ const Register = ({ data, countries, countries1 }) => {
       {!session && <RegisterHeader />}
       <div
         className={classNames(
-          "w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-28",
+          "w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-12",
           { "mt-9": session }
         )}
       >
@@ -585,7 +585,7 @@ const Register = ({ data, countries, countries1 }) => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
