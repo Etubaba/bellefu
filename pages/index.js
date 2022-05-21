@@ -38,11 +38,10 @@ export default function Home({ data }) {
     <div>
       <Head>
         <title>Bellefu</title>
-        <meta
-          name="description"
-          content="food products, agricultural machinery,farmers"
-        />
-        <link rel="icon" href="/bellefulogo-fav.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Bellefu is a agricultural products site and connection between farmers and buyers that offers a wide. We are into food products, agricultural machinery,farmers" />
+
+        <link rel="icon" href="https://www.linkpicture.com/q/bellefuApplogo.jpg" />
       </Head>
       {/* Overall container */}
       <main className="bg-bellefuBackground ">
@@ -56,9 +55,10 @@ export default function Home({ data }) {
             countries={data.countries}
             location={data.defaultCountry}
           />
-          <div className="block  md:hidden lg:hidden mt-3">
+
+          {search === '' && <div className="block  md:hidden lg:hidden mt-3">
             <Slider slider={data.slider} />
-          </div>
+          </div>}
 
           {/* mobile header search */}
           {/* <div className="md:hidden">

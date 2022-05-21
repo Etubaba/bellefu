@@ -155,13 +155,15 @@ const Login = () => {
   }, [session]);
 
   return (
-    <>
+    <div className='mt-28'>
       <Head>
-        <title>Login</title>
+        <title> Bellefu Login</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content="Bellefu Login Page" />
+        <meta name="keywords" content="Bellefu, Login" />
       </Head>
       <RegisterHeader />
-      <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-28">
+      <div className="w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-12">
         <h1 className="text-center font-bold py-4">
           Welcome Back! Login To Your Account
         </h1>
@@ -251,7 +253,7 @@ const Login = () => {
             <button
               onClick={handleLogin}
               className={classNames(
-                "text-center text-white py-2 w-full rounded-md mb-4",
+                "text-center text-white py-2 w-full rounded-md mb-2",
                 {
                   "bg-[#FFA500] hover:bg-[#fabe50]": !isLoading,
                   "bg-[#fabe50]": isLoading,
@@ -267,7 +269,7 @@ const Login = () => {
           </p>
         </form>
         <hr />
-        <p className="text-center mt-11 mb-8">OR</p>
+        <p className="text-center mt-5 mb-2">OR</p>
         <div className="flex flex-col md:flex-row items-center md:justify-center mb-12 px-2 py-4 md:px-4 md:py-4">
           <p
             className="mb-3 md:mb-0 md:mr-9 w-[100%] md:w-[75%]"
@@ -297,7 +299,7 @@ const Login = () => {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

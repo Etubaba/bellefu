@@ -5,49 +5,33 @@ import { RiLogoutBoxFill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-
+import { MdShoppingCart } from "react-icons/md";
 import { isLoggedIn, login, profileDetails } from "../../features/bellefuSlice";
 import axios from "axios";
-import { apiData } from "../../constant";
+import Loader, { apiData } from "../../constant";
 import { FcShop } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 
-const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
+const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
   const getIsLoggedIn = useSelector(login);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
-  const usernam = useSelector(profileDetails);
+
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const [cartCount, setCartCount] = useState(0);
   const [unseen, setUnseen] = useState(0);
   const [unread, setUnread] = useState(0);
 
-  const toPostAds = () => {
-    if (getIsLoggedIn && verify.phone && usernam.avatar !== "useravatar.jpg") {
-      router.push("/postAds");
-    } else if (!getIsLoggedIn) {
-      toast.info("Login to post  Ads", {
-        position: "top-right",
-      });
-      router.push("/login");
-    } else if (!verify.phone) {
-      toast.info("Verify your phone number to post Ads", {
-        position: "top-right",
-      });
-      router.push("/users/verify-account");
-    } else if (usernam.avatar === "useravatar.jpg") {
-      toast.info("Update your profile details to post  Ads", {
-        position: "top-right",
-      });
-      router.push("/users/profile");
-    }
-    setIsOpen(false);
-  };
+
+
+
+
 
   //notification method
   const handleNotify = () => {
     if (getIsLoggedIn) {
       router.push("/users/notification");
+      setLoading(true);
       setIsOpen(false);
       axios
         .post(`${apiData}change/notification/read`, { userId: username?.id })
@@ -60,6 +44,8 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
       toast.info("Login to view notification", { position: "top-right" });
     }
   };
+
+  const cartCheck = useSelector(state => state.bellefu?.favLoad)
 
   // new message
   useEffect(() => {
@@ -75,8 +61,21 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
       .then((res) => setUnread(res.data.unread));
   }, []);
 
+  const cartUrl = 'https://bellefu.inmotionhub.xyz/api/shop/list/cart/item/'
+  useEffect(() => {
+    axios.get(`${cartUrl}${username?.id}`)
+      .then(res => {
+        setCartCount(res.data.data)
+      })
+
+  }, [cartCheck])
+
+  const currentPath = router.pathname;
+
   return (
-    <div className="absolute bg-black w-72 space-y-3 px-2 pt-2 pb-5 top-0 -left-1 h-[100vh] font-semibold text-white lg:hidden shadow-md animate-slide-in">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="absolute bg-black w-72 space-y-3 px-2 pt-2 pb-5 top-0 -left-1 h-[100vh] font-semibold text-white lg:hidden shadow-md animate-slide-in">
       <div
         className="-mb-2 flex items-center justify-end"
         onClick={() => setIsOpen(false)}
@@ -84,11 +83,12 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         {isOpen && <AiOutlineClose className="w-6 h-6" />}
       </div>
 
+
       {/* avatar for mobile */}
       {getIsLoggedIn && (
         <>
           <div
-            onClick={() => (router.push("/users/messages"), setIsOpen(false))}
+            onClick={() => { router.push("/users/messages"); setLoading(true); setIsOpen(false) }}
             className="cursor-pointer items-center justify-center flex"
           >
             <Image
@@ -110,6 +110,28 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
             <p className="text-lg font-bold tracking-wide ">
               {username?.username}
             </p>
+
+            {currentPath === '/shops' || currentPath === '/shopproduct/product' || currentPath === '/shop/[slug]' || currentPath === '/shop/cart' || currentPath === '/shop/checkout' ?
+              <div className="relative cursor-pointer ml-10" onClick={() => { router.push('/shop/cart'); setLoading(true); setIsOpen(false) }}>
+                <MdShoppingCart
+                  className={
+                    cartCount.length !== 0
+                      ? "text-white w-6 h-6 animate-shake"
+                      : "text-white w-6 h-6"
+                  }
+                />
+
+                {cartCount.length !== 0 ? (
+                  <p className=" bg-bellefuOrange -top-2 left-4 h-4 w-4 absolute flex items-center justify-center rounded-full">
+                    <span className="text-white text-[10px] text-center ">
+                      {cartCount.length}
+                    </span>
+                  </p>
+                ) : null}
+              </div> : null}
+
+
+
             <div className="relative cursor-pointer" onClick={handleNotify}>
               <IoMdNotifications
                 className={
@@ -137,103 +159,92 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         {getIsLoggedIn && (
           <p
             className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-            onClick={() => (router.push("/users"), setIsOpen(false))}
+            onClick={() => {
+              router.push("/users");
+              setIsOpen(false);
+              setLoading(true)
+            }}
           >
             Dashboard
           </p>
         )}
-        {/* {getIsLoggedIn && (
-          <p
-            className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
-            onClick={() => (router.push("/users/profile"), setIsOpen(false))}
-          >
-            Profile
-          </p>
-        )} */}
 
-        {/* {getIsLoggedIn && (
-          <p
-            className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
-            onClick={() => (router.push("/users/messages"), setIsOpen(false))}
-          >
-            Message
-          </p>
-        )} */}
 
-        {/* {getIsLoggedIn && (
-          <p
-            className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
-            onClick={() => (
-              router.push("/users/favourite-items"), setIsOpen(false)
-            )}
-          >
-            Favourite Products
-          </p>
-        )} */}
+        <a className='' href="https://webinar.bellefu.com/" target="_blank"><p
+          className="bg-[#343a40] my-4 font-bold tracking-wider p-2 text-center rounded text-sm"
+          onClick={() => setIsOpen(false)}
+        >
 
-        <p
+          Webinar
+
+        </p> </a>
+        <a href="https://radio.bellefu.com/" target="_blank"> <p
+          className=" bg-[#343a40] mb-4 font-bold tracking-wider p-2 text-center rounded text-sm"
+          onClick={() => setIsOpen(false)}
+        >
+
+          Bellefu Radio
+
+        </p></a>
+
+        <a href="https://blog.bellefu.com/" target="_blank"><p
           className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
           onClick={() => setIsOpen(false)}
         >
-          <a href="https://webinar.bellefu.com/" target="_blank">
-            Webinar
-          </a>
-        </p>
-        <p
-          className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-          onClick={() => setIsOpen(false)}
-        >
-          <a href="https://radio.bellefu.com/" target="_blank">
-            Bellefu Radio
-          </a>
-        </p>
-        <p
-          className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-          onClick={() => setIsOpen(false)}
-        >
-          <a href="https://blog.bellefu.com/" target="_blank">
-            Blog
-          </a>
-        </p>
+
+          Blog
+
+        </p> </a>
         {!getIsLoggedIn && (
           <>
             <p
               className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-              onClick={() => (router.push("/login"), setIsOpen(false))}
+              onClick={() => { router.push("/login"), setIsOpen(false), setLoading(true) }}
             >
               Login
             </p>
             <p
               className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-              onClick={() => (router.push("/register"), setIsOpen(false))}
+              onClick={() => (router.push("/register"), setIsOpen(false), setLoading(true))}
             >
               Register
             </p>
           </>
         )}
         {getIsLoggedIn && (
-          <p
+          <div
             className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
             onClick={() => {
-              router.push("/createShop")
-              setIsOpen(false)
-            }}
-          >
-            <FcShop className="w-6 h-6" />
-            <a href="#" target="_blank">
+              router.push("/createShop");
+              setIsOpen(false);
+              setLoading(true)
+            }}>
+            <p
+              className='flex'
+
+            >
+              <FcShop className="w-6 h-6" />
+
               Create Shop
-            </a>
-          </p>
+
+            </p>
+          </div>
+
         )}
 
         <p
           className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
-          onClick={() => { setIsOpen(false); router.push("/shops") }}
+          onClick={() => {
+            router.push("/shops");
+            setIsOpen(false);
+            setLoading(true);
+          }}
+
         >
           <FcShop className="w-6 h-6" />
-          <a href="#" target="_blank">
-            Shops
-          </a>
+
+          Shops
+
         </p>
 
         {getIsLoggedIn && (

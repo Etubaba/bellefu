@@ -112,7 +112,7 @@ const Product = () => {
   }
 
   return (
-    <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-20">
+    <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-28">
       <Head>
         <title>Categories</title>
         <meta

@@ -135,6 +135,7 @@ const NavBar = () => {
     window.onclick = (e) => {
       e.target.className === "con";
       setOpen(false);
+      setIsOpen(false);
     };
   }
 
@@ -179,15 +180,13 @@ const NavBar = () => {
 
   }, [cartCheck])
 
-
-
   return (
     <div className="fixed top-0 z-50 w-full ">
       {loading && <Loader isLoading={loading} />}
       <div className=" bg-[#2C3422] h-8 flex items-center justify-center space-x-3">
         <img
           src={`https://bellefu.inmotionhub.xyz/get/custom/image/${announcement[1]}`}
-          alt=""
+          alt="bellefu"
           className="w-10 h-6 rounded-md object-cover border"
         />
         <p className="text-white text-sm italic">{announcement[0]}!!</p>
@@ -218,7 +217,10 @@ const NavBar = () => {
 
         {/* mobile right side */}
 
-        <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden">
+        <button onClick={(e) => {
+          e.stopPropagation()
+          setIsOpen(!isOpen)
+        }} className="lg:hidden">
           {!isOpen && <FiMenu className="w-10 h-10 text-white" />}
         </button>
 
@@ -228,6 +230,7 @@ const NavBar = () => {
           <MobileNavbar
             isOpen={isOpen}
             setIsOpen={setIsOpen}
+            setLoading={setLoading}
             username={username}
             msgRead={msgRead}
           />
@@ -250,18 +253,21 @@ const NavBar = () => {
                 Create Shop
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://webinar.bellefu.com/"
               >
                 Webinar
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://radio.bellefu.com/"
               >
                 Online Radio
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://blog.bellefu.com/"
               >
