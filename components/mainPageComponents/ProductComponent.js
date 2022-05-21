@@ -87,10 +87,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           `https://bellefu.inmotionhub.xyz/api/general/get/product/${getCountry}?page=${page}`
         )
         .then((res) => {
-          // console.log(res.data.data);
+          //console.log(res.data.data);
 
-          if (!res.data.data.length) initialRender.current = 1;
-          else if (res.data.data.length) initialRender.current = 2;
+          if (!res.data.data.data.length) initialRender.current = 1;
+          else if (res.data.data.data.length) initialRender.current = 2;
 
           setCountryData(res.data.data.data);
           setTotalPage(res.data.data.last_page);
