@@ -31,7 +31,7 @@ function Form({ status, message, onValidated }) {
           Send
         </button>
       </div>
-      {status === "sending" && <div className="bg-bellefuOrange">sending...</div>}
+      {status === "sending" && <div className="text-bellefuOrange">sending...</div>}
       {status === "error" && (
         <div
           style={{ color: "red" }}

@@ -135,6 +135,7 @@ const NavBar = () => {
     window.onclick = (e) => {
       e.target.className === "con";
       setOpen(false);
+      setIsOpen(false);
     };
   }
 
@@ -218,7 +219,10 @@ const NavBar = () => {
 
         {/* mobile right side */}
 
-        <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden">
+        <button onClick={(e) => {
+          e.stopPropagation()
+          setIsOpen(!isOpen)
+        }} className="lg:hidden">
           {!isOpen && <FiMenu className="w-10 h-10 text-white" />}
         </button>
 
@@ -250,18 +254,21 @@ const NavBar = () => {
                 Create Shop
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://webinar.bellefu.com/"
               >
                 Webinar
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://radio.bellefu.com/"
               >
                 Online Radio
               </a>
               <a
+                target="_blank"
                 className="hover:text-gray-200"
                 href="https://blog.bellefu.com/"
               >

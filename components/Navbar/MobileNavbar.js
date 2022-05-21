@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 import { isLoggedIn, login, profileDetails } from "../../features/bellefuSlice";
 import axios from "axios";
-import { apiData } from "../../constant";
+import Loader, { apiData } from "../../constant";
 import { FcShop } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -21,33 +21,22 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
 
   const [unseen, setUnseen] = useState(0);
   const [unread, setUnread] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const toPostAds = () => {
-    if (getIsLoggedIn && verify.phone && usernam.avatar !== "useravatar.jpg") {
-      router.push("/postAds");
-    } else if (!getIsLoggedIn) {
-      toast.info("Login to post  Ads", {
-        position: "top-right",
-      });
-      router.push("/login");
-    } else if (!verify.phone) {
-      toast.info("Verify your phone number to post Ads", {
-        position: "top-right",
-      });
-      router.push("/users/verify-account");
-    } else if (usernam.avatar === "useravatar.jpg") {
-      toast.info("Update your profile details to post  Ads", {
-        position: "top-right",
-      });
-      router.push("/users/profile");
-    }
-    setIsOpen(false);
-  };
+
+  if (isLoading) {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }
+
+
 
   //notification method
   const handleNotify = () => {
     if (getIsLoggedIn) {
       router.push("/users/notification");
+      setIsLoading(true);
       setIsOpen(false);
       axios
         .post(`${apiData}change/notification/read`, { userId: username?.id })
@@ -83,12 +72,13 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
       >
         {isOpen && <AiOutlineClose className="w-6 h-6" />}
       </div>
+      {isLoading && <Loader isLoading={isLoading} />}
 
       {/* avatar for mobile */}
       {getIsLoggedIn && (
         <>
           <div
-            onClick={() => (router.push("/users/messages"), setIsOpen(false))}
+            onClick={() => { router.push("/users/messages"); setIsLoading(true); setIsOpen(false) }}
             className="cursor-pointer items-center justify-center flex"
           >
             <Image
@@ -137,7 +127,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         {getIsLoggedIn && (
           <p
             className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-            onClick={() => (router.push("/users"), setIsOpen(false))}
+            onClick={() => (router.push("/users"), setIsOpen(false), setIsLoading(true))}
           >
             Dashboard
           </p>
@@ -171,70 +161,72 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
           </p>
         )} */}
 
-        <p
+        <a className='' href="https://webinar.bellefu.com/" target="_blank"><p
+          className="bg-[#343a40] my-4 font-bold tracking-wider p-2 text-center rounded text-sm"
+          onClick={() => setIsOpen(false)}
+        >
+
+          Webinar
+
+        </p> </a>
+        <a href="https://radio.bellefu.com/" target="_blank"> <p
+          className=" bg-[#343a40] mb-4 font-bold tracking-wider p-2 text-center rounded text-sm"
+          onClick={() => setIsOpen(false)}
+        >
+
+          Bellefu Radio
+
+        </p></a>
+
+        <a href="https://blog.bellefu.com/" target="_blank"><p
           className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
           onClick={() => setIsOpen(false)}
         >
-          <a href="https://webinar.bellefu.com/" target="_blank">
-            Webinar
-          </a>
-        </p>
-        <p
-          className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-          onClick={() => setIsOpen(false)}
-        >
-          <a href="https://radio.bellefu.com/" target="_blank">
-            Bellefu Radio
-          </a>
-        </p>
-        <p
-          className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-          onClick={() => setIsOpen(false)}
-        >
-          <a href="https://blog.bellefu.com/" target="_blank">
-            Blog
-          </a>
-        </p>
+
+          Blog
+
+        </p> </a>
         {!getIsLoggedIn && (
           <>
             <p
               className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-              onClick={() => (router.push("/login"), setIsOpen(false))}
+              onClick={() => (router.push("/login"), setIsOpen(false), setIsLoading(true))}
             >
               Login
             </p>
             <p
               className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-              onClick={() => (router.push("/register"), setIsOpen(false))}
+              onClick={() => (router.push("/register"), setIsOpen(false), setIsLoading(true))}
             >
               Register
             </p>
           </>
         )}
         {getIsLoggedIn && (
-          <p
+          <div
             className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
             onClick={() => {
               router.push("/createShop")
               setIsOpen(false)
+              setIsLoading(true);
             }}
           >
             <FcShop className="w-6 h-6" />
-            <a href="#" target="_blank">
-              Create Shop
-            </a>
-          </p>
+
+            Create Shop
+
+          </div>
         )}
 
-        <p
+        <div
           className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
-          onClick={() => { setIsOpen(false); router.push("/shops") }}
+          onClick={() => { setIsOpen(false); setIsLoading(true); router.push("/shops") }}
         >
           <FcShop className="w-6 h-6" />
-          <a href="#" target="_blank">
-            Shops
-          </a>
-        </p>
+
+          Shops
+
+        </div>
 
         {getIsLoggedIn && (
           <div className="w-2/5 mx-auto pt-2">
