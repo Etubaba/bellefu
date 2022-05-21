@@ -72,7 +72,8 @@ function shop({ thin }) {
       ) : (
           <>
            <div className="px-2 md:px-5 lg:px-10 py-6 ">
-          {products?.length===0?  <div className="h-full px-2 lg:px-0 ">
+          {products?.length===0? 
+           <div className="h-full px-2 lg:px-0 ">
           <div className="border mx-auto mt-2 lg:my-5 rounded-xl w-full lg:w-7/12 h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <BsShopWindow className="text-7xl lg:text-9xl mb-5 text-gray-600" />
