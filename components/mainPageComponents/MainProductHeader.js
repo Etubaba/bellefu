@@ -9,10 +9,6 @@ function MainProductHeader({ changeView }) {
   const countryProductSearchEmpty = useSelector((state) => state.bellefu.countryProductSearchEmpty);
   const searchCountry = useSelector(country);
 
-  console.log(countryProductSearchEmpty);
-  console.log("!!!!")
-  console.log(searchCountry);
-  console.log("!!")
 
   return (
     <div className="bg-bellefuWhite rounded-t-md">
