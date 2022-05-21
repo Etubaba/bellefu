@@ -13,6 +13,7 @@ import { HiUser } from "react-icons/hi";
 import { FaWallet, FaHeart } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
 import { GiWallet } from "react-icons/gi";
+import { GoListOrdered } from "react-icons/go";
 import NavLink from "./NavLink";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -64,6 +65,11 @@ const UserSideBar = () => {
         icon: HiUser,
         text: "Account Verification",
         to: "/users/verify-account",
+      },
+      {
+        icon: GoListOrdered,
+        text: "Order History",
+        to: "/users/order",
       },
       {
         icon: BsShop,

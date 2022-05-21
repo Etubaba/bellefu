@@ -13,26 +13,30 @@ import { profileDetails } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BsShopWindow } from "react-icons/bs";
-
+import { Modal } from "@mui/material";
+import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { IconButton } from "@mui/material";
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+import Switch from "@mui/material/Switch";
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-function shop({ thin }) {
+function shop() {
   const user = useSelector(profileDetails);
   const router = useRouter();
+  const [valueupdate, setValueUpdate] = useState({});
 
   const [products, setProducts] = useState([]);
+  const [productsname, setProductsName] = useState(valueupdate?.title);
+  const [productsprice, setProductsPrice] = useState(valueupdate?.promoPrice);
+  const [productspromoprice, setProductsPromoPrice] = useState(valueupdate?.promoPrice);
+  const [modalopen, setModalOpen] = useState(false);
+
+  const [checked, setChecked] = useState(null);
+
+  console.log(checked);
+  console.log(valueupdate);
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
 
   useEffect(() => {
     axios
@@ -47,98 +51,228 @@ function shop({ thin }) {
       });
   }, []);
 
+  const handleEdith = (e) => {
+    e?.inStock === 1 ? setChecked(true) : setChecked(false);
+    setModalOpen(true);
+    setProductsName(e.title);
+    setProductsPrice(e.price);
+    setProductsPromoPrice(e.promoPrice);
+    setValueUpdate(e);
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("https://bellefu.inmotionhub.xyz/api/shop/goods/update", {
+        title: productsname,
+        productId: valueupdate?.productId,
+        inStock: checked === true ? 1 : 0,
+        price: Number(productsprice),
+        promoPrice: Number(productspromoprice),
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Save Sucessful", {
+            position: "top-center",
+          });
+
+          axios
+            .get(
+              `https://bellefu.inmotionhub.xyz/api/shop/view/single/${user?.shopId}`
+            )
+            .then((res) => {
+              setProducts(res.data.data);
+            })
+            .then((err) => {
+              console.log(err);
+            });
+            setModalOpen(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(`${err}`, {
+          position: "top-center",
+        });
+      });
+  };
+
   return (
-    <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite   h-auto w-full md:w-auto">
-      <div className="flex justify-between  px-10 md:py-6 py-2 border-b">
-        <h1 className="font-semibold">My Shop Details</h1>
-      </div>
-      {user?.shopId === null ? (
-        <div className="h-full px-2 lg:px-0 ">
-          <div className="border mx-auto mt-2 lg:my-5 rounded-xl w-full lg:w-7/12 h-11/12 ">
-            <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-              <BsShopWindow className="text-7xl lg:text-9xl mb-5 text-gray-600" />
-              <p className="text-sm capitalize lg:text-lg text-gray-600 px-2 text-center">
-                You do not have a shop please create one
-              </p>
-              <div onClick={() => router.push("/createShop")}>
-                {" "}
-                <button className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
-                  Create shop
-                </button>
+    <>
+      <Modal
+        open={modalopen}
+        onClose={() => setModalOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
+      >
+        <div
+          className="flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   bg-bellefuWhite w-[80%] md:w-[60%] lg:w-[40%]"
+          // sx={edit}
+        >
+          <div className="grid grid-cols-6 gap-3  my-5">
+            <div className="col-span-6 sm:col-span-3">
+              <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                <p>Product Name</p>
+              </label>
+              <input
+                onChange={(e) => setProductsName(e.target.value)}
+                defaultValue={productsname}
+                type="text"
+                className="  bg-gray-100 p-[7px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+              />
+            </div>
+            <div className="col-span-6 sm:col-span-3">
+              <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                <p>price</p>
+              </label>
+              <input
+                onChange={(e) => setProductsPrice(e.target.value)}
+                defaultValue={productsprice}
+                type="number"
+                className="  bg-gray-100 p-[7px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+              />
+            </div>
+            <div className="col-span-6 sm:col-span-3">
+              <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                <p>promo-price</p>
+              </label>
+              <input
+                onChange={(e) => setProductsPromoPrice(e.target.value)}
+                type="number"
+                defaultValue={productspromoprice}
+                className="  bg-gray-100 p-[7px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+              />
+            </div>
+            <div className="col-span-6 sm:col-span-3">
+              <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                <p>stock status</p>
+              </label>
+              <Switch
+                checked={checked}
+                color="success"
+                onChange={handleChange}
+                inputProps={{ "aria-label": "controlled" }}
+                className="text-bellefuGreen "
+              />
+            </div>
+          </div>
+          <div className="flex my-4 md:w-[60%] lg:w-[60%] space-x-20 justify-between">
+            <button
+              className=" bg-gray-400 rounded-md py-2 px-5"
+              onClick={() => setModalOpen(false)}
+            >
+              <p className="text-xs text-white md:text-[15px]">Cancel</p>
+            </button>
+            <button
+              className="bg-bellefuOrange rounded-md py-2 px-5"
+              onClick={handleSave}
+            >
+              <p className="text-xs text-white md:text-[15px]">save </p>
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite   h-auto w-full md:w-auto">
+        <div className="flex justify-between  px-10 md:py-6 py-2 border-b">
+          <h1 className="font-semibold">My Shop Details</h1>
+        </div>
+        {user?.shopId === null ? (
+          <div className="h-full px-2 lg:px-0 ">
+            <div className="border mx-auto mt-2 lg:my-5 rounded-xl w-full lg:w-7/12 h-11/12 ">
+              <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+                <BsShopWindow className="text-7xl lg:text-9xl mb-5 text-gray-600" />
+                <p className="text-sm capitalize lg:text-lg text-gray-600 px-2 text-center">
+                  You do not have a shop please create one
+                </p>
+                <div onClick={() => router.push("/createShop")}>
+                  {" "}
+                  <button className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
+                    Create shop
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ) : (
+        ) : (
           <>
-           <div className="px-2 md:px-5 lg:px-10 py-6 ">
-          {products?.length===0? 
-           <div className="h-full px-2 lg:px-0 ">
-          <div className="border mx-auto mt-2 lg:my-5 rounded-xl w-full lg:w-7/12 h-11/12 ">
-            <div className="flex flex-col justify-center mt-24 mb-24 items-center">
-              <BsShopWindow className="text-7xl lg:text-9xl mb-5 text-gray-600" />
-              <p className="text-sm capitalize lg:text-lg text-gray-600 px-2 text-center">
-                You do not have any products in your shop
-              </p>
-              <div onClick={() => router.push(`/${user.id}`)}>
-                {" "}
-                <button className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
-                  Add products
-                </button>
-              </div>
+            <div className="px-2 md:px-5 lg:px-10 py-6 ">
+              {products?.length === 0 ? (
+                <div className="h-full px-2 lg:px-0 ">
+                  <div className="border mx-auto mt-2 lg:my-5 rounded-xl w-full lg:w-7/12 h-11/12 ">
+                    <div className="flex flex-col justify-center mt-24 mb-24 items-center">
+                      <BsShopWindow className="text-7xl lg:text-9xl mb-5 text-gray-600" />
+                      <p className="text-sm capitalize lg:text-lg text-gray-600 px-2 text-center">
+                        You do not have any products in your shop
+                      </p>
+                      <div onClick={() => router.push(`/${user.id}`)}>
+                        {" "}
+                        <button className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
+                          Add products
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell className="font-semibold">
+                          Product-Name
+                        </TableCell>
+                        <TableCell className="font-semibold" align="center">
+                          Price
+                        </TableCell>
+                        <TableCell className="font-semibold" align="center">
+                          Promo-Price
+                        </TableCell>
+                        <TableCell className="font-semibold" align="center">
+                          Status
+                        </TableCell>
+                        <TableCell className="font-semibold" align="center">
+                          Action
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {products?.map((product, index) => (
+                        <TableRow
+                          key={index}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {product.title?.substring(0, 20) + "...."}
+                          </TableCell>
+                          <TableCell align="center">{product.price}</TableCell>
+                          <TableCell align="center">
+                            {product.promoPrice}
+                          </TableCell>
+                          <TableCell align="center">
+                            {product.inStock === 1 ? "instock" : "out Of stock"}
+                          </TableCell>
+                          <TableCell className=" " align="center">
+                            <IconButton onClick={() => handleEdith(product)}>
+                              <FaRegEdit />
+                            </IconButton>
+                            <IconButton>
+                              <MdOutlineDeleteOutline />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
             </div>
-          </div>
-        </div>:<TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell className="font-semibold">Product-Name</TableCell>
-                  <TableCell className="font-semibold" align="center">
-                    Price
-                  </TableCell>
-                  <TableCell className="font-semibold" align="center">
-                    Promo-Price
-                  </TableCell>
-                  <TableCell className="font-semibold" align="center">
-                    Status
-                  </TableCell>
-                  <TableCell className="font-semibold" align="center">
-                    Action
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {products?.map((product, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {product.title?.substring(0, 20) + "...."}
-                    </TableCell>
-                    <TableCell align="center">{product.price}</TableCell>
-                    <TableCell align="center">{product.price}</TableCell>
-                    <TableCell align="center">
-                      {product.inStock === 1 ? "instock" : "out Of stock"}
-                    </TableCell>
-                    <TableCell className=" " align="center">
-                      <IconButton>
-                        <FaRegEdit />
-                      </IconButton>
-                      <IconButton>
-                        <MdOutlineDeleteOutline />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>}
-        </div>
           </>
-       
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 shop.Layout = Layout;

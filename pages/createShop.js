@@ -239,7 +239,7 @@ export default function CreateShop() {
                     <div className=" sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700 flex justify-between">
+                          <label className=" text-sm font-medium text-gray-700 flex justify-between">
                             <p>Shop Name</p>
                             {checkpass ? (
                               <p className="text-red-600 relative right-6">
