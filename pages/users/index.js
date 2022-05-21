@@ -58,7 +58,7 @@ const Index = () => {
                   <div className="flex flex-col md:flex-row items-center md:justify-between">
                     <div
                       id="avatar"
-                      className="pb-0 pt-2 md:pb-6 md:pt-6 pl-0 md:pl-20"
+                      className="pb-0 pt-2 md:pb-6 md:pt-6 pl-0 md:pl-10"
                     >
                       <Image
                         className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
@@ -72,47 +72,58 @@ const Index = () => {
                         height="150"
                       />
                     </div>
-                    <div
-                      id="details"
-                      className="m-1 md:ml-24 pt-2 pb-2 md:pt-6 md:pb-6 w-full md:w-[50%]"
-                    >
-                      <table className="w-[100%] pl-1 md:pl-0">
-                        <thead>
-                          <tr className="">
-                            <th className="text-left pr-10 text-xl pl-10 md:pl-0">
-                              First Name
-                            </th>
-                            <th className="text-left text-xl ">Last Name</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td className="text-left text-xl pl-10 md:pl-0">
-                              {user?.first_name}
-                            </td>
-                            <td className="text-left text-xl">
-                              {user?.last_name}
-                            </td>
-                          </tr>
-                        </tbody>
-                        <thead>
-                          <tr>
-                            <th className="text-left text-xl pt-4 pl-10 md:pl-0">
-                              Email
-                            </th>
-                            <th className="text-left text-xl pt-4">Password</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td className="text-left pl-10 md:pl-0">
-                              {user?.email}
-                            </td>
-                            <td className="text-left">********</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    <div className="grid grid-cols-6 gap-6 w-[70%] mr-0 md:mr-3 lg:mr-5">
+                        <div className="col-span-6 sm:col-span-3">
+                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                            <p>First Name</p>
+                            
+                          </label>
+                          <input
+                            value={user?.first_name}
+                            disabled
+                            type="text"
+                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                          />
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                            <p>Last Name</p>
+                            
+                          </label>
+                          <input
+                            value={user?.last_name}
+                            disabled
+                            type="text"
+                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                          />
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                            <p>Email</p>
+                            
+                          </label>
+                          <input
+                            value={user?.email}
+                            disabled
+                            type="text"
+                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                          />
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                            <p>Password</p>
+                            
+                          </label>
+                          <input
+                            value="********"
+                            disabled
+                            type="text"
+                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                          />
+                        </div>
+
+                      </div>
+                  
                   </div>
                 </div>
               ) : (

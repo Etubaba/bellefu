@@ -1,34 +1,38 @@
 import { useState } from "react";
 import Head from "next/head";
+import {useRouter} from "next/router";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AiOutlineCaretRight } from "react-icons/ai";
-import CreateProduct from "../components/CreateProduct";
+//import CreateProduct from "../components/CreateProduct";
 import { profileDetails } from "../features/bellefuSlice";
 
 export async function getServerSideProps({params}) {
   const { userproductid: userProductId } = params;
-  const res = await Promise.all([
-    fetch("https://bellefu.inmotionhub.xyz/api/web30/get/postadd"),
-    fetch("https://bellefu.inmotionhub.xyz/api/web30/get/web/index"),
-    fetch(`https://bellefu.inmotionhub.xyz/api/general/list/user/product/${userProductId}`),
-  ]);
+  // const res = await Promise.all([
+  //   fetch("https://bellefu.inmotionhub.xyz/api/web30/get/postadd"),
+  //   fetch("https://bellefu.inmotionhub.xyz/api/web30/get/web/index"),
+  //   fetch(`https://bellefu.inmotionhub.xyz/api/general/list/user/product/${userProductId}`),
+  // ]);
+  const res = await fetch(`https://bellefu.inmotionhub.xyz/api/general/list/user/product/${userProductId}`)
 
-  const data = await Promise.all([res[0].json(), res[1].json(), res[2].json()])
-  const [countryData, categoryData, userProducts] = data;
+  // const data = await Promise.all([res[0].json(), res[1].json(), res[2].json()])
+  // const [countryData, categoryData, userProducts] = data;
+  const data = await res.json();
 
   return {
     props: {
-      countries: countryData.countries,
-      categories: categoryData.categories,
-      userProducts: userProducts.data.data,
+      // countries: countryData.countries,
+      // categories: categoryData.categories,
+      userProducts: data.data.data,
     }
   }
 }
 
 
-const ProductUpload = ({categories, countries, userProducts}) => {
+const ProductUpload = ({ userProducts }) => {
+  const router = useRouter();
   const userDetails = useSelector(profileDetails);
   const [product, setProduct] = useState("select product want to upload.");
   const [productId, setProductId] = useState(1);
@@ -39,7 +43,7 @@ const ProductUpload = ({categories, countries, userProducts}) => {
   const [size, setSize] = useState("what is the size of your product?");
   const [openProductList, setopenProductList] = useState(false);
   const [openSizeList, setopenSizeList] = useState(false);
-  const [isNewProduct, setNewProduct] = useState(false);
+  //const [isNewProduct, setNewProduct] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const sizes = ["small", "medium", "large",];
@@ -111,11 +115,10 @@ const ProductUpload = ({categories, countries, userProducts}) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
     <div className="mt-32">
-      {!isNewProduct ? <>
       <h1 className="text-center text-2xl font-bold ">Upload Product</h1>
       <form className="w-[90%] md:w-[60%] lg:w-[50%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
         <div className="text-right">
-          <button className="text-lg font-semibold bg-bellefuOrange hover:bg-orange-400 rounded-lg p-2 text-bellefuWhite" onClick={() => setNewProduct(true)}>Create New Product</button>
+          <button className="text-lg font-semibold bg-bellefuOrange hover:bg-orange-400 rounded-lg p-2 text-bellefuWhite" onClick={() => router.push("/postAds")}>Create New Product</button>
         </div>
         <div className="mb-3 relative">
           {/* <div className=""> */}
@@ -212,8 +215,7 @@ const ProductUpload = ({categories, countries, userProducts}) => {
           <button type="submit" className={classNames("w-full", {"hover:cursor-not-allowed": isLoading})} disabled={isLoading}>{!isLoading?"Submit":"Processing..."}</button>
         </div>
       </form>
-      </>: <CreateProduct categories={categories} countries={countries} stateHandler={setNewProduct} />
-      }
+      {/* <CreateProduct categories={categories} countries={countries} stateHandler={setNewProduct} /> */}
     </div>
     </>
   )
