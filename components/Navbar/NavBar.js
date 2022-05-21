@@ -180,15 +180,13 @@ const NavBar = () => {
 
   }, [cartCheck])
 
-
-
   return (
     <div className="fixed top-0 z-50 w-full ">
       {loading && <Loader isLoading={loading} />}
       <div className=" bg-[#2C3422] h-8 flex items-center justify-center space-x-3">
         <img
           src={`https://bellefu.inmotionhub.xyz/get/custom/image/${announcement[1]}`}
-          alt=""
+          alt="bellefu"
           className="w-10 h-6 rounded-md object-cover border"
         />
         <p className="text-white text-sm italic">{announcement[0]}!!</p>
@@ -232,6 +230,7 @@ const NavBar = () => {
           <MobileNavbar
             isOpen={isOpen}
             setIsOpen={setIsOpen}
+            setLoading={setLoading}
             username={username}
             msgRead={msgRead}
           />

@@ -132,6 +132,7 @@ const ShopComponent = ({ product }) => {
         onClick={viewDetails}
         src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover hover:opacity-50"
+        alt={product.title}
       />
       {loading && <Loader isLoading={loading} />}
       <p className="capitalize text-medium">{product.title.substring(0, 15)}</p>

@@ -1,5 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import Head from "next/head";
 import { useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,6 +39,12 @@ const ShopProductDescription = ({ productDetails }) => {
   }
   return (
     <div className="bg-bellefuWhite rounded-t-md">
+      <Head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Bellefu is a agricultural products site,for organic farm products, and connection between farmers and buyers " />
+        <title>{productDetails?.title}</title>
+      </Head>
       {/* title section */}
       <div className="flex items-center justify-between lg:px-7 px-3">
         <p className="text-xl lg:text-3xl text-bellefuTitleBlack font-semibold">

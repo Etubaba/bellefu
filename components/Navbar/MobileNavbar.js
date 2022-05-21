@@ -12,7 +12,7 @@ import Loader, { apiData } from "../../constant";
 import { FcShop } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 
-const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
+const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
   const getIsLoggedIn = useSelector(login);
   const verify = useSelector((state) => state.bellefu?.verificationStatus);
   const usernam = useSelector(profileDetails);
@@ -21,14 +21,9 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
 
   const [unseen, setUnseen] = useState(0);
   const [unread, setUnread] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
 
 
-  if (isLoading) {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }
+
 
 
 
@@ -36,7 +31,7 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
   const handleNotify = () => {
     if (getIsLoggedIn) {
       router.push("/users/notification");
-      setIsLoading(true);
+      setLoading(true);
       setIsOpen(false);
       axios
         .post(`${apiData}change/notification/read`, { userId: username?.id })
@@ -72,13 +67,13 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
       >
         {isOpen && <AiOutlineClose className="w-6 h-6" />}
       </div>
-      {isLoading && <Loader isLoading={isLoading} />}
+
 
       {/* avatar for mobile */}
       {getIsLoggedIn && (
         <>
           <div
-            onClick={() => { router.push("/users/messages"); setIsLoading(true); setIsOpen(false) }}
+            onClick={() => { router.push("/users/messages"); setLoading(true); setIsOpen(false) }}
             className="cursor-pointer items-center justify-center flex"
           >
             <Image
@@ -127,39 +122,16 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
         {getIsLoggedIn && (
           <p
             className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-            onClick={() => (router.push("/users"), setIsOpen(false), setIsLoading(true))}
+            onClick={() => {
+              router.push("/users");
+              setIsOpen(false);
+              setLoading(true)
+            }}
           >
             Dashboard
           </p>
         )}
-        {/* {getIsLoggedIn && (
-          <p
-            className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
-            onClick={() => (router.push("/users/profile"), setIsOpen(false))}
-          >
-            Profile
-          </p>
-        )} */}
 
-        {/* {getIsLoggedIn && (
-          <p
-            className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
-            onClick={() => (router.push("/users/messages"), setIsOpen(false))}
-          >
-            Message
-          </p>
-        )} */}
-
-        {/* {getIsLoggedIn && (
-          <p
-            className=" bg-[#343a40] font-bold tracking-wider p-2  text-center rounded text-sm"
-            onClick={() => (
-              router.push("/users/favourite-items"), setIsOpen(false)
-            )}
-          >
-            Favourite Products
-          </p>
-        )} */}
 
         <a className='' href="https://webinar.bellefu.com/" target="_blank"><p
           className="bg-[#343a40] my-4 font-bold tracking-wider p-2 text-center rounded text-sm"
@@ -190,13 +162,13 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
           <>
             <p
               className="bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-              onClick={() => (router.push("/login"), setIsOpen(false), setIsLoading(true))}
+              onClick={() => { router.push("/login"), setIsOpen(false), setLoading(true) }}
             >
               Login
             </p>
             <p
               className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
-              onClick={() => (router.push("/register"), setIsOpen(false), setIsLoading(true))}
+              onClick={() => (router.push("/register"), setIsOpen(false), setLoading(true))}
             >
               Register
             </p>
@@ -206,27 +178,37 @@ const MobileNavbar = ({ isOpen, setIsOpen, username, msgRead }) => {
           <div
             className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
             onClick={() => {
-              router.push("/createShop")
-              setIsOpen(false)
-              setIsLoading(true);
-            }}
-          >
-            <FcShop className="w-6 h-6" />
+              router.push("/createShop");
+              setIsOpen(false);
+              setLoading(true)
+            }}>
+            <p
+              className='flex'
 
-            Create Shop
+            >
+              <FcShop className="w-6 h-6" />
 
+              Create Shop
+
+            </p>
           </div>
+
         )}
 
-        <div
+        <p
           className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
-          onClick={() => { setIsOpen(false); setIsLoading(true); router.push("/shops") }}
+          onClick={() => {
+            router.push("/shops");
+            setIsOpen(false);
+            setLoading(true);
+          }}
+
         >
           <FcShop className="w-6 h-6" />
 
           Shops
 
-        </div>
+        </p>
 
         {getIsLoggedIn && (
           <div className="w-2/5 mx-auto pt-2">

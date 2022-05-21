@@ -4,6 +4,7 @@ import ProductComponent from "./mainPageComponents/ProductComponent";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import { useSelector } from "react-redux";
+import Head from "next/head";
 
 const Body = ({ productsData, slider, currency, location, currencyCode }) => {
   const products = productsData;
@@ -20,6 +21,15 @@ const Body = ({ productsData, slider, currency, location, currencyCode }) => {
   // console.log("The products here :", products);
   return (
     <div className="">
+      <Head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Bellefu is a agricultural products site and connection between farmers and buyers that offers a wide" />
+        <title>Bellefu</title>
+      </Head>
+
+
+
       {search === "" ? (
         <div className="mb-2">
           {loading ? (

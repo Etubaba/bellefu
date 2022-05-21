@@ -27,8 +27,8 @@ const ShopComponents = ({ products }) => {
               </p>
 
               <button
-                onClick={() => router.back()}
-                className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
+                onClick={() => router.push("/shops")}
+                className="py-2 lg:py-4 hover:bg-orange-400 mt-16 px-16 lg:px-24 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
                 Go back
               </button>
             </div>
