@@ -6,7 +6,7 @@ import SingleProductSidebar from "../../components/SingleProduct/SingleProductSi
 
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
-
+import { productImageUrl, apiData } from "../../constant";
 import MobileHeaderSearch from "../../components/MobileHeaderSearch";
 import { homeData, handleUserDetails } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -52,7 +52,7 @@ const Product = ({ details, title, description, image }) => {
         <meta name="description" content={description} />
         <meta
           name="og:image"
-          content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`}
+          content={`${productImageUrl}${image}`}
         />
 
         {/* FACEBOOK META */}
@@ -60,7 +60,7 @@ const Product = ({ details, title, description, image }) => {
         <meta name="og:description" content={description} />
         <meta
           name="og:image"
-          content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`}
+          content={`${productImageUrl}${image}`}
         />
 
         {/* TWITTER META */}
@@ -68,7 +68,7 @@ const Product = ({ details, title, description, image }) => {
         <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`}
+          content={`${productImageUrl}${image}`}
         />
       </Head>
       <div className="max-w-[95%] lg:max-w-[90%] mx-auto mt-24">
@@ -153,7 +153,7 @@ export async function getServerSideProps(context) {
   const { productId, title, description, image } = context.query;
 
   const requests = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/general/get/single/product/${productId}`
+    `${apiData}get/single/product/${productId}`
   ).then((res) => res.json());
 
   return {

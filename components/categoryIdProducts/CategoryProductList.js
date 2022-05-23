@@ -4,7 +4,7 @@ import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { BsHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { apiData } from "../../constant";
+import { apiData, productImageUrl } from "../../constant";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { login, msgScroll } from "../../features/bellefuSlice";
@@ -117,7 +117,7 @@ const CategoryProductList = ({ product }) => {
     <div className="bg-bellefuWhite p-3 rounded-b-md cursor-pointer">
       <img
         onClick={() => router.push(`/product/${product?.productId}`)}
-        src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+        src={`${productImageUrl}${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover"
         alt={product?.title}
       />

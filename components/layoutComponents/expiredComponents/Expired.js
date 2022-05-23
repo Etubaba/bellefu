@@ -5,6 +5,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { productImageUrl } from '../../../constant'
 
 const Expired = ({ product }) => {
   const [open, setOpen] = useState(false);
@@ -14,7 +15,7 @@ const Expired = ({ product }) => {
     <div className="w-full">
       <div className="bg-bellefuWhite p-3 rounded-md border border-[#dfdfdf]">
         <img
-          src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`}
+          src={`${productImageUrl}${product.images[0]}`}
           className="rounded-md w-full h-44 object-cover"
         />
         <p className="capitalize text-medium">{product.title}</p>

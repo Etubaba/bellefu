@@ -5,7 +5,7 @@ import Loader from "../../constant";
 import Head from "next/head";
 
 const CategoryProducts = ({ product }) => {
-  console.log(product)
+
 
 
   return (

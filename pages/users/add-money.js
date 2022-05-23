@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { profileDetails } from "../../features/bellefuSlice";
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import { toast } from "react-toastify";
+import axios from "axios";
+import { apiData } from "../../constant";
 
 
 const AddMoney = () => {
@@ -16,6 +18,7 @@ const AddMoney = () => {
   const userFullName = userId?.first_name + " " + userId?.last_name;
   const userEmail = userId?.email;
   const phone = userId?.phone
+
 
   const config = {
     public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
@@ -41,11 +44,21 @@ const AddMoney = () => {
 
   const handleFlutterPayment = useFlutterwave(config);
 
+  const handlePay = () => {
+    if (hasPaid?.status === 'successful') {
+      toast.success('Payment completed successfully')
+      setTotalPrice('')
+      axios.post(`${apiData}`, hasPaid)
+        .then(res => {
+          if (res.data.status) {
+            // toast.success('Payment completed successfully')
+            console.log('paid')
+          }
+        })
 
-  if (hasPaid?.status === 'successful') {
-    toast.success('Payment completed successfully')
-    setTotalPrice('')
-    setHasPaid({})
+      // setHasPaid({})
+    }
+
   }
 
 
@@ -88,7 +101,9 @@ const AddMoney = () => {
                               callback: (response) => {
                                 console.log(response);
                                 setHasPaid(response)
+
                                 closePaymentModal() // this will close the modal programmatically
+                                handlePay()
                               },
                               onClose: () => { },
                             });
