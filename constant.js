@@ -3,6 +3,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 
+export const imageBaseUrl = 'https://bellefu.inmotionhub.xyz/'
+export const shopApi = 'https://bellefu.inmotionhub.xyz/api/shop/'
 
 export const apiData = 'https://bellefu.inmotionhub.xyz/api/general/'
 

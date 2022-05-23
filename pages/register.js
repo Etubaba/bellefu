@@ -520,12 +520,12 @@ const Register = ({ data, countries, countries1 }) => {
             </div>
           </div>
           {!isLoading ? (
-            <p
+            <button
               className="hover:bg-bellefuOrange bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer font-bold"
               onClick={handleRegister}
             >
               {!session ? "Register" : "Continue"}
-            </p>
+            </button>
           ) : (
             <p
               className="bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 ..."

@@ -86,7 +86,7 @@ const Checkout = () => {
     const cartId = cartList?.map(item => item.cartId)
 
 
-    console.log("userId", userId)
+
 
     const handleOrder = () => {
         if (cartList.length > 0 && hasPaid) {
