@@ -35,12 +35,14 @@ const ProductUpload = ({ userProducts }) => {
   const router = useRouter();
   const userDetails = useSelector(profileDetails);
   const [product, setProduct] = useState("select product want to upload.");
+  const [productActive, setProductActive] = useState(false);
   const [productId, setProductId] = useState(1);
   const [normalPrice, setNormalPrice] = useState("");
   const [promoPrice, setPromoPrice] = useState("");
   const [weight, setWeight] = useState("");
   const [sellCondition, setSellCondition] = useState("");
   const [size, setSize] = useState("what is the size of your product?");
+  const [sizeActive, setSizeActive] = useState(false);
   const [openProductList, setopenProductList] = useState(false);
   const [openSizeList, setopenSizeList] = useState(false);
   //const [isNewProduct, setNewProduct] = useState(false);
@@ -123,7 +125,7 @@ const ProductUpload = ({ userProducts }) => {
         <div className="mb-3 relative">
           {/* <div className=""> */}
           <p className="text-lg font-semibold">Select Product</p>
-          <div className="flex items-center justify-between mb-2 bg-white hover:bg-bellefuBackground p-2 rounded-md border-2 cursor-pointer" onClick={() => setopenProductList(prevState => !prevState)}>
+          <div className={classNames("flex items-center justify-between mb-2 bg-white hover:bg-bellefuBackground p-2 rounded-md border-2 cursor-pointer", {"border-bellefuOrange": productActive})} onClick={() => {setopenProductList(prevState => !prevState); setProductActive(prevState => !prevState)}}>
             <div className="">
               {product}
             </div>
@@ -159,12 +161,12 @@ const ProductUpload = ({ userProducts }) => {
         </div>
         <div className="mb-3">
           <p><label htmlFor="promo-price" className="text-lg font-semibold">Promo Price (optional)</label></p>
-          <p><input type="text" id="promo-price" placeholder="200" value={promoPrice} onChange={onChange("promoPrice", setPromoPrice)} className="pl-2 py-2 border-2 w-full rounded-md" /></p>
+          <p><input type="text" id="promo-price" placeholder="200" value={promoPrice} onChange={onChange("promoPrice", setPromoPrice)} className="pl-2 py-2 border-2 w-full rounded-md focus:border-bellefuOrange focus:outline focus:outline-0" /></p>
         </div>
         <div className="mb-3 relative">
           {/* <div className=""> */}
           <p className="text-lg font-semibold">Size or Dimension (optional)</p>
-          <div className="flex items-center justify-between mb-2 bg-white hover:bg-bellefuBackground p-2 rounded-md border-2 cursor-pointer" onClick={() => setopenSizeList(prevState => !prevState)}>
+          <div className={classNames("flex items-center justify-between mb-2 bg-white hover:bg-bellefuBackground p-2 rounded-md border-2 cursor-pointer", {"border-bellefuOrange": sizeActive})} onClick={() => {setopenSizeList(prevState => !prevState); setSizeActive(prevState => !prevState)}}>
             <div className="">
               {size}
             </div>
@@ -194,7 +196,7 @@ const ProductUpload = ({ userProducts }) => {
         </div>
         <div className="mb-4">
           <p><label htmlFor="weight" className="text-lg font-semibold">Weight in kg (optional)</label></p>
-          <p><input type="text" id="weight" placeholder="20" value={weight} onChange={onChange("weight", setWeight)} className="pl-2 py-2 border-2 w-full rounded-md" /></p>
+          <p><input type="text" id="weight" placeholder="20" value={weight} onChange={onChange("weight", setWeight)} className="pl-2 py-2 border-2 w-full rounded-md focus:border-bellefuOrange focus:outline focus:outline-0" /></p>
         </div>
         <div className="mb-12">
           <p className="mb-1 text-lg font-semibold">Selling Condition:</p>
