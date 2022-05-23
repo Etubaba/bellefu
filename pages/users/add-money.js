@@ -4,12 +4,13 @@ import Layout from "../../components/Layout";
 import { useSelector } from "react-redux";
 import { profileDetails } from "../../features/bellefuSlice";
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+import { toast } from "react-toastify";
 
 
 const AddMoney = () => {
 
   const [totalPrice, setTotalPrice] = useState('')
-  const [hasPaid, setHasPaid] = useState(null)
+  const [hasPaid, setHasPaid] = useState({})
 
   const userId = useSelector(profileDetails)
   const userFullName = userId?.first_name + " " + userId?.last_name;
@@ -41,7 +42,11 @@ const AddMoney = () => {
   const handleFlutterPayment = useFlutterwave(config);
 
 
-
+  if (hasPaid?.status === 'successful') {
+    toast.success('Payment completed successfully')
+    setTotalPrice('')
+    setHasPaid({})
+  }
 
 
   return (

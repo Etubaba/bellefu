@@ -5,7 +5,7 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useRouter } from "next/router";
 import { Modal } from '@mui/material'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
-
+import { shopApi } from "../../constant";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
@@ -20,7 +20,7 @@ const Checkout = () => {
     const [zip, setZip] = useState("");
     const [country, setCountry] = useState("");
     const [phone, setPhone] = useState("");
-    const [hasPaid, setHasPaid] = useState(true);
+    const [hasPaid, setHasPaid] = useState({});
     const [cartList, setCartList] = useState([]);
     const [modalopen, setModalOpen] = useState(false)
 
@@ -30,7 +30,7 @@ const Checkout = () => {
 
 
 
-    const cartUrl = 'https://bellefu.inmotionhub.xyz/api/shop/';
+
 
     const handleShowAddresses = () => setShowAddresses(true);
     const router = useRouter();
@@ -45,7 +45,7 @@ const Checkout = () => {
 
     useEffect(() => {
         const getCart = async () => {
-            await axios.get(`${cartUrl}list/cart/item/${userId?.id}`)
+            await axios.get(`${shopApi}list/cart/item/${userId?.id}`)
                 .then(res => setCartList(res.data.data))
         }
         getCart()
@@ -88,8 +88,16 @@ const Checkout = () => {
 
 
 
+    if (hasPaid?.status === 'successful') {
+        toast.success('Payment completed successfully')
+
+    }
+
+
+
+
     const handleOrder = () => {
-        if (cartList.length > 0 && hasPaid) {
+        if (cartList.length > 0 && hasPaid?.status === "successful") {
 
             const formData = new FormData();
 
@@ -105,7 +113,7 @@ const Checkout = () => {
             formData.append("cartId", JSON.stringify(cartId));
             axios({
                 method: "post",
-                url: `${cartUrl}create/order`,
+                url: `${shopApi}create/order`,
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -219,6 +227,7 @@ const Checkout = () => {
                                             onClick={() => {
                                                 handleFlutterPayment({
                                                     callback: (response) => {
+                                                        setHasPaid(response)
                                                         console.log(response);
                                                         closePaymentModal() // this will close the modal programmatically
                                                     },
