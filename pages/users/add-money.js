@@ -80,6 +80,8 @@ const AddMoney = () => {
   }
 
 
+
+
   return (
     <>
       <Head>
@@ -97,7 +99,7 @@ const AddMoney = () => {
             <div className="bg-[#F8FDF2] hover:cursor-pointer mb-2 md:mr-12 py-8 rounded-lg border-2" >
 
               <div className='items-center mb-10 justify-center px-7 md:px-24 flex space-y-3 flex-col '>
-                <label className='font-semibold'>Enter Amount</label>
+                <label className='font-semibold'>Enter Amount   ({''} {currency} {''} )</label>
                 <input type='number' className="w-full rounded-xl py-3 pl-5 outline outline-gray-300 focus:outline-bellefuOrange" value={totalPrice} onChange={e => setTotalPrice(e.target.value)} />
               </div>
 
@@ -109,6 +111,15 @@ const AddMoney = () => {
 
 
 
+              {(totalPrice !== '' && convert) &&
+                <div className='flex justify-center items-center  font-semibold space-x-6 my-5'>
+                  <p> {currency}{''}{totalPrice}</p>
+                  <p>=</p>
+                  <p>{rate * 100} Bellicoin</p>
+
+                </div>}
+
+
               <div className='flex justify-center items-center my-5 '>
                 <button
                   onClick={handleConvert}
@@ -116,20 +127,14 @@ const AddMoney = () => {
 
               </div>
 
-              {(totalPrice !== '' && convert) &&
-                <div className='flex justify-center items-center  font-semibold space-x-6 my-5'>
-                  <p> {currency}{''}{totalPrice}</p>
-                  <p>=</p>
-                  <p>{rate * 100}</p>
 
-                </div>}
 
               <div className="w-full">
                 <div >
 
                   <div className="flex px-8" >
 
-                    <div className=" justify-center pl-16 items-center flex flex-col md:space-x-72 space-y-5 md:space-y-0 md:flex-row">
+                    <div className=" mx-auto my-7 justify-center items-center flex flex-col md:space-x-72 space-y-5 md:space-y-0 md:flex-row">
                       <div className="md:mr-auto hover:bg-white">
                         <button
                           onClick={() => {
