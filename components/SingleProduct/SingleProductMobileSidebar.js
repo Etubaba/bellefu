@@ -163,6 +163,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
     }
   };
 
+  const verified = useSelector((state) => state.bellefu?.verificationStatus);
   return (
     <div className="bg-bellefuWhite">
       <div className="flex flex-col space-y-3">
@@ -198,7 +199,18 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
                 {" "}
                 {mobileDetails[0]?.username}
               </p>
-              <GoVerified className="w-3 h-3 text-bellefuGreen" />
+              <GoVerified
+                className={
+                  verified?.phone && !verified?.id && !verified?.kyc
+                    ? "text-black/70 w-3 h-3"
+                    : !verified?.kyc && verified?.id && verified?.phone
+                      ? "w-3 h-3 text-bellefuOrange"
+                      : verified?.id && verified?.phone && verified?.kyc
+                        ? "w-3 h-3 text-bellefuGreen"
+                        : "w-3 h-3 text-[#A6A6A6]"
+                }
+
+              />
             </div>
             <div className="flex items-center mt-1 space-x-2">
               <p className="text-sm text-gray-400 font-medium">Registered :</p>
