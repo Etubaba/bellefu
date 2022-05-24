@@ -194,6 +194,11 @@ export default function CreateShop() {
             {" "}
             Congratulations... Your shop creation was sucessful
           </p>
+          <div onClick={() => router.push(`/${userThings.id}`)}>
+            <button onClick={() => router.push(`/${userThings.id}`)} className="py-1 lg:py-1.5 hover:bg-orange-400  px-1.5 lg:px-3 rounded-full bg-bellefuOrange text-white text-sm lg:text-sm">
+              Add  product
+            </button>
+          </div>
         </div>
       </Modal>
 
@@ -242,7 +247,7 @@ export default function CreateShop() {
                           <label className=" text-sm font-medium text-gray-700 flex justify-between">
                             <p>Shop Name</p>
                             {checkpass ? (
-                              <p className="text-red-600 relative right-6">
+                              <p className="text-red-600 relative right-3">
                                 Name Already exist ❌
                               </p>
                             ) : null}
