@@ -28,6 +28,9 @@ const Product = ({ details, title, description, image }) => {
 
   // if (queryExists) return router.replace(`/product/${productId}`);
 
+
+
+
   const newDetails = details.data;
   const similarProductDetails = details.similarProducts;
 
@@ -43,6 +46,9 @@ const Product = ({ details, title, description, image }) => {
     return () => clearTimeout(timer);
   }, []);
   const index = useSelector(homeData);
+
+
+
 
   return (
     <>
