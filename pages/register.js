@@ -84,13 +84,13 @@ const Register = ({ data, countries, countries1 }) => {
   };
   const handleRegister = () => {
     let formValues = formFields;
-    let emptyFieldExists = false;
+    // let emptyFieldExists = false;
 
-    emptyFieldExists = validateInput(formValues);
+    // emptyFieldExists = validateInput(formValues);
 
-    if (emptyFieldExists) {
-      return;
-    }
+    // if (emptyFieldExists) {
+    //   return;
+    // }
 
     if (!formFields.email) {
       formValues = { ...formFields, email: `${formFields.username}@gmail.com` };
@@ -136,18 +136,18 @@ const Register = ({ data, countries, countries1 }) => {
         setIsLoading(false);
       });
   };
-  const validateInput = (formValues) => {
-    const emptyFieldExists = false;
-    for (const key in formValues) {
-      if (Object.hasOwnProperty.call(formValues, key) && !formValues[key]) {
-        emptyFieldExists = true;
-        break;
-      }
-    }
+  // const validateInput = (formValues) => {
+  //   const emptyFieldExists = false;
+  //   for (const key in formValues) {
+  //     if (Object.hasOwnProperty.call(formValues, key) && !formValues[key]) {
+  //       emptyFieldExists = true;
+  //       break;
+  //     }
+  //   }
 
-    if (emptyFieldExists) return true;
-    else return false;
-  };
+  //   if (emptyFieldExists) return true;
+  //   else return false;
+  // };
   const checkExists = (evt) => {
     const target = evt.target;
 
@@ -227,7 +227,7 @@ const Register = ({ data, countries, countries1 }) => {
   }, []);
 
   return (
-    <div className='mt-28'>
+    <>
       <Head>
         <title>Register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -235,7 +235,7 @@ const Register = ({ data, countries, countries1 }) => {
       {!session && <RegisterHeader />}
       <div
         className={classNames(
-          "w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-12",
+          "w-[90%] md:w-[55%] mx-auto mb-20 rounded-lg border-2 mt-28",
           { "mt-9": session }
         )}
       >
@@ -520,12 +520,12 @@ const Register = ({ data, countries, countries1 }) => {
             </div>
           </div>
           {!isLoading ? (
-            <p
+            <button
               className="hover:bg-bellefuOrange bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 hover:cursor-pointer font-bold"
               onClick={handleRegister}
             >
               {!session ? "Register" : "Continue"}
-            </p>
+            </button>
           ) : (
             <p
               className="bg-[#fabe50] text-white w-[100%] md:w-[50%] mx-auto py-2 text-center rounded-md mb-4 ..."
@@ -585,7 +585,7 @@ const Register = ({ data, countries, countries1 }) => {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { GiShoppingCart } from 'react-icons/gi'
 import { useSelector, useDispatch } from 'react-redux'
 import Loader from '../../constant'
+import { shopApi } from '../../constant'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import axios from 'axios'
@@ -23,7 +24,7 @@ function Cart() {
     const dispatch = useDispatch()
     const userId = useSelector(profileDetails)
     const cartCheck = useSelector(state => state.bellefu?.favLoad)
-    const cartUrl = 'https://bellefu.inmotionhub.xyz/api/shop/';
+
 
     const router = useRouter();
 
@@ -35,7 +36,7 @@ function Cart() {
 
     const clearCart = (e) => {
         e.stopPropagation()
-        axios.post(`${cartUrl}clear/user/cart`, { userId: userId?.id })
+        axios.post(`${shopApi}clear/user/cart`, { userId: userId?.id })
             .then(res => {
                 if (res.data.status) {
                     setQty(prev => prev + 1)
@@ -54,7 +55,7 @@ function Cart() {
 
     useEffect(() => {
         const getCart = async () => {
-            await axios.get(`${cartUrl}list/cart/item/${userId.id}`)
+            await axios.get(`${shopApi}list/cart/item/${userId.id}`)
                 .then(res => setCartList(res.data.data))
         }
         getCart()
@@ -141,7 +142,7 @@ function Cart() {
                                                             setCartList(prev => [...prev])
 
 
-                                                            axios.post(`${cartUrl}update/cart/quantity`,
+                                                            axios.post(`${shopApi}update/cart/quantity`,
                                                                 { cartId: cart.cartId, qty: item.quantity })
                                                                 .then(res => {
                                                                     if (res.data.status) {
@@ -165,7 +166,7 @@ function Cart() {
                                                                 setCartList(prev => [...prev])
 
 
-                                                                axios.post(`${cartUrl}update/cart/quantity`,
+                                                                axios.post(`${shopApi}update/cart/quantity`,
                                                                     { cartId: cart.cartId, qty: item.quantity })
                                                                     .then(res => {
                                                                         if (res.data.status) {
@@ -187,7 +188,7 @@ function Cart() {
                                                     e.stopPropagation()
                                                     // setCartProduct(cart.productName)
                                                     // removeItem()
-                                                    axios.post(`${cartUrl}remove/cart/item`, { cartId: cart.cartId })
+                                                    axios.post(`${shopApi}remove/cart/item`, { cartId: cart.cartId })
                                                         .then(res => {
                                                             if (res.data.status) {
                                                                 setQty(prev => prev + 1)
@@ -218,7 +219,7 @@ function Cart() {
                                                     item.quantity += 1
                                                     setCartList(prev => [...prev])
 
-                                                    axios.post(`${cartUrl}update/cart/quantity`,
+                                                    axios.post(`${shopApi}update/cart/quantity`,
                                                         { cartId: cart.cartId, qty: item.quantity })
                                                         .then(res => {
                                                             if (res.data.status) {
@@ -240,7 +241,7 @@ function Cart() {
                                                         setCartList(prev => [...prev])
 
 
-                                                        axios.post(`${cartUrl}update/cart/quantity`,
+                                                        axios.post(`${shopApi}update/cart/quantity`,
                                                             { cartId: cart.cartId, qty: item.quantity })
                                                             .then(res => {
                                                                 if (res.data.status) {

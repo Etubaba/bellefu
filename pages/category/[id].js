@@ -73,7 +73,7 @@ const Product = () => {
   useEffect(() => {
     const fetchStates = async () => {
       await axios
-        .get(`https://bellefu.inmotionhub.xyz/api/general/get/${state}/states`)
+        .get(`${apiData}get/${state}/states`)
         .then((res) => setStateList(res.data.data))
         .catch((err) => console.log(err));
     };

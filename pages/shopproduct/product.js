@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ShopProducts from "../../components/shopProductComponent/ShopProducts";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
+import { shopApi } from "../../constant";
 
 const ShopProduct = () => {
   const pDetails = useSelector((state) => state.bellefu?.shopProduct);
@@ -13,7 +14,7 @@ const ShopProduct = () => {
   useEffect(() => {
     const getProductDetails = async () => {
       await axios
-        .get(`https://bellefu.inmotionhub.xyz/api/shop/view/single/${pDetails}`)
+        .get(`${shopApi}view/single/${pDetails}`)
         .then((res) => setProductDetails(res.data.data));
     };
     getProductDetails();

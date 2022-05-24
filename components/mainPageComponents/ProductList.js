@@ -10,7 +10,7 @@ import { CgArrowsExchange } from "react-icons/cg";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { apiData } from "../../constant";
+import { apiData, productImageUrl } from "../../constant";
 import { login, msgScroll } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -40,9 +40,7 @@ const ProductList = ({
 
 
 
-  console.log('product', product)
-  console.log('currency', currency)
-  console.log('currencyCode', currencyCode)
+
 
   if (loading) {
     setTimeout(() => {
@@ -135,7 +133,7 @@ const ProductList = ({
         <>
           <div onClick={() => { router.push(`/product/${product.productId}`); setLoading(true) }}>
             <img
-              src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+              src={`${productImageUrl}${product?.images[0]}`}
               className="rounded-md w-full h-44 hover:opacity-50 object-cover cursor-pointer"
             />
           </div>
