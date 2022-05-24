@@ -80,7 +80,10 @@ const AddMoney = () => {
   }
 
 
-
+  const formatedRate = (rate * 100).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'usd'
+  }).slice(1)
 
   return (
     <>
@@ -113,9 +116,14 @@ const AddMoney = () => {
 
               {(totalPrice !== '' && convert) &&
                 <div className='flex justify-center items-center  font-semibold space-x-6 my-5'>
-                  <p> {currency}{''}{totalPrice}</p>
+                  <p> {currency}{''}{
+                    (totalPrice).toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'usd'
+                    }).slice(1)
+                  }</p>
                   <p>=</p>
-                  <p>{rate * 100} Bellicoin</p>
+                  <p>{formatedRate}{''} Bellicoin</p>
 
                 </div>}
 
@@ -123,7 +131,7 @@ const AddMoney = () => {
               <div className='flex justify-center items-center my-5 '>
                 <button
                   onClick={handleConvert}
-                  className='bg-bellefuOrange rounded-xl text-white md:py-4 py-2 px-12 md:px-28'> Convert</button>
+                  className='bg-bellefuOrange hover:bg-orange-400 rounded-xl text-white md:py-4 py-2 px-12 md:px-28'> Convert</button>
 
               </div>
 
