@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { apiData } from "../../constant";
 
-const SingleProductSidebar = ({ userDetails, verified }) => {
+const SingleProductSidebar = ({ userDetails, }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
