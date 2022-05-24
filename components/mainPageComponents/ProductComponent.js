@@ -11,7 +11,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import classNames from "classnames";
-import Loader, { apiData } from "../../constant";
+import Loader, { apiData, indexApi } from "../../constant";
 import {
   countryProductSearchEmpty,
   country,
@@ -51,7 +51,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   useEffect(() => {
     const getAdverts = async () => {
       await axios
-        .get(`https://bellefu.inmotionhub.xyz/api/general/get/all/commercial`)
+        .get(`${apiData}get/all/commercial`)
         .then((res) => setAdverts(res.data.data))
         .catch((err) => console.log(err));
     };
@@ -84,7 +84,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
 
       axios
         .get(
-          `https://bellefu.inmotionhub.xyz/api/general/get/product/${getCountry}?page=${page}`
+          `${apiData}get/product/${getCountry}?page=${page}`
         )
         .then((res) => {
 

@@ -13,18 +13,20 @@ const AddMoney = () => {
 
   const [totalPrice, setTotalPrice] = useState('')
   const [hasPaid, setHasPaid] = useState({})
+  const [convert, setConvert] = useState(false)
+  const [rate, setRate] = useState(null)
 
   const userId = useSelector(profileDetails)
   const userFullName = userId?.first_name + " " + userId?.last_name;
   const userEmail = userId?.email;
   const phone = userId?.phone
-
+  const currency = userId?.currency_code
 
   const config = {
     public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
     tx_ref: Date.now(),
     amount: totalPrice,
-    currency: 'NGN',
+    currency: currency,
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: userEmail,
@@ -37,6 +39,7 @@ const AddMoney = () => {
       logo: 'https://www.linkpicture.com/q/bellefuApplogo.jpg',
     },
   };
+
 
 
 
@@ -62,6 +65,21 @@ const AddMoney = () => {
   }
 
 
+  const handleConvert = () => {
+    axios
+      .post(`${apiData}convert/currency`, {
+        amount: totalPrice,
+        to: 'USD',
+        from: currency,
+      })
+      .then((res) => {
+        setRate(res.data.data.result);
+      });
+    setConvert(true)
+
+  }
+
+
   return (
     <>
       <Head>
@@ -78,18 +96,36 @@ const AddMoney = () => {
           <div className="flex flex-col flex-auto mb-8">
             <div className="bg-[#F8FDF2] hover:cursor-pointer mb-2 md:mr-12 py-8 rounded-lg border-2" >
 
-              <div className='items-center mb-10 justify-center px-24 flex space-y-3 flex-col '>
+              <div className='items-center mb-10 justify-center px-7 md:px-24 flex space-y-3 flex-col '>
                 <label className='font-semibold'>Enter Amount</label>
-                <input type='text' className="w-full rounded-xl py-3 pl-5 outline outline-gray-300 focus:outline-bellefuOrange" value={totalPrice} onChange={e => setTotalPrice(e.target.value)} />
+                <input type='number' className="w-full rounded-xl py-3 pl-5 outline outline-gray-300 focus:outline-bellefuOrange" value={totalPrice} onChange={e => setTotalPrice(e.target.value)} />
               </div>
+
+              <div className='flex justify-center items-center  font-semibold space-x-6 my-10'>
+                <p> $1 </p>
+                <p>=</p>
+                <p>100 Bellicoin</p>
+              </div>
+
+
+
+              <div className='flex justify-center items-center my-5 '>
+                <button
+                  onClick={handleConvert}
+                  className='bg-bellefuOrange rounded-xl text-white md:py-4 py-2 px-12 md:px-28'> Convert</button>
+
+              </div>
+
+              {(totalPrice !== '' && convert) &&
+                <div className='flex justify-center items-center  font-semibold space-x-6 my-5'>
+                  <p> {currency}{''}{totalPrice}</p>
+                  <p>=</p>
+                  <p>{rate * 100}</p>
+
+                </div>}
+
               <div className="w-full">
                 <div >
-
-
-
-
-
-
 
                   <div className="flex px-8" >
 

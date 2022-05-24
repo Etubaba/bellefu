@@ -40,9 +40,7 @@ const ProductList = ({
 
 
 
-  console.log('product', product)
-  console.log('currency', currency)
-  console.log('currencyCode', currencyCode)
+
 
   if (loading) {
     setTimeout(() => {
