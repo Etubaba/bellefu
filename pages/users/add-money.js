@@ -117,7 +117,7 @@ const AddMoney = () => {
               {(totalPrice !== '' && convert) &&
                 <div className='flex justify-center items-center  font-semibold space-x-6 my-5'>
                   <p> {currency}{''}{
-                    (totalPrice).toLocaleString('en-US', {
+                    (Number(totalPrice)).toLocaleString('en-US', {
                       style: 'currency',
                       currency: 'usd'
                     }).slice(1)
