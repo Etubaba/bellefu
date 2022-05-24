@@ -27,7 +27,9 @@ function shop() {
   const [products, setProducts] = useState([]);
   const [productsname, setProductsName] = useState(valueupdate?.title);
   const [productsprice, setProductsPrice] = useState(valueupdate?.promoPrice);
-  const [productspromoprice, setProductsPromoPrice] = useState(valueupdate?.promoPrice);
+  const [productspromoprice, setProductsPromoPrice] = useState(
+    valueupdate?.promoPrice
+  );
   const [modalopen, setModalOpen] = useState(false);
 
   const [checked, setChecked] = useState(null);
@@ -87,7 +89,7 @@ function shop() {
             .then((err) => {
               console.log(err);
             });
-            setModalOpen(false);
+          setModalOpen(false);
         }
       })
       .catch((err) => {
@@ -174,8 +176,13 @@ function shop() {
         </div>
       </Modal>
       <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite   h-auto w-full md:w-auto">
-        <div className="flex justify-between  px-10 md:py-6 py-2 border-b">
-          <h1 className="font-semibold">My Shop Details</h1>
+        <div className="flex justify-between px-3  lg:px-10 md:py-6 py-2 border-b">
+          <h1 className="font-semibold text-sm">My Shop Details</h1>
+         {  user?.shopId === null ?null:(<div onClick={() => router.push(`/${user.id}`)}>
+            <button onClick={() => router.push(`/${user.id}`)} className="py-1 lg:py-1.5 hover:bg-orange-400  px-1.5 lg:px-3 rounded-full bg-bellefuOrange text-white text-sm lg:text-sm">
+              Add new product
+            </button>
+          </div>)}
         </div>
         {user?.shopId === null ? (
           <div className="h-full px-2 lg:px-0 ">
@@ -187,7 +194,7 @@ function shop() {
                 </p>
                 <div onClick={() => router.push("/createShop")}>
                   {" "}
-                  <button className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
+                  <button onClick={() => router.push("/createShop")} className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
                     Create shop
                   </button>
                 </div>
@@ -207,7 +214,10 @@ function shop() {
                       </p>
                       <div onClick={() => router.push(`/${user.id}`)}>
                         {" "}
-                        <button className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg">
+                        <button
+                          onClick={() => router.push(`/${user.id}`)}
+                          className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg"
+                        >
                           Add products
                         </button>
                       </div>

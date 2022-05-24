@@ -86,6 +86,8 @@ export default function Publish() {
       formData.append("video", dataTopost.videofile);
       formData.append("categoryid", dataTopost.categoryid);
       formData.append("subcategoryid", dataTopost.subcategoryid);
+      formData.append("shop", 0);
+      formData.append("device","web");
       formData.append("price", dataTopost.price);
       formData.append("description", dataTopost.description);
       formData.append(
