@@ -318,8 +318,8 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       {main.length > 8 && (
         <a href={radomImage1?.action} target="_blank" className="my-5">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${radomImage1?.image
-              }`}
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${radomImage1?.image}`}
+
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
           />
