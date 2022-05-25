@@ -15,6 +15,9 @@ import { toast } from "react-toastify";
 import GovId from "../components/GovId";
 // import Skeleton from "@mui/material/Skeleton";
 import { useRouter } from 'next/router'
+import { shopApi } from "../constant";
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+
 
 export default function CreateShop() {
 
@@ -23,9 +26,14 @@ export default function CreateShop() {
 
   const userThings = useSelector((state) => state.bellefu.profileDetails);
   //const userThings = useSelector((state) => state.bellefu.userDetails);
-  console.log(userThings)
+
   const idchecker = useSelector((state) => state.bellefu.verificationStatus);
-  const dispatch = useDispatch();
+
+
+
+  const userFullName = userThings?.first_name + " " + userThings?.last_name;
+  const userEmail = userThings?.email;
+  const phone = userThings?.phone
 
   const [checkpass, setCheckPass] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -41,9 +49,38 @@ export default function CreateShop() {
   const [files, setFiles] = useState(null);
   const [files2, setFiles2] = useState(null);
   const [govid, setGovid] = useState([]);
+  const [hasPaid, setHasPaid] = useState('')
+
+
+
   const handleGovid = (event) => {
     setGovid(event);
   };
+
+  const config = {
+    public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
+    tx_ref: Date.now(),
+    amount: 25,
+    currency: 'USD',
+    payment_options: 'card,mobilemoney,ussd',
+    customer: {
+      email: userEmail,
+      phonenumber: phone,
+      name: userFullName,
+    },
+    customizations: {
+      title: 'Pay money',
+      description: 'Pay money for your shop',
+      logo: 'https://www.linkpicture.com/q/bellefuApplogo.jpg',
+    },
+  };
+  const handleFlutterPayment = useFlutterwave(config);
+
+
+
+
+
+
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
@@ -59,7 +96,7 @@ export default function CreateShop() {
   });
 
   const handleShopNameCheck = () => {
-    axios.post(`https://bellefu.inmotionhub.xyz/api/shop/name/checker`, {
+    axios.post(`${shopApi}name/checker`, {
       shopName: shopname
     }).then((res) => {
       if (res.data.status === true) {
@@ -77,8 +114,8 @@ export default function CreateShop() {
     })
   }
 
-  const handleCreate = (e) => {
-    e.preventDefault();
+  const handleCreate = () => {
+
     const formData = new FormData();
     formData.append("userId", userThings?.id);
     formData.append("shopName", shopname);
@@ -132,7 +169,7 @@ export default function CreateShop() {
     } else {
       axios({
         method: "POST",
-        url: `https://bellefu.inmotionhub.xyz/api/shop/create`,
+        url: `${shopApi}create`,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -140,7 +177,7 @@ export default function CreateShop() {
       })
         .then((res) => {
           console.log(res.status);
-          if (res.status === 200) {
+          if (res.data.status) {
             setModalOpen(true);
             setTerms(false);
             setShopName("");
@@ -371,6 +408,7 @@ export default function CreateShop() {
                     </div>
                     <button
                       onClick={handleCreate}
+
                       class="flex justify-center items-centerw-[19vw]  w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-bellefuOrange hover:bg-[#ffc253] focus:outline-none focus:ring-2 focus:ring-offset-2 mt-5"
                     >
                       Submit

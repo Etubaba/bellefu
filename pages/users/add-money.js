@@ -89,7 +89,7 @@ const AddMoney = () => {
   // },[hasPaid])
 
 
-  console.log('rate', rate)
+
   return (
     <>
       <Head>
