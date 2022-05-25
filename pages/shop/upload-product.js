@@ -143,7 +143,7 @@ const ProductUpload = () => {
       formData.append("weight", weight);
       formData.append("sellingCondition", sellCondition);
       formData.append("device", "web");
-      formData.append("shop", 1);
+      formData.append("shop", "false");
       //formData.append("plans", dataTopost.plans);
 
       //console.log(formData);

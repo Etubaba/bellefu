@@ -118,7 +118,7 @@ export default function Images(props) {
       dispatch(handleImagesUpdate(files2));
       dispatch(handleVideoUpdate(videoFile));
 
-      if (isNewProductForShop) router.push(`/${user.id}`);
+      if (isNewProductForShop) router.push("/shop/upload-product");
       else router.push("/postAds/Publish");
       
     } else {

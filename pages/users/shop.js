@@ -179,7 +179,7 @@ function shop() {
         <div className="flex justify-between px-3  lg:px-10 md:py-6 py-2 border-b">
           <h1 className="font-semibold text-sm">My Shop Details</h1>
          {  user?.shopId === null ?null:(<div onClick={() => router.push("/shop/upload-product")}>
-            <button onClick={() => router.push(`/${user.id}`)} className="py-1 lg:py-1.5 hover:bg-orange-400  px-1.5 lg:px-3 rounded-full bg-bellefuOrange text-white text-sm lg:text-sm">
+            <button onClick={() => router.push("/shop/upload-product")} className="py-1 lg:py-1.5 hover:bg-orange-400  px-1.5 lg:px-3 rounded-full bg-bellefuOrange text-white text-sm lg:text-sm">
               Add new product
             </button>
           </div>)}
@@ -212,10 +212,10 @@ function shop() {
                       <p className="text-sm capitalize lg:text-lg text-gray-600 px-2 text-center">
                         You do not have any products in your shop
                       </p>
-                      <div onClick={() => router.push(`/${user.id}`)}>
+                      <div onClick={() => router.push("/shop/upload-product")}>
                         {" "}
                         <button
-                          onClick={() => router.push(`/${user.id}`)}
+                          onClick={() => router.push("/shop/upload-product")}
                           className="py-1 lg:py-3 hover:bg-orange-400 mt-16 px-8 lg:px-12 rounded-full bg-bellefuOrange text-white text-sm lg:text-lg"
                         >
                           Add products
