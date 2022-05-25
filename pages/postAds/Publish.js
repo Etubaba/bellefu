@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/postAdsComponent/Layout";
-import { handlePlansUpdate } from "../../features/bellefuSlice";
+import { handlePlansUpdate, handleAdsPlanPriceUpdate } from "../../features/bellefuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useState } from "react";
@@ -8,9 +8,10 @@ import { MdVerified } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-export default function Publish() {
-  const [showSuccess, setShowSuccess] = useState(false);
+export default function Publish({data1}) {
 
+  const [adsplans, setAdsPlans]=useState(data1.data);
+  const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
   const dataTopost2 = useSelector((state) => state.bellefu.profileDetails);
@@ -18,16 +19,20 @@ export default function Publish() {
 
   //  plans handling section
 
-  const handleFeatured = () => {
+  const handleFeatured = (e) => {
     dispatch(handlePlansUpdate("featured"));
+    dispatch(handleAdsPlanPriceUpdate(Number(e)));
     router.push("/postAds/Payment");
   };
-  const handleUrgent = () => {
+  const handleUrgent = (e) => {
     dispatch(handlePlansUpdate("urgent"));
+    dispatch(handleAdsPlanPriceUpdate(Number(e)));
     router.push("/postAds/Payment");
   };
-  const handleHighlighted = () => {
+  const handleHighlighted = (e) => {
     dispatch(handlePlansUpdate("highlighted"));
+    dispatch(handleAdsPlanPriceUpdate(Number(e)));
+
     router.push("/postAds/Payment");
   };
 
@@ -165,7 +170,7 @@ export default function Publish() {
           <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="sm:flex lg:flex">
               <input
-                onClick={handleFeatured}
+                onClick={()=>{handleFeatured(adsplans?.featuredFee)}}
                 id="ads_plan"
                 name="plans"
                 type="radio"
@@ -180,7 +185,7 @@ export default function Publish() {
               </div>
               <div className="ml-[6%]">
                 <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-                  $1.00 FOR 30 DAYS
+                  {`$${adsplans?.featuredFee} FOR ${adsplans?.featured_product_duration} DAYS`}
                 </p>
                 <h3 className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-bellefuOrange">
                   RECOMMENDED
@@ -191,7 +196,7 @@ export default function Publish() {
           <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="sm:flex lg:flex ">
               <input
-                onClick={handleUrgent}
+                onClick={()=>{handleUrgent(adsplans?.urgentFee)}}
                 id="ads_plan"
                 name="plans"
                 type="radio"
@@ -206,7 +211,7 @@ export default function Publish() {
               </div>
               <div className="ml-[10%]">
                 <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-                  $2.00 FOR 30 DAYS
+                {`$${adsplans?.urgentFee} FOR ${adsplans?.urgentDuration} DAYS`}
                 </p>
                 <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-[orangered]">
                   MORE RECOMMENDED
@@ -217,7 +222,7 @@ export default function Publish() {
           <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="sm:flex lg:flex">
               <input
-                onClick={handleHighlighted}
+                onClick={()=>{handleHighlighted(adsplans?.highlightedFee)}}
                 id="ads_plan"
                 name="plans"
                 type="radio"
@@ -232,7 +237,7 @@ export default function Publish() {
               </div>
               <div className="ml-[6%]">
                 <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-                  $2.00 FOR 7 DAYS
+                {`$${adsplans?.highlightedFee} FOR ${adsplans?.highlightedDuration} DAYS`}
                 </p>
                 <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-bellefuGreen">
                   MOST RECOMMENDED
@@ -300,3 +305,16 @@ export default function Publish() {
   );
 }
 Publish.Layout = Layout;
+export async function getServerSideProps() {
+  const [data1Res] = await Promise.all([
+    fetch(`https://bellefu.inmotionhub.xyz/api/general/view/product/plans`),
+  ]);
+
+  const [data1] = await Promise.all([data1Res.json()]);
+  //  console.log(data);
+  return {
+    props: {
+      data1,
+    },
+  };
+}
