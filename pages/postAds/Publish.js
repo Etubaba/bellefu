@@ -88,6 +88,8 @@ export default function Publish() {
       formData.append("video", dataTopost.videofile);
       formData.append("categoryid", dataTopost.categoryid);
       formData.append("subcategoryid", dataTopost.subcategoryid);
+      formData.append("shop", false);
+      formData.append("device", "web");
       formData.append("price", dataTopost.price);
       formData.append("description", dataTopost.description);
       formData.append(
@@ -131,15 +133,15 @@ export default function Publish() {
           res.status === 200
             ? setShowSuccess(false)
             : setShowSuccess(true) &&
-              toast.error("Server busy. Try again", {
-                position: "top-center",
-              });
+            toast.error("Server busy. Try again", {
+              position: "top-center",
+            });
         })
         .catch((err) =>
           err
             ? toast.error("Something happend. Try again", {
-                position: "top-center",
-              })
+              position: "top-center",
+            })
             : null
         );
     }

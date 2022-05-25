@@ -19,15 +19,20 @@ const Index = () => {
 
   const user = useSelector(profileDetails);
   const [productStat, setProductStat] = useState({});
-
+  const [shopStat, setShopStat] = useState({});
+      // console.log(shopStat);
   useEffect(() => {
     const getuserProductStat = async () => {
       const res = await axios.get(`${apiData}user/product/stats/${user.id}`);
       if (res.data.status) setProductStat(res.data.data);
     };
-
+    const getuserShopStat = async () => {
+      const res = await axios.get(`https://bellefu.inmotionhub.xyz/api/shop/get/statistics/${user.id}`);
+      if (res.data.status) setShopStat(res.data.data);
+    };
+    getuserShopStat();
     getuserProductStat();
-  }, [user, setProductStat]);
+  }, [user, setProductStat,setShopStat]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -270,7 +275,7 @@ const Index = () => {
                               className="text-center"
                               style={{ fontSize: "50px", lineHeight: "75px" }}
                             >
-                              <CountUp end={productStat.approved} />
+                              <CountUp end={shopStat?.totalOrders} />
                             </p>
                             <p
                               id="detail"
@@ -289,7 +294,7 @@ const Index = () => {
                               className="text-center"
                               style={{ fontSize: "50px", lineHeight: "75px" }}
                             >
-                              <CountUp end={productStat.pending} />
+                              <CountUp end={shopStat?.totalIncome} />
                             </p>
                             <p
                               id="detail"
@@ -308,7 +313,7 @@ const Index = () => {
                               className="text-center"
                               style={{ fontSize: "50px", lineHeight: "75px" }}
                             >
-                              <CountUp end={productStat.expired} />
+                              <CountUp end={shopStat?.totalProducts} />
                             </p>
                             <p
                               id="detail"

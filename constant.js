@@ -9,6 +9,7 @@ export const shopApi = 'https://bellefu.inmotionhub.xyz/api/shop/'
 
 export const UserAvataUrl = 'https://bellefu.inmotionhub.xyz/get/user/images/'
 
+
 export const apiData = 'https://bellefu.inmotionhub.xyz/api/general/'
 
 export const indexAPI = 'https://bellefu.inmotionhub.xyz/api/web30/get/web/index'

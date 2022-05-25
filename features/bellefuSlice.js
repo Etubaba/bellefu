@@ -291,6 +291,7 @@ export const changeId = (state) => state.bellefu.catId;
 export const userDId = (state) => state.bellefu.userDetails;
 export const verified = (state) => state.bellefu.verificationStatus;
 export const country = (state) => state.bellefu.searchCountry;
+export const postadsData = (state) => state.bellefu.postAddata;
 export const isProductForShop = (state) => state.bellefu?.creatingNewProductForShop;
 // export const prouductSearch = (state) => state.bellefu.countryProductSearch;
 // export const selectLogin = (state) => {

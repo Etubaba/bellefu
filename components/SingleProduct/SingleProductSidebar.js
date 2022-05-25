@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { apiData } from "../../constant";
 
-const SingleProductSidebar = ({ userDetails, verified }) => {
+const SingleProductSidebar = ({ userDetails, }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,11 +29,10 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
   const [review, setReview] = useState(false);
   const [rating, setRating] = useState(0);
 
-  const receiverId = userDetails[0]?.productOwnerId;
+  const receiverId = userDetails[0]?.userId;
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
-
+  const verified = useSelector((state) => state.bellefu?.verificationStatus);
   const isLoggedIn = useSelector(login);
-
   const handleMessage = () => {
     if (isLoggedIn) {
       setOpen(true);
@@ -200,18 +199,18 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
                 verified?.phone && !verified?.id && !verified?.kyc
                   ? "text-black/70 w-3 h-3"
                   : !verified?.kyc && verified?.id && verified?.phone
-                  ? "w-3 h-3 text-bellefuOrange"
-                  : verified?.id && verified?.phone && verified?.kyc
-                  ? "w-3 h-3 text-bellefuGreen"
-                  : "w-3 h-3 text-[#A6A6A6]"
+                    ? "w-3 h-3 text-bellefuOrange"
+                    : verified?.id && verified?.phone && verified?.kyc
+                      ? "w-3 h-3 text-bellefuGreen"
+                      : "w-3 h-3 text-[#A6A6A6]"
               }
             />
             <i className="text-[10px] ml-2">
               {verified?.phone && !verified?.id && !verified?.kyc
                 ? "Phone verified"
                 : verified?.phone && verified?.id && !verified?.kyc
-                ? "ID verified"
-                : "KYC verified"}
+                  ? "ID verified"
+                  : "KYC verified"}
             </i>
           </span>
         </div>
@@ -286,7 +285,7 @@ const SingleProductSidebar = ({ userDetails, verified }) => {
           onClose={() => setModalOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          // sx={{ opacity: 0.5 }}
+        // sx={{ opacity: 0.5 }}
         >
           <Box sx={style}>
             <strong className="ml-4 mb-8 text-sm md:text-md"> Sign in </strong>

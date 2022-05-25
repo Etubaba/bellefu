@@ -80,7 +80,7 @@ const HeaderSearch = ({
             "w-full h-20 mt-3 flex space-x-96  bg-bellefuWhite mb-3  rounded-md items-center "
           }
         >
-          {loading?<div className="flex">
+          {loading ? <div className="flex">
             <div className="flex space-x-4 items-center justify-center ml-8 cursor-pointer">
               <div>
                 <img
@@ -164,7 +164,7 @@ const HeaderSearch = ({
                   ))}
               </div>
             )}
-            {selectlang && (
+            {/* {selectlang && (
               <div className="z-50 absolute top-32 right-[60rem] mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {languages.map((lang) => (
                   <div
@@ -182,7 +182,7 @@ const HeaderSearch = ({
                   </div>
                 ))}
               </div>
-            )}
+            )} */}
 
             {/* <div
               onClick={() => {
@@ -200,14 +200,14 @@ const HeaderSearch = ({
 
               <AiFillCaretDown className="text-white" />
             </div> */}
-          </div>:<Skeleton
-           variant="rectangular"
-           animation="wave"
-           width={"15%"}
-           height={50}
+          </div> : <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={"15%"}
+            height={50}
           />}
 
-          {loading?<div className="flex pl-2 justify-center items-center bg-bellefuBackground w-6/12 h-11">
+          {loading ? <div className="flex pl-2 justify-center items-center bg-bellefuBackground w-6/12 h-11">
             <div className="mr-5">
               {" "}
               <FiSearch className="text-bellefuOrange" />
@@ -217,6 +217,7 @@ const HeaderSearch = ({
               type="text"
               list="brow"
               value={search}
+              placeholder="Search for agricultural products"
               onChange={(e) => {
                 e.stopPropagation();
                 dispatch(handleSearch(e.target.value));
@@ -224,7 +225,7 @@ const HeaderSearch = ({
                 dispatch(selectCat(null));
                 setSearch(e.target.value);
               }}
-              placeholder="What are you looking for?"
+
               className="bg-bellefuBackground focus:outline-none w-9/12"
             />
             <datalist id="brow">
@@ -297,11 +298,11 @@ const HeaderSearch = ({
             <button className=" w-4/12 h-8  m-2 rounded-sm text-center bg-bellefuOrange text-white">
               Search
             </button>
-          </div>:<Skeleton
-           variant="rectangular"
-           animation="wave"
-           width={"50%"}
-           height={50}
+          </div> : <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={"50%"}
+            height={50}
           />}
         </div>
       </div>
@@ -317,7 +318,7 @@ const HeaderSearch = ({
       </div> */}
       <div className=" lg:hidden">
         {/*  filter by search */}
-       {loading? <div className="mt-3 relative">
+        {loading ? <div className="mt-3 relative">
           <BiSearch className="w-6 h-6 absolute top-4 text-bellefuOrange ml-2" />
           <input
             list="brow"
@@ -338,15 +339,15 @@ const HeaderSearch = ({
             <option value="Farm machine" />
             <option value="Agro Jobs" />
           </datalist>
-        </div>:<Skeleton
-        className="rounded-md mb-1"
-        variant="rectangular"
-        animation="wave"
-        width={"100%"}
-        height={50} 
+        </div> : <Skeleton
+          className="rounded-md mb-1"
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={50}
         />}
         {/* search select */}
-        {loading?<div className="bg-white mt-2 p-3 flex items-center rounded-md relative">
+        {loading ? <div className="bg-white mt-2 p-3 flex items-center rounded-md relative">
           <div className=" flex flex-1 items-center space-x-2 cursor-ponter">
             <ImLocation2 className="text-bellefuOrange" />
             <span>
@@ -386,13 +387,13 @@ const HeaderSearch = ({
               ))}
             </div>
           )}
-        </div>:<Skeleton
-                className="rounded-md"
+        </div> : <Skeleton
+          className="rounded-md"
 
-        variant="rectangular"
-        animation="wave"
-        width={"100%"}
-        height={50} 
+          variant="rectangular"
+          animation="wave"
+          width={"100%"}
+          height={50}
         />}
       </div>
       {/* end of mobile header search */}

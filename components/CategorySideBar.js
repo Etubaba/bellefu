@@ -46,7 +46,7 @@ const CategorySideBar = ({ categories, indexData }) => {
                     className="text-bellefuBlack1 text-normal font-medium whitespace-nowrap"
                     onClick={() => router.push("/custom")}
                   >
-                    Custom Request
+                    Special Request
                   </h5>
                 </div>
                 <div className="">

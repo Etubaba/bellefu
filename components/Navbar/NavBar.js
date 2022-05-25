@@ -94,7 +94,7 @@ const NavBar = () => {
   if (loading) {
     setTimeout(() => {
       setLoading(false)
-    }, 2000);
+    }, 3000);
   }
 
 
