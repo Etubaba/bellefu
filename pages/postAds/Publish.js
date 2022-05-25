@@ -9,14 +9,13 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 export default function Publish() {
-  const [showSuccess, setShowSuccess] = useState(true);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
   const dataTopost2 = useSelector((state) => state.bellefu.profileDetails);
   const dispatch = useDispatch();
-  console.log("first data", dataTopost);
-  console.log("second", dataTopost2);
+
   //  plans handling section
 
   const handleFeatured = () => {
@@ -130,12 +129,19 @@ export default function Publish() {
         },
       })
         .then((res) => {
-          res.status === 200
-            ? setShowSuccess(false)
-            : setShowSuccess(true) &&
-            toast.error("Server busy. Try again", {
+
+          if (res.data.status) {
+            setShowSuccess(true);
+            toast.success("Product published successfully", {
               position: "top-center",
             });
+          }
+          // res.status === 200
+          //   ? setShowSuccess(false)
+          //   : setShowSuccess(true) &&
+          //   toast.error("Server busy. Try again", {
+          //     position: "top-center",
+          //   });
         })
         .catch((err) =>
           err
@@ -154,7 +160,7 @@ export default function Publish() {
 
   return (
     <div className="rounded-lg  bg-bellefuWhite h-auto w-auto p-10 ">
-      {showSuccess ? (
+      {!showSuccess ? (
         <>
           <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="sm:flex lg:flex">
