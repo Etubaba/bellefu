@@ -26,7 +26,7 @@ const AddMoney = () => {
     public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
     tx_ref: Date.now(),
     amount: totalPrice,
-    currency: currency,
+    currency: 'USD',
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: userEmail,
@@ -41,45 +41,36 @@ const AddMoney = () => {
   };
 
 
+  const handleConvert = () => {
+    const amount = Number(totalPrice) * 100
+    setRate(amount)
+    setConvert(true)
 
+  }
 
 
 
   const handleFlutterPayment = useFlutterwave(config);
 
   const handlePay = () => {
-    if (hasPaid?.status === 'successful') {
+    if (hasPaid?.status == 'successful') {
       toast.success('Payment completed successfully')
       setTotalPrice('')
-      axios.post(`${apiData}`, hasPaid)
+      axios.post(`${apiData}fund/wallet`, {
+        userId: userId?.id,
+        amount: rate,
+      })
         .then(res => {
           if (res.data.status) {
-            // toast.success('Payment completed successfully')
-            console.log('paid')
+            toast.success('Wallet updated successfully')
+
           }
         })
-
-      // setHasPaid({})
     }
 
   }
 
 
-  const handleConvert = () => {
-    const amount = Number(totalPrice) * 100
-    setRate(amount)
-    // axios
-    //   .post(`${apiData}convert/currency`, {
-    //     amount: totalPrice,
-    //     to: 'USD',
-    //     from: currency,
-    //   })
-    //   .then((res) => {
-    //     setRate(res.data.data.result);
-    //   });
-    setConvert(true)
-
-  }
 
 
   const formatedRate = (rate).toLocaleString('en-US', {
@@ -87,6 +78,18 @@ const AddMoney = () => {
     currency: 'usd'
   }).slice(1)
 
+
+  // useEffect(() => {
+  // if(hasPaid?.status === 'successful'){
+
+  //   setTotalPrice('')}
+
+
+
+  // },[hasPaid])
+
+
+  console.log('rate', rate)
   return (
     <>
       <Head>
@@ -105,7 +108,7 @@ const AddMoney = () => {
 
               <div className='items-center mb-10 justify-center px-7 md:px-24 flex space-y-3 flex-col '>
                 <label className='font-semibold'>Enter Amount   ({''} $ {''})</label>
-                <input type='number' className="w-full rounded-xl py-3 pl-5 outline outline-gray-300 focus:outline-bellefuOrange" value={totalPrice} onChange={e => setTotalPrice(e.target.value)} />
+                <input type='number' className="w-full rounded-xl py-3 pl-5 outline outline-gray-300 focus:outline-bellefuOrange" value={totalPrice} onChange={e => { setTotalPrice(e.target.value); setRate(Number(e.target.value * 100)) }} />
               </div>
 
               <div className='flex justify-center items-center  font-semibold space-x-6 my-10'>
@@ -149,9 +152,21 @@ const AddMoney = () => {
                               callback: (response) => {
                                 console.log(response);
                                 setHasPaid(response)
-
                                 closePaymentModal() // this will close the modal programmatically
-                                handlePay()
+                                if (response.status === 'successful') {
+                                  toast.success('Payment completed successfully')
+                                  setTotalPrice('')
+                                  axios.post(`${apiData}fund/wallet`, {
+                                    userId: userId?.id,
+                                    amount: rate,
+                                  })
+                                    .then(res => {
+                                      if (res.data.status) {
+                                        toast.success('Wallet updated successfully')
+
+                                      }
+                                    })
+                                }
                               },
                               onClose: () => { },
                             });
