@@ -15,6 +15,8 @@ export default function Publish() {
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
   const dataTopost2 = useSelector((state) => state.bellefu.profileDetails);
   const dispatch = useDispatch();
+  console.log("first data", dataTopost);
+  console.log("second", dataTopost2);
   //  plans handling section
 
   const handleFeatured = () => {

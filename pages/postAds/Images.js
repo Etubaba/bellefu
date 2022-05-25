@@ -7,7 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { handleImagesUpdate, handleVideoUpdate } from "../../features/bellefuSlice";
+import { handleImagesUpdate, handleVideoUpdate, isProductForShop, profileDetails } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
 import Video from "./Video";
 
@@ -41,6 +41,8 @@ export default function Images(props) {
 
 
   const videoFile = useSelector(state => state.bellefu?.video);
+  const user = useSelector(profileDetails);
+  const isNewProductForShop = useSelector(isProductForShop);
 
   const router = useRouter();
 
@@ -115,7 +117,10 @@ export default function Images(props) {
     if (files2.length !== 0) {
       dispatch(handleImagesUpdate(files2));
       dispatch(handleVideoUpdate(videoFile));
-      router.push("/postAds/Publish");
+
+      if (isNewProductForShop) router.push(`/${user.id}`);
+      else router.push("/postAds/Publish");
+      
     } else {
       toast.error("You have not uoloaded any Images", {
         position: "top-center",
