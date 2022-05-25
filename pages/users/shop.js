@@ -178,7 +178,7 @@ function shop() {
       <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite   h-auto w-full md:w-auto">
         <div className="flex justify-between px-3  lg:px-10 md:py-6 py-2 border-b">
           <h1 className="font-semibold text-sm">My Shop Details</h1>
-         {  user?.shopId === null ?null:(<div onClick={() => router.push(`/${user.id}`)}>
+         {  user?.shopId === null ?null:(<div onClick={() => router.push("/shop/upload-product")}>
             <button onClick={() => router.push(`/${user.id}`)} className="py-1 lg:py-1.5 hover:bg-orange-400  px-1.5 lg:px-3 rounded-full bg-bellefuOrange text-white text-sm lg:text-sm">
               Add new product
             </button>
