@@ -217,7 +217,7 @@ const HeaderSearch = ({
               type="text"
               list="brow"
               value={search}
-              placeholder="Search for agricultural products"
+              placeholder="Search agricultural products"
               onChange={(e) => {
                 e.stopPropagation();
                 dispatch(handleSearch(e.target.value));

@@ -196,6 +196,7 @@ export const bellefuSlice = createSlice({
     setProfileDetails: (state, action) => {
       state.profileDetails = action.payload;
     },
+
     Subcat: (state, action) => {
       state.subcatselected = action.payload;
     },
