@@ -44,6 +44,7 @@ const ProductUpload = () => {
   const [openSizeList, setopenSizeList] = useState(false);
   //const [isNewProduct, setNewProduct] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const sizes = ["small", "medium", "large",];
 
@@ -53,9 +54,9 @@ const ProductUpload = () => {
 
     setStateHandler(evt.target.value);
   };
-  let elem;
+  
   const onClick = (input) => () => {
-   elem = document.getElementById(input);
+    let elem = document.getElementById(input);
     
     if (!elem.checked) elem.click()
   };
@@ -143,7 +144,7 @@ const ProductUpload = () => {
       formData.append("weight", weight);
       formData.append("sellingCondition", sellCondition);
       formData.append("device", "web");
-      formData.append("shop", "false");
+      formData.append("shop", false);
       //formData.append("plans", dataTopost.plans);
 
       //console.log(formData);
@@ -178,7 +179,7 @@ const ProductUpload = () => {
             else formFields[key]("");
           }
 
-          elem?.checked = false;
+          setSubmitSuccess(true);
 
           toast.success("shop product upload success!", {
             position: toast.POSITION.TOP_CENTER,
@@ -229,9 +230,9 @@ const ProductUpload = () => {
             else formFields[key]("");
           }
 
-          elem?.checked = false;
+          setSubmitSuccess(true);
 
-          toast.success("shop product upload success!", {
+          toast.success("product pushed to shop successfully!", {
             position: toast.POSITION.TOP_CENTER,
           })
         } else {
@@ -253,6 +254,10 @@ const ProductUpload = () => {
     getUserProducts();
   }, [])
 
+  useEffect(() => {
+    if (submitSuccess) setSubmitSuccess(false);
+  }, [submitSuccess])
+
   return (
     <>
     <Head>
@@ -262,8 +267,9 @@ const ProductUpload = () => {
     <div className="mt-32">
       <h1 className="text-center text-2xl font-bold ">Upload Product</h1>
       <form className="w-[90%] md:w-[60%] lg:w-[50%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
-        {!creatingNewProduct && <div className="text-right">
-            <button className="text-lg font-semibold bg-bellefuOrange hover:bg-orange-400 rounded-lg p-2 text-bellefuWhite" onClick={handleNewProduct}>Create New Product</button>
+        {!creatingNewProduct && <div className="flex justify-between mb-9">
+            <button className="text-lg font-semibold bg-bellefuOrange rounded-lg p-2 text-bellefuWhite hover:cursor-default">Push Product To Shop</button>
+            <button className="text-lg font-semibold border-2 border-bellefuOrange rounded-lg p-2 text-bellefuBlack1 hover:text-gray-400" onClick={handleNewProduct}>Create New Product</button>
           </div>
         }
         {!creatingNewProduct && <div className="mb-3 relative">
@@ -285,7 +291,8 @@ const ProductUpload = () => {
                         setopenProductList(prevState => !prevState);
                         setProduct(item.title);
                         setNormalPrice(item.price);
-                        setProductId(item.productId)
+                        setProductId(item.productId);
+                        setProductActive(prevState => !prevState);
                       }}
                       key={index}
                       className="py-3 pl-6 hover:bg-gray-100 flex space-x-5 items-center cursor-pointer rounded"
@@ -326,6 +333,7 @@ const ProductUpload = () => {
                     onClick={() => {
                       setopenSizeList(prevState => !prevState);
                       setSize(size);
+                      setSizeActive(prevState => !prevState);
                     }}
                     key={index}
                     className="py-3 pl-6 hover:bg-gray-100 flex space-x-5 items-center cursor-pointer rounded"
@@ -345,15 +353,15 @@ const ProductUpload = () => {
           <p className="mb-1 text-lg font-semibold">Selling Condition:</p>
           <div className="flex shadow mb-4 p-3 rounded-md bg-white hover:cursor-pointer" id="main-container" onClick={onClick("new-prod")}>
             <div className="mr-auto" id="label-container"><label htmlFor="new-prod" className="text-lg hover:cursor-pointer">New Product</label></div>
-            <div id="input-container"><input type="radio" id="new-prod" name="sell-condition" value="new" onClick={onChange("sellCondition", setSellCondition)} className="w-6 h-6 hover:cursor-pointer" /></div>
+            <div id="input-container"><input type="radio" id="new-prod" name="sell-condition" value="new" onClick={onChange("sellCondition", setSellCondition)} className="w-6 h-6 hover:cursor-pointer" checked={submitSuccess?false:null} /></div>
           </div>
           <div className="flex shadow mb-4 p-3 rounded-md bg-white hover:cursor-pointer" onClick={onClick("used-prod")}>
             <div className="mr-auto"><label htmlFor="used-prod" className="text-lg hover:cursor-pointer">Used Product</label></div>
-            <div><input type="radio" id="used-prod" name="sell-condition" value="used" onClick={onChange("sellCondition", setSellCondition)} className="w-6 h-6 hover:cursor-pointer" /></div>
+            <div><input type="radio" id="used-prod" name="sell-condition" value="used" onClick={onChange("sellCondition", setSellCondition)} className="w-6 h-6 hover:cursor-pointer" checked={submitSuccess?false:null} /></div>
           </div>
           <div className="flex shadow mb-4 p-3 rounded-md bg-white hover:cursor-pointer" onClick={onClick("refurb-prod")}>
             <div className="mr-auto hover:cursor-pointer"><label htmlFor="refurb-prod" className="text-lg hover:cursor-pointer">Refurbished Product</label></div>
-            <div><input type="radio" id="refurb-prod" name="sell-condition" value="refurbished" onClick={onChange("sellCondition", setSellCondition)} className="w-6 h-6 hover:cursor-pointer" /></div>
+            <div><input type="radio" id="refurb-prod" name="sell-condition" value="refurbished" onClick={onChange("sellCondition", setSellCondition)} className="w-6 h-6 hover:cursor-pointer" checked={submitSuccess?false:null} /></div>
           </div>
         </div>
         <div className={classNames("text-center bg-bellefuOrange hover:bg-orange-500 text-bellefuWhite py-1 rounded-md font-semibold text-2xl", {"bg-orange-300 hover:bg-orange-300": isLoading})}>
