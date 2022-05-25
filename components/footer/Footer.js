@@ -112,7 +112,7 @@ function Footer() {
           </p>
 
           <ul className="list-none  font-light space-y-2 text-[#D4D7D1] text-sm">
-            <li onClick={() => router.push("/feedback")} className="link">
+            <li onClick={() => router.push("/Feedback")} className="link">
               Feedback
             </li>
 

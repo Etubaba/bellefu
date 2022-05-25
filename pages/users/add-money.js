@@ -14,7 +14,7 @@ const AddMoney = () => {
   const [totalPrice, setTotalPrice] = useState('')
   const [hasPaid, setHasPaid] = useState({})
   const [convert, setConvert] = useState(false)
-  const [rate, setRate] = useState(null)
+  const [rate, setRate] = useState(0)
 
   const userId = useSelector(profileDetails)
   const userFullName = userId?.first_name + " " + userId?.last_name;
@@ -66,21 +66,23 @@ const AddMoney = () => {
 
 
   const handleConvert = () => {
-    axios
-      .post(`${apiData}convert/currency`, {
-        amount: totalPrice,
-        to: 'USD',
-        from: currency,
-      })
-      .then((res) => {
-        setRate(res.data.data.result);
-      });
+    const amount = Number(totalPrice) * 100
+    setRate(amount)
+    // axios
+    //   .post(`${apiData}convert/currency`, {
+    //     amount: totalPrice,
+    //     to: 'USD',
+    //     from: currency,
+    //   })
+    //   .then((res) => {
+    //     setRate(res.data.data.result);
+    //   });
     setConvert(true)
 
   }
 
 
-  const formatedRate = (rate * 100).toLocaleString('en-US', {
+  const formatedRate = (rate).toLocaleString('en-US', {
     style: 'currency',
     currency: 'usd'
   }).slice(1)
@@ -102,21 +104,18 @@ const AddMoney = () => {
             <div className="bg-[#F8FDF2] hover:cursor-pointer mb-2 md:mr-12 py-8 rounded-lg border-2" >
 
               <div className='items-center mb-10 justify-center px-7 md:px-24 flex space-y-3 flex-col '>
-                <label className='font-semibold'>Enter Amount   ({''} {currency} {''} )</label>
+                <label className='font-semibold'>Enter Amount   ({''} $ {''})</label>
                 <input type='number' className="w-full rounded-xl py-3 pl-5 outline outline-gray-300 focus:outline-bellefuOrange" value={totalPrice} onChange={e => setTotalPrice(e.target.value)} />
               </div>
 
               <div className='flex justify-center items-center  font-semibold space-x-6 my-10'>
-                <p> $1 </p>
-                <p>=</p>
                 <p>100 Bellicoin</p>
+                <p>=</p>
+                <p>$1</p>
               </div>
-
-
-
               {(totalPrice !== '' && convert) &&
                 <div className='flex justify-center items-center  font-semibold space-x-6 my-5'>
-                  <p> {currency}{''}{
+                  <p> $ {''}{
                     (Number(totalPrice)).toLocaleString('en-US', {
                       style: 'currency',
                       currency: 'usd'

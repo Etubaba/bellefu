@@ -33,7 +33,6 @@ const SingleProductSidebar = ({ userDetails, }) => {
   const senderId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const verified = useSelector((state) => state.bellefu?.verificationStatus);
   const isLoggedIn = useSelector(login);
-
   const handleMessage = () => {
     if (isLoggedIn) {
       setOpen(true);
