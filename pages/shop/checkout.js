@@ -20,17 +20,13 @@ const Checkout = () => {
     const [zip, setZip] = useState("");
     const [country, setCountry] = useState("");
     const [phone, setPhone] = useState("");
-    const [hasPaid, setHasPaid] = useState({});
+    const [hasPaid, setHasPaid] = useState(null);
     const [cartList, setCartList] = useState([]);
     const [modalopen, setModalOpen] = useState(false)
 
 
 
     const userId = useSelector(profileDetails)
-
-
-
-
 
     const handleShowAddresses = () => setShowAddresses(true);
     const router = useRouter();
@@ -51,7 +47,6 @@ const Checkout = () => {
         getCart()
 
     }, [])
-
     const priceSum = cartList?.reduce((acc, curr) => { acc += curr.price * curr.quantity; return acc }, 0)
     const shippingFee = 200
     const totalPrice = priceSum + shippingFee
@@ -64,7 +59,8 @@ const Checkout = () => {
         public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
         tx_ref: Date.now(),
         amount: totalPrice,
-        currency: 'NGN',
+        amount: 24,
+        currency: 'USD',
         payment_options: 'card,mobilemoney,ussd',
         customer: {
             email: userEmail,
@@ -83,15 +79,11 @@ const Checkout = () => {
 
 
 
-    const cartId = cartList?.map(item => item.cartId)
+    const cartId = cartList.length > 0 ? cartList?.map(item => item.cartId) : []
 
 
 
 
-    if (hasPaid?.status === 'successful') {
-        toast.success('Payment completed successfully')
-
-    }
 
 
 
@@ -109,7 +101,9 @@ const Checkout = () => {
             formData.append("stateCode", state);
             formData.append("countryCode", country);
             formData.append("phone", phone);
-            formData.append("quantity", 3);
+            formData.append("transaction_id", hasPaid?.transaction_id);
+            formData.append("tx_ref", hasPaid?.tx_ref);
+            formData.append("quantity", 1);
             formData.append("cartId", JSON.stringify(cartId));
             axios({
                 method: "post",
@@ -229,7 +223,9 @@ const Checkout = () => {
                                                     callback: (response) => {
                                                         setHasPaid(response)
                                                         console.log(response);
-                                                        closePaymentModal() // this will close the modal programmatically
+                                                        closePaymentModal()
+                                                        if (response.status === 'successful') toast.success("Payment completed Successful")
+                                                        // this will close the modal programmatically
                                                     },
                                                     onClose: () => { },
                                                 });
@@ -315,7 +311,7 @@ const Checkout = () => {
 
                                         <p className="p-1 mx-3 mb-2 md:mb-6 text-center ">
                                             {" "}
-                                            Congratulations... Your order has been placed  sucessful
+                                            Congratulations!!! Your order has been placed successfully.
                                         </p>
                                     </div>
                                 </Modal>
