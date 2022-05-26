@@ -16,14 +16,20 @@ import {
   countryProductSearchEmpty,
   country,
   homeData,
+  profileDetails,
+  login,
+  handleSearch,
 } from "../../features/bellefuSlice";
 import Skeleton from "@mui/material/Skeleton";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const [loading, setLoading] = useState(false);
   const [isSearching, setSearching] = useState(false);
   const [countryData, setCountryData] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
+  const [suggestion, setSuggestion] = useState([]);
   const [fav, setFav] = useState([]);
   const [grid, setGrid] = useState(false);
   const [page, setPage] = useState(1);
@@ -40,6 +46,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   const searchCountry = useSelector(country);
   const initialRender = useRef(0);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const defaultPageCount = indexProduct?.products.last_page;
 
@@ -133,11 +140,13 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       const getSearchResult = async () => {
         await axios
           .get(
-            `${apiData}search/product/${where}/${search.toLocaleLowerCase()}`
+            `${apiData}product/search/${where}/${search.toLocaleLowerCase()}`
           )
           .then((res) => {
             setSearchResult(res.data.data.data);
             setTotalPage(res.data.data.last_page);
+            setSuggestion(res.data.suggest.data);
+
           })
           //  setCountryData(res.data.data))
           .catch((err) => console.log(err));
@@ -187,13 +196,52 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
 
   const randomAdverts = adverts[Math.floor(Math.random() * adverts.length)]
 
-  const randomImage1 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
-  const randomImage2 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
+  const randomImage1 = adverts[Math.floor(Math.random() * adverts.length)]
+  const randomImage2 = adverts[Math.floor(Math.random() * adverts.length)]
+
+
+  const getIsLoggedIn = useSelector(login);
+  const username = useSelector(profileDetails);
+
+  const verify = useSelector((state) => state.bellefu?.verificationStatus);
+
+  const toPostAds = () => {
+    if (getIsLoggedIn && verify.phone && username.avatar !== "useravatar.jpg") {
+      router.push("/postAds");
+      dispatch(handleSearch(''));
+
+    } else if (!getIsLoggedIn) {
+      toast.info("Login to post  Ads", {
+        position: "top-right",
+      });
+      router.push("/login");
+      dispatch(handleSearch(''));
+
+    } else if (!verify.phone) {
+      toast.info("Verify your phone number to post Ads", {
+        position: "top-right",
+      });
+      router.push("/users/verify-account");
+      dispatch(handleSearch(''));
+
+    } else if (username.avatar === "useravatar.jpg") {
+      toast.info("Update your profile details to post  Ads", {
+        position: "top-right",
+      });
+      router.push("/users/profile");
+      dispatch(handleSearch(''));
+
+    }
+  };
+
+
+
+
 
   return (
     <div>
       {loading ? (
-        <MainProductHeader grid={grid} changeView={setGrid} />
+        <MainProductHeader title='Trending Ads' grid={grid} changeView={setGrid} />
       ) : (
         <Skeleton
           className="rounded my-3"
@@ -222,20 +270,58 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
           ) : main?.length === 0 ? (
             <div className="mt-8">
               <p className="text-center font-bold text-base md:text-3xl mb-8">
-                We don't have product in {searchCountry}
+                Can't find what you are looking for?
               </p>
               <div className="flex flex-col md:flex-row md:space-x-10 items-center justify-center">
                 <p className="bg-bellefuOrange rounded-lg hover:bg-orange-500 mb-5 md:mb-0 w-full md:w-1/2">
-                  <button className="w-full p-4 text-2xl text-bellefuWhite">
+                  <button
+                    onClick={() => { router.push("/custom"); dispatch(handleSearch('')) }}
+                    className="w-full p-4 text-2xl text-bellefuWhite">
                     Make Custom Request
                   </button>
                 </p>
-                <p className="bg-bellefuGreen rounded-lg hover:bg-green-500 w-full md:w-1/2">
-                  <button className="w-full p-4 text-2xl text-bellefuWhite">
+                <p className="bg-bellefuGreen rounded-lg hover:bg-[#538b09] w-full md:w-1/2">
+                  <button
+                    onClick={toPostAds}
+                    className="w-full p-4 text-2xl text-bellefuWhite">
                     Be The First To Post Product
                   </button>
                 </p>
               </div>
+
+              <div className='mt-7'>
+                <MainProductHeader title="Suggestions" grid={grid} changeView={setGrid} />
+
+                <div
+                  className='mt-3 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 grid-flow-row-dense'
+                >
+                  {suggestion?.map((product) => (
+                    <div key={product?.productId}>
+                      <ProductList
+                        key={product?.productId}
+                        view={grid}
+                        currency={currency}
+                        product={product}
+                        fav={favId}
+                        favdata={fav}
+                        currencyCode={currencyCode}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+
+
+              </div>
+
+
+
+
+
+
+
+
+
             </div>
           ) : (
             main
