@@ -17,26 +17,11 @@ import GovId from "../components/GovId";
 // import Skeleton from "@mui/material/Skeleton";
 import { useRouter } from 'next/router'
 import { shopApi } from "../constant";
-import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import Payment from '../components/paymentComponent/Payment'
+import { payment } from "../features/bellefuSlice";
 
 
 export default function CreateShop() {
-
-  const router = useRouter();
-
-
-  const userThings = useSelector((state) => state.bellefu.profileDetails);
-  //const userThings = useSelector((state) => state.bellefu.userDetails);
-
-  const idchecker = useSelector((state) => state.bellefu.verificationStatus);
-
-
-
-  const userFullName = userThings?.first_name + " " + userThings?.last_name;
-  const userEmail = userThings?.email;
-  const phone = userThings?.phone
-
   const [checkpass, setCheckPass] = useState(false);
   const [terms, setTerms] = useState(false);
   const [modalopen, setModalOpen] = useState(false);
@@ -51,37 +36,22 @@ export default function CreateShop() {
   const [files, setFiles] = useState(null);
   const [files2, setFiles2] = useState(null);
   const [govid, setGovid] = useState([]);
-  const [hasPaid, setHasPaid] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false)
 
 
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+  const userThings = useSelector((state) => state.bellefu.profileDetails);
+  //const userThings = useSelector((state) => state.bellefu.userDetails);
+
+  const hasPaid = useSelector((state) => state.bellefu?.hasPaid);
+  const idchecker = useSelector((state) => state.bellefu.verificationStatus);
 
 
   const handleGovid = (event) => {
     setGovid(event);
   };
-
-  const config = {
-    public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
-    tx_ref: Date.now(),
-    amount: 25,
-    currency: 'USD',
-    payment_options: 'card,mobilemoney,ussd',
-    customer: {
-      email: userEmail,
-      phonenumber: phone,
-      name: userFullName,
-    },
-    customizations: {
-      title: 'Pay money',
-      description: 'Pay money for your shop',
-      logo: 'https://www.linkpicture.com/q/bellefuApplogo.jpg',
-    },
-  };
-  const handleFlutterPayment = useFlutterwave(config);
-
-
-
 
 
 
@@ -118,97 +88,106 @@ export default function CreateShop() {
     })
   }
 
-  const handleCreate = () => {
 
-    const formData = new FormData();
-    formData.append("userId", userThings?.id);
-    formData.append("shopName", shopname);
-    formData.append("description", description);
-    formData.append("countryCode", userThings?.country_code);
-    formData.append("countryCode", userThings?.country_code);
-    formData.append("stateCode", userThings?.state);
-    formData.append("address", address);
-    formData.append("accountNumber", accountnumber);
-    formData.append("accountType", accounttype);
-    formData.append("accountName", accountname);
-    formData.append("bankName", bankname);
-    formData.append("nextOfKin", nextofkin);
-    formData.append("subscriptionAmount", 100);
-    formData.append("image", files2 === null ? "" : files2);
-    if (idchecker?.id === false) {
-      formData.append("file1", govid[0] === undefined ? "" : govid[0]);
-      formData.append("file2", govid[1] === undefined ? "" : govid[1]);
-    } else {
-      null;
-    }
 
-    if (
-      shopname === null ||
-        bankname === null ||
-        accountname === null ||
-        accountnumber === null ||
-        accounttype === null ||
-        nextofkin === null ||
-        description === null ||
-        address === null ||
-        files2 === null
-        ? toast.error("Shop Logo is required", {
-          position: "top-center",
-        })
-        : null || terms === false
-          ? toast.error("Accept Terms and Condition", {
+  // if (hasPaid) setPaymentModal(false)
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    if (hasPaid) {
+      const formData = new FormData();
+      formData.append("userId", userThings?.id);
+      formData.append("shopName", shopname);
+      formData.append("description", description);
+      formData.append("countryCode", userThings?.country_code);
+      formData.append("countryCode", userThings?.country_code);
+      formData.append("stateCode", userThings?.state);
+      formData.append("address", address);
+      formData.append("accountNumber", accountnumber);
+      formData.append("accountType", accounttype);
+      formData.append("accountName", accountname);
+      formData.append("bankName", bankname);
+      formData.append("nextOfKin", nextofkin);
+      formData.append("subscriptionAmount", 100);
+      formData.append("image", files2 === null ? "" : files2);
+      if (idchecker?.id === false) {
+        formData.append("file1", govid[0] === undefined ? "" : govid[0]);
+        formData.append("file2", govid[1] === undefined ? "" : govid[1]);
+      } else {
+        null;
+      }
+
+      if (
+        shopname === null ||
+          bankname === null ||
+          accountname === null ||
+          accountnumber === null ||
+          accounttype === null ||
+          nextofkin === null ||
+          description === null ||
+          address === null ||
+          files2 === null
+          ? toast.error("Shop Logo is required", {
             position: "top-center",
           })
-          : null || idchecker === false
-            ? govid.length === 0
-              ? toast.error("Govt. Issued ID id required", {
-                position: "top-center",
-              })
-              : null
-            : null
-    ) {
-      toast.error("All fields are required", {
-        position: "top-center",
-      });
-    } else {
-      axios({
-        method: "POST",
-        url: `${shopApi}create`,
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-        .then((res) => {
-          console.log(res.status);
-          if (res.data.status) {
-            setModalOpen(true);
-            setTerms(false);
-            setShopName("");
-            setBankName("");
-            setAccountName("");
-            setAccountNumber("");
-            setAccountType("");
-            setNextOfKin("");
-            setDescription("");
-
-            setAddress("");
-            setFiles(null);
-            setFiles2(null);
-            setGovid([]);
-
-            window.location.reload();
-          } else {
-            toast.error("Something happend. Try again", {
+          : null || terms === false
+            ? toast.error("Accept Terms and Condition", {
               position: "top-center",
             })
-          }
-        }).catch((err) => {
-          toast.error(`${err}`, {
-            position: "top-center",
-          })
+            : null || idchecker === false
+              ? govid.length === 0
+                ? toast.error("Govt. Issued ID id required", {
+                  position: "top-center",
+                })
+                : null
+              : null
+      ) {
+        toast.error("All fields are required", {
+          position: "top-center",
+        });
+      } else {
+        axios({
+          method: "POST",
+          url: `${shopApi}create`,
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
+          .then((res) => {
+            console.log(res.status);
+            if (res.data.status) {
+              dispatch(payment(false))
+              localStorage.removeItem('coin')
+              setModalOpen(true);
+              setTerms(false);
+              setShopName("");
+              setBankName("");
+              setAccountName("");
+              setAccountNumber("");
+              setAccountType("");
+              setNextOfKin("");
+              setDescription("");
 
+              setAddress("");
+              setFiles(null);
+              setFiles2(null);
+              setGovid([]);
+            } else {
+              toast.error("Something happend. Try again", {
+                position: "top-center",
+              })
+            }
+          }).catch((err) => {
+            toast.error(`${err}`, {
+              position: "top-center",
+            })
+          })
+
+      }
+    } else {
+      toast.error("Complete payment to create shop")
+      setPaymentModal(true)
     }
   };
 
@@ -256,7 +235,7 @@ export default function CreateShop() {
             <AiOutlineClose className='text-red-600 text-4xl' />
           </div>
 
-          <Payment />
+          <Payment modal={setPaymentModal} />
         </div>
 
       </Modal>
@@ -266,7 +245,6 @@ export default function CreateShop() {
           <div className="bg-[#f8f8f8]   rounded-md border border-[#bbb9bb]  mb-5">
             <div className="p-5 flex  items-center justify-between">
               <p
-                onClick={() => setPaymentModal(true)}
                 className="text-lg text-gray-700 font-semibold tracking-wider">
                 Create Shop
               </p>
@@ -430,6 +408,16 @@ export default function CreateShop() {
                         />
                       </div>
                     </div>
+                    <div onClick={(e) => { e.preventDefault(); setPaymentModal(true) }} className='flex justify-end items-end  '>
+                      <button
+                        onClick={(e) => { e.preventDefault(); setPaymentModal(true) }}
+                        className='bg-bellefuGreen rounded-lg text-white px-12 md:px-20 md:py-3 py-2 '>Complete Payment</button>
+                    </div>
+
+
+
+
+
                     <button
                       onClick={handleCreate}
 
