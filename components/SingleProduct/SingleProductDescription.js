@@ -315,7 +315,7 @@ const SingleProductDescription = ({ productDetails }) => {
   };
 
 
-  console.log('product=>', productDetails)
+
 
   return (
     <>
