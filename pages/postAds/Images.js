@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "../../components/postAdsComponent/Layout";
+import ShopProductUpload from "../../components/ShopProducUpload";
 import { useEffect, useState } from "react";
 import { useDropzone, Dropzone } from "react-dropzone";
 import { BsCloudUpload } from "react-icons/bs";
@@ -49,6 +50,7 @@ export default function Images(props) {
   const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
   const [files2, setFiles2] = useState([]);
+  const [isUploadingProductToShop, setUploadingProductToShop] = useState(false);
   // const [vidfi, setVidfi] = useState("");
 
 
@@ -115,11 +117,12 @@ export default function Images(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (files2.length !== 0) {
-      dispatch(handleImagesUpdate(files2));
-      dispatch(handleVideoUpdate(videoFile));
-
-      if (isNewProductForShop) router.push("/shop/upload-product");
-      else router.push("/postAds/Publish");
+      if (isNewProductForShop) setUploadingProductToShop(true);
+      else {
+        dispatch(handleImagesUpdate(files2));
+        dispatch(handleVideoUpdate(videoFile));
+        router.push("/postAds/Publish");
+      }
       
     } else {
       toast.error("You have not uoloaded any Images", {
@@ -131,7 +134,7 @@ export default function Images(props) {
 
   return (
     <div>
-      {files.length === 0 ? (
+      {isUploadingProductToShop? <ShopProductUpload images={files2} video={videoFile} />: files.length === 0 ? (
         <div
           {...getRootProps()}
           className="border-dashed  space-y-4 border-4 mx-10 my-16 flex flex-col border-gray-300 justify-center p-10  items-center hover:border-blue-400 "

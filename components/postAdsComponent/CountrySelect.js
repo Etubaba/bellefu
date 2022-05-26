@@ -173,7 +173,7 @@ export default function UnstyledSelectSimple3({ countryStuffs, catchState }) {
   return (
     <CustomSelect>
       {countryStuffs.countries?.map((counts, index) => (
-        <span onClick={() => handleThings(counts)}>
+        <span key={index} onClick={() => handleThings(counts)}>
           <StyledOption key={index} value={counts.name}>
             {counts.name}
           </StyledOption>

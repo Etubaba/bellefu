@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { AiOutlineCaretRight } from "react-icons/ai";
 //import CreateProduct from "../components/CreateProduct";
-import { profileDetails, newProductForShop, isProductForShop } from "../../features/bellefuSlice";
-import axios from "axios";
+import { profileDetails, newProductForShop, isProductForShop } from "../features/bellefuSlice";
+//import axios from "axios";
 
 // export async function getServerSideProps({params}) {
 //   const { userproductid: userProductId } = params;
@@ -23,7 +23,7 @@ import axios from "axios";
 // }
 
 
-const ProductUpload = () => {
+const ShopProductUpload = ({images, video}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const userDetails = useSelector(profileDetails);
@@ -97,17 +97,17 @@ const ProductUpload = () => {
       formData.append("title", dataTopost.title);
       formData.append("location", dataTopost.location);
       // see the image dey show for payload wen i post but wen e reach backend e no dey show
-      formData.append("images1", dataTopost.images[0]);
-      formData.append("images2", dataTopost.images[1]);
-      formData.append("images3", dataTopost.images[2]);
-      formData.append("images4", dataTopost.images[3]);
-      formData.append("images5", dataTopost.images[4]);
-      formData.append("images6", dataTopost.images[5]);
-      formData.append("images7", dataTopost.images[6]);
-      formData.append("images8", dataTopost.images[7]);
-      formData.append("images9", dataTopost.images[8]);
-      formData.append("images10", dataTopost.images[9]);
-      formData.append("video", dataTopost.videofile);
+      formData.append("images1", images[0]);
+      formData.append("images2", images[1]);
+      formData.append("images3", images[2]);
+      formData.append("images4", images[3]);
+      formData.append("images5", images[4]);
+      formData.append("images6", images[5]);
+      formData.append("images7", images[6]);
+      formData.append("images8", images[7]);
+      formData.append("images9", images[8]);
+      formData.append("images10", images[9]);
+      formData.append("video", video);
       formData.append("categoryid", dataTopost.categoryid);
       formData.append("subcategoryid", dataTopost.subcategoryid);
       formData.append("price", dataTopost.price);
@@ -145,17 +145,18 @@ const ProductUpload = () => {
       formData.append("sellingCondition", sellCondition);
       formData.append("device", "web");
       formData.append("shop", true);
-      //formData.append("plans", dataTopost.plans);
+      formData.append("plans", "free");
 
       //console.log(formData);
       setLoading(true);
-      fetch(`https://bellefu.inmotionhub.xyz/api/general/create/product`, {
+      fetch("https://bellefu.inmotionhub.xyz/api/general/create/product", {
         method: "POST",
         body: formData,
         headers: {
-          "Content-Type": "multipart/form-data",
-        },
+          "Content-Type": "multipart/form-data"
+        }
       })
+      .then(res => res.json())
       .then((res) => {
         setLoading(false);
 
@@ -169,6 +170,7 @@ const ProductUpload = () => {
         
         if (res.status) {
           dispatch(newProductForShop(false));
+          router.push("/shop/upload-product");
 
           const formFields = {setProduct, setNormalPrice, setPromoPrice, setWeight, setSize, setSellCondition};
 
@@ -191,6 +193,7 @@ const ProductUpload = () => {
       })
       .catch((err) => {
         console.log(err);
+
         setLoading(false);
 
         toast.error("Something happend. Try again", {
@@ -263,9 +266,9 @@ const ProductUpload = () => {
       <title>Shop: Product Upload</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-    <div className="mt-32">
+    <div className="">
       <h1 className="text-center text-2xl font-bold ">Upload Product</h1>
-      <form className="w-[90%] md:w-[60%] lg:w-[50%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
+      <form className="w-[95%] mx-auto border-2 p-6 rounded-md" onSubmit={handleSubmit}>
         {!creatingNewProduct && <div className="flex justify-between mb-9">
             <button className="text-lg font-semibold bg-bellefuOrange rounded-lg p-2 text-bellefuWhite hover:cursor-default">Push Product To Shop</button>
             <button className="text-lg font-semibold border-2 border-bellefuOrange rounded-lg p-2 text-bellefuBlack1 hover:text-gray-400" onClick={handleNewProduct}>Create New Product</button>
@@ -372,4 +375,4 @@ const ProductUpload = () => {
   )
 };
 
-export default ProductUpload;
+export default ShopProductUpload;
