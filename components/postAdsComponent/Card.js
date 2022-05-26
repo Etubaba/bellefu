@@ -14,6 +14,7 @@ import { profileDetails, postadsData } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { apiData } from "../../constant";
+import { useRouter } from "next/router";
 
 const blue = {
   100: "#DAECFF",
@@ -167,6 +168,8 @@ export default function UnstyledSelectSimpleCard({ card }) {
   const phone = userId?.phone;
   const pricing = userAmount?.adsplanprice;
 
+  const router = useRouter();
+
   const paymentConfigExtension = {
     callback: (response) => {
       if (response.status === "successful") {
@@ -235,23 +238,25 @@ export default function UnstyledSelectSimpleCard({ card }) {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }).then((res) => {
-          if (res.data.status === true) {
-            toast.success("Congrats !!! Your Product is under Review", {
-              position: "top-center",
-            });
+        })
+          .then((res) => {
+            if (res.data.status === true) {
+              toast.success("Congrats !!! Your Product is under Review", {
+                position: "top-center",
+              });
+              const router = useRouter();
 
-            router.push("/postAds");
-            setTimeout(() => {
-              window.location.reload();
-              console.log("reloaded");
-            }, 4000);
-          }
-        }).catch((err)=>{
-          toast.error(`${err}`, {
-            position: "top-center",
+              router.push("/postAds");
+              setTimeout(() => {
+                window.location.reload();
+                console.log("reloaded");
+              }, 4000);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+           
           });
-        });
       }
       closePaymentModal(); // this will close the modal programmatically
     },
