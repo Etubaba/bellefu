@@ -2,11 +2,40 @@ import React from "react";
 import Layout from "../../components/postAdsComponent/Layout";
 import UnstyledSelectSimpleCard from "../../components/postAdsComponent/Card";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import {apiData} from "../../constant" ;
+import axios from "axios";
+import {useState,useEffect} from "react"
+import { profileDetails, userDId } from "../../features/bellefuSlice";
+import { toast } from "react-toastify";
+
 
 
 export default function Payment() {
+  const adsprice = useSelector((state) => state.bellefu.postAddata);
+  const adsdescription = useSelector((state) => state.bellefu.postAddata);
+  const dataTopost = useSelector((state) => state.bellefu.postAddata);
 
+
+
+  const user = useSelector(profileDetails);
+  const [wallet, setWallet] = useState(0)
+  const [newwallet, setNewWallet] = useState()
   const router = useRouter();
+
+
+
+  console.log(wallet   +  "waleet balance");
+  useEffect(() => {
+    const getWallet = async () => {
+      axios.get(`${apiData}get/wallet/balance/${user?.id}`).then((res) => {
+        setWallet(res.data.data);
+      });
+    }
+
+    getWallet()
+  }, [])
+
 
 
   const handleBack = (e) => {
@@ -14,6 +43,37 @@ export default function Payment() {
     router.back();
   };
 
+
+
+  const handlepay =()=>{
+    const payWithwallet= adsprice.adsplanprice*100;
+    //  setNewWallet(wallet-payWithwallet);
+    if(  payWithwallet>wallet){
+      toast.error("Insufficient Wallet balance", {
+        position: "top-center",
+      });
+    }
+    
+    else{
+      axios.post(`${apiData}update/wallet/balance`,{
+        deduction:payWithwallet,
+        userId:user?.id,
+        description:`${adsdescription?.plans} Ads Payment`
+      }).then((res)=>{
+        console.log(res);
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
+
+
+
+
+    // axios.post(`${apiData}update/wallet/balance`,{
+
+    // })
+
+  }
   return (
     <div className=" w-full  lg:w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
       <div className="bg-bellefuGreen p-4 ">
@@ -23,13 +83,13 @@ export default function Payment() {
         <div className="m-7 sm:flex lg:flex justify-between">
           <div className="flex my-4 lg:my-0">
             <input
-              //   onClick={handleUrgent}
+                onClick={handlepay}
               id="ads_plan"
               name="plans"
               type="radio"
               className="focus:ring-bellefuGreen mr-4 h-4 w-4 mt-[5px] text-bellefuGreen border-gray-300"
             />
-            <h2 className="font-semibold ">WALLET:&nbsp;&nbsp;0.00</h2>
+            <h2 className="font-semibold ">WALLET:&nbsp;&nbsp;{wallet}</h2>
           </div>
           <div className="col-span-6 sm:col-span-3 my-4 lg:my-0">
             <div className="flex">
@@ -46,7 +106,6 @@ export default function Payment() {
               type="text"
               name="location"
               id="location"
-              // onChange={handleLocation}
               className=" bg-[white] p-[8px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full lg:w-[18vw] shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
             />
           </div>
