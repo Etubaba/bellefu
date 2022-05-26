@@ -135,7 +135,7 @@ export default function Details() {
                     <div className=" p-3 flex flex-wrap">
                       {inputtxtarr.length <= 7
                         ? inputtxtarr.map((tags, index) => (
-                            <span className="flex bg-gray-300 p-[3px] justify-around lg:w-[6vw] rounded-md m-[2px]">
+                            <span key={index} className="flex bg-gray-300 p-[3px] justify-around lg:w-[6vw] rounded-md m-[2px]">
                               <p>{tags}</p>
                               <MdClose
                                 onClick={() => handleRemovetag(tags)}

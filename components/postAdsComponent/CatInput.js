@@ -153,7 +153,7 @@ export default function UnstyledSelectSimple1({ category,subcatCatcher }) {
   return (
     <CustomSelect>
       {optionSelect.categories?.map((counts, index) => (
-        <span onClick={() => handleThings(counts)}>
+        <span key={index} onClick={() => handleThings(counts)}>
           <StyledOption
             key={index}
             value={counts.name}
