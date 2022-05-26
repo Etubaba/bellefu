@@ -149,7 +149,7 @@ const CreateProductCategory = ({ categories, countries }) => {
                 {states.map((state, index) => (
                   <li
                     onClick={() => {
-                      setOpneState(prevState => !prevState);
+                      setOpenState(prevState => !prevState);
                       setStateName(state.name);
                       setStateCode(state.code)
                     }}
