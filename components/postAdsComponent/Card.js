@@ -157,7 +157,7 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 //   setNewPrice(res.data.data.result);
 // });
 
-export default function UnstyledSelectSimpleCard() {
+export default function UnstyledSelectSimpleCard({card}) {
   const userId = useSelector(profileDetails);
   const userAmount = useSelector(postadsData);
 
@@ -186,7 +186,7 @@ export default function UnstyledSelectSimpleCard() {
   const handleFlutterPayment = useFlutterwave(config);
 
   return (
-    <CustomSelect className="w-full">
+    <CustomSelect className="w-full" disabled={card}>
       <span
         onClick={() => {
           handleFlutterPayment({
