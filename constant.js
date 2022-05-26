@@ -9,7 +9,7 @@ export const shopApi = 'https://bellefu.inmotionhub.xyz/api/shop/'
 
 export const UserAvataUrl = 'https://bellefu.inmotionhub.xyz/get/user/images/'
 
-
+export const APIV3 = 'https://bellefu.inmotionhub.xyz/api/v3/'
 export const apiData = 'https://bellefu.inmotionhub.xyz/api/general/'
 
 export const indexAPI = 'https://bellefu.inmotionhub.xyz/api/web30/get/web/index'
@@ -17,6 +17,8 @@ export const indexAPI = 'https://bellefu.inmotionhub.xyz/api/web30/get/web/index
 export const CategoryImage = 'https://bellefu.inmotionhub.xyz/category/image/'
 
 export const sliderImage = 'https://bellefu.inmotionhub.xyz/slides/image/'
+
+export const AnnoucementsUrl = 'https://bellefu.inmotionhub.xyz/get/custom/image/'
 
 export const webApi = 'https://bellefu.inmotionhub.xyz/api/web30/'
 

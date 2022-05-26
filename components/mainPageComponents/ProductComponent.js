@@ -59,7 +59,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
   }, []);
 
   // getting random ads
-  const randomAdverts = adverts[Math.floor(Math.random() * adverts.length)];
+  ;
 
   useEffect(() => {
     if (page > 1) {
@@ -185,10 +185,10 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
     pageNumber.push(i);
   }
 
+  const randomAdverts = adverts[Math.floor(Math.random() * adverts.length)]
 
-
-  const radomImage1 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
-  const radomImage2 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
+  const randomImage1 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
+  const randomImage2 = adverts[Math.floor(Math.random() * adverts.length)]?.image;
 
   return (
     <div>
@@ -316,9 +316,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       {/* the ads start here */}
 
       {main.length > 8 && (
-        <a href={radomImage1?.action} target="_blank" className="my-5">
+        <a href={randomImage1?.action} target="_blank" className="my-5">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${radomImage1?.image}`}
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomImage1?.image}`}
 
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
@@ -361,9 +361,9 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       </div>
 
       {main.length > 16 && (
-        <a href={radomImage2?.action} target="_blank" className=" my-5">
+        <a href={randomImage2?.action} target="_blank" className=" my-5">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${radomImage2?.image
+            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomImage2?.image
               }`}
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
