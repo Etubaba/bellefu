@@ -147,7 +147,7 @@ const ShopProductUpload = ({images, video}) => {
       formData.append("shop", true);
       formData.append("plans", "free");
 
-      console.log(formData);
+      //console.log(formData);
       setLoading(true);
       fetch("https://bellefu.inmotionhub.xyz/api/general/create/product", {
         method: "POST",
