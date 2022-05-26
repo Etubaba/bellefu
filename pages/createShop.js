@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Modal } from "@mui/material";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { AiOutlineClose } from "react-icons/ai";
 
 import { useSelector, useDispatch } from "react-redux";
 import { FaCamera } from "react-icons/fa";
@@ -17,6 +18,7 @@ import GovId from "../components/GovId";
 import { useRouter } from 'next/router'
 import { shopApi } from "../constant";
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+import Payment from '../components/paymentComponent/Payment'
 
 
 export default function CreateShop() {
@@ -49,7 +51,9 @@ export default function CreateShop() {
   const [files, setFiles] = useState(null);
   const [files2, setFiles2] = useState(null);
   const [govid, setGovid] = useState([]);
-  const [hasPaid, setHasPaid] = useState('')
+  const [hasPaid, setHasPaid] = useState(false);
+  const [paymentModal, setPaymentModal] = useState(false)
+
 
 
 
@@ -239,11 +243,31 @@ export default function CreateShop() {
         </div>
       </Modal>
 
+      <Modal
+        open={paymentModal}
+        onClose={() => setPaymentModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className='flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   w-[70%] md:w-[70%] lg:w-[70%]'>
+          <div
+            onClick={() => setPaymentModal(false)}
+            className="flex bg-white hover:bg-slate-50 ml-[20rem] md:ml-[40rem] lg:ml-[70rem] rounded-full justify-end items-end">
+            <AiOutlineClose className='text-red-600 text-4xl' />
+          </div>
+
+          <Payment />
+        </div>
+
+      </Modal>
+
       <div className="flex justify-center items-center mt-[10%] md:mt-[5%] lg:mt-0">
         <div className="w-[90%] lg:w-[60%] mt-[10%]">
           <div className="bg-[#f8f8f8]   rounded-md border border-[#bbb9bb]  mb-5">
             <div className="p-5 flex  items-center justify-between">
-              <p className="text-lg text-gray-700 font-semibold tracking-wider">
+              <p
+                onClick={() => setPaymentModal(true)}
+                className="text-lg text-gray-700 font-semibold tracking-wider">
                 Create Shop
               </p>
             </div>

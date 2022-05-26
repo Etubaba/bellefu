@@ -6,6 +6,7 @@ const initialState = {
   subcatselected: undefined,
   favArr: [],
   shopProduct: typeof window !== "undefined" ? localStorage.getItem("shop") : '',
+  hasPaid: typeof window !== "undefined" ? localStorage.getItem("coin") : false,
   video: [],
   favLoad: 0,
   msgScroll: 0,
@@ -52,7 +53,7 @@ const initialState = {
     cityCode: "",
     plans: "",
     adsplanprice: "",
-   
+
     symbo: "",
   },
   // update user profile things
@@ -84,6 +85,10 @@ export const bellefuSlice = createSlice({
     },
     isDisabled: (state, action) => {
       state.formDisabler = action.payload;
+    },
+    payment: (state, action) => {
+      state.hasPaid = action.payload;
+      localStorage.setItem('coin', state.hasPaid);
     },
     idpending: (state, action) => {
       state.idApply = action.payload;
@@ -259,7 +264,7 @@ export const {
   isDisabled,
   chooseCountry,
   handleIndexApi,
-  handleSearch,
+  handleSearch, payment,
   updateIdpath, msgScroll,
   fetchData, userFav,
   Subcat, msgRead,
