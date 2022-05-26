@@ -225,6 +225,7 @@ export default function Payment() {
 
   return (
     <>
+     
       {!showSuccess ? (
         <div className=" w-full  lg:w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
           <div className="bg-bellefuGreen p-4 ">
