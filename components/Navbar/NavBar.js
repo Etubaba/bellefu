@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import Navbarsch from "./Navbarsch";
 import MobileNavbar from "./MobileNavbar";
 import axios from "axios";
-import { apiData } from "../../constant";
+import { AnnoucementsUrl, apiData, APIV3, shopApi } from "../../constant";
 import Loader from "../../constant";
 
 const NavBar = () => {
@@ -143,19 +143,21 @@ const NavBar = () => {
   // handling getting the addresses of a user
   useEffect(() => {
     const getAnnouncement = async () => {
-      await axios.post(
-        "https://bellefu.inmotionhub.xyz/api/v3/list/announcement"
+      await axios.get(
+        `${APIV3}list/announcement`
       ).then((res) => {
         setAnnouncement(res.data.data);
       }).catch((err) => console.log(err))
-      //   const announcementList = await resAnnouncement.json();
-      //   if (!announcementList) return;
-      //   setAnnouncement(await announcementList?.data);
-      // };
-      // setAnnouncement([]);
+
     }
     getAnnouncement();
   }, []);
+
+
+
+
+
+
 
   const handleCreateShop = () => {
     if (getIsLoggedIn && username.avatar !== "useravatar.jpg") {
@@ -171,28 +173,30 @@ const NavBar = () => {
     }
   }
 
-
   const currentPath = router.pathname;
 
-  const cartUrl = 'https://bellefu.inmotionhub.xyz/api/shop/list/cart/item/'
+
   useEffect(() => {
-    axios.get(`${cartUrl}${username?.id}`)
+    axios.get(`${shopApi}list/cart/item/${username?.id}`)
       .then(res => {
         setCartCount(res.data.data)
       })
 
   }, [cartCheck])
 
+  const randomAnouncement = announcement[Math.floor(Math.random() * announcement?.length)]
+
+
   return (
     <div className="fixed top-0 z-50 w-full ">
       {loading && <Loader isLoading={loading} />}
       <div className=" bg-[#2C3422] h-8 flex items-center justify-center space-x-3">
-        {/* <img
-          src={`https://bellefu.inmotionhub.xyz/get/custom/image/${announcement[1]}`}
+        <img
+          src={`${AnnoucementsUrl}${randomAnouncement?.image}`}
           alt="bellefu"
           className="w-10 h-6 rounded-md object-cover border"
         />
-        <p className="text-white text-sm italic">{announcement[0]}!!</p> */}
+        <p className="text-white text-sm italic">{randomAnouncement?.announcement}</p>
       </div>
 
       <nav className="flex px-2 py-2 lg:px-12 bg-bellefuGreen items-center justify-between  ">
