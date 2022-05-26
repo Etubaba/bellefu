@@ -225,6 +225,11 @@ export default function Payment() {
 
   return (
     <>
+     <Head>
+        <title>Bellefu</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+      </Head>
       {!showSuccess ? (
         <div className=" w-full  lg:w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
           <div className="bg-bellefuGreen p-4 ">
