@@ -8,8 +8,6 @@ export default function Slider({ slider }) {
 
   const [newSlider] = slider;
 
-
-
   return (
     <div className="">
       <Carousel
