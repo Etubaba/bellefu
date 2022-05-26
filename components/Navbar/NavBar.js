@@ -196,7 +196,7 @@ const NavBar = () => {
           alt="bellefu"
           className="w-10 h-6 rounded-md object-cover border"
         />
-        <p className="text-white text-sm italic">{randomAnouncement?.anouncement}!!</p>
+        <p className="text-white text-sm italic">{randomAnouncement?.announcement}</p>
       </div>
 
       <nav className="flex px-2 py-2 lg:px-12 bg-bellefuGreen items-center justify-between  ">
