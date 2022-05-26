@@ -9,7 +9,6 @@ export default function Slider({ slider }) {
   const [newSlider] = slider;
 
 
-  console.log('slider', newSlider);
 
   return (
     <div className="">
