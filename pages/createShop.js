@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Modal } from "@mui/material";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-import { AiOutlineClose } from "react-icons/ai";
+
 
 import { useSelector, useDispatch } from "react-redux";
 import { FaCamera } from "react-icons/fa";
@@ -229,12 +229,6 @@ export default function CreateShop() {
         aria-describedby="modal-modal-description"
       >
         <div className='flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   w-[70%] md:w-[70%] lg:w-[70%]'>
-          <div
-            onClick={() => setPaymentModal(false)}
-            className="flex bg-white hover:bg-slate-50 ml-[20rem] md:ml-[40rem] lg:ml-[70rem] rounded-full justify-end items-end">
-            <AiOutlineClose className='text-red-600 text-4xl' />
-          </div>
-
           <Payment modal={setPaymentModal} />
         </div>
 

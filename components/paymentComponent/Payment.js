@@ -3,11 +3,12 @@ import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { apiData } from "../../constant";
-import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
+import { AiOutlineCaretRight, AiOutlineCaretDown, AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import { useState, useEffect } from "react"
 import { payment, profileDetails, userDId } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
+
 
 export default function Payment({ modal }) {
     const [wallet, setWallet] = useState(0);
@@ -111,8 +112,13 @@ export default function Payment({ modal }) {
     return (
         <>
             <div className=" w-full  lg:w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
-                <div className="bg-bellefuGreen p-4 ">
+                <div className="bg-bellefuGreen justify-between flex p-4 ">
                     <h3 className="font-semibold ml-4 text-white">CHOOSE PAYMENT METHOD</h3>
+                    <div
+                        onClick={() => modal(false)}
+                        className="flex bg-white hover:bg-slate-50  rounded-full justify-end items-end">
+                        <AiOutlineClose className='text-red-600 text-2xl' />
+                    </div>
                 </div>
                 <div>
                     <div
@@ -202,9 +208,6 @@ export default function Payment({ modal }) {
                                                         },
                                                         onClose: () => { },
                                                     })
-
-
-
                                                     setDept('Card')
                                                 }}
                                                 className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
