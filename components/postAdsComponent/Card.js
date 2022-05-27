@@ -6,12 +6,11 @@ import OptionUnstyled, {
   optionUnstyledClasses,
 } from "@mui/base/OptionUnstyled";
 import PopperUnstyled from "@mui/base/PopperUnstyled";
-import { useDispatch } from "react-redux";
 import { styled } from "@mui/system";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { toast } from "react-toastify";
-import { profileDetails, postadsData } from "../../features/bellefuSlice";
-import { useSelector } from "react-redux";
+import { profileDetails, postadsData,handleAdsPostingCheckerUpdate } from "../../features/bellefuSlice";
+import { useSelector,useDispatch } from "react-redux";
 import axios from "axios";
 import { apiData } from "../../constant";
 import { useRouter } from "next/router";
@@ -159,6 +158,7 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
 // });
 
 export default function UnstyledSelectSimpleCard({ card }) {
+  const dispatch=useDispatch();
   const userId = useSelector(profileDetails);
   const userAmount = useSelector(postadsData);
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
@@ -241,9 +241,8 @@ export default function UnstyledSelectSimpleCard({ card }) {
         })
           .then((res) => {
             if (res.data.status === true) {
-              toast.success("Congrats !!! Your Product is under Review", {
-                position: "top-center",
-              });
+              dispatch(handleAdsPostingCheckerUpdate(true))
+
               const router = useRouter();
 
               router.push("/postAds");

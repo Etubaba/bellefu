@@ -53,7 +53,7 @@ const initialState = {
     cityCode: "",
     plans: "",
     adsplanprice: "",
-
+     postingchecker:false,
     symbo: "",
   },
   // update user profile things
@@ -144,6 +144,9 @@ export const bellefuSlice = createSlice({
     // ##########################
     handleAdsPlanPriceUpdate: (state, action) => {
       state.postAddata.adsplanprice = action.payload;
+    },
+    handleAdsPostingCheckerUpdate: (state, action) => {
+      state.postAddata.postingchecker = action.payload;
     },
     // ##################################################
 
@@ -296,7 +299,8 @@ export const {
   countryProductSearchEmpty,
   searchCountry,
   newProductForShop,
-  handleAdsPlanPriceUpdate
+  handleAdsPlanPriceUpdate,
+  handleAdsPostingCheckerUpdate
 } = bellefuSlice.actions;
 
 export const login = (state) => state.bellefu.login;
