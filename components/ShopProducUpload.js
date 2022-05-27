@@ -42,11 +42,12 @@ const ShopProductUpload = ({images, video}) => {
   const [sizeActive, setSizeActive] = useState(false);
   const [openProductList, setopenProductList] = useState(false);
   const [openSizeList, setopenSizeList] = useState(false);
-  //const [isNewProduct, setNewProduct] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const sizes = ["small", "medium", "large",];
+
+  console.log(images);
 
   const onChange = (input, setStateHandler) => (evt) => {
     //if (formFields[input]) return;
@@ -67,47 +68,24 @@ const ShopProductUpload = ({images, video}) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const formData = new FormData();
-    // console.log({shopId: userDetails.shopId, productId, normalPrice, promoPrice, size, weight, sellingCondition: sellCondition, shop: true});
-
-    // if (dataTopost.plans === "") {
-    //   toast.error("You must choose a plan", {
-    //     position: "top-center",
-    //   });
-    // } else 
-    // if (
-    //   dataTopost.plans === "" ||
-    //   dataTopost.categoryid === "" ||
-    //   dataTopost.subcategoryid === "" ||
-    //   dataTopost.title === "" ||
-    //   dataTopost.location === "" ||
-    //   dataTopost.countrycode === "" ||
-    //   dataTopost.states === "" ||
-    //   dataTopost.price === null ||
-    //   dataTopost.tag.length === 0 ||
-    //   dataTopost.cityCode === "" ||
-    //   dataTopost.description === ""
-    // ) {
-    //   toast.error("All fields are required", {
-    //     position: "top-center",
-    //   });
-    // } else 
     if (creatingNewProduct) {
       
-      //  things i dey post from redux store
       formData.append("title", dataTopost.title);
       formData.append("location", dataTopost.location);
-      // see the image dey show for payload wen i post but wen e reach backend e no dey show
       formData.append("images1", images[0]);
-      formData.append("images2", images[1]);
-      formData.append("images3", images[2]);
-      formData.append("images4", images[3]);
-      formData.append("images5", images[4]);
-      formData.append("images6", images[5]);
-      formData.append("images7", images[6]);
-      formData.append("images8", images[7]);
-      formData.append("images9", images[8]);
-      formData.append("images10", images[9]);
-      formData.append("video", video);
+      // formData.append("images2", images[1]);
+      // formData.append("images3", images[2]);
+      // formData.append("images4", images[3]);
+      // formData.append("images5", images[4]);
+      // formData.append("images6", images[5]);
+      // formData.append("images7", images[6]);
+      // formData.append("images8", images[7]);
+      // formData.append("images9", images[8]);
+      // formData.append("images10", images[9]);
+      // formData.append("video", video);
+      // uploads.forEach(element => {
+      //   formData.append("file[]", element);
+      // });
       formData.append("categoryid", dataTopost.categoryid);
       formData.append("subcategoryid", dataTopost.subcategoryid);
       formData.append("price", dataTopost.price);
@@ -116,27 +94,27 @@ const ShopProductUpload = ({images, video}) => {
         "tag1",
         dataTopost.tag[0] === undefined ? "" : dataTopost.tag[0]
       );
-      formData.append(
-        "tag2",
-        dataTopost.tag[1] === undefined ? "" : dataTopost.tag[1]
-      );
-      formData.append(
-        "tag3",
-        dataTopost.tag[2] === undefined ? "" : dataTopost.tag[2]
-      );
-      formData.append(
-        "tag4",
-        dataTopost.tag[3] === undefined ? "" : dataTopost.tag[3]
-      );
-      formData.append(
-        "tag5",
-        dataTopost.tag[4] === undefined ? "" : dataTopost.tag[4]
-      );
+      // formData.append(
+      //   "tag2",
+      //   dataTopost.tag[1] === undefined ? "" : dataTopost.tag[1]
+      // );
+      // formData.append(
+      //   "tag3",
+      //   dataTopost.tag[2] === undefined ? "" : dataTopost.tag[2]
+      // );
+      // formData.append(
+      //   "tag4",
+      //   dataTopost.tag[3] === undefined ? "" : dataTopost.tag[3]
+      // );
+      // formData.append(
+      //   "tag5",
+      //   dataTopost.tag[4] === undefined ? "" : dataTopost.tag[4]
+      // );
       formData.append("phone", dataTopost2.phone);
       formData.append("userid", dataTopost2.id);
-      formData.append("citycode", dataTopost.cityCode);
+      //formData.append("citycode");
       formData.append("countrycode", dataTopost.countrycode);
-      formData.append("states", dataTopost.states);
+      //formData.append("states");
       formData.append("currencyCode", dataTopost.currencyCode);
       formData.append("shopId", userDetails.shopId);
       formData.append("promoPrice", promoPrice);
@@ -147,27 +125,17 @@ const ShopProductUpload = ({images, video}) => {
       formData.append("shop", true);
       formData.append("plans", "free");
 
-      //console.log(formData);
+ 
       setLoading(true);
       fetch("https://bellefu.inmotionhub.xyz/api/general/create/product", {
         method: "POST",
         body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
+        
       })
       .then(res => res.json())
       .then((res) => {
         setLoading(false);
 
-        // if (res.status) {
-        //   setShowSuccess(false)
-        // } else {
-        //   toast.error("Server busy. Try again", {
-        //     position: "top-center",
-        //   });
-        // }
-        
         if (res.status) {
           dispatch(newProductForShop(false));
           router.push("/shop/upload-product");
