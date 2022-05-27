@@ -7,6 +7,7 @@ const initialState = {
   favArr: [],
   shopProduct: typeof window !== "undefined" ? localStorage.getItem("shop") : '',
   hasPaid: typeof window !== "undefined" ? localStorage.getItem("coin") : false,
+  orderPay: typeof window !== "undefined" ? localStorage.getItem("orderpay") : false,
   video: [],
   favLoad: 0,
   msgScroll: 0,
@@ -53,7 +54,7 @@ const initialState = {
     cityCode: "",
     plans: "",
     adsplanprice: "",
-     postingchecker:false,
+    postingchecker: false,
     symbo: "",
   },
   // update user profile things
@@ -89,6 +90,10 @@ export const bellefuSlice = createSlice({
     payment: (state, action) => {
       state.hasPaid = action.payload;
       localStorage.setItem('coin', state.hasPaid);
+    },
+    orderPayment: (state, action) => {
+      state.orderPay = action.payload;
+      localStorage.setItem('orderpay', state.orderPay);
     },
     idpending: (state, action) => {
       state.idApply = action.payload;
@@ -264,7 +269,7 @@ export const bellefuSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   isLoggedIn, shop,
-  isDisabled,
+  isDisabled, orderPayment,
   chooseCountry,
   handleIndexApi,
   handleSearch, payment,

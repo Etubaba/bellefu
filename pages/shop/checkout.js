@@ -6,11 +6,11 @@ import { useRouter } from "next/router";
 import { Modal } from '@mui/material'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import { productImageUrl, shopApi } from "../../constant";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import { profileDetails } from "../../features/bellefuSlice";
+import { orderPayment, profileDetails } from "../../features/bellefuSlice";
 // import { Testing } from "../components/personalize/SelectImage";
 
 const Checkout = () => {
@@ -29,7 +29,7 @@ const Checkout = () => {
 
     const userId = useSelector(profileDetails)
 
-
+    const dispatch = useDispatch()
     const router = useRouter();
 
 
@@ -118,6 +118,8 @@ const Checkout = () => {
                 .then((res) => {
                     if (res.data.status) {
                         setModalOpen(true);
+                        localStorage.removeItem('orderpay')
+                        dispatch(orderPayment(false))
                     }
                 })
 
@@ -226,7 +228,10 @@ const Checkout = () => {
                                                         setHasPaid(response)
                                                         console.log(response);
                                                         closePaymentModal()
-                                                        if (response.status === 'successful') toast.success("Payment completed Successful")
+                                                        if (response.status === 'successful') {
+                                                            dispatch(orderPayment(true))
+                                                            toast.success("Payment completed Successful")
+                                                        }
                                                         // this will close the modal programmatically
                                                     },
                                                     onClose: () => { },
