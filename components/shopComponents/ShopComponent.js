@@ -5,7 +5,7 @@ import { BsHeart, BsSuitHeartFill, BsCart3 } from "react-icons/bs";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import Loader, { apiData } from "../../constant";
+import Loader, { apiData, productImageUrl } from "../../constant";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { login, shop, favUpdated } from "../../features/bellefuSlice";
@@ -130,7 +130,7 @@ const ShopComponent = ({ product }) => {
     <div className="bg-bellefuWhite p-3 rounded-b-md">
       <img
         onClick={viewDetails}
-        src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+        src={`${productImageUrl}${product?.images[0]}`}
         className="rounded-md w-full h-44 object-cover hover:opacity-50"
         alt={product.title}
       />

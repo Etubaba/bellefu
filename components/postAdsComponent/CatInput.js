@@ -147,7 +147,7 @@ export default function UnstyledSelectSimple1({ category,subcatCatcher }) {
   const handleThings=(counts)=>{
     dispatch(handleCatUpdate(counts.id))
     subcatCatcher(counts.sub_category,counts.name);
-    console.log(counts);
+  
   }
 
   return (

@@ -10,7 +10,7 @@ import moment from "moment";
 import { Rating } from "@mui/material";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
-import { apiData } from "../../constant";
+import { apiData, storeUrl } from "../../constant";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { login } from "../../features/bellefuSlice";
@@ -86,14 +86,14 @@ const ShopSideBar = ({ userDetails }) => {
     }
   };
 
-  const PRODUCT_IMAGE_URL = "https://bellefu.inmotionhub.xyz/get/store/image/";
+
   return (
     <div className="hidden lg:inline">
       <div className="bg-bellefuWhite rounded-md flex flex-col pb-10 w-80 mr-3 ">
         {/* user brief info */}
         <div className="mt-5 flex flex-col items-center justify-center">
           <Image
-            src={`${PRODUCT_IMAGE_URL}${userDetails?.logo}`}
+            src={`${storeUrl}${userDetails?.logo}`}
             width={150}
             height={150}
             alt=""

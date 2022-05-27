@@ -45,7 +45,7 @@ const HeaderSearch = ({
   useEffect(() => {
     const fetchStates = async () => {
       await axios
-        .get(`https://bellefu.inmotionhub.xyz/api/general/get/${flag}/states`)
+        .get(`${apiData}get/${flag}/states`)
         .then((res) => setStateList(res.data.data))
         .catch((err) => console.log(err));
     };

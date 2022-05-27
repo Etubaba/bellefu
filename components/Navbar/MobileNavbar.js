@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { MdShoppingCart } from "react-icons/md";
 import { isLoggedIn, login, profileDetails } from "../../features/bellefuSlice";
 import axios from "axios";
-import Loader, { apiData } from "../../constant";
+import Loader, { apiData, UserAvataUrl } from "../../constant";
 import { FcShop } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -93,7 +93,7 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
           >
             <Image
               // src={username?.avatar ? `https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}` : "https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"}
-              src={`https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}`}
+              src={`${UserAvataUrl}${username?.avatar}`}
               width={100}
               height={100}
               className="rounded-full object-cover"
@@ -166,6 +166,7 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
             }}
           >
             Dashboard
+
           </div>
         )}
 
@@ -228,11 +229,12 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
               Create Shop
 
             </p>
+            <div onClick={() => router.push("/createShop")} />
           </div>
 
         )}
 
-        <p
+        <div
           className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
           onClick={() => {
             router.push("/shops");
@@ -244,8 +246,8 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
           <FcShop className="w-6 h-6" />
 
           Shops
-
-        </p>
+          <div onClick={() => router.push("/shops")} />
+        </div>
 
         {getIsLoggedIn && (
           <div className="w-2/5 mx-auto pt-2">

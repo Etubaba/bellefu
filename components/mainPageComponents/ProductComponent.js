@@ -11,7 +11,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import classNames from "classnames";
-import Loader, { apiData, indexApi } from "../../constant";
+import Loader, { apiData, commercialUrl, indexApi } from "../../constant";
 import {
   countryProductSearchEmpty,
   country,
@@ -358,7 +358,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       <div className="my-5">
         <a href={randomAdverts?.action} target="_blank">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomAdverts?.image
+            src={`${commercialUrl}${randomAdverts?.image
               }`}
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
@@ -404,7 +404,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       {main.length > 8 && (
         <a href={randomImage1?.action} target="_blank" className="my-5">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomImage1?.image}`}
+            src={`${commercialUrl}${randomImage1?.image}`}
 
             alt="ads"
             className="w-full h-80 object-cover rounded-md"
@@ -449,7 +449,7 @@ const ProductComponent = ({ products, currency, location, currencyCode }) => {
       {main.length > 16 && (
         <a href={randomImage2?.action} target="_blank" className=" my-5">
           <img
-            src={`https://bellefu.inmotionhub.xyz/get/commercial/image/${randomImage2?.image
+            src={`${commercialUrl}${randomImage2?.image
               }`}
             alt="ads"
             className="w-full h-80 object-cover rounded-md"

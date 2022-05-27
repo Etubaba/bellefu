@@ -351,7 +351,7 @@ const ProductList = ({
             </div>
             <div>
               <img
-                src={`https://bellefu.inmotionhub.xyz/get/product/image/${product?.images[0]}`}
+                src={`${productImageUrl}${product?.images[0]}`}
                 className="rounded-md w-full h-44 object-cover "
                 alt={product.title}
               />

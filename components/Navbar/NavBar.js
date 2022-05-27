@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import Navbarsch from "./Navbarsch";
 import MobileNavbar from "./MobileNavbar";
 import axios from "axios";
-import { AnnoucementsUrl, apiData, APIV3, shopApi } from "../../constant";
+import { AnnoucementsUrl, apiData, APIV3, shopApi, UserAvataUrl } from "../../constant";
 import Loader from "../../constant";
 
 const NavBar = () => {
@@ -293,7 +293,7 @@ const NavBar = () => {
                   >
                     <Image
                       // src={username?.avatar ? `https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}` : "https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"}
-                      src={`https://bellefu.inmotionhub.xyz/get/user/images/${username?.avatar}`}
+                      src={`${UserAvataUrl}${username?.avatar}`}
                       width={30}
                       height={30}
                       className="rounded-full object-cover"
