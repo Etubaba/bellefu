@@ -23,6 +23,7 @@ const Checkout = () => {
     const [hasPaid, setHasPaid] = useState(null);
     const [cartList, setCartList] = useState([]);
     const [modalopen, setModalOpen] = useState(false)
+    const [gateway, setGateway] = useState(null)
 
 
 
@@ -92,7 +93,7 @@ const Checkout = () => {
         if (cartList.length > 0 && hasPaid?.status === "successful") {
 
             const formData = new FormData();
-
+            formData.append("card", true)
             formData.append("userId", userId?.id);
             formData.append("totalAmount", totalPrice);
             formData.append("zipCode", zip);
@@ -101,9 +102,10 @@ const Checkout = () => {
             formData.append("stateCode", state);
             formData.append("countryCode", country);
             formData.append("phone", phone);
-            formData.append("transaction_id", hasPaid?.transaction_id);
+            formData.append("transactionId", hasPaid?.transaction_id);
             formData.append("tx_ref", hasPaid?.tx_ref);
             formData.append("quantity", 1);
+            formData.append("gateway", gateway)
             formData.append("cartId", JSON.stringify(cartId));
             axios({
                 method: "post",
@@ -229,6 +231,7 @@ const Checkout = () => {
                                                     },
                                                     onClose: () => { },
                                                 });
+                                                setGateway('flutterwave')
                                             }}
 
                                             className="flex items-center outline outline-bellefuOrange rounded-lg px-3 py-2">
@@ -237,7 +240,9 @@ const Checkout = () => {
                                         </button>
                                     </div>
                                     <div>
-                                        <button className="flex items-center outline outline-gray-200 rounded-lg px-3 ">
+                                        <button
+                                            onClick={() => setGateway('paypal')}
+                                            className="flex items-center outline outline-gray-200 rounded-lg px-3 ">
                                             <img src="/Paypal.png" className='w-40' alt="paypl card" />
                                             {/* <span className="pl-4 md:text-base text-sm">Pay with Paypal</span> */}
                                         </button>

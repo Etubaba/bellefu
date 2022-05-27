@@ -8,6 +8,7 @@ import { AiOutlineCaretRight } from "react-icons/ai";
 //import CreateProduct from "../components/CreateProduct";
 import { profileDetails, newProductForShop, isProductForShop } from "../../features/bellefuSlice";
 import axios from "axios";
+import { apiData, shopApi } from "../../constant";
 
 // export async function getServerSideProps({params}) {
 //   const { userproductid: userProductId } = params;
@@ -149,7 +150,7 @@ const ProductUpload = () => {
 
       //console.log(formData);
       setLoading(true);
-      fetch(`https://bellefu.inmotionhub.xyz/api/general/create/product`, {
+      fetch(`${apiData}create/product`, {
         method: "POST",
         body: formData,
         headers: {
@@ -200,7 +201,7 @@ const ProductUpload = () => {
     } else {
       setLoading(true);
 
-      fetch("https://bellefu.inmotionhub.xyz/api/shop/push/product/shop", {
+      fetch(`${shopApi}push/product/shop`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -245,7 +246,7 @@ const ProductUpload = () => {
 
   useEffect(() => {
     const getUserProducts = async () => {
-      const res = await fetch(`https://bellefu.inmotionhub.xyz/api/general/list/user/product/${userDetails.id}`);
+      const res = await fetch(`${apiData}list/user/product/${userDetails.id}`);
       const data = await res.json();
       setUserProducts(data.data.data);
     };

@@ -213,24 +213,46 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
           </>
         )}
         {getIsLoggedIn && (
-          <div
-            className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
-            onClick={() => {
-              router.push("/createShop");
-              setIsOpen(false);
-              setLoading(true)
-            }}>
-            <p
-              className='flex'
+          username?.shopId === null || username?.shopId === undefined ?
 
-            >
-              <FcShop className="w-6 h-6" />
+            <div
+              className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
+              onClick={() => {
+                router.push("/createShop");
+                setIsOpen(false);
+                setLoading(true)
+              }}>
 
-              Create Shop
+              <div
+                className='flex'
+                onClick={() => router.push("/createShop")}
+              >
+                <FcShop className="w-6 h-6" />
 
-            </p>
-            <div onClick={() => router.push("/createShop")} />
-          </div>
+                Create Shop
+
+              </div>
+              <div onClick={() => router.push("/createShop")} />
+            </div> :
+            <div
+              className=" bg-[#343a40] font-bold tracking-wider p-2 justify-center rounded text-sm flex items-center space-x-2"
+              onClick={() => {
+                router.push("/users/shop");
+                // setIsOpen(false);
+                setLoading(true)
+              }}>
+
+              <div
+                className='flex'
+                onClick={() => router.push("/users/shop")}
+              >
+                <FcShop className="w-6 h-6" />
+
+                Manage Shop
+
+              </div>
+              <div onClick={() => router.push("/users/shop")} />
+            </div>
 
         )}
 

@@ -173,6 +173,18 @@ const NavBar = () => {
     }
   }
 
+
+  const manageShop = () => {
+    if (getIsLoggedIn) {
+      router.push('/users/shop')
+      setLoading(!loading)
+
+    }
+  }
+
+
+
+
   const currentPath = router.pathname;
 
 
@@ -252,13 +264,20 @@ const NavBar = () => {
               >
                 Shops
               </p>
-              <p
+              {username?.shopId === null || username?.shopId === undefined ? <p
                 className="hover:text-gray-200 cursor-pointer"
                 onClick={handleCreateShop}
               // href="https://webinar.bellefu.com/"
               >
                 Create Shop
-              </p>
+              </p> :
+                <p
+                  className="hover:text-gray-200 cursor-pointer"
+                  onClick={manageShop}
+                // href="https://webinar.bellefu.com/"
+                >
+                  Manage Shop
+                </p>}
               <a
                 target="_blank"
                 className="hover:text-gray-200"
