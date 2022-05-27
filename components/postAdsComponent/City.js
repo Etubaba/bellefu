@@ -2,7 +2,7 @@ import * as React from 'react';
 import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled';
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
-import {handleCitycodeUpdate} from "../../features/bellefuSlice";
+import { handleCitycodeUpdate } from "../../features/bellefuSlice";
 import { useDispatch } from "react-redux";
 import { styled } from '@mui/system';
 
@@ -136,28 +136,28 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
   return <SelectUnstyled {...props} ref={ref} components={components} />;
 });
 
-export default function UnstyledSelectSimple5({lga,checker3}) {
+export default function UnstyledSelectSimple5({ lga, checker3 }) {
 
-  const dispatch=useDispatch();
-  const handleThings=(counts)=>{
-  dispatch(handleCitycodeUpdate(counts.code))
-        console.log(counts);
-        // catchState(newStateArr,counts.name);
+  const dispatch = useDispatch();
+  const handleThings = (counts) => {
+    dispatch(handleCitycodeUpdate(counts.code))
+
+    // catchState(newStateArr,counts.name);
   }
 
 
   return (
-    <CustomSelect  disabled={checker3===""?true:false}>
-       {lga?.map((counts,index)=>(
-       <span  onClick={() => handleThings(counts)}>
-       <StyledOption
-         key={index}
-         value={counts.name}
-       >
-         {counts.name}
-       </StyledOption>
-     </span>
-     ))}
+    <CustomSelect disabled={checker3 === "" ? true : false}>
+      {lga?.map((counts, index) => (
+        <span onClick={() => handleThings(counts)}>
+          <StyledOption
+            key={index}
+            value={counts.name}
+          >
+            {counts.name}
+          </StyledOption>
+        </span>
+      ))}
     </CustomSelect>
   );
 };

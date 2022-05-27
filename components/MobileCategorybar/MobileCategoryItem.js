@@ -8,7 +8,8 @@ const MobileCategoryItem = ({ child, setOpen }) => {
       className=""
       onClick={() => {
         {
-          dispatch(Subcat(child.subCatId)), setOpen(false);
+          dispatch(Subcat(child.subCatId));
+          setOpen(false);
         }
       }}
     >

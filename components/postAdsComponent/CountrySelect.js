@@ -14,6 +14,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { styled } from "@mui/system";
 import axios from "axios";
+import { webApi } from "../../constant";
 
 const blue = {
   100: "#DAECFF",
@@ -153,7 +154,7 @@ export default function UnstyledSelectSimple3({ countryStuffs, catchState }) {
   const handleThings = (counts) => {
     axios
       .get(
-        `https://bellefu.inmotionhub.xyz/api/web30/get/postadd/states/${counts.iso2}`
+        `${webApi}get/postadd/states/${counts.iso2}`
       )
       .then((response) => {
         const newStateArr = response?.data.state;
@@ -167,7 +168,7 @@ export default function UnstyledSelectSimple3({ countryStuffs, catchState }) {
         console.log(error);
       });
 
-    console.log(counts);
+
   };
 
   return (

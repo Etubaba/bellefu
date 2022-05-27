@@ -1,45 +1,58 @@
 import React from "react";
-
-import UnstyledSelectSimpleCard from "../../components/postAdsComponent/Card";
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apiData } from "../../constant";
-import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
+import { AiOutlineCaretRight, AiOutlineCaretDown, AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import { useState, useEffect } from "react"
 import { payment, profileDetails, userDId } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
 
 
-
-export default function Payment() {
-    const adsprice = useSelector((state) => state.bellefu.postAddata);
-    const adsdescription = useSelector((state) => state.bellefu.postAddata);
-    const dataTopost = useSelector((state) => state.bellefu.postAddata);
-
-
-
-    const user = useSelector(profileDetails);
-    const [wallet, setWallet] = useState(0)
-    const [newwallet, setNewWallet] = useState()
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [btnsumit, setBtnsumit] = useState(false);
-    const [card, setCard] = useState(true);
+export default function Payment({ modal }) {
+    const [wallet, setWallet] = useState(0);
     const [method, setMethod] = useState('card');
     const [voucher, setVoucher] = useState("");
     const [openCard, setOpenCard] = useState(false);
     const [dept, setDept] = useState('Select')
-    const [hasPaid, setHasPaid] = useState(false)
+    const [reload, setReload] = useState(0)
+
+    const user = useSelector(profileDetails);
+
+    const dispatch = useDispatch();
+    // convert $25 to bellicoin $1 = 100bellicoin 
+    const createAmount = 25 * 100;
+
+
+    const userFullName = user?.first_name + " " + user?.last_name;
+    const userEmail = user?.email;
+    const phone = user?.phone
 
 
 
+    //flutterwave configuration
+    const config = {
+        public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
+        tx_ref: Date.now(),
+        amount: 25,
+        currency: 'USD',
+        payment_options: 'card,mobilemoney,ussd',
+        customer: {
+            email: userEmail,
+            phonenumber: phone,
+            name: userFullName,
+        },
+        customizations: {
+            title: 'Shop creation',
+            description: 'Payment to create shop',
+            logo: 'https://www.linkpicture.com/q/bellefuApplogo.jpg',
+        },
+    };
 
 
 
-
-
-
-
+    const handleFlutterPayment = useFlutterwave(config);
 
 
     useEffect(() => {
@@ -49,119 +62,8 @@ export default function Payment() {
             });
         }
         getWallet()
-    }, [])
+    }, [reload])
 
-
-
-    const handleBack = (e) => {
-        e.preventDefault();
-
-    };
-
-
-
-    const handlepay = () => {
-        setBtnsumit(false);
-        setCard(true);
-        const payWithwallet = adsprice.adsplanprice * 100;
-        //  setNewWallet(wallet-payWithwallet);
-        if (payWithwallet > wallet) {
-            toast.error("Insufficient Wallet balance", {
-                position: "top-center",
-            });
-        }
-
-        else {
-            axios.post(`${apiData}update/wallet/balance`, {
-                deduction: payWithwallet,
-                userId: user?.id,
-                description: `${adsdescription?.plans} Ads Payment`
-            }).then((res) => {
-                if (res.data.status === true) {
-
-                    const formData = new FormData();
-                    //  things i dey post from redux store
-                    formData.append("title", dataTopost.title);
-                    formData.append("location", dataTopost.location);
-                    // see the image dey show for payload wen i post but wen e reach backend e no dey show
-                    formData.append("images1", dataTopost.images[0]);
-                    formData.append("images2", dataTopost.images[1]);
-                    formData.append("images3", dataTopost.images[2]);
-                    formData.append("images4", dataTopost.images[3]);
-                    formData.append("images5", dataTopost.images[4]);
-                    formData.append("images6", dataTopost.images[5]);
-                    formData.append("images7", dataTopost.images[6]);
-                    formData.append("images8", dataTopost.images[7]);
-                    formData.append("images9", dataTopost.images[8]);
-                    formData.append("images10", dataTopost.images[9]);
-                    formData.append("video", dataTopost.videofile);
-                    formData.append("categoryid", dataTopost.categoryid);
-                    formData.append("subcategoryid", dataTopost.subcategoryid);
-                    formData.append("shop", false);
-                    formData.append("device", "web");
-                    formData.append("price", dataTopost.price);
-                    formData.append("description", dataTopost.description);
-                    formData.append(
-                        "tag1",
-                        dataTopost.tag[0] === undefined ? "" : dataTopost.tag[0]
-                    );
-                    formData.append(
-                        "tag2",
-                        dataTopost.tag[1] === undefined ? "" : dataTopost.tag[1]
-                    );
-                    formData.append(
-                        "tag3",
-                        dataTopost.tag[2] === undefined ? "" : dataTopost.tag[2]
-                    );
-                    formData.append(
-                        "tag4",
-                        dataTopost.tag[3] === undefined ? "" : dataTopost.tag[3]
-                    );
-                    formData.append(
-                        "tag5",
-                        dataTopost.tag[4] === undefined ? "" : dataTopost.tag[4]
-                    );
-                    formData.append("phone", user?.phone);
-                    formData.append("userid", user?.id);
-                    formData.append("citycode", dataTopost.cityCode);
-                    formData.append("countrycode", dataTopost.countrycode);
-                    formData.append("states", dataTopost.states);
-                    formData.append("currencyCode", dataTopost.currencyCode);
-                    formData.append("plans", dataTopost.plans);
-
-                    console.log(formData);
-                    axios({
-                        method: "POST",
-                        url: `${apiData}create/product`,
-                        data: formData,
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }).then((res) => {
-                        if (res.data.status === true) {
-                            setShowSuccess(true);
-                            // window.location.reload();
-
-                        }
-                    })
-                }
-            }).catch((err) => {
-                console.log(err);
-            })
-        }
-
-    }
-
-
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        axios.get(`${apiData}validate/voucher/${voucher}`).then((res) => {
-            console.log(res.data.data);
-        });
-    }
 
 
 
@@ -169,8 +71,6 @@ export default function Payment() {
         if (method === 'wallet') {
             //pay by wallet
 
-            // convert $25 to bellicoin $1 = 100bellicoin 
-            const createAmount = 25 * 100;
             if (wallet >= createAmount) {
                 axios.post(`${apiData}update/wallet/balance`, {
                     deduction: createAmount,
@@ -179,42 +79,46 @@ export default function Payment() {
                 }).then(res => {
                     if (res.data.status) {
                         //    setHasPaid(true);
+                        setReload(prev => prev + 1)
                         dispatch(payment(true))
+                        toast.success('Payment successful')
+                        modal(false)
                     }
                 })
             } else { toast.error('Insufficient wallet balance') }
 
         } else if (method === 'voucher') {
             //pay by voucher
+            if (voucher === '') toast.error('Please enter voucher code')
+            axios.get(`${apiData}validate/voucher/${voucher}`)
+                .then((res) => {
+                    if (!res.data.status) toast.error('Invalid voucher, try again')
 
-
-        } else {
+                    const voucherValue = res.data?.data.amount;
+                    if (voucherValue >= createAmount) {
+                        dispatch(payment(true))
+                        toast.success('Payment successful')
+                        modal(false)
+                    }
+                })
+        } else if (method === 'card') {
             //pay by card
+
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
     return (
         <>
             <div className=" w-full  lg:w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
-                <div className="bg-bellefuGreen p-4 ">
-                    <h3 className="font-semibold ml-4 text-white">CHOOSE PAYMENT METHOD</h3>
+                <div className="bg-bellefuGreen justify-between flex p-4 ">
+                    <h3 className="md:font-semibold md:text-xl ml-2 text-xs md:ml-4 text-white">CHOOSE PAYMENT METHOD</h3>
+                    <div
+                        onClick={() => modal(false)}
+                        className="flex bg-white hover:bg-slate-50  rounded-full justify-end items-end">
+                        <AiOutlineClose className='text-red-600 md:text-2xl' />
+                    </div>
                 </div>
                 <div>
                     <div
@@ -290,7 +194,22 @@ export default function Payment() {
                                         <ul className="rounded  py-4">
 
                                             <li
-                                                onClick={() => setDept('Card')}
+                                                onClick={() => {
+                                                    handleFlutterPayment({
+                                                        callback: (response) => {
+                                                            console.log(response);
+                                                            closePaymentModal()
+                                                            if (response.status === 'successful') {
+                                                                dispatch(payment(true))
+                                                                toast.success("Payment completed Successful")
+                                                                modal(false)
+                                                            }
+                                                            // this will close the modal programmatically
+                                                        },
+                                                        onClose: () => { },
+                                                    })
+                                                    setDept('Card')
+                                                }}
                                                 className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                                             >
                                                 <img src='/card.png' className='w-24' alt="visa card" />

@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import { Rating } from "@mui/material";
 import axios from "axios";
 
-import { apiData } from "../../constant";
+import { apiData, UserAvataUrl } from "../../constant";
 
 const SingleProductMobileSidebar = ({ mobileDetails }) => {
   const isLoggedIn = useSelector(login);
@@ -187,7 +187,7 @@ const SingleProductMobileSidebar = ({ mobileDetails }) => {
           <div className="mt-2 flex flex-col items-center justify-center">
             <div className="">
               <Image
-                src={`https://bellefu.inmotionhub.xyz/get/user/images/${mobileDetails[0]?.avatar}`}
+                src={`${UserAvataUrl}${mobileDetails[0]?.avatar}`}
                 alt="UserImage"
                 width={70}
                 height={70}

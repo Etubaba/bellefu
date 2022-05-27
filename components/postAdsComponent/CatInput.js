@@ -6,7 +6,7 @@ import OptionUnstyled, {
   optionUnstyledClasses,
 } from "@mui/base/OptionUnstyled";
 import PopperUnstyled from "@mui/base/PopperUnstyled";
-import {handleCatUpdate} from "../../features/bellefuSlice";
+import { handleCatUpdate } from "../../features/bellefuSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { styled } from "@mui/system";
 import { useState } from "react";
@@ -139,15 +139,15 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
   return <SelectUnstyled {...props} ref={ref} components={components} />;
 });
 
-export default function UnstyledSelectSimple1({ category,subcatCatcher }) {
+export default function UnstyledSelectSimple1({ category, subcatCatcher }) {
 
 
   const optionSelect = category;
-  const dispatch= useDispatch()
-  const handleThings=(counts)=>{
+  const dispatch = useDispatch()
+  const handleThings = (counts) => {
     dispatch(handleCatUpdate(counts.id))
-    subcatCatcher(counts.sub_category,counts.name);
-    console.log(counts);
+    subcatCatcher(counts.sub_category, counts.name);
+
   }
 
   return (

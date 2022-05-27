@@ -8,7 +8,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { apiData } from "../../../constant";
+import { apiData, productImageUrl } from "../../../constant";
 import { toast } from "react-toastify";
 
 const MyAd = ({ product }) => {
@@ -52,7 +52,7 @@ const MyAd = ({ product }) => {
       <div className="bg-bellefuWhite p-3 rounded-md border border-[#dfdfdf]">
         <img
           onClick={() => router.push(`/product/${product.productId}`)}
-          src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`}
+          src={`${productImageUrl}${product.images[0]}`}
           className="rounded-md w-full h-44 object-cover"
         />
         <p className="capitalize text-medium">{product.title}</p>
