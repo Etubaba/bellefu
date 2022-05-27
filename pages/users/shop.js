@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { IconButton } from "@mui/material";
 import Switch from "@mui/material/Switch";
+import { shopApi } from "../../constant";
 
 function shop() {
   const user = useSelector(profileDetails);
@@ -34,8 +35,6 @@ function shop() {
 
   const [checked, setChecked] = useState(null);
 
-  console.log(checked);
-  console.log(valueupdate);
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -43,7 +42,7 @@ function shop() {
   useEffect(() => {
     axios
       .get(
-        `https://bellefu.inmotionhub.xyz/api/shop/view/single/${user?.shopId}`
+        `${shopApi}view/single/${user?.shopId}`
       )
       .then((res) => {
         setProducts(res.data.data);
@@ -66,7 +65,7 @@ function shop() {
     e.preventDefault();
 
     axios
-      .post("https://bellefu.inmotionhub.xyz/api/shop/goods/update", {
+      .post(`${shopApi}goods/update`, {
         title: productsname,
         productId: valueupdate?.productId,
         inStock: checked === true ? 1 : 0,
@@ -81,7 +80,7 @@ function shop() {
 
           axios
             .get(
-              `https://bellefu.inmotionhub.xyz/api/shop/view/single/${user?.shopId}`
+              `${shopApi}view/single/${user?.shopId}`
             )
             .then((res) => {
               setProducts(res.data.data);
@@ -106,11 +105,11 @@ function shop() {
         onClose={() => setModalOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
+      // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
       >
         <div
           className="flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   bg-bellefuWhite w-[80%] md:w-[60%] lg:w-[40%]"
-          // sx={edit}
+        // sx={edit}
         >
           <div className="grid grid-cols-6 gap-3  my-5">
             <div className="col-span-6 sm:col-span-3">
@@ -178,7 +177,7 @@ function shop() {
       <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite   h-auto w-full md:w-auto">
         <div className="flex justify-between px-3  lg:px-10 md:py-6 py-2 border-b">
           <h1 className="font-semibold text-sm">My Shop Details</h1>
-         {  user?.shopId === null ?null:(<div onClick={() => router.push("/shop/upload-product")}>
+          {user?.shopId === null ? null : (<div onClick={() => router.push("/shop/upload-product")}>
             <button onClick={() => router.push("/shop/upload-product")} className="py-1 lg:py-1.5 hover:bg-orange-400  px-1.5 lg:px-3 rounded-full bg-bellefuOrange text-white text-sm lg:text-sm">
               Add new product
             </button>

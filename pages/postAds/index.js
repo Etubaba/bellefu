@@ -13,6 +13,7 @@ import { handleLocationUpdate } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
+import { webApi } from "../../constant";
 
 function Index({ data1, data2 }) {
   const [loading, setLoading] = useState(false);
@@ -206,8 +207,8 @@ function Index({ data1, data2 }) {
 }
 export async function getServerSideProps() {
   const [data1Res, data2Res] = await Promise.all([
-    fetch(`https://bellefu.inmotionhub.xyz/api/web30/get/postadd`),
-    fetch(`https://bellefu.inmotionhub.xyz/api/web30/get/web/index`),
+    fetch(`${webApi}get/postadd`),
+    fetch(`${webApi}get/web/index`),
   ]);
 
   const [data1, data2] = await Promise.all([data1Res.json(), data2Res.json()]);

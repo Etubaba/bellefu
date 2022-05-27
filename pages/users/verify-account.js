@@ -279,7 +279,7 @@ function Verifyaccount() {
     }
   };
 
-  console.log(isverified?.phone)
+
   return (
     <div className="md:ml-6 rounded-lg mt-5 bg-bellefuWhite h-auto w-auto pb-2">
       <div className="md:text-xl text-sm md:ml-3  p-2">Account Verification</div>

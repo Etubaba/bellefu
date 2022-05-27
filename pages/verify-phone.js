@@ -8,6 +8,7 @@ import Head from "next/head";
 import { toast } from "react-toastify";
 import Countdown from "react-countdown";
 import classNames from "classnames";
+import { apiData } from "../constant";
 
 const VerifyPhone = () => {
   const firstInput = useRef();
@@ -32,7 +33,7 @@ const VerifyPhone = () => {
   const [target, setTarget] = useState(null); //The target element that recieved the onChange event
 
   const handleChange = (input) => (evt) => {
-    
+
     if (isNaN(evt.target.value)) return;
     if (evt.target.value) setTarget(evt.target); //Save the target element to get next element focused
 
@@ -48,7 +49,7 @@ const VerifyPhone = () => {
   };
   const submitVerificationCode = async () => {
     const response = await fetch(
-      "https://bellefu.inmotionhub.xyz/api/general/verify/phone/code",
+      `${apiData}verify/phone/code`,
       {
         method: "POST",
         headers: {
@@ -83,7 +84,7 @@ const VerifyPhone = () => {
 
     setLoading(true);
     const response = await fetch(
-      "https://bellefu.inmotionhub.xyz/api/general/send/phone/code",
+      `${apiData}send/phone/code`,
       {
         method: "POST",
         headers: {
@@ -103,7 +104,7 @@ const VerifyPhone = () => {
       }
       setLoading(false);
 
-      if (!verificationCode.firstNo)  firstInput.current?.focus();
+      if (!verificationCode.firstNo) firstInput.current?.focus();
     } else {
       toast.info(data.msg, {
         position: toast.POSITION.TOP_CENTER,
@@ -153,25 +154,25 @@ const VerifyPhone = () => {
       if (verificationCode.firstNo && !verificationCode.secondNo && target.value) {
         target.nextSibling.focus();
       }
-  
+
       if (verificationCode.firstNo && verificationCode.secondNo && !verificationCode.thirdNo) {
         target.nextSibling.focus();
       }
-  
-      if (verificationCode.firstNo && verificationCode.secondNo && 
+
+      if (verificationCode.firstNo && verificationCode.secondNo &&
         verificationCode.thirdNo && !verificationCode.fourthNo) {
-          target.nextSibling.focus();
-      }
-  
-      if (verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo && 
-        verificationCode.fourthNo && !verificationCode.fivethNo) {
-          target.nextSibling.focus();
-      }
-  
-      if ( verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo &&
-        verificationCode.fourthNo && verificationCode.fivethNo && !verificationCode.sixthNo ) {
         target.nextSibling.focus();
-      }  
+      }
+
+      if (verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo &&
+        verificationCode.fourthNo && !verificationCode.fivethNo) {
+        target.nextSibling.focus();
+      }
+
+      if (verificationCode.firstNo && verificationCode.secondNo && verificationCode.thirdNo &&
+        verificationCode.fourthNo && verificationCode.fivethNo && !verificationCode.sixthNo) {
+        target.nextSibling.focus();
+      }
     }
 
     if (isFilled) {
@@ -201,28 +202,28 @@ const VerifyPhone = () => {
                 </p>
                 <div className="flex flex-col md:flex-row px-2">
                   <div className="flex-auto md:mr-3 mb-2 md:mb-0">
-                  { !callVerification && <button
+                    {!callVerification && <button
                       onClick={handleSmsVerification}
-                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 ", {"hover:cursor-not-allowed": isLoading, "bg-orange-200": isLoading,"hover:bg-orange-400": !isLoading, "bg-bellefuOrange": !isLoading, "cursor-pointer": !isLoading})}
+                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-9 md:px-2 py-2 ", { "hover:cursor-not-allowed": isLoading, "bg-orange-200": isLoading, "hover:bg-orange-400": !isLoading, "bg-bellefuOrange": !isLoading, "cursor-pointer": !isLoading })}
                       name="sms"
-                      disabled={isLoading?true:false}
+                      disabled={isLoading ? true : false}
                     >
                       <span className="mt-1 mr-1">{!smsVerification && <MdVerified className="text-xl" />}</span>
-                      <span>{!smsVerification?"SMS Verification":"Requesting..."}</span>
+                      <span>{!smsVerification ? "SMS Verification" : "Requesting..."}</span>
                     </button>
-                  }
+                    }
                   </div>
                   <div className="flex-auto">
-                  { !smsVerification && <button
+                    {!smsVerification && <button
                       onClick={handleCallVerification}
-                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center",{"hover:cursor-not-allowed": isLoading, "bg-green-200": isLoading, "bg-bellefuGreen": !isLoading, "hover:bg-green-400": !isLoading, "cursor-pointer": !isLoading})}
+                      className={classNames("flex ease-in-out duration-300 rounded-md text-white px-2 py-2 w-full justify-center", { "hover:cursor-not-allowed": isLoading, "bg-green-200": isLoading, "bg-bellefuGreen": !isLoading, "hover:bg-green-400": !isLoading, "cursor-pointer": !isLoading })}
                       name="call"
-                      disabled={isLoading?true:false}
+                      disabled={isLoading ? true : false}
                     >
                       <span className="mt-1 mr-1 ">{!callVerification && <MdCall className="text-xl" />}</span>
-                      <span>{!callVerification?"Call Verification":"Requesting..."}</span>
+                      <span>{!callVerification ? "Call Verification" : "Requesting..."}</span>
                     </button>
-                  }
+                    }
                   </div>
                 </div>
               </div>
@@ -329,7 +330,7 @@ const VerifyPhone = () => {
                     >
                       <MdVerified className="text-xl mr-2 mt-1" />
                       <span>
-                        {!isLoading?`Request another ${smsVerification ? "SMS" : "Call"}`:"Requesting..."}
+                        {!isLoading ? `Request another ${smsVerification ? "SMS" : "Call"}` : "Requesting..."}
                       </span>
                     </button>
                   </div>

@@ -66,7 +66,7 @@ export default function Custom() {
 
       axios({
         method: "POST",
-        url: `https://bellefu.inmotionhub.xyz/api/general/create/custom/request`,
+        url: `${apiData}create/custom/request`,
         data: formdata,
         headers: {
           "Content-Type": "multipart/form-data",

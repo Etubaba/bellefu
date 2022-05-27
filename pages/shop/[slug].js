@@ -4,7 +4,7 @@ import ShopComponents from "../../components/shopComponents/ShopComponents";
 import MobileShopSideBar from "../../components/SingleProduct/MobileShopSidebar";
 import Head from "next/head";
 import ShopSideBar from "../../components/SingleProduct/ShopSideBar";
-import Loader from "../../constant";
+import Loader, { shopApi } from "../../constant";
 
 
 const Shop = ({ shopProducts }) => {
@@ -102,7 +102,7 @@ export async function getServerSideProps(context) {
   const { slug } = context.query;
 
   const requests = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/shop/view/single/${slug}`
+    `${shopApi}view/single/${slug}`
   ).then((res) => res.json());
 
   return {

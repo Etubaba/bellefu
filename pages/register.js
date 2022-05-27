@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { apiData } from "../constant";
+import { apiData, indexAPI } from "../constant";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import RegisterHeader from "../components/usercomponent/RegisterHeader";
 import { setProfileDetails } from "../features/bellefuSlice";
@@ -16,7 +16,7 @@ import classNames from "classnames";
 
 export const getStaticProps = async () => {
   const res = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
+    `${indexAPI}`
   );
   const data = await res.json();
 

@@ -7,10 +7,11 @@ import { useState } from "react";
 import { MdVerified } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { apiData } from "../../constant";
 
-export default function Publish({data1}) {
+export default function Publish({ data1 }) {
 
-  const [adsplans, setAdsPlans]=useState(data1.data);
+  const [adsplans, setAdsPlans] = useState(data1.data);
   const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
@@ -127,7 +128,7 @@ export default function Publish({data1}) {
       console.log(formData);
       axios({
         method: "POST",
-        url: `https://bellefu.inmotionhub.xyz/api/general/create/product`,
+        url: `${apiData}create/product`,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -170,7 +171,7 @@ export default function Publish({data1}) {
           <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="sm:flex lg:flex">
               <input
-                onClick={()=>{handleFeatured(adsplans?.featuredFee)}}
+                onClick={() => { handleFeatured(adsplans?.featuredFee) }}
                 id="ads_plan"
                 name="plans"
                 type="radio"
@@ -196,7 +197,7 @@ export default function Publish({data1}) {
           <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="sm:flex lg:flex ">
               <input
-                onClick={()=>{handleUrgent(adsplans?.urgentFee)}}
+                onClick={() => { handleUrgent(adsplans?.urgentFee) }}
                 id="ads_plan"
                 name="plans"
                 type="radio"
@@ -211,7 +212,7 @@ export default function Publish({data1}) {
               </div>
               <div className="ml-[10%]">
                 <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-                {`$${adsplans?.urgentFee} FOR ${adsplans?.urgentDuration} DAYS`}
+                  {`$${adsplans?.urgentFee} FOR ${adsplans?.urgentDuration} DAYS`}
                 </p>
                 <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-[orangered]">
                   MORE RECOMMENDED
@@ -222,7 +223,7 @@ export default function Publish({data1}) {
           <div className="w-[93%] my-2 p-5 lg:m-10 border rounded-lg hover:bg-[#F9FDF5]  h-auto">
             <div className="sm:flex lg:flex">
               <input
-                onClick={()=>{handleHighlighted(adsplans?.highlightedFee)}}
+                onClick={() => { handleHighlighted(adsplans?.highlightedFee) }}
                 id="ads_plan"
                 name="plans"
                 type="radio"
@@ -237,7 +238,7 @@ export default function Publish({data1}) {
               </div>
               <div className="ml-[6%]">
                 <p className="text-[#3F3F3F] text-[14px] mb-3 font-medium">
-                {`$${adsplans?.highlightedFee} FOR ${adsplans?.highlightedDuration} DAYS`}
+                  {`$${adsplans?.highlightedFee} FOR ${adsplans?.highlightedDuration} DAYS`}
                 </p>
                 <pre className="text-base p-[5px] text-[16px] rounded-md text-[white] bg-bellefuGreen">
                   MOST RECOMMENDED
@@ -307,7 +308,7 @@ export default function Publish({data1}) {
 Publish.Layout = Layout;
 export async function getServerSideProps() {
   const [data1Res] = await Promise.all([
-    fetch(`https://bellefu.inmotionhub.xyz/api/general/view/product/plans`),
+    fetch(`${apiData}view/product/plans`),
   ]);
 
   const [data1] = await Promise.all([data1Res.json()]);
