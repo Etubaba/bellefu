@@ -113,11 +113,11 @@ export default function Payment({ modal }) {
         <>
             <div className=" w-full  lg:w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
                 <div className="bg-bellefuGreen justify-between flex p-4 ">
-                    <h3 className="font-semibold ml-4 text-white">CHOOSE PAYMENT METHOD</h3>
+                    <h3 className="md:font-semibold md:text-xl ml-2 text-xs md:ml-4 text-white">CHOOSE PAYMENT METHOD</h3>
                     <div
                         onClick={() => modal(false)}
                         className="flex bg-white hover:bg-slate-50  rounded-full justify-end items-end">
-                        <AiOutlineClose className='text-red-600 text-2xl' />
+                        <AiOutlineClose className='text-red-600 md:text-2xl' />
                     </div>
                 </div>
                 <div>

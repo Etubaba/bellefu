@@ -157,7 +157,7 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
 
       <div className="space-y-4 text-white">
         {getIsLoggedIn && (
-          <p
+          <div
             className=" bg-[#343a40] font-bold tracking-wider p-2 text-center rounded text-sm"
             onClick={() => {
               router.push("/users");
@@ -166,7 +166,7 @@ const MobileNavbar = ({ setLoading, isOpen, setIsOpen, username, msgRead }) => {
             }}
           >
             Dashboard
-          </p>
+          </div>
         )}
 
 
