@@ -4,7 +4,7 @@ import HeaderSearch from "../../components/HeaderSearch";
 import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 import CategoryProducts from "../../components/categoryIdProducts/CategoryProducts";
 import Range from "../../components/RangeComponent/Range";
-import { apiData } from "../../constant";
+import { apiData, categoryUrl } from "../../constant";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { homeData, updateIdpath, selectCat } from "../../features/bellefuSlice";
@@ -178,7 +178,7 @@ const Product = () => {
                       className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                     >
                       <img
-                        src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat?.image}`}
+                        src={`${categoryUrl}${cat?.image}`}
                         alt="icons"
                         className="w-6 h-6 object-cover"
                       />
@@ -490,7 +490,7 @@ const Product = () => {
                           className="px-4 py-3 hover:bg-bellefuBackground flex space-x-5 items-center cursor-pointe rounded"
                         >
                           <img
-                            src={`https://bellefu.inmotionhub.xyz/get/category/image/${cat?.image}`}
+                            src={`${categoryUrl}${cat?.image}`}
                             alt="icons"
                             className="w-6 h-6 object-cover"
                           />

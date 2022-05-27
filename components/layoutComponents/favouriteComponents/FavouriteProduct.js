@@ -5,7 +5,7 @@ import { IoIosHeartDislike } from "react-icons/io";
 import { MdOutlineMessage, MdCall } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux'
 import { Modal, Button } from '@mui/material'
-import { apiData } from '../../../constant'
+import { apiData, productImageUrl } from '../../../constant'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
@@ -87,7 +87,7 @@ const FavouriteProduct = ({ product }) => {
     <div className="bg-bellefuWhite mb-5 p-3 rounded-b-md">
       <img
         onClick={() => router.push(`/product/${product.productId}`)}
-        src={`https://bellefu.inmotionhub.xyz/get/product/image/${product.images[0]}`}
+        src={`${productImageUrl}${product.images[0]}`}
         className="rounded-md w-full h-44 object-cover" />
       <p className="capitalize text-medium">{product.title.substring(0, 20)}</p>
       <div className="flex items-center space-x-2">

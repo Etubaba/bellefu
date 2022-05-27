@@ -13,6 +13,7 @@ import MobileCategoryBar from "../components/MobileCategorybar/MobileCategoryBar
 import MobileHeaderSearch from "../components/MobileHeaderSearch";
 import { fetchData } from "../features/bellefuSlice";
 import Slider from "../components/mainPageComponents/slider/Slider";
+import { indexAPI } from "../constant";
 
 export default function Home({ data }) {
   const [loading, setLoading] = useState(false);
@@ -101,7 +102,7 @@ export default function Home({ data }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/web30/get/web/index`
+    `${indexAPI}`
   );
   const data = await res.json();
 

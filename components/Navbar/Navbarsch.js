@@ -18,6 +18,7 @@ import {
   handleSearch,
   selectCat,
 } from "../../features/bellefuSlice";
+import { apiData } from "../../constant";
 // import { BiSearch } from "react-icons/bi";
 // import { AiOutlineCaretRight, AiOutlineCaretDown } from "react-icons/ai";
 // import MobileHeaderSearch from "./MobileHeaderSearch";
@@ -48,7 +49,7 @@ const HeaderSearch = () => {
   useEffect(() => {
     const fetchStates = async () => {
       await axios
-        .get(`https://bellefu.inmotionhub.xyz/api/general/get/${flag}/states`)
+        .get(`${apiData}get/${flag}/states`)
         .then((res) => setStateList(res.data.data))
         .catch((err) => console.log(err));
     };

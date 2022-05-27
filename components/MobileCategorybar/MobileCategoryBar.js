@@ -4,6 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { useState, useEffect } from "react";
 
 import MobileCategory from "./MobileCategory";
+import { categoryUrl } from "../../constant";
 
 const MobileCategoryBar = ({ categories }) => {
   const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ const MobileCategoryBar = ({ categories }) => {
             {loading ? (
 
               <img
-                src={`	https://bellefu.inmotionhub.xyz/get/category/image/agro-servicescvz.png`}
+                src={`${categoryUrl}agro-servicescvz.png`}
                 alt="icons"
                 className="w-14 h-14 object-fill"
               />

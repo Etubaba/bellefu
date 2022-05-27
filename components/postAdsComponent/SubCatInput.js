@@ -2,10 +2,10 @@ import * as React from 'react';
 import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled';
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
-import {handleSubcatUpdate} from "../../features/bellefuSlice";
-import { useSelector,useDispatch } from "react-redux";
+import { handleSubcatUpdate } from "../../features/bellefuSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { styled } from '@mui/system';
-import {useState} from "react";
+import { useState } from "react";
 const blue = {
   100: '#DAECFF',
   200: '#99CCF3',
@@ -137,32 +137,32 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
   return <SelectUnstyled {...props} ref={ref} components={components} />;
 });
 
-export default function UnstyledSelectSimple2({subCategory,checker }) {
+export default function UnstyledSelectSimple2({ subCategory, checker }) {
 
- const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
- console.log(subCategory);
 
- const handleThings=(counts)=>{
-   dispatch(handleSubcatUpdate(counts.subCatId))
-  //  setSubcat(counts) ;
-   console.log(counts.subCatId);
+
+  const handleThings = (counts) => {
+    dispatch(handleSubcatUpdate(counts.subCatId))
+    //  setSubcat(counts) ;
+
 
   }
 
   return (
-    <CustomSelect disabled={checker===""?true:false} >
-     {subCategory?.map((counts,index)=>(
-       <span onClick={() => handleThings(counts)}>
-       <StyledOption
-         key={index}
-         value={counts.subCatName}
-       >
-         {counts.subCatName}
-       </StyledOption>
-     </span>
-     ))}
-      
+    <CustomSelect disabled={checker === "" ? true : false} >
+      {subCategory?.map((counts, index) => (
+        <span onClick={() => handleThings(counts)}>
+          <StyledOption
+            key={index}
+            value={counts.subCatName}
+          >
+            {counts.subCatName}
+          </StyledOption>
+        </span>
+      ))}
+
     </CustomSelect>
   );
 };

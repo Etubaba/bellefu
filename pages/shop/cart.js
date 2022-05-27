@@ -5,7 +5,7 @@ import { BsFillCartXFill, BsCartFill } from 'react-icons/bs'
 import { IoIosArrowForward } from 'react-icons/io'
 import { GiShoppingCart } from 'react-icons/gi'
 import { useSelector, useDispatch } from 'react-redux'
-import Loader from '../../constant'
+import Loader, { productImageUrl } from '../../constant'
 import { shopApi } from '../../constant'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
@@ -112,7 +112,7 @@ function Cart() {
                                     <div className='flex '>
                                         <img
                                             alt='eeee'
-                                            src={`https://bellefu.inmotionhub.xyz/get/product/image/${cart?.images[0]}`}
+                                            src={`${productImageUrl}${cart?.images[0]}`}
                                             className='object-fill w-36 h-32 md:w-44 mr-5 md:h-36 rounded-md' />
                                         <div className='flex flex-col space-y-2 '>
                                             <h3 className='text-md   md:text-2xl md:mb-16 mb-2'>

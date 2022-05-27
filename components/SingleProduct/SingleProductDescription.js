@@ -31,7 +31,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { login, userFav, msgScroll } from "../../features/bellefuSlice";
 import axios from "axios";
-import { apiData } from "../../constant";
+import { apiData, productImageUrl, videoUrl } from "../../constant";
 import { toast } from "react-toastify";
 
 const SingleProductDescription = ({ productDetails }) => {
@@ -315,7 +315,7 @@ const SingleProductDescription = ({ productDetails }) => {
   };
 
 
-  console.log('product=>', productDetails)
+
 
   return (
     <>
@@ -324,7 +324,7 @@ const SingleProductDescription = ({ productDetails }) => {
         <meta name="description" content={description} />
         <meta name="og:title" content={productDetails[0]?.title} />
         <meta name="og:description" content={description} />
-        <meta name="og:image" content={`https://bellefu.inmotionhub.xyz/get/product/image/${productDetails[0]?.images[0]}`} />
+        <meta name="og:image" content={`${productImageUrl}${productDetails[0]?.images[0]}`} />
       </Head>
       <div className="bg-bellefuWhite rounded-t-md">
         {/* title section */}
@@ -448,7 +448,7 @@ const SingleProductDescription = ({ productDetails }) => {
                   <Box style={style2}>
                     <video width="650" height="540" controls>
                       <source
-                        src={`${video}get/video/${productDetails[0]?.video}`}
+                        src={`${videoUrl}get/video/${productDetails[0]?.video}`}
                         type="video/mp4"
                       />
                       <source src="movie.ogg" type="video/ogg" />

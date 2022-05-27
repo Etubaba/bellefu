@@ -7,18 +7,20 @@ import { apiData } from "../../constant";
 import { MdVerified } from "react-icons/md";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { profileDetails, userDId } from "../../features/bellefuSlice";
+import { profileDetails, userDId,handleAdsPostingCheckerUpdate } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
 
 export default function Payment() {
+
+  const dispatch=useDispatch();
   const adsprice = useSelector((state) => state.bellefu.postAddata);
   const adsdescription = useSelector((state) => state.bellefu.postAddata);
   const dataTopost = useSelector((state) => state.bellefu.postAddata);
-
+  const showsuccess = useSelector((state) => state.bellefu.postAddata);
+console.log(showsuccess);
   const user = useSelector(profileDetails);
   const [wallet, setWallet] = useState(0);
   const [newwallet, setNewWallet] = useState();
-  const [showSuccess, setShowSuccess] = useState(false);
   const [btnsumit, setBtnsumit] = useState(false);
   const [card, setCard] = useState(true);
   const [voucher, setVoucher] = useState("");
@@ -102,7 +104,8 @@ export default function Payment() {
       },
     }).then((res) => {
       if (res.data.status === true) {
-        setShowSuccess(true);
+        dispatch(handleAdsPostingCheckerUpdate(true))
+        // setShowSuccess(true);
         // window.location.reload();
       }
     });
@@ -153,11 +156,13 @@ export default function Payment() {
 
   const handleHome = (e) => {
     e.preventDefault();
+    dispatch(handleAdsPostingCheckerUpdate(false))
+
     router.push("/postAds");
     setTimeout(()=>{
       window.location.reload();
       console.log("reloaded");
-    },4000)
+    },6000)
 
   };
 
@@ -225,7 +230,8 @@ export default function Payment() {
 
   return (
     <>
-      {!showSuccess ? (
+     
+      {showsuccess.postingchecker===false ? (
         <div className=" w-full  lg:w-[93%] pb-7  rounded-lg bg-[#ffffff]  h-auto">
           <div className="bg-bellefuGreen p-4 ">
             <h3 className="font-semibold ml-4 text-white">

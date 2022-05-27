@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import MobileCategoryItem from "./MobileCategoryItem";
 import { Modal, Typography } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
+import { categoryUrl } from "../../constant";
 
 
 
@@ -41,7 +42,7 @@ const MobileCategory = ({ category }) => {
             onClick={() => setOpen(!open)}
           >
             {loading ? <img
-              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
+              src={`${categoryUrl}${category?.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
             /> : <Skeleton
@@ -136,7 +137,7 @@ const MobileCategory = ({ category }) => {
             onClick={() => router.push("/category/id")}
           >
             <img
-              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category.image}`}
+              src={`${categoryUrl}${category.image}`}
               alt="icons"
               className="w-14 h-14 object-fill"
             />

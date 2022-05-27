@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import { login, verified } from "../../features/bellefuSlice";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { apiData } from "../../constant";
+import { apiData, UserAvataUrl } from "../../constant";
 
 const SingleProductSidebar = ({ userDetails, }) => {
   const router = useRouter();
@@ -183,7 +183,7 @@ const SingleProductSidebar = ({ userDetails, }) => {
       {/* user brief info */}
       <div className="mt-5 flex flex-col items-center justify-center">
         <Image
-          src={`https://bellefu.inmotionhub.xyz/get/user/images/${userDetails[0]?.avatar}`}
+          src={`${UserAvataUrl}${userDetails[0]?.avatar}`}
           alt="UserImage"
           width={150}
           height={150}

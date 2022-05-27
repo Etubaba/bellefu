@@ -23,7 +23,7 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Skeleton from "@mui/material/Skeleton";
-import { apiData } from "../../constant";
+import { apiData, UserAvataUrl, webApi } from "../../constant";
 import { useRouter } from "next/router";
 
 const profile = ({ data1 }) => {
@@ -52,7 +52,7 @@ const profile = ({ data1 }) => {
       }
     },
   });
-  console.log(files2);
+
 
   const router = useRouter();
   const disable = useSelector((state) => state.bellefu.formDisabler);
@@ -124,7 +124,7 @@ const profile = ({ data1 }) => {
     })
       .then((res) => {
         const [upDateuser] = res.data.data;
-          console.log(upDateuser);
+        console.log(upDateuser);
         localStorage.setItem("user", JSON.stringify(upDateuser));
 
         dispatch(setProfileDetails(upDateuser));
@@ -142,8 +142,8 @@ const profile = ({ data1 }) => {
       .catch((err) =>
         err
           ? toast.error("Something happend. Try again", {
-              position: "top-center",
-            })
+            position: "top-center",
+          })
           : null
       );
   };
@@ -180,7 +180,7 @@ const profile = ({ data1 }) => {
                   className="  object-cover  rounded-full ring-2 ring-white"
                   src={
                     files === ""
-                      ? `https://bellefu.inmotionhub.xyz/get/user/images/${userThings?.avatar}`
+                      ? `${UserAvataUrl}${userThings?.avatar}`
                       : files
                   }
                   alt="profile"
@@ -436,11 +436,11 @@ const profile = ({ data1 }) => {
                   onClose={() => setModalOpen(false)}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
-                  // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
+                // sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', justifyContent: 'center', alignItems: 'center' }}
                 >
                   <div
-                    className="flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   bg-bellefuWhite w-[80%] md:w-[60%] lg:w-[40%]" 
-                    // sx={edit}
+                    className="flex flex-col items-center justify-center mx-auto mt-52 pt-2  rounded-lg shadow-md   bg-bellefuWhite w-[80%] md:w-[60%] lg:w-[40%]"
+                  // sx={edit}
                   >
                     <div className="flex justify-center items-center">
                       {/* <WarningAmberIcon sx={{ fontSize: 50 }} /> */}
@@ -507,7 +507,7 @@ export default profile;
 
 export async function getServerSideProps() {
   const res1 = await fetch(
-    `https://bellefu.inmotionhub.xyz/api/web30/get/postadd`
+    `${webApi}get/postadd`
   );
 
   const data1 = await res1.json();

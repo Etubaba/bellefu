@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import { AiOutlineCaretRight } from "react-icons/ai";
 import classNames from "classnames";
+import { webApi } from "../constant";
 
 const CreateProductCategory = ({ categories, countries }) => {
   const [categoryName, setCategoryName] = useState("");
@@ -24,8 +25,8 @@ const CreateProductCategory = ({ categories, countries }) => {
 
   const fetcher = (url) => fetch(url).then(res => res.json());
 
-  const { data: states } = useSWR(countryCode ? `https://bellefu.inmotionhub.xyz/api/web30/get/postadd/states/${countryCode}` : null, fetcher);
-  const { data: cities } = useSWR(stateCode ? `https://bellefu.inmotionhub.xyz/api/web30/get/postadd/lgas/${stateCode}` : null, fetcher);
+  const { data: states } = useSWR(countryCode ? `${webApi}get/postadd/states/${countryCode}` : null, fetcher);
+  const { data: cities } = useSWR(stateCode ? `${webApi}get/postadd/lgas/${stateCode}` : null, fetcher);
 
   const onFocus = (stateHandler) => (evt) => {
     evt.stopPropagation()

@@ -5,7 +5,7 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useRouter } from "next/router";
 import { Modal } from '@mui/material'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
-import { shopApi } from "../../constant";
+import { productImageUrl, shopApi } from "../../constant";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
@@ -28,7 +28,7 @@ const Checkout = () => {
 
     const userId = useSelector(profileDetails)
 
-    const handleShowAddresses = () => setShowAddresses(true);
+
     const router = useRouter();
 
 
@@ -58,7 +58,7 @@ const Checkout = () => {
     const config = {
         public_key: 'FLWPUBK_TEST-d5182b3aba8527eb31fd5807e15bf23b-X',
         tx_ref: Date.now(),
-        amount: totalPrice,
+        // amount: totalPrice,
         amount: 24,
         currency: 'USD',
         payment_options: 'card,mobilemoney,ussd',
@@ -156,7 +156,7 @@ const Checkout = () => {
                                         <section className="flex justify-between px-3 py-2">
                                             <div className="flex space-x-3">
                                                 <div>
-                                                    <img src={`https://bellefu.inmotionhub.xyz/get/product/image/${cart?.images[0]}`} alt="order image" width={70} height={70} className="rounded-md" />
+                                                    <img src={`${productImageUrl}${cart?.images[0]}`} alt="order image" width={70} height={70} className="rounded-md" />
                                                 </div>
                                                 <div className="w-auto">
                                                     <p className="font-semibold text-base md:text-xl">{cart.title}</p>

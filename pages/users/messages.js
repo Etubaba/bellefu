@@ -9,7 +9,7 @@ import { FcVideoCall, FcSms } from "react-icons/fc";
 import { MdOutlineCancel } from "react-icons/md";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { apiData } from "../../constant";
+import { apiData, imageBaseUrl, UserAvataUrl } from "../../constant";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Dropzone from "react-dropzone";
@@ -191,7 +191,7 @@ const messages = ({ data1 }) => {
             >
               <div className="flex">
                 <img
-                  src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
+                  src={`${UserAvataUrl}${item.avatar}`}
                   // src={`https://bellefu.inmotionhub.xyz/get/user/images/${item.avatar}`}
                   className="lg:w-20 lg:h-20 mt-2 mr-3 lg:mr-10 rounded-full w-10 h-10"
                   alt="Bellefu"
@@ -236,8 +236,8 @@ const messages = ({ data1 }) => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <img
-                    src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
-                    // src={`https://bellefu.inmotionhub.xyz/get/user/images/${dp}`}
+                    // src="https://bellefu.inmotionhub.xyz/get/user/images/useravatar.jpg"
+                    src={`${UserAvataUrl}${dp}`}
                     alt="error"
                     className="md:w-12 md:h-12 object-fill w-8 h-8 rounded-full mr-4 "
                   />
@@ -312,7 +312,7 @@ const messages = ({ data1 }) => {
                             : "relative max-w-xl mb-4 px-1 py-1 md:px-4 md:py-2 text-gray-100 hover:bg-[#4CAF50] bg-bellefuGreen rounded shadow"
                         }>
                         <img
-                          src={`https://bellefu.inmotionhub.xyz/get/chat/image/${item.attachment}`}
+                          src={`${imageBaseUrl}get/chat/image/${item.attachment}`}
                           alt='error'
                           className=' md:w-52 md:h-64 w-48 h-52 object-fill rounded-md'
                         />
@@ -434,7 +434,7 @@ const messages = ({ data1 }) => {
         <Fade in={modal}>
           <Box sx={style}>
             <img
-              src={`https://bellefu.inmotionhub.xyz/get/chat/image/${attachments}`}
+              src={`${imageBaseUrl}get/chat/image/${attachments}`}
               alt='error'
               className=' md:w-full md:h-[60vh] w-full h-[40vh] object-fill rounded-md'
             />

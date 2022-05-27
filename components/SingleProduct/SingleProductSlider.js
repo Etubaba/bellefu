@@ -1,6 +1,7 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { productImageUrl } from "../../constant";
 
 // import { images } from "../../productData";
 
@@ -26,7 +27,7 @@ const SingleProductSlider = ({ sliderDetails }) => {
         {images?.map((image, index) => (
           <img
             loading="lazy"
-            src={`https://bellefu.inmotionhub.xyz/get/product/image/${image}`}
+            src={`${productImageUrl}${image}`}
             key={index}
             className="rounded-md h-48 md:60 lg:h-80 w-full object-cover sm:object-fill "
           />

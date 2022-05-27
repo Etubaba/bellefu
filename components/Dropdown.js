@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCat } from "../features/bellefuSlice";
 import { Subcat, changeId } from "../features/bellefuSlice";
 import Skeleton from "@mui/material/Skeleton";
+import { categoryUrl } from "../constant";
 
 const Dropdown = ({ category }) => {
   const router = useRouter();
@@ -45,7 +46,7 @@ const Dropdown = ({ category }) => {
                 className="flex items-center flex-1 space-x-2 cursor-pointer select-none"
               >
                 <img
-                  src={`https://bellefu.inmotionhub.xyz/get/category/image/${category?.image}`}
+                  src={`${categoryUrl}${category?.image}`}
                   alt="icons"
                   className="w-10 h-10"
                 />
@@ -115,7 +116,7 @@ const Dropdown = ({ category }) => {
         >
           <div className="flex  items-center flex-1 space-x-2 cursor-pointer">
             <img
-              src={`https://bellefu.inmotionhub.xyz/get/category/image/${category?.image}`}
+              src={`${categoryUrl}${category?.image}`}
               alt="icons"
               className="w-8 h-8"
             />

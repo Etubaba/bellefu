@@ -155,7 +155,7 @@ const Login = () => {
   }, [session]);
 
   return (
-    <div className='mt-28'>
+    <div className="mt-28">
       <Head>
         <title> Bellefu Login</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -249,7 +249,7 @@ const Login = () => {
               </p>
             </div>
           </div>
-          <p className="w-[100%] md:w-[50%] mx-auto">
+          <div onClick={handleLogin} className="w-[100%] md:w-[50%] mx-auto">
             <button
               onClick={handleLogin}
               className={classNames(
@@ -266,7 +266,7 @@ const Login = () => {
             >
               {!isLoading ? "Login" : "Processing..."}
             </button>
-          </p>
+          </div>
         </form>
         <hr />
         <p className="text-center mt-5 mb-2">OR</p>

@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { profileDetails, homeData } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import {GoListOrdered} from "react-icons/go";
+import { GoListOrdered } from "react-icons/go";
 import { useRouter } from "next/router";
+import { productImageUrl, shopApi } from "../../constant";
 
 
 const order = () => {
-    const router = useRouter();
+  const router = useRouter();
 
   const user = useSelector(profileDetails);
   const currencyLogo = useSelector(homeData);
@@ -19,7 +20,7 @@ const order = () => {
 
   useEffect(() => {
     axios
-      .get(`https://bellefu.inmotionhub.xyz/api/shop/list/order/${user?.id}`)
+      .get(`${shopApi}list/order/${user?.id}`)
       .then((res) => {
         setOrderHistory(res.data.data);
       })
@@ -29,14 +30,14 @@ const order = () => {
         });
       });
   }, []);
-//   console.log(orderhistory);
+  //   console.log(orderhistory);
   return (
     <div className="rounded-lg md:mt-5 mt-2 bg-bellefuWhite   h-auto w-full md:w-auto">
       <div className="flex justify-between  px-10 md:py-6 py-2 border-b">
         <h1 className="font-semibold">My Order Details</h1>
       </div>
       <div className="px-2 md:px-5 lg:px-10 py-6 ">
-      {orderhistory?.length===0?  <div className="h-full px-2 lg:px-0 ">
+        {orderhistory?.length === 0 ? <div className="h-full px-2 lg:px-0 ">
           <div className="border mx-auto mt-2 lg:my-5 rounded-xl w-full lg:w-7/12 h-11/12 ">
             <div className="flex flex-col justify-center mt-24 mb-24 items-center">
               <GoListOrdered className="text-7xl lg:text-9xl mb-5 text-gray-600" />
@@ -51,7 +52,7 @@ const order = () => {
               </div>
             </div>
           </div>
-        </div>: orderhistory?.map((order, index) => (
+        </div> : orderhistory?.map((order, index) => (
           <div
             key={index}
             className="block md:flex sm:flex lg:flex border rounded-3xl bg-[#F8F8F8] p-4 my-5 ml-5 justify-between "
@@ -59,11 +60,10 @@ const order = () => {
             <div className="block sm:flex md:flex lg:flex ">
               <img
                 alt="order"
-                src={`https://bellefu.inmotionhub.xyz/get/product/image/${
-                  order?.images === null
+                src={`${productImageUrl}${order?.images === null
                     ? "6256e0e3bc1dd.9RgvW1Z21649860835.jpg"
                     : order?.images[0]
-                }`}
+                  }`}
                 className="object-cover  flex  sm:w-40 sm:h-40 md:w-40 md:h-32 lg:h-32  lg:w-40 mr-5  rounded-md"
               />
               <div className=" ">
@@ -188,7 +188,7 @@ const order = () => {
         ))}
 
 
-       
+
       </div>
     </div>
   );

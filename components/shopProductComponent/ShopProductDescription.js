@@ -5,12 +5,13 @@ import { useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { shopApi } from "../../constant";
 import { favUpdated, login } from "../../features/bellefuSlice";
 
 const ShopProductDescription = ({ productDetails }) => {
   const [wait, setWait] = useState(false);
 
-  const shopurl = 'https://bellefu.inmotionhub.xyz/api/shop/add/cart/item'
+
   const userId = useSelector((state) => state.bellefu?.profileDetails?.id);
   const isLoggedIn = useSelector(login);
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const ShopProductDescription = ({ productDetails }) => {
   const addToCart = () => {
     setWait(true)
     if (isLoggedIn) {
-      axios.post(`${shopurl}`, {
+      axios.post(`${shopApi}add/cart/item`, {
         productId: productDetails.productId,
         userId: userId,
       }).then((res) => {

@@ -10,7 +10,7 @@ import Layout from "../../components/Layout";
 import { profileDetails } from "../../features/bellefuSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { apiData } from "../../constant";
+import { apiData, shopApi, UserAvataUrl } from "../../constant";
 import CountUp from "react-countup";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -20,19 +20,19 @@ const Index = () => {
   const user = useSelector(profileDetails);
   const [productStat, setProductStat] = useState({});
   const [shopStat, setShopStat] = useState({});
-      // console.log(shopStat);
+  // console.log(shopStat);
   useEffect(() => {
     const getuserProductStat = async () => {
       const res = await axios.get(`${apiData}user/product/stats/${user.id}`);
       if (res.data.status) setProductStat(res.data.data);
     };
     const getuserShopStat = async () => {
-      const res = await axios.get(`https://bellefu.inmotionhub.xyz/api/shop/get/statistics/${user.id}`);
+      const res = await axios.get(`${shopApi}get/statistics/${user.id}`);
       if (res.data.status) setShopStat(res.data.data);
     };
     getuserShopStat();
     getuserProductStat();
-  }, [user, setProductStat,setShopStat]);
+  }, [user, setProductStat, setShopStat]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -69,7 +69,7 @@ const Index = () => {
                         className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                         src={
                           user?.avatar
-                            ? `https://bellefu.inmotionhub.xyz/get/user/images/${user?.avatar}`
+                            ? `${UserAvataUrl}${user?.avatar}`
                             : "https://img.freepik.com/free-photo/organic-food-farm_342744-1362.jpg"
                         }
                         alt="avatar"
@@ -78,57 +78,57 @@ const Index = () => {
                       />
                     </div>
                     <div className="grid grid-cols-6 gap-6 w-[70%] mr-0 md:mr-3 lg:mr-5">
-                        <div className="col-span-6 sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
-                            <p>First Name</p>
-                            
-                          </label>
-                          <input
-                            value={user?.first_name}
-                            disabled
-                            type="text"
-                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                          />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
-                            <p>Last Name</p>
-                            
-                          </label>
-                          <input
-                            value={user?.last_name}
-                            disabled
-                            type="text"
-                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                          />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
-                            <p>Email</p>
-                            
-                          </label>
-                          <input
-                            value={user?.email}
-                            disabled
-                            type="text"
-                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                          />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
-                            <p>Password</p>
-                            
-                          </label>
-                          <input
-                            value="********"
-                            disabled
-                            type="text"
-                            className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
-                          />
-                        </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                          <p>First Name</p>
 
+                        </label>
+                        <input
+                          value={user?.first_name}
+                          disabled
+                          type="text"
+                          className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        />
                       </div>
-                  
+                      <div className="col-span-6 sm:col-span-3">
+                        <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                          <p>Last Name</p>
+
+                        </label>
+                        <input
+                          value={user?.last_name}
+                          disabled
+                          type="text"
+                          className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                          <p>Email</p>
+
+                        </label>
+                        <input
+                          value={user?.email}
+                          disabled
+                          type="text"
+                          className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label className="block text-sm font-medium text-gray-700 flex-row justify-between">
+                          <p>Password</p>
+
+                        </label>
+                        <input
+                          value="********"
+                          disabled
+                          type="text"
+                          className="  bg-gray-100 p-[10px] mt-1 focus:ring-bellefuGreen focus:outline-0 block w-full shadow-sm sm:text-sm border-gray-300 border-2 rounded-md"
+                        />
+                      </div>
+
+                    </div>
+
                   </div>
                 </div>
               ) : (

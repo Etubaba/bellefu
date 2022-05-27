@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { login, msgScroll } from "../../features/bellefuSlice";
-import { apiData } from "../../constant";
+import { apiData, productImageUrl } from "../../constant";
 
 const SingleProductList = ({ similarProductDetail }) => {
   const [fav2, setFav2] = useState(false);
@@ -103,7 +103,7 @@ const SingleProductList = ({ similarProductDetail }) => {
         onClick={() =>
           router.push(`/product/${similarProductDetail.productId}`)
         }
-        src={`https://bellefu.inmotionhub.xyz/get/product/image/${similarProductDetail?.images[0]}`}
+        src={`${productImageUrl}${similarProductDetail?.images[0]}`}
         className="rounded-md w-full h-44 object-cover cursor-pointer"
       />
       <p className="capitalize text-medium">

@@ -3,7 +3,7 @@ import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Loader from '../constant'
+import Loader, { shopApi } from '../constant'
 
 
 const Shops = ({ shops }) => {
@@ -15,7 +15,7 @@ const Shops = ({ shops }) => {
 
     useEffect(() => {
         if (page > 1) {
-            axios.get(`https://bellefu.inmotionhub.xyz/api/shop/view?page=${page}`)
+            axios.get(`${shopApi}view?page=${page}`)
                 .then(res => {
                     setTotalPage(res.data.data.last_page)
                     setNewShop(res.data.data.data)
