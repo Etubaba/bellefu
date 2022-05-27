@@ -19,19 +19,19 @@ export const CategoryImage = 'https://bellefu.inmotionhub.xyz/category/image/'
 
 export const sliderImage = 'https://bellefu.inmotionhub.xyz/slides/image/'
 
-export const sliderUrl='https://bellefu.inmotionhub.xyz/get/sliders/image/'
+export const sliderUrl = 'https://bellefu.inmotionhub.xyz/get/sliders/image/'
 
 export const AnnoucementsUrl = 'https://bellefu.inmotionhub.xyz/get/custom/image/'
 
-export const categoryUrl='https://bellefu.inmotionhub.xyz/get/category/image/'
+export const categoryUrl = 'https://bellefu.inmotionhub.xyz/get/category/image/'
 
 export const webApi = 'https://bellefu.inmotionhub.xyz/api/web30/'
 
-export const commercialUrl='https://bellefu.inmotionhub.xyz/get/commercial/image/'
+export const commercialUrl = 'https://bellefu.inmotionhub.xyz/get/commercial/image/'
 
-export const storeUrl='https://bellefu.inmotionhub.xyz/get/store/image/'
+export const storeUrl = 'https://bellefu.inmotionhub.xyz/get/store/image/'
 
-export const videoUrl='https://bellefu.inmotionhub.xyz/get/video/'
+export const videoUrl = 'https://bellefu.inmotionhub.xyz/get/video/'
 
 
 export default function Loader({ isLoading }) {
