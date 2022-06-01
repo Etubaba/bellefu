@@ -178,7 +178,7 @@ export default function Publish({ data1 }) {
                 className="focus:ring-bellefuGreen h-4 w-4 text-bellefuGreen border-gray-300"
               />
               <div className="ml-[4%]">
-                <h3 className="font-semibold">FEATURED:</h3>
+                <h3 className="font-semibold">BOOSTER 1:</h3>
                 <p className="text-[#3F3F3F] mb-3 text-base">
                   Featured Ads attracts high quality views and are displayed
                   prominently in the featured ads section on the home page
@@ -204,7 +204,7 @@ export default function Publish({ data1 }) {
                 className="focus:ring-bellefuGreen h-4 w-4  text-bellefuGreen border-gray-300"
               />
               <div className="ml-[4%]">
-                <h3 className="font-semibold">URGENT:</h3>
+                <h3 className="font-semibold">BOOSTER 2:</h3>
                 <p className="text-[#3F3F3F] mb-3 text-base">
                   Make your ads stand out and let viewers know that your advert
                   is time-bound
@@ -230,7 +230,7 @@ export default function Publish({ data1 }) {
                 className="focus:ring-bellefuGreen h-4 w-4  text-bellefuGreen border-gray-300"
               />
               <div className="ml-[4%]">
-                <h3 className="font-semibold">HIGHLIGHTED:</h3>
+                <h3 className="font-semibold">BOOSTER 3:</h3>
                 <p className="text-[#3F3F3F] mb-3 text-base">
                   Make your ads highlighted with borders in the search listing
                   result page.Easy to focus on.
