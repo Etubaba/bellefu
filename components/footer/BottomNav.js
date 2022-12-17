@@ -82,7 +82,7 @@ const BottomNav = () => {
       <div className="relative flex -mt-4 justify-center items-center h-screen w-screen">
         <div
           className="h-12 w-24 bg-bellefuBackground 
-                                   rounded-bl-full rounded-br-full "
+                     rounded-bl-full rounded-br-full "
         >
           <div
             onClick={toPostAds}
